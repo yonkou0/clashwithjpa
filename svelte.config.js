@@ -7,7 +7,12 @@ const config = {
     preprocess: [vitePreprocess(), mdsvex()],
 
     kit: {
-        adapter: adapter()
+        adapter: adapter({
+            routes: {
+                include: ["/*"],
+                exclude: ["<all>"]
+            }
+        })
     },
 
     extensions: [".svelte", ".svx"]
