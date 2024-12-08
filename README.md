@@ -48,4 +48,4 @@ Clash With JPA
 
 - Code Formatting
     - Run `npm run format` before committing your changes or use [`Prettier`](https://prettier.io/) extension in your code editor.
-    - Make sure to fix all the linting errors.
+    - Make sure to fix all the linting errors. Run `npm run lint` to check for linting errors.
