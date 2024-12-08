@@ -41,7 +41,7 @@ Clash With JPA
 ## ⌨️ Contributing
 
 - Things to keep in mind
-    - Follow the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
+    - Follow our commit message convention.
     - Write meaningful commit messages.
     - Keep the code clean and readable.
     - Make sure the app is working as expected.
