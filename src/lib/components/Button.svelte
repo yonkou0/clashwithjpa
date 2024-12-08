@@ -28,26 +28,22 @@
     });
 </script>
 
-<div
-    class="z-10 size-fit rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] {className}"
+<button
+    class="z-10 size-fit rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:brightness-90 active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] {className} {sizeClass}"
+    onclick={() => {
+        if (href != "") {
+            goto(href);
+        }
+        if (event != null) {
+            event();
+        }
+    }}
+    {disabled}
 >
-    <button
-        class="bg-gray-950/10 transition-all hover:bg-gray-950/0 {sizeClass} rounded-xl"
-        onclick={() => {
-            if (href != "") {
-                goto(href);
-            }
-            if (event != null) {
-                event();
-            }
-        }}
-        {disabled}
+    <div
+        class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_4px_0_var(--tw-shadow-color)]"
+        style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
     >
-        <div
-            class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_4px_0_var(--tw-shadow-color)]"
-            style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
-        >
-            {@render children?.()}
-        </div>
-    </button>
-</div>
+        {@render children?.()}
+    </div>
+</button>
