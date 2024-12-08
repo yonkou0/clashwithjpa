@@ -1,38 +1,51 @@
-# create-svelte
+<div align="center">
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+![JPA](./assets/jpa.png)
 
-## Creating a project
+Clash With JPA
 
-If you're seeing this, you've probably already done this step. Congrats!
+</div>
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## 🚀 Installation
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+1. Clone this repository
+    ```sh
+    git clone https://github.com/clashwithjpa/clashwithjpa.com clashwithjpa
+    cd clashwithjpa
+    ```
 
-## Developing
+2. Install dependencies
+    ```sh
+    npm i
+    ```
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+3. Start the app
+    ```sh
+    npm run dev
+    ```
 
-```bash
-npm run dev
+## 🌐 Production
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+1. Follow steps 1 & 2 from the [installation guide](#-installation). _Ignore if already done._
 
-## Building
+2. Build the app
+    ```sh
+    npm run build
+    ```
 
-To create a production version of your app:
+3. Preview the app
+    ```sh
+    npm run preview
+    ```
 
-```bash
-npm run build
-```
+## ⌨️ Contributing
 
-You can preview the production build with `npm run preview`.
+- Things to keep in mind
+    - Follow the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
+    - Write meaningful commit messages.
+    - Keep the code clean and readable.
+    - Make sure the app is working as expected.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- Code Formatting
+    - Run `npm run format` before committing your changes or use [`Prettier`](https://prettier.io/) extension in your code editor.
+    - Make sure to fix all the linting errors.

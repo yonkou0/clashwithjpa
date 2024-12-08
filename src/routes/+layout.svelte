@@ -1,21 +1,27 @@
-<script>
-	import '../app.pcss';
-	import Footer from '$lib/components/footer.svelte';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import NProgress from 'nprogress';
+<script lang="ts">
+    import "../app.css";
+    import { onNavigate } from "$app/navigation";
+    import Navbar from "$lib/components/Navbar.svelte";
 
-	beforeNavigate(() => {
-		NProgress.start();
-	});
-	afterNavigate(() => {
-		NProgress.done();
-	});
-	NProgress.configure({
-		showSpinner: false
-	});
+    interface Props {
+        children?: import("svelte").Snippet;
+    }
+
+    let { children }: Props = $props();
+
+    onNavigate((navigation) => {
+        if (!document.startViewTransition) return;
+
+        return new Promise((resolve) => {
+            document.startViewTransition(async () => {
+                resolve();
+                await navigation.complete;
+            });
+        });
+    });
 </script>
 
-<div class="flex min-h-svh w-full flex-col overflow-x-hidden bg-primary font-primary">
-	<slot />
-	<Footer />
-</div>
+<main class="h-screen w-screen">
+    <Navbar />
+    {@render children?.()}
+</main>

@@ -1,0 +1,53 @@
+<script lang="ts">
+    import { goto } from "$app/navigation";
+
+    interface Props {
+        class?: string;
+        size?: "sm" | "md" | "lg" | "xl";
+        href?: string;
+        event?: () => void;
+        disabled?: boolean;
+        children?: import("svelte").Snippet;
+    }
+
+    let { class: className = "", size = "md", href = "", event = () => {}, disabled = false, children }: Props = $props();
+
+    let sizeClass: string = $derived.by(() => {
+        switch (size) {
+            case "sm":
+                return "text-sm px-2 py-1 lg:px-3 lg:py-2";
+            case "md":
+                return "text-base px-4 py-2 lg:px-5 lg:py-3";
+            case "lg":
+                return "text-lg px-4 py-3 lg:px-6 lg:py-4";
+            case "xl":
+                return "text-xl px-6 py-4 lg:px-8 lg:py-5";
+            default:
+                return "";
+        }
+    });
+</script>
+
+<div
+    class="z-10 size-fit rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] {className}"
+>
+    <button
+        class="bg-gray-950/10 transition-all hover:bg-gray-950/0 {sizeClass} rounded-xl"
+        onclick={() => {
+            if (href != "") {
+                goto(href);
+            }
+            if (event != null) {
+                event();
+            }
+        }}
+        {disabled}
+    >
+        <div
+            class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_4px_0_var(--tw-shadow-color)]"
+            style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
+        >
+            {@render children?.()}
+        </div>
+    </button>
+</div>

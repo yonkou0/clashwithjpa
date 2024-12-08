@@ -1,9 +1,80 @@
 <script lang="ts">
-	import HeroSection from '$lib/components/hero-section.svelte';
+    import MaterialSymbolsPauseCircleRounded from "~icons/material-symbols/pause-circle-rounded";
+    import MaterialSymbolsPlayCircleRounded from "~icons/material-symbols/play-circle-rounded";
+    import MaterialSymbolsVolumeUpRounded from "~icons/material-symbols/volume-up-rounded";
+    import MaterialSymbolsVolumeOffRounded from "~icons/material-symbols/volume-off-rounded";
+    import Button from "$lib/components/Button.svelte";
+    import { onMount } from "svelte";
+
+    let isPaused: boolean = $state(false);
+    let isMuted: boolean = $state(true);
+    let videoElement: HTMLVideoElement;
+
+    function togglePause() {
+        if (isPaused) {
+            videoElement.play();
+        } else {
+            videoElement.pause();
+        }
+        isPaused = !isPaused;
+    }
+
+    function toggleMute() {
+        videoElement.muted = !isMuted;
+        isMuted = !isMuted;
+    }
+
+    onMount(() => {
+        document.addEventListener("keydown", (event: KeyboardEvent) => {
+            if (event.key === " ") {
+                togglePause();
+            } else if (event.key === "m") {
+                toggleMute();
+            }
+        });
+    });
 </script>
 
 <svelte:head>
-	<title>JPA | Home</title>
+    <title>JPA | Home</title>
 </svelte:head>
 
-<HeroSection />
+<main class="size-full">
+    <video bind:this={videoElement} autoplay loop muted class="fixed left-0 top-0 -z-10 size-full object-cover">
+        <source src="/clips/bg.webm" type="video/webm" />
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="z-10 flex size-full items-center justify-center bg-gray-950/50 p-5 pt-20">
+        <div class="flex flex-col items-center text-center sm:w-3/4 md:w-1/2">
+            <h1
+                class="text-4xl font-extrabold shadow-gray-950 drop-shadow-[0_8px_0_var(--tw-shadow-color)] lg:text-5xl"
+                style="-webkit-text-stroke: 2px var(--tw-shadow-color);"
+            >
+                CLASH WITH JPA
+            </h1>
+            <p class="text-md mt-4 lg:text-lg">
+                FWA experts in War-Farming, offering diverse clans and simultaneous 50v50 FWA wars and CWL action. Join one of the 8 clans in our
+                family today!
+            </p>
+            <Button href="/clans" size="md" class="mt-10">See our clans</Button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-4 right-8 z-10 flex space-x-4">
+        <button onclick={togglePause} class="size-6 rounded-full transition-colors hover:text-gray-300">
+            {#if isPaused}
+                <MaterialSymbolsPlayCircleRounded class="size-full" />
+            {:else}
+                <MaterialSymbolsPauseCircleRounded class="size-full" />
+            {/if}
+        </button>
+        <button onclick={toggleMute} class="size-6 rounded-full transition-colors hover:text-gray-300">
+            {#if isMuted}
+                <MaterialSymbolsVolumeOffRounded class="size-full" />
+            {:else}
+                <MaterialSymbolsVolumeUpRounded class="size-full" />
+            {/if}
+        </button>
+    </div>
+</main>
