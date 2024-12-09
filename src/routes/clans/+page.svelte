@@ -42,36 +42,36 @@
         {#await data.data}
             <div class="flex w-full flex-wrap items-center justify-center gap-4">
                 {#each Array(9) as _}
-                    <div class="flex flex-col justify-between rounded-lg border border-gray-700 animate-pulse">
+                    <div class="flex animate-pulse flex-col justify-between rounded-lg border border-gray-700">
                         <div class="flex w-80 items-start space-x-4 rounded-t-lg p-4">
-                            <div class="rounded-lg size-20 bg-gray-700"></div>
-                            <div class="rounded-lg flex flex-col items-start">
-                                <div class="rounded-lg h-6 w-32 bg-gray-700"></div>
-                                <div class="rounded-lg h-4 w-16 bg-gray-700 mt-1"></div>
-                                <div class="rounded-lg h-4 w-12 bg-gray-700 mt-1"></div>
+                            <div class="size-20 rounded-lg bg-gray-700"></div>
+                            <div class="flex flex-col items-start rounded-lg">
+                                <div class="h-6 w-32 rounded-lg bg-gray-700"></div>
+                                <div class="mt-1 h-4 w-16 rounded-lg bg-gray-700"></div>
+                                <div class="mt-1 h-4 w-12 rounded-lg bg-gray-700"></div>
                             </div>
                         </div>
                         <div class="flex flex-col border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm">
                             <div class="flex flex-col items-start gap-2">
                                 <div class="flex items-center gap-1">
-                                    <div class="rounded-md size-8 min-w-8 bg-gray-700"></div>
-                                    <div class="rounded-md h-4 w-16 bg-gray-700"></div>
+                                    <div class="size-8 min-w-8 rounded-md bg-gray-700"></div>
+                                    <div class="h-4 w-16 rounded-md bg-gray-700"></div>
                                 </div>
                             </div>
                             <div class="mt-4 flex flex-col items-start gap-2">
-                                <div class="rounded-md h-4 w-24 bg-gray-700"></div>
-                                <div class="rounded-md h-4 w-24 bg-gray-700 mt-1"></div>
+                                <div class="h-4 w-24 rounded-md bg-gray-700"></div>
+                                <div class="mt-1 h-4 w-24 rounded-md bg-gray-700"></div>
                             </div>
                         </div>
                         <div class="flex w-full flex-col rounded-b-lg">
                             <div class="border-b border-gray-700 p-4 text-center text-sm">
-                                <div class="rounded-md h-4 w-32 bg-gray-700 mx-auto"></div>
+                                <div class="mx-auto h-4 w-32 rounded-md bg-gray-700"></div>
                             </div>
                             <div class="flex w-full flex-col items-start space-y-2 p-4">
                                 {#each Array(3) as _}
                                     <div class="flex items-center">
-                                        <div class="rounded-md size-11 bg-gray-700"></div>
-                                        <div class="rounded-md ml-2 h-4 w-24 bg-gray-700"></div>
+                                        <div class="size-11 rounded-md bg-gray-700"></div>
+                                        <div class="ml-2 h-4 w-24 rounded-md bg-gray-700"></div>
                                     </div>
                                 {/each}
                             </div>

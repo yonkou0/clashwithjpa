@@ -52,11 +52,23 @@
         <div transition:slide={{ axis: "y" }} class="size-full md:hidden">
             <div class="flex flex-col items-center justify-center gap-4 p-4">
                 {#each items as item}
-                    <InlineLink href={item.href} newTab={item.newTab} onclick={() => {toggleMenu();}}>
+                    <InlineLink
+                        href={item.href}
+                        newTab={item.newTab}
+                        onclick={() => {
+                            toggleMenu();
+                        }}
+                    >
                         {item.name}
                     </InlineLink>
                 {/each}
-                <Button href="/join" size="md" onclick={() => {toggleMenu();}}>Join Us</Button>
+                <Button
+                    href="/join"
+                    size="md"
+                    onclick={() => {
+                        toggleMenu();
+                    }}>Join Us</Button
+                >
             </div>
         </div>
     {/if}
