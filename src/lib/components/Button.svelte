@@ -4,13 +4,14 @@
     interface Props {
         class?: string;
         size?: "sm" | "md" | "lg" | "xl" | "";
+        transition?: import("svelte/transition").TransitionConfig;
         href?: string;
         onclick?: () => void;
         disabled?: boolean;
         children?: import("svelte").Snippet;
     }
 
-    let { class: className = "", size = "", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
+    let { class: className = "", size = "", transition = undefined, href = "", onclick = () => {}, disabled = false, children }: Props = $props();
 
     let sizeClass: string = $derived.by(() => {
         switch (size) {
