@@ -3,10 +3,11 @@
 
     interface Props {
         href: string;
+        class?: string;
         newTab?: boolean;
         children: import("svelte").Snippet;
     }
-    let { href, newTab = false, children }: Props = $props();
+    let { href, class: className = "", newTab = false, children }: Props = $props();
 
     function getClass(pathname: string, href: string): string {
         const baseClass =
@@ -17,6 +18,6 @@
     }
 </script>
 
-<a {href} target={newTab ? "_blank" : "_parent"} class={getClass($page.url.pathname, href)}>
+<a {href} target={newTab ? "_blank" : "_parent"} class={getClass($page.url.pathname, href) + " " + className}>
     {@render children?.()}
 </a>
