@@ -26,7 +26,7 @@
         NProgress.start();
     });
     afterNavigate(() => {
-        NProgress.inc();
+        NProgress.done();
     });
     NProgress.configure({ showSpinner: false });
 </script>
