@@ -33,9 +33,9 @@
         <div class="flex items-center md:hidden">
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
                 {#if isOpen}
-                    <AkarIconsCross class="h-6 w-6" />
+                    <AkarIconsCross class="size-6" />
                 {:else}
-                    <AkarIconsThreeLineHorizontal class="h-6 w-6" />
+                    <AkarIconsThreeLineHorizontal class="size-6" />
                 {/if}
             </button>
         </div>
@@ -52,11 +52,11 @@
         <div transition:slide={{ axis: "y" }} class="size-full md:hidden">
             <div class="flex flex-col items-center justify-center gap-4 p-4">
                 {#each items as item}
-                    <InlineLink href={item.href}>
+                    <InlineLink href={item.href} newTab={item.newTab} onclick={() => {toggleMenu();}}>
                         {item.name}
                     </InlineLink>
                 {/each}
-                <Button href="/join" size="md">Join Us</Button>
+                <Button href="/join" size="md" onclick={() => {toggleMenu();}}>Join Us</Button>
             </div>
         </div>
     {/if}

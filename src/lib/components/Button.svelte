@@ -5,12 +5,12 @@
         class?: string;
         size?: "sm" | "md" | "lg" | "xl";
         href?: string;
-        event?: () => void;
+        onclick?: () => void;
         disabled?: boolean;
         children?: import("svelte").Snippet;
     }
 
-    let { class: className = "", size = "md", href = "", event = () => {}, disabled = false, children }: Props = $props();
+    let { class: className = "", size = "md", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
 
     let sizeClass: string = $derived.by(() => {
         switch (size) {
@@ -34,8 +34,8 @@
         if (href != "") {
             goto(href);
         }
-        if (event != null) {
-            event();
+        if (onclick != null) {
+            onclick();
         }
     }}
     {disabled}
