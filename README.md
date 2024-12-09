@@ -41,10 +41,10 @@ Clash With JPA
 ## ✏️ Editing Data
 
 Now that you have the app running, you can edit the data in the [`data`](./data/) directory. You can add, edit, or delete any file in the [`data`](./data/) directory. The app will automatically update the data.
-- [`clans.json`](./data/clans.json) - Contains the list of clans tags and requirements.
-- [`clans/<clan-tag>.md`](./data/clans/) - Contains the requirements for the clan with the specified tag.
-- [`clans/components`](./data/clans/components/) - Contains information which are common for all clans.
-- [`clans/components/order.json`](./data/clans/components/order.json)` - Contains the order of common components to be displayed in the clan page.
+- [`clans.json`](./data/clans.json): Contains the list of clans tags and requirements.
+- [`clans/<clan-tag>.md`](./data/clans/): Contains the requirements for the clan with the specified tag.
+- [`clans/components`](./data/clans/components/): Contains information which are common for all clans.
+- [`clans/components/order.json`](./data/clans/components/order.json): Contains the order of common components to be displayed in the clan page.
 
 - How to add a new clan?
     - Add the clan tag in the [`clans.json`](./data/clans.json) file.
