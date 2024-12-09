@@ -8,11 +8,12 @@
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
     import Button from "$lib/components/Button.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
+    import order from "../../../../data/clans/components/order.json";
 
     let { data }: { data: PageData } = $props();
 
-    const commonComponentFiles: Record<string, object> = import.meta.glob("../../../../data/clans/components/*", { eager: true });
-    const commonComponentOrder: string[] = ["toc.md", "general.md", "clanmate.md", "warrules.md", "fwawars.md", "strike.md", "raid.md", "cwl.md"];
+    const commonComponentFiles: Record<string, object> = import.meta.glob("../../../../data/clans/components/*.md", { eager: true });
+    const commonComponentOrder: string[] = JSON.parse(JSON.stringify(order));
     const basePath = "../../../../data/clans/components/";
 
     let showCoLeaders: boolean = $state(false);
