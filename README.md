@@ -52,7 +52,7 @@ Now that you have the app running, you can edit the data in the [`data`](./data/
     - Add the requirements in the newly created file.
 
 - How to edit clan requirements?
-    - Open the [`clans.json](./data/clans.json)` file and find the clan tag.
+    - Open the [`clans.json`](./data/clans.json) file and find the clan tag.
     - Add/Remove requirements in the respective of label names in [`static/labels`](./static/labels/) directory.
         - The label name declared in the [`clans.json`](./data/clans.json) file should match the file name in the [`static/labels`](./static/labels/) directory.
     - Do the necessary changes in `<clan-tag>.md` file.
