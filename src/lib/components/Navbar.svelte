@@ -27,7 +27,7 @@
     <div class="flex w-full items-center justify-between">
         <div class="flex items-center justify-center space-x-1">
             <img src="/logo.webp" alt="Logo" class="size-12" />
-            <h2 class="text-xl">JPA</h2>
+            <a href="/" class="text-xl">JPA</a>
         </div>
         <div class="flex items-center md:hidden">
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">

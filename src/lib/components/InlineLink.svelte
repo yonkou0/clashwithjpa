@@ -1,7 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import type { Component } from "svelte";
-    import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
 
     interface Props {
         href: string;
@@ -10,7 +9,7 @@
         newTab?: boolean;
         children: import("svelte").Snippet;
     }
-    let { href, icon=undefined, class: className = "", newTab = false, children }: Props = $props();
+    let { href, icon = undefined, class: className = "", newTab = false, children }: Props = $props();
 
     function getClass(pathname: string, href: string): string {
         const baseClass =
