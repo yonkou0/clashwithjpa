@@ -18,7 +18,6 @@ export type ClanType = {
     isFamilyFriendly: boolean;
     badgeUrls: {
         small: string;
-        large: string;
         medium: string;
     };
     clanLevel: number;
