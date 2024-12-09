@@ -8,11 +8,12 @@
     interface Item {
         name: string;
         href: string;
+        newTab?: boolean;
     }
 
     let items: Item[] = [
         { name: "Home", href: "/" },
-        { name: "Discord", href: "/discord" },
+        { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
         { name: "Clans", href: "/clans" }
     ];
 
@@ -40,7 +41,7 @@
         </div>
         <div class="hidden items-center justify-center gap-4 md:flex">
             {#each items as item}
-                <InlineLink href={item.href}>
+                <InlineLink href={item.href} newTab={item.newTab}>
                     {item.name}
                 </InlineLink>
             {/each}

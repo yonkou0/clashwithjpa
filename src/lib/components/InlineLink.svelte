@@ -20,7 +20,7 @@
     }
 </script>
 
-<a {href} target={newTab ? "_blank" : "_parent"} class={getClass($page.url.pathname, href) + " " + className}>
+<a {href} target={newTab ? "_blank" : ""} class={getClass($page.url.pathname, href) + " " + className}>
     {@render children?.()}
     {#if icon}
         {@const SvelteComponent = icon}
