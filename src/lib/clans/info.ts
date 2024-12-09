@@ -27,9 +27,7 @@ export async function getClansInfo(baseURI: string, clanTags: string[], apiToken
     return await Promise.all(promises);
 }
 
-type DateStyle = Intl.DateTimeFormatOptions["dateStyle"];
-
-export function formatDate(date: string, dateStyle: DateStyle = "medium", locales = "en") {
+export function formatDate(date: string, dateStyle: Intl.DateTimeFormatOptions["dateStyle"] = "medium", locales = "en") {
     const dateToFormat = new Date(date.replaceAll("-", "/"));
     const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
     return dateFormatter.format(dateToFormat);

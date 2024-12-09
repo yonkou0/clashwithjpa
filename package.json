@@ -26,6 +26,7 @@
         "prettier": "^3.3.2",
         "prettier-plugin-svelte": "^3.2.6",
         "prettier-plugin-tailwindcss": "^0.6.5",
+        "remark-gemoji": "^8.0.0",
         "svelte": "^5.0.0",
         "svelte-check": "^4.0.0",
         "tailwindcss": "^3.4.9",
@@ -38,6 +39,9 @@
         "@tailwindcss/forms": "^0.5.9",
         "@tailwindcss/typography": "^0.5.15",
         "@types/nprogress": "^0.2.3",
-        "nprogress": "^0.2.0"
+        "nprogress": "^0.2.0",
+        "rehype-autolink-headings": "^7.1.0",
+        "rehype-slug": "^6.0.0",
+        "remark-unwrap-images": "^4.0.1"
     }
 }

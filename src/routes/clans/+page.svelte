@@ -6,6 +6,7 @@
     import InlineLink from "$lib/components/InlineLink.svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
     import IonSkull from "~icons/ion/skull";
+    import { fade } from "svelte/transition";
 
     let clanTags: ClanTagsType = getClanTags();
     let { data }: { data: PageData } = $props();
@@ -22,19 +23,25 @@
                 <div class="flex flex-grow flex-col items-start space-y-10 p-8 pt-32 md:px-24 lg:px-32">
                     <H1 class="text-4xl lg:text-5xl">JPA Clans</H1>
                     <p class="max-w-2xl text-base font-medium md:text-lg">
-                        With over {Object.keys(clanTags).length} clans we have a place for everyone. Clans range from
+                        With over {Object.keys(clanTags).length} clans we have a place for everyone.
                         {#await data.data}
-                            <span class="inline-flex items-center space-x-2">
+                            <span transition:fade class="inline-flex items-center space-x-2">
+                                <span>Clans range from</span>
                                 <span class="inline-block h-4 w-8 animate-pulse rounded-md bg-gray-100"></span>
                                 <span>to</span>
                                 <span class="inline-block h-4 w-8 animate-pulse rounded-md bg-gray-100"></span>
+                                <span>.</span>
                             </span>
                         {:then clans}
-                            {#if clans.length > 0}
-                                LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(...clans.map((clan) => clan.clanLevel))}
-                            {/if}
+                            <span transition:fade>
+                                {#if clans.length > 0}
+                                    Clans range from LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(
+                                        ...clans.map((clan) => clan.clanLevel)
+                                    )}.
+                                {/if}
+                            </span>
                         {/await}
-                        , each having their own rules and requirements. Find the right clan for you today!
+                        Each having their own rules and requirements. Find the right clan for you today!
                     </p>
                     <InlineLink
                         href="https://discord.clashwithjpa.com/"
