@@ -38,6 +38,24 @@ Clash With JPA
     npm run preview
     ```
 
+## ✏️ Editing Data
+
+Now that you have the app running, you can edit the data in the [`data`](./data/) directory. You can add, edit, or delete any file in the [`data`](./data/) directory. The app will automatically update the data.
+- [`clans.json`](./data/clans.json) - Contains the list of clans tags and requirements.
+- [`clans/<clan-tag>.md`](./data/clans/) - Contains the requirements for the clan with the specified tag.
+- [`clans/components`](./data/clans/components/) - Contains information which are common for all clans.
+
+- How to add a new clan?
+    - Add the clan tag in the [`clans.json`](./data/clans.json) file.
+    - Create a new file in the [`clans`](./data/clans/) directory with the name `<clan-tag>.md`.
+    - Add the requirements in the newly created file.
+
+- How to edit clan requirements?
+    - Open the [`clans.json](./data/clans.json)` file and find the clan tag.
+    - Add/Remove requirements in the respective of label names in [`static/labels`](./static/labels/) directory.
+        - The label name declared in the [`clans.json`](./data/clans.json) file should match the file name in the [`static/labels`](./static/labels/) directory.
+    - Do the necessary changes in `<clan-tag>.md` file.
+
 ## ⌨️ Contributing
 
 - Things to keep in mind
