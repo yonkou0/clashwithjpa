@@ -25,7 +25,7 @@
                     <p class="max-w-2xl text-base font-medium md:text-lg">
                         With over {Object.keys(clanTags).length} clans we have a place for everyone.
                         {#await data.data}
-                            <span transition:fade class="inline-flex items-center space-x-2">
+                            <span in:fade={{ duration: 200 }} class="inline-flex items-center space-x-2">
                                 <span>Clans range from</span>
                                 <span class="inline-block h-4 w-8 animate-pulse rounded-md bg-gray-100"></span>
                                 <span>to</span>
@@ -33,7 +33,7 @@
                                 <span>.</span>
                             </span>
                         {:then clans}
-                            <span transition:fade>
+                            <span in:fade={{ duration: 200 }}>
                                 {#if clans.length > 0}
                                     Clans range from LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(
                                         ...clans.map((clan) => clan.clanLevel)
