@@ -1,7 +1,9 @@
 <script lang="ts">
     import "../app.css";
-    import { onNavigate } from "$app/navigation";
+    import "../nprogress.css";
+    import { onNavigate, afterNavigate, beforeNavigate } from "$app/navigation";
     import Navbar from "$lib/components/Navbar.svelte";
+    import NProgress from "nprogress";
 
     interface Props {
         children?: import("svelte").Snippet;
@@ -19,6 +21,14 @@
             });
         });
     });
+
+    beforeNavigate(() => {
+        NProgress.start();
+    });
+    afterNavigate(() => {
+        NProgress.inc();
+    });
+    NProgress.configure({ showSpinner: false });
 </script>
 
 <main class="h-screen w-screen">

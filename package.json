@@ -36,6 +36,8 @@
     },
     "dependencies": {
         "@tailwindcss/forms": "^0.5.9",
-        "@tailwindcss/typography": "^0.5.15"
+        "@tailwindcss/typography": "^0.5.15",
+        "@types/nprogress": "^0.2.3",
+        "nprogress": "^0.2.0"
     }
 }
