@@ -1,16 +1,14 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import type { Component } from "svelte";
 
     interface Props {
         href: string;
         class?: string;
-        icon?: Component;
         newTab?: boolean;
         onclick?: () => void;
         children: import("svelte").Snippet;
     }
-    let { href, icon = undefined, class: className = "", onclick = () => {}, newTab = false, children }: Props = $props();
+    let { href, class: className = "", onclick = () => {}, newTab = false, children }: Props = $props();
 
     function getClass(pathname: string, href: string): string {
         const baseClass =
@@ -23,8 +21,4 @@
 
 <a {href} target={newTab ? "_blank" : ""} class={getClass($page.url.pathname, href) + " " + className} {onclick} data-sveltekit-preload-data>
     {@render children?.()}
-    {#if icon}
-        {@const SvelteComponent = icon}
-        <SvelteComponent class="inline-block" />
-    {/if}
 </a>

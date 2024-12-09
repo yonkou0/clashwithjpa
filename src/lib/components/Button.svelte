@@ -3,14 +3,14 @@
 
     interface Props {
         class?: string;
-        size?: "sm" | "md" | "lg" | "xl";
+        size?: "sm" | "md" | "lg" | "xl" | "";
         href?: string;
         onclick?: () => void;
         disabled?: boolean;
         children?: import("svelte").Snippet;
     }
 
-    let { class: className = "", size = "md", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
+    let { class: className = "", size = "", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
 
     let sizeClass: string = $derived.by(() => {
         switch (size) {
@@ -29,7 +29,7 @@
 </script>
 
 <button
-    class="z-10 size-fit rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90 {className} {sizeClass}"
+    class="z-10 rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90 {className} {sizeClass}"
     onclick={() => {
         if (href != "") {
             goto(href);
