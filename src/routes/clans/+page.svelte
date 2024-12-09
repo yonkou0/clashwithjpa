@@ -22,8 +22,19 @@
                 <div class="flex flex-grow flex-col items-start space-y-10 p-8 pt-32 md:px-24 lg:px-32">
                     <H1 class="text-4xl lg:text-5xl">JPA Clans</H1>
                     <p class="max-w-2xl text-base font-medium md:text-lg">
-                        With over {Object.keys(clanTags).length} clans we have a place for everyone. Clans range from LVL 14 to LVL 30+, each having their
-                        own rules and requirements. Find the right clan for you today!
+                        With over {Object.keys(clanTags).length} clans we have a place for everyone. Clans range from
+                        {#await data.data}
+                            <span class="inline-flex items-center space-x-2">
+                                <span class="inline-block h-4 w-8 animate-pulse rounded-md bg-gray-100"></span>
+                                <span>to</span>
+                                <span class="inline-block h-4 w-8 animate-pulse rounded-md bg-gray-100"></span>
+                            </span>
+                        {:then clans}
+                            {#if clans.length > 0}
+                                LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(...clans.map((clan) => clan.clanLevel))}
+                            {/if}
+                        {/await}
+                        , each having their own rules and requirements. Find the right clan for you today!
                     </p>
                     <InlineLink
                         href="https://discord.clashwithjpa.com/"
@@ -44,11 +55,11 @@
                 {#each Array(9) as _}
                     <div class="flex animate-pulse flex-col justify-between rounded-lg border border-gray-700">
                         <div class="flex w-80 items-start space-x-4 rounded-t-lg p-4">
-                            <div class="size-20 rounded-lg bg-gray-700"></div>
-                            <div class="flex flex-col items-start rounded-lg">
-                                <div class="h-6 w-32 rounded-lg bg-gray-700"></div>
-                                <div class="mt-1 h-4 w-16 rounded-lg bg-gray-700"></div>
-                                <div class="mt-1 h-4 w-12 rounded-lg bg-gray-700"></div>
+                            <div class="size-20 rounded-md bg-gray-700"></div>
+                            <div class="flex flex-col items-start rounded-md">
+                                <div class="h-6 w-32 rounded-md bg-gray-700"></div>
+                                <div class="mt-1 h-4 w-16 rounded-md bg-gray-700"></div>
+                                <div class="mt-1 h-4 w-12 rounded-md bg-gray-700"></div>
                             </div>
                         </div>
                         <div class="flex flex-col border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm">
@@ -103,7 +114,6 @@
                                     <InlineLink
                                         href={`/clans/${clan.tag.replace("#", "")}`}
                                         class="group flex items-center space-x-1 text-xs transition-all duration-300 ease-in-out"
-                                        newTab={true}
                                     >
                                         <span>Clan Rules</span>
                                         <PhArrowUpRightBold
