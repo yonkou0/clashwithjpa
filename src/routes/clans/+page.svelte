@@ -39,7 +39,9 @@
                         {:then clans}
                             {#if clans.length > 0}
                                 <span in:fade={{ duration: 200 }}>
-                                    Clans range from LVL {Math.min(...clans.map(clan => clan.clanLevel))} to LVL {Math.max(...clans.map(clan => clan.clanLevel))}.
+                                    Clans range from LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(
+                                        ...clans.map((clan) => clan.clanLevel)
+                                    )}.
                                 </span>
                             {/if}
                         {/await}
@@ -109,11 +111,7 @@
                     {#each clans as clan, idx}
                         <CardContainer bind:isMouseEntered={mouseEvents[idx]}>
                             <CardBody class="flex flex-col justify-between rounded-lg border border-gray-700">
-                                <CardItem
-                                    isMouseEntered={mouseEvents[idx]}
-                                    translateZ="100"
-                                    class="flex w-80 items-center space-x-4 p-4"
-                                >
+                                <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-80 items-center space-x-4 p-4">
                                     <img class="size-20" src={clan.badgeUrls.medium} alt={clan.name} />
                                     <div class="flex flex-col items-start">
                                         <h2 class="text-xl">{clan.name}</h2>
