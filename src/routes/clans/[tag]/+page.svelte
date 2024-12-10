@@ -47,7 +47,7 @@
     <meta property="og:title" content={data.meta.title} />
 </svelte:head>
 
-<div class="mt-24 flex w-full flex-col items-start gap-5 p-5 lg:flex-row lg:p-10">
+<div class="mt-32 flex w-full flex-col items-start gap-5 px-5 pb-5 lg:flex-row lg:px-10">
     {#if showScrollButton}
         <div transition:fade={{ duration: 200 }} class="fixed bottom-4 right-4 z-10">
             <Button
@@ -60,7 +60,7 @@
             </Button>
         </div>
     {/if}
-    <div class="flex w-full flex-col items-start space-y-4 lg:sticky lg:w-[25%]">
+    <div class="flex w-full flex-col items-start space-y-4 lg:top-32 lg:sticky lg:w-[25%]">
         <div class="flex flex-row items-center justify-start space-x-4">
             <img class="size-14" src={data.data.badgeUrls.medium} alt={data.data.name} />
             <div class="flex flex-col items-start justify-center">

@@ -47,7 +47,7 @@
         Your browser does not support the video tag.
     </video>
 
-    <div class="z-10 flex size-full items-center justify-center bg-gray-950/50 p-5 pt-20">
+    <div class="z-10 flex size-full items-center justify-center bg-gray-950/50 p-5 pt-32">
         <div class="flex flex-col items-center text-center sm:w-3/4 md:w-1/2">
             <H1 class="text-4xl lg:text-5xl">Clash With JPA</H1>
             <p class="text-md mt-4 lg:text-lg">

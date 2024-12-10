@@ -20,7 +20,7 @@
     <header class="top-0 w-full">
         <div class="z-10 h-full w-full overflow-hidden bg-cover bg-fixed bg-center" style="background-image: url('/clans_header.webp');">
             <div class="flex h-full items-center bg-gray-950/40">
-                <div class="flex flex-grow flex-col items-start space-y-10 p-8 pt-32 md:px-24 lg:px-32">
+                <div class="flex flex-grow flex-col items-start space-y-10 px-5 pb-5 mt-32 md:px-24 lg:px-32">
                     <H1 class="text-4xl lg:text-5xl">JPA Clans</H1>
                     <p class="max-w-2xl text-base font-medium md:text-lg">
                         With over {Object.keys(clanTags).length} clans we have a place for everyone.
