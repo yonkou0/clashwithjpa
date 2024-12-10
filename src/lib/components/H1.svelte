@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { cn } from "$lib/components/utils/cn";
+
     interface Props {
         class?: string;
         children: import("svelte").Snippet;
@@ -7,7 +9,7 @@
 </script>
 
 <h1
-    class="font-extrabold shadow-gray-950 drop-shadow-[0_8px_0_var(--tw-shadow-color)] {className}"
+    class={cn("font-extrabold shadow-gray-950 drop-shadow-[0_8px_0_var(--tw-shadow-color)]", className)}
     style="-webkit-text-stroke: 2px var(--tw-shadow-color);"
 >
     {@render children?.()}

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
+    import { cn } from "$lib/components/utils/cn";
 
     interface Props {
         class?: string;
@@ -29,7 +30,11 @@
 </script>
 
 <button
-    class="z-10 rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90 {className} {sizeClass}"
+    class={cn(
+        "z-10 rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90",
+        sizeClass,
+        className
+    )}
     onclick={() => {
         if (href != "") {
             goto(href);

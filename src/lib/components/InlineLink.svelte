@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
+    import { cn } from "$lib/components/utils/cn";
 
     interface Props {
         href: string;
@@ -19,6 +20,6 @@
     }
 </script>
 
-<a {href} target={newTab ? "_blank" : ""} class={getClass($page.url.pathname, href) + " " + className} {onclick} data-sveltekit-preload-data>
+<a {href} target={newTab ? "_blank" : ""} class={cn(getClass($page.url.pathname, href), className)} {onclick} data-sveltekit-preload-data>
     {@render children?.()}
 </a>
