@@ -37,13 +37,11 @@
                                 <span>.</span>
                             </span>
                         {:then clans}
-                            <span in:fade={{ duration: 200 }}>
-                                {#if clans.length > 0}
-                                    Clans range from LVL {Math.min(...clans.map((clan) => clan.clanLevel))} to LVL {Math.max(
-                                        ...clans.map((clan) => clan.clanLevel)
-                                    )}.
-                                {/if}
-                            </span>
+                            {#if clans.length > 0}
+                                <span in:fade={{ duration: 200 }}>
+                                    Clans range from LVL {Math.min(...clans.map(clan => clan.clanLevel))} to LVL {Math.max(...clans.map(clan => clan.clanLevel))}.
+                                </span>
+                            {/if}
                         {/await}
                         Each having their own rules and requirements. Find the right clan for you today!
                     </p>
@@ -62,10 +60,10 @@
 
     <div class="flex w-full flex-col items-center justify-center p-11">
         {#await data.data}
-            <div class="flex w-full flex-wrap items-center justify-center gap-4">
+            <div class="flex w-full flex-wrap items-center justify-center gap-5 lg:gap-11">
                 {#each Array(9) as _}
                     <div class="flex animate-pulse flex-col justify-between rounded-lg border border-gray-700">
-                        <div class="flex w-80 items-start space-x-4 rounded-t-lg p-4">
+                        <div class="flex w-80 items-start space-x-4 p-4">
                             <div class="size-20 rounded-md bg-gray-700"></div>
                             <div class="flex flex-col items-start rounded-md">
                                 <div class="h-6 w-32 rounded-md bg-gray-700"></div>
@@ -73,7 +71,9 @@
                                 <div class="mt-1 h-4 w-12 rounded-md bg-gray-700"></div>
                             </div>
                         </div>
-                        <div class="flex flex-col border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm">
+                        <div
+                            class="flex flex-col rounded-lg border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm"
+                        >
                             <div class="flex flex-col items-start gap-2">
                                 <div class="flex items-center gap-1">
                                     <div class="size-8 min-w-8 rounded-md bg-gray-700"></div>
@@ -85,11 +85,13 @@
                                 <div class="mt-1 h-4 w-24 rounded-md bg-gray-700"></div>
                             </div>
                         </div>
-                        <div class="flex w-full flex-col rounded-b-lg">
-                            <div class="border-b border-gray-700 p-4 text-center text-sm">
+                        <div class="flex w-full flex-col">
+                            <div class="p-4 text-center text-sm">
                                 <div class="mx-auto h-4 w-32 rounded-md bg-gray-700"></div>
                             </div>
-                            <div class="flex w-full flex-col items-start space-y-2 p-4">
+                            <div
+                                class="flex w-full flex-col items-start space-y-2 rounded-lg border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                            >
                                 {#each Array(3) as _}
                                     <div class="flex items-center">
                                         <div class="size-11 rounded-md bg-gray-700"></div>
@@ -110,7 +112,7 @@
                                 <CardItem
                                     isMouseEntered={mouseEvents[idx]}
                                     translateZ="100"
-                                    class="flex w-80 items-center space-x-4 rounded-t-lg p-4"
+                                    class="flex w-80 items-center space-x-4 p-4"
                                 >
                                     <img class="size-20" src={clan.badgeUrls.medium} alt={clan.name} />
                                     <div class="flex flex-col items-start">
@@ -155,7 +157,7 @@
                                 <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-full flex-col">
                                     <p class="p-4 text-center text-sm">Minimum Requirements</p>
                                     <div
-                                        class="from flex w-full flex-col items-start space-y-2 rounded-lg border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                        class="flex w-full flex-col items-start space-y-2 rounded-lg border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                     >
                                         {#each Object.keys(clanTags[clan.tag]) as tag}
                                             <div class="flex items-center">
