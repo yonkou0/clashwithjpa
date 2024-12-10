@@ -60,7 +60,7 @@
             </Button>
         </div>
     {/if}
-    <div class="flex w-full flex-col items-start space-y-4 lg:top-32 lg:sticky lg:w-[25%]">
+    <div class="flex w-full flex-col items-start space-y-4 lg:sticky lg:top-32 lg:w-[25%]">
         <div class="flex flex-row items-center justify-start space-x-4">
             <img class="size-14" src={data.data.badgeUrls.medium} alt={data.data.name} />
             <div class="flex flex-col items-start justify-center">

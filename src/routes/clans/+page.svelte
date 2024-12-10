@@ -4,11 +4,15 @@
     import type { ClanTagsType } from "$lib/clans/types";
     import H1 from "$lib/components/H1.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
+    import CardBody from "$lib/components/3D/CardBody.svelte";
+    import CardContainer from "$lib/components/3D/CardContainer.svelte";
+    import CardItem from "$lib/components/3D/CardItem.svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
     import IonSkull from "~icons/ion/skull";
     import { fade } from "svelte/transition";
 
     let clanTags: ClanTagsType = getClanTags();
+    let mouseEvents: boolean[] = $state(Array(9).fill(false));
     let { data }: { data: PageData } = $props();
 </script>
 
@@ -20,7 +24,7 @@
     <header class="top-0 w-full">
         <div class="z-10 h-full w-full overflow-hidden bg-cover bg-fixed bg-center" style="background-image: url('/clans_header.webp');">
             <div class="flex h-full items-center bg-gray-950/40">
-                <div class="flex flex-grow flex-col items-start space-y-10 px-5 pb-5 mt-32 md:px-24 lg:px-32">
+                <div class="mt-32 flex flex-grow flex-col items-start space-y-10 px-5 pb-5 md:px-24 lg:px-32">
                     <H1 class="text-4xl lg:text-5xl">JPA Clans</H1>
                     <p class="max-w-2xl text-base font-medium md:text-lg">
                         With over {Object.keys(clanTags).length} clans we have a place for everyone.
@@ -99,58 +103,73 @@
             </div>
         {:then clans}
             <div class="flex w-full flex-col items-center">
-                <div class="flex w-full flex-wrap items-center justify-center gap-4">
-                    {#each clans as clan}
-                        <div class="flex flex-col justify-between rounded-lg border border-gray-700">
-                            <div class="flex w-80 items-center space-x-4 rounded-t-lg p-4">
-                                <img class="size-20" src={clan.badgeUrls.medium} alt={clan.name} />
-                                <div class="flex flex-col items-start">
-                                    <h2 class="text-xl">{clan.name}</h2>
-                                    <p class="text-xs">{clan.tag}</p>
-                                    <p class="text-xs">LVL. {clan.clanLevel}</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm">
-                                <div class="flex flex-col items-start gap-2">
-                                    <div class="flex items-center gap-1">
-                                        <img class="size-8 min-w-8" src="/labels/international.webp" alt="Members" />
-                                        <p>{clan.members} Members</p>
+                <div class="flex w-full flex-wrap items-center justify-center gap-5 lg:gap-11">
+                    {#each clans as clan, idx}
+                        <CardContainer bind:isMouseEntered={mouseEvents[idx]}>
+                            <CardBody class="flex flex-col justify-between rounded-lg border border-gray-700">
+                                <CardItem
+                                    isMouseEntered={mouseEvents[idx]}
+                                    translateZ="100"
+                                    class="flex w-80 items-center space-x-4 rounded-t-lg p-4"
+                                >
+                                    <img class="size-20" src={clan.badgeUrls.medium} alt={clan.name} />
+                                    <div class="flex flex-col items-start">
+                                        <h2 class="text-xl">{clan.name}</h2>
+                                        <p class="text-xs">{clan.tag}</p>
+                                        <p class="text-xs">LVL. {clan.clanLevel}</p>
                                     </div>
-                                </div>
-                                <div class="mt-4 flex flex-col items-start gap-2">
-                                    <InlineLink
-                                        href={`/clans/${clan.tag.replace("#", "")}`}
-                                        class="group flex items-center space-x-1 text-xs transition-all duration-300 ease-in-out"
-                                    >
-                                        <span>Clan Rules</span>
-                                        <PhArrowUpRightBold
-                                            class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
-                                        />
-                                    </InlineLink>
-                                    <InlineLink
-                                        href={`https://link.clashofclans.com/en?action=OpenClanProfile&tag=${clan.tag}`}
-                                        class="group flex items-center space-x-1 text-xs transition-all duration-300 ease-in-out"
-                                        newTab={true}
-                                    >
-                                        <span>Open in Game</span>
-                                        <PhArrowUpRightBold
-                                            class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
-                                        />
-                                    </InlineLink>
-                                </div>
-                            </div>
-                            <div class="flex w-full flex-col rounded-b-lg">
-                                <p class="border-b border-gray-700 p-4 text-center text-sm">Minimum Requirements</p>
-                                <div class="flex w-full flex-col items-start space-y-2 p-4">
-                                    {#each Object.keys(clanTags[clan.tag]) as tag}
-                                        <div class="flex items-center">
-                                            <img class="size-11" src={`/labels/${tag}.webp`} alt={tag} />
-                                            <p class="ml-2">{clanTags[clan.tag][tag]} {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}</p>
+                                </CardItem>
+                                <CardItem
+                                    isMouseEntered={mouseEvents[idx]}
+                                    translateZ="100"
+                                    class="flex flex-col rounded-lg border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-sm"
+                                >
+                                    <div class="flex flex-col items-start gap-2">
+                                        <div class="flex items-center gap-1">
+                                            <img class="size-8 min-w-8" src="/labels/international.webp" alt="Members" />
+                                            <p>{clan.members} Members</p>
                                         </div>
-                                    {/each}
-                                </div>
-                            </div>
-                        </div>
+                                    </div>
+                                    <div class="mt-4 flex flex-col items-start gap-2 transition">
+                                        <InlineLink
+                                            href={`/clans/${clan.tag.replace("#", "")}`}
+                                            class="group flex items-center space-x-1 text-xs transition-all duration-300 ease-in-out"
+                                        >
+                                            <span>Clan Rules</span>
+                                            <PhArrowUpRightBold
+                                                class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
+                                            />
+                                        </InlineLink>
+                                        <InlineLink
+                                            href={`https://link.clashofclans.com/en?action=OpenClanProfile&tag=${clan.tag}`}
+                                            class="group flex items-center space-x-1 text-xs transition-all duration-300 ease-in-out"
+                                            newTab={true}
+                                        >
+                                            <span>Open in Game</span>
+                                            <PhArrowUpRightBold
+                                                class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
+                                            />
+                                        </InlineLink>
+                                    </div>
+                                </CardItem>
+                                <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-full flex-col">
+                                    <p class="p-4 text-center text-sm">Minimum Requirements</p>
+                                    <div
+                                        class="from flex w-full flex-col items-start space-y-2 rounded-lg border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                    >
+                                        {#each Object.keys(clanTags[clan.tag]) as tag}
+                                            <div class="flex items-center">
+                                                <img class="size-11" src={`/labels/${tag}.webp`} alt={tag} />
+                                                <p class="ml-2">
+                                                    {clanTags[clan.tag][tag]}
+                                                    {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
+                                                </p>
+                                            </div>
+                                        {/each}
+                                    </div>
+                                </CardItem>
+                            </CardBody>
+                        </CardContainer>
                     {/each}
                 </div>
             </div>

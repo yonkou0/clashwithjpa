@@ -24,7 +24,11 @@
     }
 </script>
 
-<div class="fixed top-0 z-20 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-sm md:px-12 lg:px-28 transition-all" class:rounded-b-2xl={isOpen} class:!backdrop-blur-md={isOpen}>
+<div
+    class="fixed top-0 z-20 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-sm transition-all md:px-12 lg:px-28"
+    class:rounded-b-2xl={isOpen}
+    class:!backdrop-blur-md={isOpen}
+>
     <div class="flex w-full items-center justify-between">
         <div class="flex items-center justify-center space-x-1">
             <img src="/logo.webp" alt="Logo" class="size-12" />
