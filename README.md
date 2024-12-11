@@ -41,6 +41,18 @@ Clash With JPA
 ## ✏️ Editing Data
 
 Now that you have the app running, you can edit the data in the [`data`](./data/) directory. You can add, edit, or delete any file in the [`data`](./data/) directory. The app will automatically update the data.
+- [`info.json`](./data/info.json): Contains authorizations informations.
+    <details>
+
+    <summary>Info keys</summary>
+
+    - `guildID` (`integer`): The Guild ID of the Discord server where the user must be present.
+        - This is used to verify the user's presence in the Discord server.
+        - If the user is not present in the server, the user doesn't get access to the panel.
+    - `adminRoleID` (`integer`): The Role ID of the Admin role in the Discord server.
+        - This role will have access to the admin panel.
+
+    </details>
 - [`clans.json`](./data/clans.json): Contains the list of clans tags and requirements.
 - [`clans/<clan-tag>.md`](./data/clans/): Contains the requirements for the clan with the specified tag.
 - [`clans/components`](./data/clans/components/): Contains information which are common for all clans.

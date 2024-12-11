@@ -1,9 +1,10 @@
 import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
-import type { APIUser, RESTPostOAuth2AccessTokenResult } from "discord-api-types/v10";
+import type { APIGuild, APIGuildMember, APIUser, RESTPostOAuth2AccessTokenResult } from "discord-api-types/v10";
 import axios from "axios";
 import cookie from "cookie";
 import type { Cookies } from "@sveltejs/kit";
+import info from "../../../data/info.json";
 
 export async function getAuthForm(code: string, url: URL): Promise<URLSearchParams> {
     return new URLSearchParams({
@@ -24,13 +25,44 @@ export async function getRefreshForm(refresh_token: string): Promise<URLSearchPa
     });
 }
 
-export async function getUserData(access_token: string): Promise<APIUser> {
-    const userRes = await axios.get(`${PUBLIC_DISCORD_URL}/users/@me`, {
-        headers: {
-            Authorization: `Bearer ${access_token}`
-        }
-    });
-    return userRes.data as APIUser;
+export interface GuildInfo {
+    inGuild: boolean;
+    isAdmin: boolean;
+}
+export type UserData = APIUser & GuildInfo;
+
+export async function getUserData(access_token: string): Promise<UserData> {
+    const userData: UserData = await axios
+        .get(`${PUBLIC_DISCORD_URL}/users/@me`, {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        })
+        .then((res) => res.data);
+    const guildData: APIGuild[] = await axios
+        .get(`${PUBLIC_DISCORD_URL}/users/@me/guilds`, {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        })
+        .then((res) => res.data);
+    // Info JSON data
+    const infoData: { [key: string]: string } = JSON.parse(JSON.stringify(info));
+    // Check if user is in guild
+    userData.inGuild = guildData.some((guild: APIGuild) => guild.id == infoData.guildID);
+    // If user is in guild, check if they are an admin
+    if (userData.inGuild) {
+        const userGuildData: APIGuildMember = await axios
+            .get(`${PUBLIC_DISCORD_URL}/users/@me/guilds/1029993902503108678/member`, {
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            })
+            .then((res) => res.data);
+        userData.isAdmin = userGuildData.roles.some((roleID: string) => roleID == infoData.adminRoleID);
+    }
+    console.log(userData);
+    return userData as UserData;
 }
 
 async function postOAuthToken(formData: URLSearchParams): Promise<RESTPostOAuth2AccessTokenResult> {
@@ -77,7 +109,7 @@ export async function getSessionCookies(code: string, url: URL): Promise<{ acces
     };
 }
 
-export async function refreshSession(refresh_token: string, cookies: Cookies): Promise<APIUser> {
+export async function refreshSession(refresh_token: string, cookies: Cookies): Promise<UserData> {
     const formData = await getRefreshForm(refresh_token);
     const accessData = await postOAuthToken(formData);
 

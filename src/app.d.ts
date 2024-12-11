@@ -1,11 +1,11 @@
 import "unplugin-icons/types/svelte";
-import { APIUser } from "discord-api-types/v10";
+import { UserData } from "$lib/auth/sessionHelper";
 
 declare global {
     namespace App {
         // interface Error {}
         interface Locals {
-            user: APIUser | null;
+            user: UserData | null;
         }
         // interface PageData {}
         // interface PageState {}
