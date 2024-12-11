@@ -26,8 +26,7 @@ export async function load({ params, setHeaders }) {
             tag: clanTag,
             data: clanInfo as ClanType
         };
-    } catch (e) {
-        console.log("error", e);
+    } catch {
         error(404, `Cannot find ${params.tag}`);
     }
 }

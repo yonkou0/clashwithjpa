@@ -16,7 +16,6 @@ export async function getClanInfo(baseURI: string, clanTag: string, apiToken: st
     });
 
     if (!response.ok) {
-        console.log("Error fetching clan info", await response.text());
         throw new Error(`Error fetching clan info: ${response.statusText}`);
     }
     return await response.json();
