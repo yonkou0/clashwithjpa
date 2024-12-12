@@ -2,9 +2,6 @@ import { redirect, type Handle } from "@sveltejs/kit";
 import { getUserData, refreshSession } from "$lib/auth/sessionHelper";
 
 export const handle = (async ({ event, resolve }) => {
-    event.setHeaders({
-        "cache-control": "max-age=600"
-    });
     const access_token = event.cookies.get("access_token");
     const refresh_token = event.cookies.get("refresh_token");
 
