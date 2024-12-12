@@ -12,7 +12,7 @@
     import { fade } from "svelte/transition";
 
     let clanTags: ClanTagsType = getClanTags();
-    let mouseEvents: boolean[] = $state(Array(9).fill(false));
+    let mouseEvents: boolean[] = $state(Array(Object.keys(clanTags).length).fill(false));
     let { data }: { data: PageData } = $props();
 </script>
 
@@ -64,7 +64,7 @@
         {#await data.data}
             <div class="flex w-full flex-wrap items-center justify-center gap-5 lg:gap-11">
                 <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-                {#each Array(9) as _}
+                {#each Array(Object.keys(clanTags).length) as _}
                     <div class="flex animate-pulse flex-col justify-between rounded-lg border border-gray-700">
                         <div class="flex w-80 items-start space-x-4 p-4">
                             <div class="size-20 rounded-md bg-gray-700"></div>
