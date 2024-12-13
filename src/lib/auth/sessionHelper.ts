@@ -3,7 +3,7 @@ import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import type { APIGuild, APIGuildMember, APIUser, RESTPostOAuth2AccessTokenResult } from "discord-api-types/v10";
 import axios from "axios";
 import cookie from "cookie";
-import type { Cookies } from "@sveltejs/kit";
+import { error, type Cookies } from "@sveltejs/kit";
 import info from "../../../data/info.json";
 
 export async function getAuthForm(code: string, url: URL): Promise<URLSearchParams> {
@@ -38,6 +38,7 @@ export async function getUserData(access_token: string): Promise<UserData> {
                 Authorization: `Bearer ${access_token}`
             }
         })
+        .catch((err) => error(err.status, err.statusText))
         .then((res) => res.data);
     const guildData: APIGuild[] = await axios
         .get(`${PUBLIC_DISCORD_URL}/users/@me/guilds`, {
@@ -45,6 +46,7 @@ export async function getUserData(access_token: string): Promise<UserData> {
                 Authorization: `Bearer ${access_token}`
             }
         })
+        .catch((err) => error(err.status, err.statusText))
         .then((res) => res.data);
     // Info JSON data
     const infoData: { [key: string]: string } = JSON.parse(JSON.stringify(info));
@@ -58,10 +60,10 @@ export async function getUserData(access_token: string): Promise<UserData> {
                     Authorization: `Bearer ${access_token}`
                 }
             })
+            .catch((err) => error(err.status, err.statusText))
             .then((res) => res.data);
         userData.isAdmin = userGuildData.roles.some((roleID: string) => roleID == infoData.adminRoleID);
     }
-    console.log(userData);
     return userData as UserData;
 }
 
@@ -75,9 +77,9 @@ async function postOAuthToken(formData: URLSearchParams): Promise<RESTPostOAuth2
 }
 
 class CookieHelper {
-    static getAccessCookie(): { name: string; opts: cookie.SerializeOptions } {
+    static getAccessCookie() {
         const name: string = "access_token";
-        const opts: cookie.SerializeOptions = {
+        const opts: cookie.SerializeOptions & { path: string } = {
             path: "/",
             httpOnly: true,
             sameSite: false,
@@ -86,9 +88,9 @@ class CookieHelper {
         return { name, opts };
     }
 
-    static getRefreshCookie(): { name: string; opts: cookie.SerializeOptions } {
+    static getRefreshCookie() {
         const name: string = "refresh_token";
-        const opts: cookie.SerializeOptions = {
+        const opts: cookie.SerializeOptions & { path: string } = {
             path: "/",
             httpOnly: true,
             sameSite: false,
@@ -128,6 +130,6 @@ export async function refreshSession(refresh_token: string, cookies: Cookies): P
 export async function logout(cookies: Cookies): Promise<void> {
     const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie();
     const { name: refreshName, opts: refreshOpt } = CookieHelper.getRefreshCookie();
-    cookies.set(accessName, "", { ...accessOpt, maxAge: 0 });
-    cookies.set(refreshName, "", { ...refreshOpt, maxAge: 0 });
+    cookies.set(accessName, "", { ...accessOpt, maxAge: -1 });
+    cookies.set(refreshName, "", { ...refreshOpt, maxAge: -1 });
 }

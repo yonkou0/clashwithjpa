@@ -1,9 +1,10 @@
 <script lang="ts">
-    import Button from "$lib/components/Button.svelte";
     import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
     import AkarIconsCross from "~icons/akar-icons/cross";
     import { slide } from "svelte/transition";
+    import UserButton from "$lib/components/UserButton.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
+    import type { UserData } from "$lib/auth/sessionHelper";
 
     interface Item {
         name: string;
@@ -16,6 +17,8 @@
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
         { name: "Clans", href: "/clans" }
     ];
+
+    let { user }: { user: UserData | null } = $props();
 
     let isOpen = $state(false);
 
@@ -34,7 +37,8 @@
             <img src="/logo.webp" alt="Logo" class="size-12" />
             <a href="/" class="text-xl">JPA</a>
         </div>
-        <div class="flex items-center md:hidden">
+        <div class="flex items-center justify-center space-x-4 md:hidden">
+            <UserButton {user} />
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
                 {#if isOpen}
                     <AkarIconsCross class="size-6" />
@@ -49,7 +53,7 @@
                     {item.name}
                 </InlineLink>
             {/each}
-            <Button href="/join" size="sm">Join Us</Button>
+            <UserButton {user} />
         </div>
     </div>
     {#if isOpen}
@@ -66,13 +70,6 @@
                         {item.name}
                     </InlineLink>
                 {/each}
-                <Button
-                    href="/join"
-                    size="md"
-                    onclick={() => {
-                        toggleMenu();
-                    }}>Join Us</Button
-                >
             </div>
         </div>
     {/if}
