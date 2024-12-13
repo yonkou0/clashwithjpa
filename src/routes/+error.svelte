@@ -12,7 +12,7 @@
     <h1 class="text-3xl font-bold md:text-5xl lg:text-4xl">{$page.status}</h1>
     <h2 class="text-lg font-semibold text-gray-400 lg:text-xl">{$page.error?.message}</h2>
     <div class="pt-5">
-        <Button size="md" href="/" class="group">
+        <Button href="/" size="md" class="group">
             <MaterialSymbolsChevronLeftRounded class="size-8 transition-transform group-hover:-translate-x-2 " />
             <span>Homepage</span>
         </Button>

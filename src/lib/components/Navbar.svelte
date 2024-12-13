@@ -11,7 +11,6 @@
         href: string;
         newTab?: boolean;
     }
-
     let items: Item[] = [
         { name: "Home", href: "/" },
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
@@ -21,7 +20,6 @@
     let { user }: { user: UserData | null } = $props();
 
     let isOpen = $state(false);
-
     function toggleMenu() {
         isOpen = !isOpen;
     }
