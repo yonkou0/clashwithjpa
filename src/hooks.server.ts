@@ -2,8 +2,8 @@ import { redirect, type Handle } from "@sveltejs/kit";
 import { getUserData, logout, refreshSession } from "$lib/auth/sessionHelper";
 
 export const handle = (async ({ event, resolve }) => {
-    const access_token = event.cookies.get("access_token") || event.request.headers.get("set-cookie")?.split(", ")[0] || undefined;
-    const refresh_token = event.cookies.get("refresh_token") || event.request.headers.get("set-cookie")?.split(", ")[1] || undefined;
+    const access_token: string | null = event.cookies.get("access_token") || event.request.headers.get("set-cookie")?.split(", ")[0] || null;
+    const refresh_token: string | null = event.cookies.get("refresh_token") || event.request.headers.get("set-cookie")?.split(", ")[1] || null;
 
     if (access_token) {
         const userData = await getUserData(access_token);
