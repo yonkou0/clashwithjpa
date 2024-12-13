@@ -5,10 +5,10 @@ export const handle = (async ({ event, resolve }) => {
     const access_token = event.cookies.get("access_token") || event.request.headers.get("set-cookie")?.split(", ")[0] || undefined;
     const refresh_token = event.cookies.get("refresh_token") || event.request.headers.get("set-cookie")?.split(", ")[1] || undefined;
 
-    if (access_token != undefined) {
+    if (access_token) {
         const userData = await getUserData(access_token);
         event.locals.user = userData;
-    } else if (refresh_token != undefined) {
+    } else if (refresh_token) {
         const userData = await refreshSession(refresh_token, event.cookies);
         event.locals.user = userData;
     } else {

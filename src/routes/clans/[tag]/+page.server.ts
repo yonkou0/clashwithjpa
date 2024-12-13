@@ -4,7 +4,7 @@ import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { API_TOKEN } from "$env/static/private";
 import { getClanTags, getClanInfo } from "$lib/clans/info";
 
-export async function load({ params, setHeaders }) {
+export async function load({ params }) {
     try {
         const clanTag = "#" + params.tag;
         if (!Object.keys(getClanTags()).includes(clanTag)) {
@@ -17,10 +17,6 @@ export async function load({ params, setHeaders }) {
         } catch {
             clanInfo = null;
         }
-
-        setHeaders({
-            "cache-control": "max-age=600"
-        });
 
         return {
             tag: clanTag,
