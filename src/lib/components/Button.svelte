@@ -4,6 +4,7 @@
 
     interface Props {
         class?: string;
+        type?: "success" | "danger" | "normal";
         size?: "sm" | "md" | "lg" | "xl" | "";
         href?: string;
         onclick?: () => void;
@@ -11,7 +12,7 @@
         children?: import("svelte").Snippet;
     }
 
-    let { class: className = "", size = "", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
+    let { class: className = "", type = "normal", size = "", href = "", onclick = () => {}, disabled = false, children }: Props = $props();
 
     let sizeClass: string = $derived.by(() => {
         switch (size) {
@@ -27,11 +28,24 @@
                 return "";
         }
     });
+
+    let typeClass: string = $derived.by(() => {
+        switch (type) {
+            case "success":
+                return "from-lime-200 via-lime-600 to-lime-600";
+            case "danger":
+                return "from-red-300 via-red-600 to-red-600";
+            case "normal":
+                return "from-yellow-400 via-orange-600 to-orange-600";
+            default:
+                return "";
+        }
+    });
 </script>
 
 <button
     class={cn(
-        "z-10 rounded-xl bg-gradient-to-b from-yellow-400 via-orange-600 to-orange-600 shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90",
+        `z-10 rounded-xl bg-gradient-to-b ${typeClass} shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90`,
         sizeClass,
         className
     )}
