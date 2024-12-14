@@ -5,7 +5,7 @@ export const handle = (async ({ event, resolve }) => {
     const userCookies: string | null = event.cookies.get("user") || null;
     const accessToken: string | null = event.cookies.get("access_token") || null;
     const refreshToken: string | null = event.cookies.get("refresh_token") || null;
-    let user: UserData | null;
+    let user: any;
 
     if (userCookies) {
         user = JSON.parse(userCookies) as UserData;
