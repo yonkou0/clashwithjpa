@@ -145,7 +145,7 @@ export async function logout(cookies: Cookies): Promise<void> {
     const { name: userName, opts: userOpt } = CookieHelper.getUserCookie();
     const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie();
     const { name: refreshName, opts: refreshOpt } = CookieHelper.getRefreshCookie();
-    cookies.set(userName, "", { ...userOpt, maxAge: -1 });
-    cookies.set(accessName, "", { ...accessOpt, maxAge: -1 });
-    cookies.set(refreshName, "", { ...refreshOpt, maxAge: -1 });
+    cookies.delete(userName, { ...userOpt, maxAge: -1 });
+    cookies.delete(accessName, { ...accessOpt, maxAge: -1 });
+    cookies.delete(refreshName, { ...refreshOpt, maxAge: -1 });
 }

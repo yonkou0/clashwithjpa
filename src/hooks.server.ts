@@ -18,8 +18,8 @@ export const handle = (async ({ event, resolve }) => {
     }
 
     if (event.url.pathname.startsWith("/auth/logout")) {
-        event.locals.user = null;
         logout(event.cookies);
+        event.locals.user = null;
         return redirect(303, "/");
     } else {
         event.locals.user = user;
