@@ -18,6 +18,6 @@ export const GET: RequestHandler = async ({ url }) => {
             }
         });
     } catch {
-        return redirect(302, "/login");
+        return redirect(302, "/auth/login");
     }
 };
