@@ -16,15 +16,17 @@ export const handle = (async ({ event, resolve }) => {
     } else {
         user = null;
     }
-    event.locals.user = user;
 
-    if (event.url.pathname.startsWith("/cwl")) {
-        if (!event.locals.user) throw redirect(303, "/login");
-    }
     if (event.url.pathname.startsWith("/auth/logout")) {
         event.locals.user = null;
         logout(event.cookies);
-        return await redirect(303, "/");
+        return redirect(303, "/");
+    } else {
+        event.locals.user = user;
+    }
+
+    if (event.url.pathname.startsWith("/cwl") && !event.locals.user) {
+        throw redirect(303, "/auth/login");
     }
 
     return await resolve(event);
