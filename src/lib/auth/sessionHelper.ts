@@ -32,24 +32,13 @@ export interface GuildInfo {
 export type UserData = APIUser & GuildInfo;
 
 export class CookieHelper {
-    static getUserCookie() {
-        const name: string = "user";
-        const opts: cookie.SerializeOptions & { path: string } = {
-            path: "/",
-            httpOnly: true,
-            sameSite: false,
-            maxAge: 10 * 60 * 1000 // 10 minutes
-        };
-        return { name, opts };
-    }
-
-    static getAccessCookie() {
+    static getAccessCookie(expiresIn: number) {
         const name: string = "access_token";
         const opts: cookie.SerializeOptions & { path: string } = {
             path: "/",
             httpOnly: true,
-            sameSite: false,
-            maxAge: 10 * 24 * 60 * 60 * 1000 // 10 days
+            sameSite: "strict",
+            maxAge: expiresIn
         };
         return { name, opts };
     }
@@ -59,14 +48,14 @@ export class CookieHelper {
         const opts: cookie.SerializeOptions & { path: string } = {
             path: "/",
             httpOnly: true,
-            sameSite: false,
-            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+            sameSite: "strict",
+            maxAge: 31536000 // 1 year
         };
         return { name, opts };
     }
 }
 
-export async function getUserData(access_token: string, cookies: Cookies): Promise<UserData> {
+export async function getUserData(access_token: string): Promise<UserData> {
     const userData: UserData = await axios
         .get(`${PUBLIC_DISCORD_URL}/users/@me`, {
             headers: {
@@ -99,8 +88,6 @@ export async function getUserData(access_token: string, cookies: Cookies): Promi
             .then((res) => res.data);
         userData.isAdmin = userGuildData.roles.some((roleID: string) => roleID == infoData.adminRoleID);
     }
-    const { name: userName, opts: userOpts } = CookieHelper.getUserCookie();
-    cookies.set(userName, JSON.stringify(userData), userOpts);
 
     return userData;
 }
@@ -117,7 +104,7 @@ async function postOAuthToken(formData: URLSearchParams): Promise<RESTPostOAuth2
 export async function getSessionCookies(code: string, url: URL): Promise<{ accessCookie: string; refreshCookie: string }> {
     const formData = await getAuthForm(code, url);
     const accessData = await postOAuthToken(formData);
-    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie();
+    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie(accessData.expires_in as number);
     const { name: refreshName, opts: refreshOpt } = CookieHelper.getRefreshCookie();
     return {
         accessCookie: cookie.serialize(accessName, accessData.access_token as string, accessOpt),
@@ -129,7 +116,7 @@ export async function refreshSession(refresh_token: string, cookies: Cookies): P
     const formData = await getRefreshForm(refresh_token);
     const accessData = await postOAuthToken(formData);
 
-    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie();
+    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie(accessData.expires_in as number);
     const { name: refreshName, opts: refreshOpt } = CookieHelper.getRefreshCookie();
 
     const accessToken = accessData.access_token as string;
@@ -138,14 +125,12 @@ export async function refreshSession(refresh_token: string, cookies: Cookies): P
     cookies.set(accessName, accessToken, accessOpt);
     cookies.set(refreshName, refreshToken, refreshOpt);
 
-    return await getUserData(accessToken, cookies);
+    return await getUserData(accessToken);
 }
 
 export async function logout(cookies: Cookies): Promise<void> {
-    const { name: userName, opts: userOpt } = CookieHelper.getUserCookie();
-    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie();
+    const { name: accessName, opts: accessOpt } = CookieHelper.getAccessCookie(0);
     const { name: refreshName, opts: refreshOpt } = CookieHelper.getRefreshCookie();
-    cookies.delete(userName, { ...userOpt, maxAge: -1 });
     cookies.delete(accessName, { ...accessOpt, maxAge: -1 });
     cookies.delete(refreshName, { ...refreshOpt, maxAge: -1 });
 }

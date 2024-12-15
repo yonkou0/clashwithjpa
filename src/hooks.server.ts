@@ -1,28 +1,16 @@
 import { redirect, type Handle } from "@sveltejs/kit";
-import { getUserData, logout, refreshSession, type UserData } from "$lib/auth/sessionHelper";
+import { getUserData, refreshSession } from "$lib/auth/sessionHelper";
 
 export const handle = (async ({ event, resolve }) => {
-    const userCookies: string | null = event.cookies.get("user") || null;
     const accessToken: string | null = event.cookies.get("access_token") || null;
     const refreshToken: string | null = event.cookies.get("refresh_token") || null;
-    let user: any;
 
-    if (userCookies) {
-        user = JSON.parse(userCookies) as UserData;
-    } else if (accessToken) {
-        user = await getUserData(accessToken, event.cookies);
+    if (accessToken) {
+        event.locals.user = await getUserData(accessToken);
     } else if (refreshToken) {
-        user = await refreshSession(refreshToken, event.cookies);
+        event.locals.user = await refreshSession(refreshToken, event.cookies);
     } else {
-        user = null;
-    }
-
-    if (event.url.pathname.startsWith("/auth/logout")) {
-        logout(event.cookies);
         event.locals.user = null;
-        return redirect(303, "/");
-    } else {
-        event.locals.user = user;
     }
 
     if (event.url.pathname.startsWith("/cwl") && !event.locals.user) {
