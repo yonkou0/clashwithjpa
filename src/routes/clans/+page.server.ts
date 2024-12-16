@@ -12,7 +12,7 @@ export const load = (async ({ setHeaders }) => {
     }
 
     setHeaders({
-        "cache-control": "max-age=600" // 10 minutes
+        "cache-control": "max-age=6000" // 100 minutes
     });
 
     return { data: getClans() as Promise<ClanType[]> };
