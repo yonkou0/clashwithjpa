@@ -7,7 +7,6 @@
     import MdiSwordCross from "~icons/mdi/sword-cross";
 
     let { user }: { user: any | null } = $props();
-    
 </script>
 
 {#if user}

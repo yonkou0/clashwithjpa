@@ -1,5 +1,5 @@
 import type { RequestHandler } from "./$types";
-import { error, redirect, json } from "@sveltejs/kit";
+import { error } from "@sveltejs/kit";
 import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
 

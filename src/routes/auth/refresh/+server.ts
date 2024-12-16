@@ -1,0 +1,52 @@
+import { PUBLIC_DISCORD_URL } from "$env/static/public";
+import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
+import { error } from "@sveltejs/kit";
+import type { RequestHandler } from "@sveltejs/kit";
+
+export const POST: RequestHandler = async ({ url, request, cookies }) => {
+    const refreshToken = request.headers.get("refresh_token");
+    if (!refreshToken) {
+        error(400, "No refresh token provided");
+    }
+
+    const resp = await fetch(`${PUBLIC_DISCORD_URL}/oauth2/token`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+            client_id: DISCORD_ID,
+            client_secret: DISCORD_SECRET,
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+            redirect_uri: `${url.origin}/auth/callback`
+        }).toString()
+    });
+
+    if (resp.ok) {
+        const { access_token, refresh_token, expires_in } = await resp.json();
+
+        cookies.set("access_token", access_token, {
+            path: "/",
+            maxAge: expires_in,
+            sameSite: "strict",
+            httpOnly: true
+        });
+
+        cookies.set("refresh_token", refresh_token, {
+            path: "/",
+            maxAge: 60 * 60 * 24 * 365, // 1 year
+            sameSite: "strict",
+            httpOnly: true
+        });
+
+        return new Response("", {
+            status: 307,
+            headers: {
+                Location: "/"
+            }
+        });
+    } else {
+        error(resp.status, await resp.text());
+    }
+};

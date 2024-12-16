@@ -1,5 +1,5 @@
 import "unplugin-icons/types/svelte";
-import { UserData } from "$lib/auth/sessionHelper";
+import type { UserData } from "$lib/auth/user";
 
 declare global {
     namespace App {
