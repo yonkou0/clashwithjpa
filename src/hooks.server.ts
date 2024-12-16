@@ -1,27 +1,32 @@
 import { redirect } from "@sveltejs/kit";
 import type { Handle } from "@sveltejs/kit";
-import { getUserData } from "$lib/auth/user";
+import { sequence } from "@sveltejs/kit/hooks";
 
-export const handle: Handle = async ({ event, resolve }) => {
-    let accessToken: string | null = event.cookies.get("access_token") || null;
-    const refreshToken: string | null = event.cookies.get("refresh_token") || null;
+const protectedRoutes = ["/cwl"];
 
-    if (accessToken) {
-        event.locals.user = await getUserData(accessToken);
-    } else if (refreshToken) {
-        await fetch(`/auth/refresh`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ refresh_token: refreshToken }) })
-        accessToken = event.cookies.get("access_token") || null;
-        if (accessToken) {
-            event.locals.user = await getUserData(accessToken);
-        } else {
+const protectRoutesHook: Handle = async ({ event, resolve }) => {
+    if (protectedRoutes.some((route) => event.url.pathname.startsWith(route))) {
+        const refreshToken: string | undefined = event.cookies.get("refresh_token");
+
+        if (!refreshToken) {
             throw redirect(303, "/auth/login");
         }
-    } else {
-        event.locals.user = null;
-    }
-    if (event.url.pathname.startsWith("/cwl") && !event.locals.user) {
-        throw redirect(303, "/auth/login");
     }
 
-    return await resolve(event);
+	return resolve(event);
 };
+
+const handleRefreshHook: Handle = async ({ event, resolve }) => {
+    const accessToken: string | undefined = event.cookies.get("access_token");
+    const refreshToken: string | undefined = event.cookies.get("refresh_token");
+
+    console.log(event.cookies.getAll());
+
+    if (!accessToken && refreshToken) {
+        await fetch(`/auth/refresh`, { method: "POST", body: JSON.stringify({ refresh_token: refreshToken }) });
+    }
+
+    return resolve(event);
+}
+
+export const handle = sequence(protectRoutesHook, handleRefreshHook);

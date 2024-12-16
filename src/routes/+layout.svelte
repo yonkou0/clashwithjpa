@@ -5,6 +5,7 @@
     import Navbar from "$lib/components/Navbar.svelte";
     import NProgress from "nprogress";
     import type { PageData } from "./$types";
+    import { Toaster } from 'svelte-sonner';
 
     interface Props {
         data: PageData;
@@ -33,7 +34,9 @@
     NProgress.configure({ showSpinner: false });
 </script>
 
+<Toaster richColors closeButton />
+
 <main class="h-screen w-screen">
-    <Navbar user={data.user} />
+    <Navbar user={data.userData} />
     {@render children?.()}
 </main>

@@ -45,6 +45,7 @@
         "rehype-slug": "^6.0.0",
         "remark-unwrap-images": "^4.0.1",
         "svelte-motion": "^0.12.2",
+        "svelte-sonner": "^0.3.28",
         "tailwind-merge": "^2.5.5"
     }
 }

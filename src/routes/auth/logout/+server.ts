@@ -12,5 +12,10 @@ export const GET: RequestHandler = async ({ cookies }) => {
         expires: new Date(0)
     });
 
-    return redirect(302, "/");
+    return new Response(JSON.stringify({ message: "Logged out" }), {
+        status: 200,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
 };

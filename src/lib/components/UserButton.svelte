@@ -5,8 +5,20 @@
     import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
     import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
     import MdiSwordCross from "~icons/mdi/sword-cross";
+    import { toast } from "svelte-sonner";
+    import { invalidateAll } from "$app/navigation";
 
     let { user }: { user: any | null } = $props();
+
+    async function logout() {
+        try {
+            await fetch("/auth/logout");
+            toast.success("Logged out successfully");
+            invalidateAll();
+        } catch (error) {
+            toast.error("Failed to logout");
+        }
+    }
 </script>
 
 {#if user}
@@ -19,7 +31,7 @@
                 class="from- flex flex-col gap-5 rounded-lg border border-gray-950 bg-gradient-to-b from-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
             >
                 <div class="flex gap-x-5">
-                    <Button onclick={() => fetch("/auth/logout")} class="p-2" type="danger">
+                    <Button onclick={logout} class="p-2" type="danger">
                         <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
                         <span class="text-xs">Logout</span>
                     </Button>

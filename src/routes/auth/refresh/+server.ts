@@ -4,7 +4,7 @@ import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "@sveltejs/kit";
 
 export const POST: RequestHandler = async ({ url, request, cookies }) => {
-    const refreshToken = request.headers.get("refresh_token");
+    const { refresh_token: refreshToken } = await request.json();
     if (!refreshToken) {
         error(400, "No refresh token provided");
     }
