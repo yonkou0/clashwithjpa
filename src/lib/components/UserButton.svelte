@@ -1,15 +1,13 @@
 <script lang="ts">
     import Button from "$lib/components/Button.svelte";
-    import type { UserData } from "$lib/auth/sessionHelper";
-    import { goto } from "$app/navigation";
-    import { Popover, Separator, Toggle } from "bits-ui";
+    import { Popover } from "bits-ui";
     import { fade } from "svelte/transition";
     import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
     import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
     import MdiSwordCross from "~icons/mdi/sword-cross";
-    import axios from "axios";
 
-    let { user }: { user: UserData | null } = $props();
+    let { user }: { user: any | null } = $props();
+    
 </script>
 
 {#if user}
@@ -22,7 +20,7 @@
                 class="from- flex flex-col gap-5 rounded-lg border border-gray-950 bg-gradient-to-b from-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
             >
                 <div class="flex gap-x-5">
-                    <Button onclick={async() => axios.post("/auth/logout")} class="p-2" type="danger">
+                    <Button onclick={() => fetch("/auth/logout")} class="p-2" type="danger">
                         <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
                         <span class="text-xs">Logout</span>
                     </Button>

@@ -1,8 +1,16 @@
-import { logout } from "$lib/auth/sessionHelper";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import { redirect } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
-export const POST: RequestHandler = async ({ cookies, locals }) => {
-    logout(cookies);
-    locals.user = null;
-    return json({ success: true });
+export const GET: RequestHandler = async ({ cookies }) => {
+    cookies.set("access_token", "", {
+        path: "/",
+        expires: new Date(0)
+    });
+
+    cookies.set("refresh_token", "", {
+        path: "/",
+        expires: new Date(0)
+    });
+
+    return redirect(302, "/");
 };

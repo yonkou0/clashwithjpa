@@ -34,6 +34,6 @@
 </script>
 
 <main class="h-screen w-screen">
-    <Navbar user={data.user} />
+    <Navbar user={null} />
     {@render children?.()}
 </main>

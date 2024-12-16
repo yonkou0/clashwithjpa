@@ -1,23 +1,57 @@
 import type { RequestHandler } from "./$types";
-import { error, redirect } from "@sveltejs/kit";
-import { getSessionCookies } from "$lib/auth/sessionHelper";
+import { error, redirect, json } from "@sveltejs/kit";
+import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
+import { PUBLIC_DISCORD_URL } from "$env/static/public";
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url, cookies }) => {
     const code = url.searchParams.get("code");
     if (!code) {
-        return error(400, "No code provided");
+        error(400, "No code provided");
     }
 
     try {
-        const { accessCookie, refreshCookie } = await getSessionCookies(code, url);
-        return new Response("", {
-            status: 307,
+        const resp = await fetch(`${PUBLIC_DISCORD_URL}/oauth2/token`, {
+            method: "POST",
             headers: {
-                "Set-Cookie": [accessCookie, refreshCookie].join(", "),
-                Location: "/"
-            }
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                client_id: DISCORD_ID,
+                client_secret: DISCORD_SECRET,
+                grant_type: "authorization_code",
+                code,
+                redirect_uri: `${url.origin}/auth/callback`
+            }).toString()
         });
-    } catch {
-        return redirect(302, "/auth/login");
+
+        if (resp.ok) {
+            const { access_token, refresh_token, expires_in } = await resp.json();
+
+            cookies.set("access_token", access_token, {
+                path: "/",
+                maxAge: expires_in,
+                sameSite: "strict",
+                httpOnly: true
+            });
+
+            cookies.set("refresh_token", refresh_token, {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 365, // 1 year
+                sameSite: "strict",
+                httpOnly: true
+            });
+
+            return new Response("", {
+                status: 307,
+                headers: {
+                    Location: "/"
+                }
+            });
+        } else {
+            error(resp.status, await resp.text());
+        }
+    } catch (e) {
+        console.error(e);
+        error(500, "Failed to get tokens");
     }
 };
