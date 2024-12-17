@@ -63,6 +63,7 @@
     <div class="flex w-full flex-col items-center justify-center p-11">
         {#await data.data}
             <div class="flex w-full flex-wrap items-center justify-center gap-5 lg:gap-11">
+                <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
                 {#each Array(Object.keys(clanTags).length) as _}
                     <div class="flex animate-pulse flex-col justify-between rounded-lg border border-gray-700">
                         <div class="flex w-80 items-start space-x-4 p-4">
@@ -94,6 +95,7 @@
                             <div
                                 class="flex w-full flex-col items-start space-y-2 rounded-lg border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                             >
+                                <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
                                 {#each Array(3) as _}
                                     <div class="flex items-center">
                                         <div class="size-11 rounded-md bg-gray-700"></div>

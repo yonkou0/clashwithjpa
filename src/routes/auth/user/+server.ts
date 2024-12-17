@@ -1,4 +1,4 @@
-import { getUserData, type UserData } from "$lib/auth/user";
+import { getUserData } from "$lib/auth/user";
 import { json, type RequestHandler } from "@sveltejs/kit";
 
 export const GET: RequestHandler = async ({ cookies, setHeaders }) => {

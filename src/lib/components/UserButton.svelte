@@ -7,15 +7,16 @@
     import MdiSwordCross from "~icons/mdi/sword-cross";
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
+    import type { UserData } from "$lib/auth/user";
 
-    let { user }: { user: any | null } = $props();
+    let { user }: { user: UserData | null } = $props();
 
     async function logout() {
         try {
             await fetch("/auth/logout");
             toast.success("Logged out successfully");
             invalidateAll();
-        } catch (error) {
+        } catch {
             toast.error("Failed to logout");
         }
     }

@@ -2,19 +2,20 @@ import { toast as svToast } from "svelte-sonner";
 import type { ExternalToast } from "svelte-sonner";
 import { writable, type Writable } from "svelte/store";
 
-const { set, subscribe, update }: Writable<boolean> = writable<boolean>(false);
-let timeout: any;
+const { set, subscribe }: Writable<boolean> = writable<boolean>(false);
+let timeout: NodeJS.Timeout;
 
-const createToastFunction = (toastFunction: Function) => (message: string, options?: ExternalToast) => {
-    const toastId = toastFunction(message, { ...options, duration: 2000 });
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-        toast.dismiss();
-        set(false);
-    }, 2000);
-    set(true);
-    return toastId;
-};
+const createToastFunction =
+    (toastFunction: (message: string, options?: ExternalToast) => string | number) => (message: string, options?: ExternalToast) => {
+        const toastId = toastFunction(message, { ...options, duration: 2000 });
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            toast.dismiss();
+            set(false);
+        }, 2000);
+        set(true);
+        return toastId;
+    };
 
 const toastFunction = (message: string, options?: ExternalToast) => createToastFunction(svToast)(message, options);
 
