@@ -6,6 +6,8 @@
     import NProgress from "nprogress";
     import type { PageData } from "./$types";
     import { Toaster } from "svelte-sonner";
+    import type { UserData } from "$lib/auth/user";
+    import UserButton from "$lib/components/UserButton.svelte";
 
     interface Props {
         data: PageData;
@@ -37,6 +39,6 @@
 <Toaster richColors closeButton />
 
 <main class="h-screen w-screen">
-    <Navbar user={data.userData} />
+    <Navbar user={data.user as UserData} />
     {@render children?.()}
 </main>

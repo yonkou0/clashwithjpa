@@ -1,13 +1,15 @@
 import type { LayoutServerLoad } from "./$types";
-import { getUserData } from "$lib/auth/user";
 
-export const load: LayoutServerLoad = async ({ cookies }) => {
-    const accessToken = cookies.get("access_token");
-
-    if (!accessToken) {
-        return {};
+export const load: LayoutServerLoad = async (event) => {
+    const resp = await event.fetch(`/auth/user`);
+    if (resp.ok) {
+        const data = await resp.json();
+        if (!data.error) {
+            return { user: data };
+        } else {
+            return { user: null };
+        }
+    } else {
+        return { user: null };
     }
-
-    const userData = await getUserData(accessToken);
-    return { userData };
 };

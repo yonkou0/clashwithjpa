@@ -4,6 +4,7 @@
     import { slide } from "svelte/transition";
     import UserButton from "$lib/components/UserButton.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
+    import type { UserData } from "$lib/auth/user";
 
     interface Item {
         name: string;
@@ -16,7 +17,7 @@
         { name: "Clans", href: "/clans" }
     ];
 
-    let { user }: { user: any | null } = $props();
+    let { user }: { user: UserData | null } = $props();
 
     let isOpen = $state(false);
     function toggleMenu() {
