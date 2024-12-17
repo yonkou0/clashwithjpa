@@ -16,12 +16,12 @@ Clash With JPA
 
 2. Install dependencies
     ```sh
-    npm i
+    pnpm i
     ```
 
 3. Start the app
     ```sh
-    npm run dev
+    pnpm dev
     ```
 
 ## 🌐 Production
@@ -30,12 +30,12 @@ Clash With JPA
 
 2. Build the app
     ```sh
-    npm run build
+    pnpm build
     ```
 
 3. Preview the app
     ```sh
-    npm run preview
+    pnpm preview
     ```
 
 ## ✏️ Editing Data
@@ -79,5 +79,4 @@ Now that you have the app running, you can edit the data in the [`data`](./data/
     - Make sure the app is working as expected.
 
 - Code Formatting
-    - Run `npm run format` before committing your changes or use [`Prettier`](https://prettier.io/) extension in your code editor.
-    - Make sure to fix all the linting errors. Run `npm run lint` to check for linting errors.
+    - Run `pnpm format` before committing your changes or use [`Prettier`](https://prettier.io/) extension in your code editor.
