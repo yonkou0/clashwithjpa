@@ -19,13 +19,11 @@
         containerRef.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleMouseEnter = (e: MouseEvent) => {
         isMouseEntered = true;
         if (!containerRef) return;
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleMouseLeave = (e: MouseEvent) => {
         if (!containerRef) return;
         isMouseEntered = false;

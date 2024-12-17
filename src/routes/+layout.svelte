@@ -5,7 +5,7 @@
     import Navbar from "$lib/components/Navbar.svelte";
     import NProgress from "nprogress";
     import type { PageData } from "./$types";
-    import { Toaster } from 'svelte-sonner';
+    import { Toaster } from "svelte-sonner";
 
     interface Props {
         data: PageData;

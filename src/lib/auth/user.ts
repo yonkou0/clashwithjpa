@@ -4,6 +4,7 @@ import info from "../../../data/info.json";
 import { error } from "@sveltejs/kit";
 
 export type UserData = APIUser & { inGuild: boolean; isAdmin: boolean };
+
 export async function getUserData(access_token: string): Promise<UserData> {
     const userDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me`, {
         headers: {

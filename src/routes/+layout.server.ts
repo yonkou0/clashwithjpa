@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from "./$types";
 import { getUserData } from "$lib/auth/user";
 
-export const load = (async ({ cookies }) => {
+export const load: LayoutServerLoad = async ({ cookies }) => {
     const accessToken = cookies.get("access_token");
 
     if (!accessToken) {
@@ -10,5 +10,4 @@ export const load = (async ({ cookies }) => {
 
     const userData = await getUserData(accessToken);
     return { userData };
-
-}) satisfies LayoutServerLoad;
+};
