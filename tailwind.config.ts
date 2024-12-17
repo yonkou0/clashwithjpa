@@ -6,7 +6,11 @@ export default {
     content: ["./src/**/*.{html,js,svelte,ts}"],
 
     theme: {
-        extend: {}
+        extend: {
+            fontFamily: {
+                coc: "COC"
+            }
+        }
     },
 
     plugins: [typography, forms]

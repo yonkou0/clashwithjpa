@@ -31,10 +31,10 @@
     class:!backdrop-blur-md={isOpen}
 >
     <div class="flex w-full items-center justify-between">
-        <div class="flex items-center justify-center space-x-1">
+        <a href="/" class="flex items-center justify-center space-x-1">
             <img src="/logo.webp" alt="Logo" class="size-12" />
-            <a href="/" class="text-xl">JPA</a>
-        </div>
+            <p class="text-xl">JPA</p>
+        </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
             <UserButton {user} />
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">

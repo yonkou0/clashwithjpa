@@ -5,7 +5,7 @@
     import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
     import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
     import MdiSwordCross from "~icons/mdi/sword-cross";
-    import { toast } from "svelte-sonner";
+    import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
 
     let { user }: { user: any | null } = $props();
