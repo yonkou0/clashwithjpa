@@ -80,3 +80,4 @@ Now that you have the app running, you can edit the data in the [`data`](./data/
 
 - Code Formatting
     - Run `pnpm format` before committing your changes or use [`Prettier`](https://prettier.io/) extension in your code editor.
+    - Make sure to fix all the linting errors. Run `pnpm lint` to check for linting errors.
