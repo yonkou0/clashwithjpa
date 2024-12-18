@@ -25,12 +25,12 @@ export async function getUserData(access_token: string): Promise<UserData> {
     }
     const guildData: APIGuild[] = await guildDataResponse.json();
     // Info JSON data
-    const infoData: { [key: string]: string } = JSON.parse(JSON.stringify(info));
+    const infoData: { [key: string]: number | number[] } = JSON.parse(JSON.stringify(info));
     // Check if user is in guild
-    userData.inGuild = guildData.some((guild: APIGuild) => guild.id === infoData.guildID);
+    userData.inGuild = guildData.some((guild: APIGuild) => Number(guild.id) === (infoData.guildID as number));
     // If user is in guild, check if they are an admin
     if (userData.inGuild) {
-        const userGuildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds/${infoData.guildID}/member`, {
+        const userGuildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds/1029993902503108678/member`, {
             headers: {
                 Authorization: `Bearer ${access_token}`
             }
@@ -39,7 +39,7 @@ export async function getUserData(access_token: string): Promise<UserData> {
             error(userGuildDataResponse.status, userGuildDataResponse.statusText);
         }
         const userGuildData: APIGuildMember = await userGuildDataResponse.json();
-        userData.isAdmin = userGuildData.roles.some((roleID: string) => roleID === infoData.adminRoleID);
+        userData.isAdmin = userGuildData.roles.some((roleID: string) => (infoData.adminRoleID as number[]).includes(Number(roleID)));
     }
     return userData;
 }
