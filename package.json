@@ -15,7 +15,7 @@
         "@eslint/compat": "^1.2.3",
         "@iconify/json": "^2.2.284",
         "@sveltejs/adapter-cloudflare": "^4.8.0",
-        "@sveltejs/kit": "^2.12.1",
+        "@sveltejs/kit": "^2.13.0",
         "@sveltejs/vite-plugin-svelte": "^5.0.2",
         "@types/node": "^22.10.2",
         "@types/nprogress": "^0.2.3",
