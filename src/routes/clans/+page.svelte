@@ -6,11 +6,11 @@
     import CardContainer from "$lib/components/3D/CardContainer.svelte";
     import CardItem from "$lib/components/3D/CardItem.svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
+    import { Popover } from "bits-ui";
+    import ClanInfo from "$lib/components/ClanInfo.svelte";
 
     let { data }: { data: PageData } = $props();
     let mouseEvents: boolean[] = $state(Array(data.clans.length).fill(false));
-
-    // $inspect(data);
 </script>
 
 <svelte:head>
@@ -71,15 +71,20 @@
                                     </div>
                                 </div>
                                 <div class="mt-4 flex flex-col items-start gap-2 transition">
-                                    <InlineLink
-                                        href={`/clans/${clan.clanData?.tag.replace("#", "")}`}
-                                        class="group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out"
-                                    >
-                                        <span>Clan Rules</span>
-                                        <PhArrowUpRightBold
-                                            class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
-                                        />
-                                    </InlineLink>
+                                    <Popover.Root>
+                                        <Popover.Trigger class="flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out">
+                                            <InlineLink>Clan Info</InlineLink>
+                                        </Popover.Trigger>
+                                        <Popover.Portal>
+                                            <Popover.Content class="z-20 max-w-80 rounded-lg p-2">
+                                                <div
+                                                    class="flex flex-col rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-base"
+                                                >
+                                                    <ClanInfo {clan} />
+                                                </div>
+                                            </Popover.Content>
+                                        </Popover.Portal>
+                                    </Popover.Root>
                                     <InlineLink
                                         href={`https://link.clashofclans.com/en?action=OpenClanProfile&tag=${clan.clanData?.tag}`}
                                         class="group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out"

@@ -14,7 +14,8 @@
     let items: Item[] = [
         { name: "Home", href: "/" },
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
-        { name: "Clans", href: "/clans" }
+        { name: "Clans", href: "/clans" },
+        { name: "Rules", href: "/clans/rules" }
     ];
 
     let { user }: { user: UserData | null } = $props();

@@ -15,32 +15,6 @@ export async function getClanApplicationFromTag(db: DB, tag: schema.SelectClanAp
     return db.select({ tag: schema.clanApplicationTable.tag }).from(schema.clanApplicationTable).where(eq(schema.clanApplicationTable.tag, tag));
 }
 
-export async function getClanPublicData(
-    db: DB,
-    tag: schema.SelectClan["clanTag"]
-): Promise<
-    Array<{
-        clanTag: schema.SelectClan["clanTag"];
-        clanLevel: schema.SelectClan["clanLevel"];
-        attacksRequirement: schema.SelectClan["attacksRequirement"];
-        donationsRequirement: schema.SelectClan["donationsRequirement"];
-        clangamesRequirement: schema.SelectClan["clangamesRequirement"];
-        clanData: schema.SelectClan["clanData"];
-    }>
-> {
-    return db
-        .select({
-            clanTag: schema.clanTable.clanTag,
-            clanLevel: schema.clanTable.clanLevel,
-            attacksRequirement: schema.clanTable.attacksRequirement,
-            donationsRequirement: schema.clanTable.donationsRequirement,
-            clangamesRequirement: schema.clanTable.clangamesRequirement,
-            clanData: schema.clanTable.clanData
-        })
-        .from(schema.clanTable)
-        .where(eq(schema.clanTable.clanTag, tag));
-}
-
 export async function getClansPublicData(db: DB): Promise<
     Array<{
         clanTag: schema.SelectClan["clanTag"];

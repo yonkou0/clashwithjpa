@@ -7,7 +7,6 @@
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
-    import { fade } from "svelte/transition";
 
     let { user }: { user: UserData | null } = $props();
 
@@ -30,7 +29,6 @@
         <Popover.Portal>
             <Popover.Content class="z-20 max-w-80 rounded-lg p-2">
                 <div
-                    transition:fade
                     class="flex flex-col gap-5 rounded-lg border border-gray-950 bg-gradient-to-b from-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
                 >
                     <div class="flex gap-x-5">

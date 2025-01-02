@@ -7,6 +7,5 @@ export const load = (async ({ setHeaders, locals }) => {
     setHeaders({
         "cache-control": "max-age=6000" // 100 minutes
     });
-
     return { clans: data };
 }) satisfies PageServerLoad;
