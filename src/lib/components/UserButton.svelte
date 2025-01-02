@@ -36,7 +36,7 @@
                     <div class="flex gap-x-5">
                         <Button onclick={logout} class="p-2" type="danger">
                             <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
-                            <span class="text-xs">Logout</span>
+                            <span class="text-sm">Logout</span>
                         </Button>
                         <Button
                             onclick={() => {
@@ -48,12 +48,12 @@
                             class="p-2"
                         >
                             <MaterialSymbolsLabProfileRounded class="size-5 transition-transform" />
-                            <span class="text-xs">Apply</span>
+                            <span class="text-sm">Apply</span>
                         </Button>
                     </div>
                     <Button href="/cwl" class="p-2">
                         <MdiSwordCross class="size-5 transition-transform" />
-                        <span class="text-xs">Clan War League</span>
+                        <span class="text-sm">Clan War League</span>
                     </Button>
                 </div>
             </Popover.Content>

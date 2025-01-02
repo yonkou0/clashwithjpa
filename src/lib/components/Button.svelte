@@ -16,13 +16,13 @@
     let sizeClass: string = $derived.by(() => {
         switch (size) {
             case "sm":
-                return "text-sm px-2 py-1 lg:px-3 lg:py-2";
+                return "text-base px-2 py-1 lg:px-3 lg:py-2";
             case "md":
-                return "text-base px-4 py-2 lg:px-5 lg:py-3";
+                return "text-lg px-4 py-2 lg:px-5 lg:py-3";
             case "lg":
-                return "text-lg px-4 py-3 lg:px-6 lg:py-4";
+                return "text-xl px-4 py-3 lg:px-6 lg:py-4";
             case "xl":
-                return "text-xl px-6 py-4 lg:px-8 lg:py-5";
+                return "text-2xl px-6 py-4 lg:px-8 lg:py-5";
             default:
                 return "";
         }

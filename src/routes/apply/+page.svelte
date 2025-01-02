@@ -52,7 +52,7 @@
                 sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
             >
             </iframe>
-            <p class="text-center text-xl font-bold">Join the server to apply</p>
+            <p class="text-center text-2xl font-bold">Join the server to apply</p>
             <Button href="https://discord.clashwithjpa.com" class="mt-5" size="md">Join Server</Button>
         </div>
     {:else}

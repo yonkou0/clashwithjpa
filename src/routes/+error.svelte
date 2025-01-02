@@ -13,8 +13,8 @@
 
     <div class="flex size-full items-center justify-center overflow-hidden bg-gray-950/50">
         <div class="flex size-full flex-col items-center justify-center space-y-1 p-5">
-            <h1 class="text-3xl font-bold md:text-5xl lg:text-4xl">{page.status}</h1>
-            <h2 class="text-lg font-semibold text-gray-400 lg:text-xl">{page.error?.message}</h2>
+            <h1 class="text-4xl font-bold md:text-6xl lg:text-5xl">{page.status}</h1>
+            <h2 class="text-xl font-semibold text-gray-400 lg:text-2xl">{page.error?.message}</h2>
             <div class="pt-5">
                 <Button href="/" size="md" class="group">
                     <MaterialSymbolsChevronLeftRounded class="size-8 transition-transform group-hover:-translate-x-2 " />

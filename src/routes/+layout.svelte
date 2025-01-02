@@ -37,7 +37,7 @@
     toastOptions={{
         classes: {
             toast: "mb-[100px] ml-[130px] !w-[40vw] lg:!w-full shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] rounded-md",
-            title: "font-coc text-xs",
+            title: "font-coc text-sm",
             description: "font-coc text-[0.65rem] brightness-75"
         }
     }}

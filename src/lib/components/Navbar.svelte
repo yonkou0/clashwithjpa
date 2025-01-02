@@ -33,7 +33,7 @@
     <div class="flex w-full items-center justify-between">
         <a href="/" class="flex items-center justify-center space-x-1">
             <img src="/logo.webp" alt="Logo" class="size-12" />
-            <p class="text-xl">JPA</p>
+            <p class="text-2xl">JPA</p>
         </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
             <UserButton {user} />

@@ -48,8 +48,8 @@
 
     <div class="z-10 flex size-full items-center justify-center bg-gray-950/50 p-5">
         <div class="flex flex-col items-center text-center sm:w-3/4 md:w-1/2">
-            <H1 class="text-4xl lg:text-5xl">Clash With JPA</H1>
-            <p class="text-md mt-4 lg:text-lg">
+            <H1 class="text-5xl lg:text-6xl">Clash With JPA</H1>
+            <p class="text-lg mt-4 lg:text-xl">
                 FWA experts in War-Farming, offering diverse clans and simultaneous 50v50 FWA wars and CWL action. Join one of the clans in our family
                 today!
             </p>
