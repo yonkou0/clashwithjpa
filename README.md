@@ -26,7 +26,7 @@ Clash With JPA
 
 ## 🌐 Production
 
-1. Follow steps 1 & 2 from the [installation guide](#-installation). _Ignore if already done._
+1. Follow steps 1 & 2 from the [installation guide](#-installation). *Ignore if already done.*
 
 2. Build the app
     ```sh
@@ -53,7 +53,6 @@ Now that you have the app running, you can edit the data in the [`data`](./data/
         - This role will have access to the admin panel.
 
     </details>
-- [`clans.json`](./data/clans.json): Contains the list of clans tags and requirements.
 - [`clans/<clan-tag>.md`](./data/clans/): Contains the requirements for the clan with the specified tag.
 - [`clans/components`](./data/clans/components/): Contains information which are common for all clans.
 - [`clans/components/order.json`](./data/clans/components/order.json): Contains the order of common components to be displayed in the clan page.
@@ -70,7 +69,7 @@ Now that you have the app running, you can edit the data in the [`data`](./data/
 > [!IMPORTANT]
 > The label name declared in the [`clans.json`](./data/clans.json) file should match the file name in the [`static/labels`](./static/labels/) directory.
 
-## Working with database and drizzle
+## 📂 Working with database and drizzle
 
 To make any changes to the database, you have to follow certain steps to avoid issues
 
