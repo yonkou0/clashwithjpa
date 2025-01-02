@@ -26,7 +26,7 @@
                     <p class="max-w-2xl text-lg font-medium md:text-xl">
                         With over {data.clans.length} clans we have a place for everyone.
                         <span>
-                            Clans range from LVL{Math.min(...data.clans.map((clan) => clan.clanLevel ?? 0))} to LVL{Math.max(
+                            Clans range from LVL. {Math.min(...data.clans.map((clan) => clan.clanLevel ?? 0))} to LVL. {Math.max(
                                 ...data.clans.map((clan) => clan.clanLevel ?? 0)
                             )}.
                         </span>
