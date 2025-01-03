@@ -3,16 +3,16 @@
     import { onMount, type Component } from "svelte";
     import { fade } from "svelte/transition";
     import MaterialSymbolsArrowUpwardRounded from "~icons/material-symbols/arrow-upward-rounded";
-    import order from "../../../../data/clans/components/order.json";
+    import order from "../../../../data/rules/order.json";
 
-    const commonComponentFiles: Record<string, object> = import.meta.glob("../../../../data/clans/components/*.md", { eager: true });
-    const commonComponentOrder: string[] = JSON.parse(JSON.stringify(order));
-    const basePath = "../../../../data/clans/components/";
+    const ruleFiles: Record<string, object> = import.meta.glob("../../../../data/rules/*.md", { eager: true });
+    const rulesOrder: string[] = JSON.parse(JSON.stringify(order));
+    const basePath = "../../../../data/rules/";
 
-    const sortedCommonComponentFiles: Record<string, { default: Component }> = Object.entries(commonComponentFiles)
+    const shortedRuleFiles: Record<string, { default: Component }> = Object.entries(ruleFiles)
         .sort(([a], [b]) => {
-            const aIndex = commonComponentOrder.indexOf(a.replace(basePath, ""));
-            const bIndex = commonComponentOrder.indexOf(b.replace(basePath, ""));
+            const aIndex = rulesOrder.indexOf(a.replace(basePath, ""));
+            const bIndex = rulesOrder.indexOf(b.replace(basePath, ""));
             return aIndex - bIndex;
         })
         .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
@@ -53,8 +53,8 @@
         class="w-full flex-1 pt-5 marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400 lg:pl-5 lg:pt-0"
     >
         <article class="prose prose-invert w-full max-w-none">
-            {#each Object.keys(sortedCommonComponentFiles) as componentFile}
-                {@const SvelteComponent = sortedCommonComponentFiles[componentFile].default}
+            {#each Object.keys(shortedRuleFiles) as componentFile}
+                {@const SvelteComponent = shortedRuleFiles[componentFile].default}
                 <SvelteComponent />
             {/each}
         </article>
