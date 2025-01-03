@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterNavigate, beforeNavigate } from "$app/navigation";
+    import { afterNavigate, beforeNavigate, onNavigate } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
     import Navbar from "$lib/components/Navbar.svelte";
     import { subscribeToast } from "$lib/components/toast";
@@ -16,6 +16,17 @@
     }
 
     let { data, children }: Props = $props();
+
+    onNavigate((navigation) => {
+        if (!document.startViewTransition) return;
+
+        return new Promise((resolve) => {
+            document.startViewTransition(async () => {
+                resolve();
+                await navigation.complete;
+            });
+        });
+    });
 
     NProgress.configure({ showSpinner: false });
     beforeNavigate(() => {
