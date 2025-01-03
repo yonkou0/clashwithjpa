@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from "$lib/components/utils/cn";
+    import type { Snippet } from "svelte";
 
     interface Props {
         class?: string | undefined;
@@ -10,7 +11,7 @@
         rotateY?: number | string | undefined;
         rotateZ?: number | string | undefined;
         isMouseEntered?: boolean;
-        children?: import("svelte").Snippet;
+        children?: Snippet;
     }
     let {
         class: className = undefined,

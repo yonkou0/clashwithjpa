@@ -4,6 +4,7 @@
     import Navbar from "$lib/components/Navbar.svelte";
     import { subscribeToast } from "$lib/components/toast";
     import NProgress from "nprogress";
+    import type { Snippet } from "svelte";
     import { Toaster } from "svelte-sonner";
     import { slide } from "svelte/transition";
     import "../app.css";
@@ -12,7 +13,7 @@
 
     interface Props {
         data: PageData;
-        children?: import("svelte").Snippet;
+        children?: Snippet;
     }
 
     let { data, children }: Props = $props();

@@ -2,6 +2,7 @@
     import { page } from "$app/state";
     import { cn } from "$lib/components/utils/cn";
     import { Button } from "bits-ui";
+    import type { Snippet } from "svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
 
     interface Props {
@@ -10,7 +11,7 @@
         arrow?: boolean;
         newTab?: boolean;
         onclick?: () => void;
-        children: import("svelte").Snippet;
+        children: Snippet;
     }
     let { href = null, class: className = "", arrow = false, newTab = false, onclick = () => {}, children }: Props = $props();
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { Button } from "bits-ui";
     import { cn } from "$lib/components/utils/cn";
+    import { Button } from "bits-ui";
+    import type { Snippet } from "svelte";
 
     interface Props {
         class?: string;
@@ -8,7 +9,7 @@
         size?: "sm" | "md" | "lg" | "xl" | "";
         href?: string;
         onclick?: () => void;
-        children?: import("svelte").Snippet;
+        children?: Snippet;
     }
 
     let { class: className = "", type = "normal", size = "", href = "", onclick = () => {}, children }: Props = $props();

@@ -1,11 +1,12 @@
 <script lang="ts">
     import { cn } from "$lib/components/utils/cn";
+    import type { Snippet } from "svelte";
 
     interface Props {
         class?: string | undefined;
         containerClassName?: string | undefined;
         isMouseEntered?: boolean;
-        children?: import("svelte").Snippet;
+        children?: Snippet;
     }
     let { class: className = undefined, containerClassName = undefined, isMouseEntered = $bindable(false), children, ...props }: Props = $props();
 
