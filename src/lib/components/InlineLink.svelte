@@ -2,15 +2,17 @@
     import { page } from "$app/state";
     import { cn } from "$lib/components/utils/cn";
     import { Button } from "bits-ui";
+    import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
 
     interface Props {
         href?: string | null;
         class?: string;
+        arrow?: boolean;
         newTab?: boolean;
         onclick?: () => void;
         children: import("svelte").Snippet;
     }
-    let { href = null, class: className = "", onclick = () => {}, newTab = false, children }: Props = $props();
+    let { href = null, class: className = "", arrow = false, newTab = false, onclick = () => {}, children }: Props = $props();
 
     function getClass(pathname: string, href: string | null): string {
         const baseClass =
@@ -21,6 +23,15 @@
     }
 </script>
 
-<Button.Root {href} target={newTab ? "_blank" : ""} class={cn(getClass(page.url.pathname, href), className)} {onclick} data-sveltekit-preload-data>
+<Button.Root
+    {href}
+    target={newTab ? "_blank" : ""}
+    class={cn(getClass(page.url.pathname, href), className, "group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out")}
+    {onclick}
+    data-sveltekit-preload-data
+>
     {@render children?.()}
+    {#if arrow}
+        <PhArrowUpRightBold class="size-fit transition-transform group-hover:-translate-y-1 group-hover:translate-x-2" />
+    {/if}
 </Button.Root>

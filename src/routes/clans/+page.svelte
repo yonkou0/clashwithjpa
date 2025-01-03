@@ -5,7 +5,6 @@
     import CardBody from "$lib/components/3D/CardBody.svelte";
     import CardContainer from "$lib/components/3D/CardContainer.svelte";
     import CardItem from "$lib/components/3D/CardItem.svelte";
-    import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
     import { Popover } from "bits-ui";
     import ClanInfo from "$lib/components/ClanInfo.svelte";
 
@@ -32,13 +31,8 @@
                         </span>
                         Each having their own rules and requirements. Find the right clan for you today!
                     </p>
-                    <InlineLink
-                        href="https://discord.clashwithjpa.com/"
-                        class="group mt-4 flex items-center space-x-1 font-semibold transition-all duration-300 ease-in-out"
-                        newTab={true}
-                    >
+                    <InlineLink href="https://discord.clashwithjpa.com/" class="mt-4" arrow={true} newTab={true}>
                         <span>Join our Discord</span>
-                        <PhArrowUpRightBold class="size-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2" />
                     </InlineLink>
                 </div>
             </div>
@@ -72,8 +66,8 @@
                                 </div>
                                 <div class="mt-4 flex flex-col items-start gap-2 transition">
                                     <Popover.Root>
-                                        <Popover.Trigger class="flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out">
-                                            <InlineLink>Clan Info</InlineLink>
+                                        <Popover.Trigger class="flex items-center space-x-1 transition-all duration-300 ease-in-out">
+                                            <InlineLink class="text-sm">Clan Info</InlineLink>
                                         </Popover.Trigger>
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-lg p-2">
@@ -87,13 +81,10 @@
                                     </Popover.Root>
                                     <InlineLink
                                         href={`https://link.clashofclans.com/en?action=OpenClanProfile&tag=${clan.clanData?.tag}`}
-                                        class="group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out"
+                                        arrow={true}
                                         newTab={true}
                                     >
                                         <span>Open in Game</span>
-                                        <PhArrowUpRightBold
-                                            class="size-3 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2"
-                                        />
                                     </InlineLink>
                                 </div>
                             </CardItem>

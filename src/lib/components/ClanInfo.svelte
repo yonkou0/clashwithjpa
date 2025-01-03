@@ -32,8 +32,8 @@
     <div class="flex flex-row items-center justify-start space-x-4">
         <img class="size-14" src={clan.clanData?.badgeUrls.medium} alt={clan.clanData?.name} />
         <div class="flex flex-col items-start justify-center">
-            <h1 class="text-xl font-semibold md:text-2xl lg:text-3xl">{clan.clanData?.name}</h1>
-            <p class="text-base">{clan.clanData?.tag}</p>
+            <h1 class="text-xl font-semibold md:text-2xl">{clan.clanData?.name}</h1>
+            <p class="text-sm">{clan.clanData?.tag}</p>
         </div>
     </div>
     <div class="text-base">
