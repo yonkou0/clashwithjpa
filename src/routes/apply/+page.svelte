@@ -34,7 +34,7 @@
     });
 
     let buttonDisabled = $derived.by(() => {
-        return !$formData.tag || !$formData.apiToken || !$formData["cf-turnstile-response"];
+        return dev ? false : !$formData.tag || !$formData.apiToken || !$formData["cf-turnstile-response"];
     });
 
     let reset = $state<() => void>();
@@ -59,7 +59,7 @@
         <div class="flex w-screen items-center justify-center lg:justify-start">
             <!-- Image -->
             <div
-                class="z-10 hidden h-screen w-1/2 overflow-hidden bg-cover bg-center bg-no-repeat lg:flex items-center justify-center"
+                class="z-10 hidden h-screen w-1/2 items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:flex"
                 style="background-image: url('/forms.webp');"
             >
                 {#if dev}
@@ -108,7 +108,11 @@
                             bind:reset
                         />
                     </Field>
-                    <button disabled={buttonDisabled} type="submit" class="mt-4 rounded-xl bg-white px-4 py-3 text-gray-800 disabled:bg-gray-400">
+                    <button
+                        disabled={buttonDisabled}
+                        type="submit"
+                        class="mt-4 rounded-xl bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                    >
                         Submit
                     </button>
                 </form>
