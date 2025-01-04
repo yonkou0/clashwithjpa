@@ -1,7 +1,6 @@
 <script lang="ts">
     import { page } from "$app/state";
     import { cn } from "$lib/components/utils/cn";
-    import { Button } from "bits-ui";
     import type { Snippet } from "svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
 
@@ -24,7 +23,10 @@
     }
 </script>
 
-<Button.Root
+<svelte:element
+    this={href ? "a" : "div"}
+    role={href ? "link" : "button"}
+    tabindex={0}
     {href}
     target={newTab ? "_blank" : ""}
     class={cn(getClass(page.url.pathname, href), className, "group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out")}
@@ -35,4 +37,4 @@
     {#if arrow}
         <PhArrowUpRightBold class="size-fit transition-transform group-hover:-translate-y-1 group-hover:translate-x-2" />
     {/if}
-</Button.Root>
+</svelte:element>

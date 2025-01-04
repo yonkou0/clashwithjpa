@@ -1,6 +1,5 @@
 <script lang="ts">
     import { cn } from "$lib/components/utils/cn";
-    import { Button } from "bits-ui";
     import type { Snippet } from "svelte";
 
     interface Props {
@@ -43,7 +42,10 @@
     });
 </script>
 
-<Button.Root
+<svelte:element
+    this={href ? "a" : "button"}
+    role={href ? "link" : "button"}
+    tabindex="0"
     class={cn(
         `z-10 flex items-center justify-center rounded-xl bg-gradient-to-b ${typeClass} shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90`,
         sizeClass,
@@ -51,6 +53,7 @@
     )}
     {onclick}
     {href}
+    data-sveltekit-preload-data="hover"
 >
     <div
         class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_4px_0_var(--tw-shadow-color)]"
@@ -58,4 +61,4 @@
     >
         {@render children?.()}
     </div>
-</Button.Root>
+</svelte:element>
