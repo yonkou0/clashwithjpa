@@ -32,7 +32,7 @@
     class:!backdrop-blur-md={isOpen}
 >
     <div class="flex w-full items-center justify-between">
-        <a href="/" class="flex items-center justify-center space-x-1">
+        <a href="/" class="flex items-center justify-center space-x-1" data-sveltekit-preload-data="hover">
             <img src="/logo.webp" alt="Logo" class="size-12" />
             <p class="text-2xl">JPA</p>
         </a>
