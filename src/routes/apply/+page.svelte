@@ -25,11 +25,7 @@
         if ($message && page.status === 200) {
             toast.success($message);
         } else if ($message && page.status === 400) {
-            if ($message === "Already in guild") {
-                toast.error("You are already in the guild");
-            } else {
-                toast.error("There was an error submitting your application");
-            }
+            toast.error("There was an error submitting your application");
         }
     });
 
@@ -69,7 +65,33 @@
                 {/if}
             </div>
             <!-- Forms -->
-            <div class="flex items-center justify-center px-5 lg:w-1/2">
+            <div class="flex flex-col items-center justify-center px-5 lg:w-1/2">
+                {#if data.applications.length}
+                    <div class="mb-4 flex flex-col items-center justify-center">
+                        <h3>Your previous applications</h3>
+                        <ul class="flex flex-col gap-2">
+                            {#each data.applications as application}
+                                <li class="flex flex-col gap-1">
+                                    <p>
+                                        {application.tag} -
+                                        <span
+                                            class={application.status === "approved"
+                                                ? "text-green-400"
+                                                : application.status === "rejected"
+                                                  ? "text-red-400"
+                                                  : application.status === "pending"
+                                                    ? "text-yellow-400"
+                                                    : ""}
+                                        >
+                                            {application.status}
+                                        </span>
+                                    </p>
+                                </li>
+                            {/each}
+                        </ul>
+                    </div>
+                {/if}
+
                 <form method="POST" action="/apply" use:enhance class="flex w-full max-w-lg flex-col gap-2">
                     <Field {form} name="tag">
                         <Description>Your account tag (include #)</Description>
@@ -100,9 +122,6 @@
                             class="text-center"
                             on:callback={(event) => {
                                 $formData["cf-turnstile-response"] = event.detail.token;
-                            }}
-                            on:expired={() => {
-                                reset?.();
                             }}
                             siteKey={PUBLIC_TURNSTILE_SITE_KEY}
                             bind:reset

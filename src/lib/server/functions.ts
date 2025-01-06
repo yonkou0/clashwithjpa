@@ -11,20 +11,15 @@ export async function createClanApplication(db: DB, data: schema.InsertClanAppli
     await db.insert(schema.clanApplicationTable).values(data);
 }
 
-export async function getClanApplicationFromTag(db: DB, tag: schema.SelectClanApplication["tag"]): Promise<Array<{ tag: string }>> {
+export async function getClanApplicationFromTag(db: DB, tag: schema.SelectClanApplication["tag"]) {
     return db.select({ tag: schema.clanApplicationTable.tag }).from(schema.clanApplicationTable).where(eq(schema.clanApplicationTable.tag, tag));
 }
 
-export async function getClansPublicData(db: DB): Promise<
-    Array<{
-        clanTag: schema.SelectClan["clanTag"];
-        clanLevel: schema.SelectClan["clanLevel"];
-        attacksRequirement: schema.SelectClan["attacksRequirement"];
-        donationsRequirement: schema.SelectClan["donationsRequirement"];
-        clangamesRequirement: schema.SelectClan["clangamesRequirement"];
-        clanData: schema.SelectClan["clanData"];
-    }>
-> {
+export async function getClanApplicationFromDiscordId(db: DB, discordId: schema.SelectClanApplication["discordId"]) {
+    return db.select().from(schema.clanApplicationTable).where(eq(schema.clanApplicationTable.discordId, discordId));
+}
+
+export async function getClansPublicData(db: DB) {
     return db
         .select({
             clanTag: schema.clanTable.clanTag,

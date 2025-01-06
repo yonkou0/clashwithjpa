@@ -8,17 +8,19 @@ import { fail, redirect } from "@sveltejs/kit";
 import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-import { createClanApplication, getClanApplicationFromTag } from "$lib/server/functions";
+import { createClanApplication, getClanApplicationFromTag, getClanApplicationFromDiscordId } from "$lib/server/functions";
 
 export const load: PageServerLoad = async ({ locals }) => {
     const user = locals.user;
+    const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
     if (!user) {
         return redirect(302, "/");
     }
 
     return {
         form: await superValidate(zod(clanApplicationSchema)),
-        user: user
+        user: user,
+        applications: applications
     };
 };
 
