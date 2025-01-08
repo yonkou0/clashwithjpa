@@ -22,10 +22,15 @@
     });
     const { form: formData, enhance, message } = form;
     $effect(() => {
-        if ($message && page.status === 200) {
-            toast.success($message);
-        } else if ($message && page.status === 400) {
-            toast.error("There was an error submitting your application");
+        if ($message && (page.status === 200 || page.status == 400)) {
+            switch (page.status) {
+                case 200:
+                    toast.success($message);
+                    break;
+                case 400:
+                    toast.error($message);
+                    break;
+            }
         }
     });
 
@@ -117,16 +122,18 @@
                         </Control>
                         <FieldErrors class="text-red-400" />
                     </Field>
-                    <Field {form} name="cf-turnstile-response">
-                        <Turnstile
-                            class="text-center"
-                            on:callback={(event) => {
-                                $formData["cf-turnstile-response"] = event.detail.token;
-                            }}
-                            siteKey={PUBLIC_TURNSTILE_SITE_KEY}
-                            bind:reset
-                        />
-                    </Field>
+                    {#if !dev}
+                        <Field {form} name="cf-turnstile-response">
+                            <Turnstile
+                                class="text-center"
+                                on:callback={(event) => {
+                                    $formData["cf-turnstile-response"] = event.detail.token;
+                                }}
+                                siteKey={PUBLIC_TURNSTILE_SITE_KEY}
+                                bind:reset
+                            />
+                        </Field>
+                    {/if}
                     <button
                         disabled={buttonDisabled}
                         type="submit"

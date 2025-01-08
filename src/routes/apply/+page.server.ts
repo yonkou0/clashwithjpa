@@ -1,14 +1,15 @@
+import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
-import { clanApplicationSchema } from "$lib/schema";
-import { type InsertClanApplication } from "$lib/server/schema";
 import { validateCFToken } from "$lib/helpers";
+import { clanApplicationSchema } from "$lib/schema";
+import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag } from "$lib/server/functions";
+import { type InsertClanApplication } from "$lib/server/schema";
 import { fail, redirect } from "@sveltejs/kit";
 import { message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-import { createClanApplication, getClanApplicationFromTag, getClanApplicationFromDiscordId } from "$lib/server/functions";
 
 export const load: PageServerLoad = async ({ locals }) => {
     const user = locals.user;
@@ -33,13 +34,15 @@ export const actions: Actions = {
             });
         }
 
-        const cfToken = form.data["cf-turnstile-response"];
-        const cfData = await validateCFToken(cfToken, TURNSTILE_SECRET_KEY);
+        if (!dev) {
+            const cfToken = form.data["cf-turnstile-response"];
+            const cfData = await validateCFToken(cfToken, TURNSTILE_SECRET_KEY);
 
-        if (!cfData.success) {
-            return message(form, "Invalid captcha response", {
-                status: 400
-            });
+            if (!cfData.success) {
+                return message(form, "Invalid captcha response", {
+                    status: 400
+                });
+            }
         }
 
         const playerTag = form.data.tag;
