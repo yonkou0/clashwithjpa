@@ -46,7 +46,7 @@
         return dev ? false : !$formData.tag || !$formData.apiToken || !$formData["cf-turnstile-response"];
     });
 
-    let showPrevApps: boolean = $state(true);
+    let showPrevApps: boolean = $state(false);
 
     let pendingApps = $derived.by(() => {
         return Object.keys(data.applications.filter((app) => app.status === "pending")).length;
