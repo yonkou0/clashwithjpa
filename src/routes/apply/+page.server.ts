@@ -50,13 +50,8 @@ export const actions: Actions = {
 
         const playerVerifyData = await postVerifyToken(PUBLIC_API_BASE_URI, playerTag, playerToken, API_TOKEN);
 
-        if ("reason" in playerVerifyData) {
-            return message(form, "Invalid player tag or token", {
-                status: 400
-            });
-        }
-
-        if (playerVerifyData.status !== "ok") {
+        if ("reason" in playerVerifyData || playerVerifyData.status !== "ok") {
+            console.error(playerVerifyData)
             return message(form, "Invalid player tag or token", {
                 status: 400
             });

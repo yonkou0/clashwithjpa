@@ -6,10 +6,11 @@
     import NProgress from "nprogress";
     import type { Snippet } from "svelte";
     import { Toaster } from "svelte-sonner";
-    import { slide } from "svelte/transition";
+    import { fly } from "svelte/transition";
     import "../app.css";
     import "../nprogress.css";
     import type { PageData } from "./$types";
+    import { expoOut } from "svelte/easing";
 
     interface Props {
         data: PageData;
@@ -56,7 +57,12 @@
 ></Toaster>
 
 {#if show}
-    <img transition:slide={{ duration: 200 }} src="/villager.webp" alt="Villager" class="fixed -bottom-24 left-0 z-[1000] h-80 lg:h-96" />
+    <img
+        transition:fly={{ duration: 500, easing: expoOut, x: 0, y: 100 }}
+        src="/villager.webp"
+        alt="Villager"
+        class="fixed -bottom-24 left-0 z-[1000] h-80 lg:h-96"
+    />
 {/if}
 
 <main class="h-screen w-screen">
