@@ -55,6 +55,10 @@
     let reset = $state<() => void>();
 </script>
 
+<svelte:head>
+    <title>JPA | Apply</title>
+</svelte:head>
+
 <main class="flex size-full flex-col items-center justify-center">
     {#if data.user && !data.user.inGuild}
         <div class="flex flex-col items-center justify-center">
