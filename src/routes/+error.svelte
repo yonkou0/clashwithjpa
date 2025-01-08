@@ -17,7 +17,7 @@
             <h2 class="text-xl font-semibold text-gray-400 lg:text-2xl">{page.error?.message}</h2>
             <div class="pt-5">
                 <Button href="/" size="md" class="group">
-                    <MaterialSymbolsChevronLeftRounded class="size-8 transition-transform group-hover:-translate-x-2 " />
+                    <MaterialSymbolsChevronLeftRounded class="size-8 transition-transform group-hover:-translate-x-2" />
                     <span>Homepage</span>
                 </Button>
             </div>
