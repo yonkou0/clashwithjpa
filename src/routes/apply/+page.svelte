@@ -76,10 +76,10 @@
             <Button href="https://discord.clashwithjpa.com" class="mt-5" size="md">Join Server</Button>
         </div>
     {:else}
-        <div class="flex w-screen items-center justify-center lg:justify-start">
+        <div class="flex h-screen w-screen items-center justify-center lg:justify-start">
             <!-- Image -->
             <div
-                class="z-10 hidden h-screen w-1/2 items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:flex"
+                class="z-10 hidden h-full w-1/2 items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:flex"
                 style="background-image: url('/forms.webp');"
             >
                 {#if dev}
@@ -89,55 +89,75 @@
                 {/if}
             </div>
             <!-- Forms -->
-            <div class="flex w-full flex-col items-center justify-center px-5 lg:w-1/2">
+            <div class="flex size-full flex-col items-center justify-center lg:w-1/2">
                 {#if data.applications.length && showPrevApps}
-                    <div in:fade class="mb-4 flex size-full flex-col justify-center gap-5 p-10">
+                    <div in:fade class="flex size-full flex-col justify-center">
                         <h3 class="text-center">Previous Applications</h3>
-                        <ul class="flex flex-col gap-2">
+                        <ul class="mt-5 flex max-h-[60%] flex-col gap-2 overflow-y-scroll rounded-lg px-5">
                             {#each Object.entries(data.applications.reduce((acc: { [key: string]: typeof data.applications }, app) => {
                                     const date = new Date(app.createdAt).toLocaleString("en-IN", { month: "long", day: "numeric", year: "numeric" });
                                     if (!acc[date]) acc[date] = [];
                                     acc[date].push(app);
                                     return acc;
                                 }, {})) as [date, applications]}
-                                <li>
-                                    <p class="flex items-center text-gray-500">
+                                <li class="flex w-full flex-col items-start justify-center">
+                                    <p class="flex w-full items-center text-gray-500">
                                         {date}
-                                        <span class="mx-2 flex-grow rounded-xl border-t border-gray-500"></span>
+                                        <span class="mx-2 flex-grow rounded-lg border-t border-gray-500"></span>
                                     </p>
-                                    <ul class="ml-5 mt-5">
+                                    <ul class="mt-2 flex w-full flex-wrap items-center justify-center gap-2">
                                         {#each applications as application}
-                                            <p class="flex items-center justify-start gap-1">
-                                                <span
-                                                    class={application.status === "approved"
-                                                        ? "text-green-400"
-                                                        : application.status === "rejected"
-                                                          ? "text-red-400"
-                                                          : application.status === "pending"
-                                                            ? "text-yellow-400"
-                                                            : ""}
-                                                >
-                                                    <Tooltip.Provider>
-                                                        <Tooltip.Root delayDuration={200}>
-                                                            <Tooltip.Trigger>
-                                                                {#if application.status === "approved"}
-                                                                    <MaterialSymbolsCheckCircle class="size-6" />
-                                                                {:else if application.status === "rejected"}
-                                                                    <MaterialSymbolsCancelRounded class="size-6" />
-                                                                {:else if application.status === "pending"}
-                                                                    <MaterialSymbolsWarningRounded class="size-6" />
-                                                                {/if}
-                                                            </Tooltip.Trigger>
-                                                            <Tooltip.Content
-                                                                class="rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
-                                                            >
-                                                                {application.status.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase())}
-                                                            </Tooltip.Content>
-                                                        </Tooltip.Root>
-                                                    </Tooltip.Provider>
-                                                </span>
-                                                {application.tag}
-                                            </p>
+                                            <div
+                                                class="flex w-fit items-center justify-between gap-5 rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                            >
+                                                <div class="flex items-center justify-center gap-1">
+                                                    <span
+                                                        class:text-red-400={application.status === "rejected"}
+                                                        class:text-yellow-400={application.status === "pending"}
+                                                        class:text-green-400={application.status === "approved"}
+                                                    >
+                                                        <Tooltip.Provider>
+                                                            <Tooltip.Root delayDuration={200}>
+                                                                <Tooltip.Trigger class="cursor-default">
+                                                                    {#if application.status === "approved"}
+                                                                        <MaterialSymbolsCheckCircle class="size-10" />
+                                                                    {:else if application.status === "rejected"}
+                                                                        <MaterialSymbolsCancelRounded class="size-10" />
+                                                                    {:else if application.status === "pending"}
+                                                                        <MaterialSymbolsWarningRounded class="size-10" />
+                                                                    {/if}
+                                                                </Tooltip.Trigger>
+                                                                <Tooltip.Content
+                                                                    class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                >
+                                                                    {application.status.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase())}
+                                                                </Tooltip.Content>
+                                                            </Tooltip.Root>
+                                                        </Tooltip.Provider>
+                                                    </span>
+                                                    <span class="flex flex-col items-start justify-center">
+                                                        <Tooltip.Provider>
+                                                            <Tooltip.Root delayDuration={200}>
+                                                                <Tooltip.Trigger class="cursor-default">
+                                                                    <p class="w-24 truncate">{application.playerData.name}</p>
+                                                                </Tooltip.Trigger>
+                                                                <Tooltip.Content
+                                                                    class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                >
+                                                                    <p>{application.playerData.name}</p>
+                                                                </Tooltip.Content>
+                                                            </Tooltip.Root>
+                                                        </Tooltip.Provider>
+                                                        <p class="text-xs">{application.tag}</p>
+                                                    </span>
+                                                </div>
+                                                <p class="text-gray-400">
+                                                    {new Date(application.createdAt).toLocaleTimeString("en-IN", {
+                                                        hour: "numeric",
+                                                        minute: "numeric"
+                                                    })}
+                                                </p>
+                                            </div>
                                         {/each}
                                     </ul>
                                 </li>
@@ -145,7 +165,7 @@
                         </ul>
                     </div>
                 {:else}
-                    <form in:fade method="POST" action="/apply" use:enhance class="flex w-full max-w-lg flex-col gap-2">
+                    <form in:fade method="POST" action="/apply" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
                         <Field {form} name="tag">
                             <Description>Your account tag (include #)</Description>
                             <Control>
@@ -155,7 +175,7 @@
                                         type="text"
                                         placeholder="#ABCDEFGHI"
                                         bind:value={$formData.tag}
-                                        class="rounded-xl text-gray-700"
+                                        class="rounded-lg text-gray-700"
                                     />
                                 {/snippet}
                             </Control>
@@ -170,7 +190,7 @@
                                         type="text"
                                         placeholder="API Token"
                                         bind:value={$formData.apiToken}
-                                        class="rounded-xl text-gray-700"
+                                        class="rounded-lg text-gray-700"
                                     />
                                 {/snippet}
                             </Control>
@@ -191,7 +211,8 @@
                         <button
                             disabled={buttonDisabled || $delayed}
                             type="submit"
-                            class="mt-4 flex items-center justify-center rounded-xl bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                            class="mt-4 flex items-center justify-center rounded-lg bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                            class:cursor-wait={$delayed}
                         >
                             {#if $delayed}
                                 <span in:fly class="flex size-full items-center justify-center gap-2">
@@ -199,7 +220,7 @@
                                     Submitting...
                                 </span>
                             {:else}
-                                <span in:fly class="flex size-full items-center justify-center"> Submit </span>
+                                <span in:fly class="flex size-full items-center justify-center">Submit</span>
                             {/if}
                         </button>
                     </form>
@@ -207,13 +228,13 @@
                 {#if data.applications.length}
                     <div class="fixed bottom-0 w-full max-w-lg p-5 lg:w-1/2">
                         <button
-                            class="group w-full rounded-xl border border-gray-700 px-4 py-3 text-sm text-gray-500"
+                            class="group w-full rounded-lg border border-gray-700 px-4 py-3 text-sm text-gray-500"
                             onclick={() => (showPrevApps = !showPrevApps)}
                         >
                             {#if showPrevApps}
                                 <span in:fly={{ duration: 500, easing: expoOut, x: -100, y: 0 }} class="flex items-center justify-center gap-2">
                                     <MaterialSymbolsChevronLeftRounded class="size-6 transition-transform group-hover:-translate-x-1.5 " />
-                                    <span>Back to forms</span>
+                                    <span>Back to form</span>
                                 </span>
                             {:else}
                                 <span in:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }} class="flex items-center justify-center gap-2">

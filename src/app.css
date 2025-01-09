@@ -40,3 +40,6 @@ body {
     background-color: theme(colors.gray.800);
     border-radius: 0rem;
 }
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
