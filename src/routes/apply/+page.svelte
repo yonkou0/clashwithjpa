@@ -5,20 +5,20 @@
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { clanApplicationSchema } from "$lib/schema";
+    import { Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
     import { expoOut } from "svelte/easing";
     import { fade, fly } from "svelte/transition";
     import SuperDebug, { superForm } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
+    import MaterialSymbolsCancelRounded from "~icons/material-symbols/cancel-rounded";
+    import MaterialSymbolsCheckCircle from "~icons/material-symbols/check-circle";
     import MaterialSymbolsChevronLeftRounded from "~icons/material-symbols/chevron-left-rounded";
     import MaterialSymbolsChevronRightRounded from "~icons/material-symbols/chevron-right-rounded";
-    import MaterialSymbolsCancelRounded from "~icons/material-symbols/cancel-rounded";
     import MaterialSymbolsWarningRounded from "~icons/material-symbols/warning-rounded";
-    import MaterialSymbolsCheckCircle from "~icons/material-symbols/check-circle";
     import info from "../../../data/info.json";
     import type { PageData } from "./$types";
-    import { Tooltip } from "bits-ui";
 
     let { data }: { data: PageData } = $props();
 

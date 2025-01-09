@@ -46,15 +46,16 @@ export const actions: Actions = {
         }
 
         const playerTag = form.data.tag;
-        const playerToken = form.data.apiToken;
 
-        const playerVerifyData = await postVerifyToken(PUBLIC_API_BASE_URI, playerTag, playerToken, API_TOKEN);
-
-        if ("reason" in playerVerifyData || playerVerifyData.status !== "ok") {
-            console.error(playerVerifyData)
-            return message(form, "Invalid player tag or token", {
-                status: 400
-            });
+        if (!dev) {
+            const playerToken = form.data.apiToken;
+            const playerVerifyData = await postVerifyToken(PUBLIC_API_BASE_URI, playerTag, playerToken, API_TOKEN);
+            if ("reason" in playerVerifyData || playerVerifyData.status !== "ok") {
+                console.error(playerVerifyData);
+                return message(form, "Invalid player tag or token", {
+                    status: 400
+                });
+            }
         }
 
         const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, playerTag, API_TOKEN);
