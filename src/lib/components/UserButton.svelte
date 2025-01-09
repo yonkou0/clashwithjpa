@@ -27,9 +27,9 @@
             <img src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}.webp" alt="Avatar" class="size-8 rounded-full lg:size-11" />
         </Popover.Trigger>
         <Popover.Portal>
-            <Popover.Content class="z-20 max-w-80 rounded-lg p-2">
+            <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                 <div
-                    class="flex flex-col gap-5 rounded-lg border border-gray-950 bg-gradient-to-b from-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
+                    class="flex flex-col gap-5 rounded-xl border border-gray-950 bg-gradient-to-b from-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
                 >
                     <div class="flex gap-x-5">
                         <Button onclick={logout} class="p-2" type="danger">

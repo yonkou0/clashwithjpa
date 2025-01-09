@@ -93,7 +93,7 @@
                 {#if data.applications.length && showPrevApps}
                     <div in:fade class="flex size-full flex-col justify-center">
                         <h3 class="text-center">Previous Application{data.applications.length > 1 ? "s" : ""}</h3>
-                        <ul class="mt-5 flex max-h-[60%] flex-col gap-2 overflow-y-scroll rounded-lg px-5">
+                        <ul class="mt-5 flex max-h-[60%] flex-col gap-2 overflow-y-scroll rounded-xl px-5">
                             {#each Object.entries(data.applications.reduce((acc: { [key: string]: typeof data.applications }, app) => {
                                     const date = new Date(app.createdAt).toLocaleString("en-IN", { month: "long", day: "numeric", year: "numeric" });
                                     if (!acc[date]) acc[date] = [];
@@ -103,12 +103,12 @@
                                 <li class="flex w-full flex-col items-start justify-center">
                                     <p class="flex w-full items-center text-gray-500">
                                         {date}
-                                        <span class="mx-2 flex-grow rounded-lg border-t border-gray-500"></span>
+                                        <span class="mx-2 flex-grow rounded-xl border-t border-gray-500"></span>
                                     </p>
                                     <ul class="mt-2 flex w-full flex-wrap items-center justify-center gap-2">
                                         {#each applications as application}
                                             <div
-                                                class="flex w-fit items-center justify-between gap-5 rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                                class="flex w-fit items-center justify-between gap-5 rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                             >
                                                 <div class="flex items-center justify-center gap-1">
                                                     <span
@@ -128,7 +128,7 @@
                                                                     {/if}
                                                                 </Tooltip.Trigger>
                                                                 <Tooltip.Content
-                                                                    class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                    class="rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                                 >
                                                                     {application.status.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase())}
                                                                 </Tooltip.Content>
@@ -142,7 +142,7 @@
                                                                     <p class="w-24 truncate">{application.playerData.name}</p>
                                                                 </Tooltip.Trigger>
                                                                 <Tooltip.Content
-                                                                    class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                    class="rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                                 >
                                                                     <p>{application.playerData.name}</p>
                                                                 </Tooltip.Content>
@@ -175,7 +175,7 @@
                                         type="text"
                                         placeholder="#ABCDEFGHI"
                                         bind:value={$formData.tag}
-                                        class="rounded-lg text-gray-700"
+                                        class="rounded-xl text-gray-700"
                                     />
                                 {/snippet}
                             </Control>
@@ -190,7 +190,7 @@
                                         type="text"
                                         placeholder="API Token"
                                         bind:value={$formData.apiToken}
-                                        class="rounded-lg text-gray-700"
+                                        class="rounded-xl text-gray-700"
                                     />
                                 {/snippet}
                             </Control>
@@ -211,7 +211,7 @@
                         <button
                             disabled={buttonDisabled || $delayed}
                             type="submit"
-                            class="mt-4 flex items-center justify-center rounded-lg bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                            class="mt-4 flex items-center justify-center rounded-xl bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
                             class:cursor-wait={$delayed}
                         >
                             {#if $delayed}
@@ -228,7 +228,7 @@
                 {#if data.applications.length}
                     <div class="fixed bottom-0 w-full max-w-lg p-5 lg:w-1/2">
                         <button
-                            class="group w-full rounded-lg border border-gray-700 px-4 py-3 text-sm text-gray-500"
+                            class="group w-full rounded-xl border border-gray-700 px-4 py-3 text-sm text-gray-500"
                             onclick={() => (showPrevApps = !showPrevApps)}
                         >
                             {#if showPrevApps}
