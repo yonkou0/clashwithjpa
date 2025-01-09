@@ -92,7 +92,7 @@
             <div class="flex size-full flex-col items-center justify-center lg:w-1/2">
                 {#if data.applications.length && showPrevApps}
                     <div in:fade class="flex size-full flex-col justify-center">
-                        <h3 class="text-center">Previous Applications</h3>
+                        <h3 class="text-center">Previous Application{data.applications.length > 1 ? "s" : ""}</h3>
                         <ul class="mt-5 flex max-h-[60%] flex-col gap-2 overflow-y-scroll rounded-lg px-5">
                             {#each Object.entries(data.applications.reduce((acc: { [key: string]: typeof data.applications }, app) => {
                                     const date = new Date(app.createdAt).toLocaleString("en-IN", { month: "long", day: "numeric", year: "numeric" });
@@ -243,8 +243,8 @@
                                             {pendingApps} Pending
                                         {:else}
                                             Check
-                                        {/if} application{data.applications.length > 1 ? "s" : ""}</span
-                                    >
+                                        {/if} application{data.applications.length > 1 ? "s" : ""}
+                                    </span>
                                     <MaterialSymbolsChevronRightRounded class="size-6 transition-transform group-hover:translate-x-1.5 " />
                                 </span>
                             {/if}
