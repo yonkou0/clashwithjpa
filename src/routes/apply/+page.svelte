@@ -19,6 +19,7 @@
     import MaterialSymbolsWarningRounded from "~icons/material-symbols/warning-rounded";
     import info from "../../../data/info.json";
     import type { PageData } from "./$types";
+    import TablerLoader2 from "~icons/tabler/loader-2";
 
     let { data }: { data: PageData } = $props();
 
@@ -28,7 +29,7 @@
             reset?.();
         }
     });
-    const { form: formData, enhance, message } = form;
+    const { form: formData, enhance, message, delayed } = form;
     $effect(() => {
         if ($message && (page.status === 200 || page.status == 400)) {
             switch (page.status) {
@@ -188,11 +189,18 @@
                             </Field>
                         {/if}
                         <button
-                            disabled={buttonDisabled}
+                            disabled={buttonDisabled || $delayed}
                             type="submit"
-                            class="mt-4 rounded-xl bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                            class="mt-4 flex items-center justify-center rounded-xl bg-white px-4 py-3 text-gray-800 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
                         >
-                            Submit
+                            {#if $delayed}
+                                <span in:fly class="flex size-full items-center justify-center gap-2">
+                                    <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                                    Submitting...
+                                </span>
+                            {:else}
+                                <span in:fly class="flex size-full items-center justify-center"> Submit </span>
+                            {/if}
                         </button>
                     </form>
                 {/if}

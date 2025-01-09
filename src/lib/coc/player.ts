@@ -13,7 +13,12 @@ interface ErrorPlayerVerifyToken {
     detail: object;
 }
 
-export async function postVerifyToken(baseURI: string, tag: string, token: string, apiToken: string) {
+export async function postVerifyToken(
+    baseURI: string,
+    tag: string,
+    token: string,
+    apiToken: string
+): Promise<SuccessPlayerVerifyToken | ErrorPlayerVerifyToken> {
     const response = await fetch(`${baseURI}/v1/players/${encodeURIComponent(tag)}/verifytoken`, {
         method: "POST",
         headers: {
