@@ -42,7 +42,6 @@ async def main():
     try:
         markdown_file_path = 'rulebook.md'
         markdown_content = await read_markdown_file(markdown_file_path)
-        # markdown_content = markdown_content.replace("\n", "<br />")
 
         if markdown_content:
             await store_markdown_content(pool, markdown_content)
