@@ -7,10 +7,6 @@
 
     let { data }: { data: PageData } = $props();
 
-    // async function getTransformedCode() {
-    //     return await compile(data.rules, mdsvexOptions);
-    // }
-
     let showScrollButton = $state(false);
     onMount(() => {
         const handleScroll = () => {

@@ -1,5 +1,6 @@
 import { getRules } from "$lib/server/functions";
-import { compile, type MdsvexOptions } from "mdsvex";
+import { compile } from "mdsvex/dist/browser-es.js";
+import type { MdsvexOptions } from "mdsvex";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import remarkGemoji from "remark-gemoji";
