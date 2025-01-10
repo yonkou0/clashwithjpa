@@ -9,9 +9,9 @@
     let { children }: Props = $props();
 </script>
 
-<main class="flex-col-reverse md:flex-row flex size-full">
+<main class="flex size-full flex-col-reverse md:flex-row">
     <AdminSidebar />
-    <main class="p-5 pt-28 size-full">
+    <main class="size-full p-5 pt-28">
         {@render children?.()}
     </main>
 </main>
