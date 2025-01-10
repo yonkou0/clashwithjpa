@@ -32,3 +32,8 @@ export async function getClansPublicData(db: DB) {
         .from(schema.clanTable)
         .orderBy(desc(schema.clanTable.clanLevel));
 }
+
+export async function getRules(db: DB) {
+    const rules = await db.select({ value: schema.settingsTable.value }).from(schema.settingsTable).where(eq(schema.settingsTable.key, "rules"));
+    return JSON.parse(JSON.stringify(rules))[0].value.content;
+}
