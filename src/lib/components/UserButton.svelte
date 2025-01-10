@@ -10,7 +10,7 @@
     import { invalidateAll } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
 
-    let { user }: { user: UserData | null } = $props();
+    let { user, isAdmin }: { user: UserData | null, isAdmin: boolean } = $props();
 
     async function logout() {
         try {
@@ -26,7 +26,7 @@
 {#if user}
     <Popover.Root>
         <Popover.Trigger>
-            {#if user.isAdmin}
+            {#if isAdmin}
                 <MaterialSymbolsCrownRounded class="-mb-2 size-6 -rotate-[15deg] text-yellow-400" />
             {/if}
             <img src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}.webp" alt="Avatar" class="size-8 rounded-full lg:size-11" />
@@ -42,11 +42,6 @@
                             <span class="text-sm">Logout</span>
                         </Button>
                         <Button
-                            onclick={() => {
-                                if (!user.inGuild) {
-                                    toast.error("Join the server to apply");
-                                }
-                            }}
                             href="/apply"
                             class="p-2"
                         >
@@ -58,7 +53,7 @@
                         <MdiSwordCross class="size-5 transition-transform" />
                         <span class="text-sm">Clan War League</span>
                     </Button>
-                    {#if user.isAdmin}
+                    {#if isAdmin}
                         <Button href="/admin" class="p-2">
                             <MaterialSymbolsAdminPanelSettingsRounded class="size-5 transition-transform" />
                             <span class="text-sm">Admin Panel</span>

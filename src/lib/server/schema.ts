@@ -50,9 +50,14 @@ export const clanApplicationTable = pgTable("clan_application_table", {
 });
 
 interface SettingsMap {
-    applications_enabled: boolean;
+    applications_enabled: {
+        enabled: boolean;
+    };
     admin_roles_id: string[];
-    rules: string[];
+    admin_members_id: string[];
+    rules: {
+        content: string;
+    };
 }
 
 export const settingsTable = pgTable("settings_table", {

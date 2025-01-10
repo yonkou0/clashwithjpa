@@ -37,3 +37,19 @@ export async function getRules(db: DB) {
     const [rules] = await db.select({ value: schema.settingsTable.value }).from(schema.settingsTable).where(eq(schema.settingsTable.key, "rules"));
     return JSON.parse(JSON.stringify(rules)).value.content;
 }
+
+export async function getAdminRolesAndMembers(db: DB) {
+    const [adminRolesId] = await db
+        .select({ value: schema.settingsTable.value })
+        .from(schema.settingsTable)
+        .where(eq(schema.settingsTable.key, "admin_roles_id"));
+    const [adminMembersId] = await db
+        .select({ value: schema.settingsTable.value })
+        .from(schema.settingsTable)
+        .where(eq(schema.settingsTable.key, "admin_members_id"));
+
+    return {
+        adminRolesId: adminRolesId.value,
+        adminMembersId: adminMembersId.value
+    };
+}
