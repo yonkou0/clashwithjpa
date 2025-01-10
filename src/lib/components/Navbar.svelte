@@ -1,17 +1,18 @@
 <script lang="ts">
-    import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
-    import AkarIconsCross from "~icons/akar-icons/cross";
-    import { slide } from "svelte/transition";
-    import UserButton from "$lib/components/UserButton.svelte";
-    import InlineLink from "$lib/components/InlineLink.svelte";
+    import { page } from "$app/state";
     import type { UserData } from "$lib/auth/user";
+    import InlineLink from "$lib/components/InlineLink.svelte";
+    import UserButton from "$lib/components/UserButton.svelte";
+    import { slide } from "svelte/transition";
+    import AkarIconsCross from "~icons/akar-icons/cross";
+    import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
 
     interface Item {
         name: string;
         href: string;
         newTab?: boolean;
     }
-    let items: Item[] = [
+    const items: Item[] = [
         { name: "Home", href: "/" },
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
         { name: "Clans", href: "/clans" },
@@ -26,9 +27,11 @@
     }
 </script>
 
-<div
+<nav
     class="fixed top-0 z-20 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-sm transition-all md:px-12 lg:px-28"
     class:rounded-b-2xl={!isOpen}
+    class:md:rounded-bl-none={page.url.href.includes("/admin")}
+    class:bg-gray-800={page.url.href.includes("/admin") && page.status === 200}
     class:!backdrop-blur-md={isOpen}
 >
     <div class="flex w-full items-center justify-between">
@@ -72,4 +75,4 @@
             </div>
         </div>
     {/if}
-</div>
+</nav>
