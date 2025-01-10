@@ -88,7 +88,6 @@
                     </div>
                 {/if}
             </div>
-            <!-- Forms -->
             <div class="flex size-full flex-col items-center justify-center lg:w-1/2">
                 {#if data.applications.length && showPrevApps}
                     <div in:fade class="flex size-full flex-col justify-center">

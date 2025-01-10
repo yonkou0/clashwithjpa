@@ -13,7 +13,8 @@
         "lint": "prettier --check . && eslint .",
         "db:generate": "npx drizzle-kit generate",
         "db:migrate": "npx drizzle-kit migrate",
-        "db:studio": "npx drizzle-kit studio"
+        "db:studio": "npx drizzle-kit studio",
+        "knip": "knip"
     },
     "devDependencies": {
         "@eslint/compat": "^1.2.4",
@@ -30,6 +31,7 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-svelte": "^2.46.1",
         "globals": "^15.14.0",
+        "knip": "^5.42.0",
         "mdsvex": "^0.11.2",
         "prettier": "^3.4.2",
         "prettier-plugin-svelte": "^3.3.2",
