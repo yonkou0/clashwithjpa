@@ -3,6 +3,8 @@
     import { Popover } from "bits-ui";
     import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
     import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
+    import MaterialSymbolsCrownRounded from "~icons/material-symbols/crown-rounded";
+    import MaterialSymbolsAdminPanelSettingsRounded from "~icons/material-symbols/admin-panel-settings-rounded";
     import MdiSwordCross from "~icons/mdi/sword-cross";
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
@@ -24,6 +26,9 @@
 {#if user}
     <Popover.Root>
         <Popover.Trigger>
+            {#if user.isAdmin}
+                <MaterialSymbolsCrownRounded class="-mb-2 size-6 -rotate-[15deg] text-yellow-400" />
+            {/if}
             <img src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}.webp" alt="Avatar" class="size-8 rounded-full lg:size-11" />
         </Popover.Trigger>
         <Popover.Portal>
@@ -53,6 +58,12 @@
                         <MdiSwordCross class="size-5 transition-transform" />
                         <span class="text-sm">Clan War League</span>
                     </Button>
+                    {#if user.isAdmin}
+                        <Button href="/admin" class="p-2">
+                            <MaterialSymbolsAdminPanelSettingsRounded class="size-5 transition-transform" />
+                            <span class="text-sm">Admin Panel</span>
+                        </Button>
+                    {/if}
                 </div>
             </Popover.Content>
         </Popover.Portal>
