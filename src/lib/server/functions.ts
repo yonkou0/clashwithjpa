@@ -34,6 +34,6 @@ export async function getClansPublicData(db: DB) {
 }
 
 export async function getRules(db: DB) {
-    const rules = await db.select({ value: schema.settingsTable.value }).from(schema.settingsTable).where(eq(schema.settingsTable.key, "rules"));
-    return JSON.parse(JSON.stringify(rules))[0].value.content;
+    const [rules] = await db.select({ value: schema.settingsTable.value }).from(schema.settingsTable).where(eq(schema.settingsTable.key, "rules"));
+    return JSON.parse(JSON.stringify(rules)).value.content;
 }
