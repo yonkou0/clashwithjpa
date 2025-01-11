@@ -1,5 +1,6 @@
 import * as jose from "jose";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function signData(data: any, secret: string, expiresIn: string = "24h"): Promise<string> {
     const secretKey = new TextEncoder().encode(secret);
 

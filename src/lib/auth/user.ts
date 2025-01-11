@@ -2,10 +2,16 @@ import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import { error } from "@sveltejs/kit";
 import type { APIGuild, APIGuildMember, APIUser } from "discord-api-types/v10";
 import { getAdminConfig } from "$lib/server/functions";
+import type { NeonQueryFunction } from "@neondatabase/serverless";
+import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
+
+type DB = NeonHttpDatabase<Record<string, never>> & {
+    $client: NeonQueryFunction<false, false>;
+};
 
 export type UserData = APIUser & { inGuild: boolean; isAdmin: boolean };
 
-export async function getUserData(access_token: string, db: any): Promise<UserData> {
+export async function getUserData(access_token: string, db: DB): Promise<UserData> {
     const userDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me`, {
         headers: {
             Authorization: `Bearer ${access_token}`
