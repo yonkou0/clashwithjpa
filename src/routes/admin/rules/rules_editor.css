@@ -1,0 +1,162 @@
+@import "../../../app.css";
+
+.carta-theme__default.carta-editor {
+    background-color: theme(colors.gray.900);
+    border: 1px solid theme(colors.gray.800);
+    border-radius: theme(borderRadius.xl);
+}
+.carta-theme__default.carta-editor .carta-wrapper {
+    padding: theme(spacing.4);
+    flex-grow: 1;
+}
+.carta-theme__default.carta-editor .carta-input,
+.carta-theme__default.carta-editor .carta-renderer {
+    height: theme(height.screen);
+    overflow: scroll;
+}
+.carta-theme__default.carta-editor .carta-font-code {
+    font-family: theme(fontFamily.mono);
+    caret-color: theme(colors.white);
+}
+.carta-theme__default.carta-editor .carta-toolbar {
+    height: theme(spacing.10);
+    background-color: theme(colors.gray.800);
+    border-top-left-radius: theme(borderRadius.xl);
+    border-top-right-radius: theme(borderRadius.xl);
+}
+.carta-theme__default.carta-editor .carta-toolbar .carta-icon {
+    width: theme(spacing.8);
+    height: theme(spacing.8);
+}
+.carta-theme__default.carta-editor .carta-toolbar .carta-icon:hover {
+    color: theme(colors.white);
+    background-color: theme(colors.gray.900);
+    transition: all theme(transitionDuration.200);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left button,
+.carta-theme__default.carta-editor .carta-toolbar-right,
+.carta-theme__default.carta-editor .carta-filler {
+    border-bottom: 1px solid theme(colors.gray.800);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left > *:first-child {
+    border-top-left-radius: theme(borderRadius.xl);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left > * {
+    padding-left: theme(spacing.4);
+    padding-right: theme(spacing.4);
+    font-size: theme(fontSize.sm);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left button {
+    height: theme(height.full);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left .carta-active {
+    background-color: theme(colors.gray.900);
+    color: theme(colors.white);
+    border-right: 1px solid theme(colors.gray.800);
+    border-bottom: 1px solid theme(colors.gray.900);
+}
+.carta-theme__default.carta-editor .carta-toolbar-left .carta-active:not(:first-child) {
+    border-left: 1px solid theme(colors.gray.800);
+}
+.carta-theme__default.carta-editor .carta-toolbar-right {
+    padding-right: theme(spacing.3);
+}
+.carta-theme__default.carta-editor .carta-icons-menu {
+    padding: theme(spacing.2);
+    border: 1px solid theme(colors.gray.800);
+    border-radius: theme(borderRadius.xl);
+    min-width: theme(spacing.44);
+    background: theme(colors.gray.900);
+}
+.carta-theme__default.carta-editor .carta-icons-menu .carta-icon-full {
+    padding-left: theme(spacing[1.5]);
+    padding-right: theme(spacing[1.5]);
+    margin-top: theme(spacing[0.5]);
+}
+.carta-theme__default.carta-editor .carta-icons-menu .carta-icon-full:first-child {
+    margin-top: 0;
+}
+.carta-theme__default.carta-editor .carta-icons-menu .carta-icon-full:hover {
+    color: theme(colors.white);
+    background-color: theme(colors.gray.800);
+}
+.carta-theme__default.carta-editor .carta-icons-menu .carta-icon-full span {
+    margin-left: theme(spacing[1.5]);
+    color: theme(colors.white);
+    font-size: theme(fontSize.xs);
+}
+.carta-theme__default.carta-emoji {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: theme(spacing.80);
+    max-height: theme(spacing.56);
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: theme(borderRadius.sm);
+    font-family: inherit;
+    background-color: theme(colors.gray.900);
+    word-break: break-word;
+    scroll-padding: theme(spacing[1.5]);
+}
+.carta-theme__default.carta-emoji button {
+    background: theme(colors.gray.800);
+    cursor: pointer;
+    display: inline-block;
+    border-radius: theme(borderRadius.sm);
+    border: 0;
+    padding: 0;
+    margin: theme(spacing[0.5]);
+    min-width: theme(spacing.8);
+    height: theme(spacing.8);
+    font-size: theme(fontSize.lg);
+    line-height: 100%;
+    text-align: center;
+    white-space: nowrap;
+}
+.carta-theme__default.carta-emoji button:hover,
+.carta-theme__default.carta-emoji button.carta-active {
+    background: theme(colors.gray.800);
+}
+.carta-theme__default.carta-slash {
+    width: theme(spacing.72);
+    max-height: theme(spacing.56);
+    overflow-y: scroll;
+    border-radius: theme(borderRadius.sm);
+    font-family: inherit;
+    background-color: theme(colors.gray.900);
+    padding: theme(spacing[1.5]);
+    scroll-padding: theme(spacing[1.5]);
+}
+.carta-theme__default.carta-slash span {
+    width: fit-content;
+}
+.carta-theme__default.carta-slash button {
+    background: none;
+    width: 100%;
+    padding: theme(spacing.[2.5]);
+    border: 0;
+    border-radius: theme(borderRadius.sm);
+}
+.carta-theme__default.carta-slash .carta-slash-group {
+    padding: 0 theme(spacing.1) 0 theme(spacing.1);
+    margin-bottom: theme(spacing.1);
+    font-size: theme(fontSize.xs);
+}
+.carta-theme__default.carta-slash button.carta-active,
+.carta-theme__default.carta-slash button:hover {
+    background: theme(colors.gray.800);
+    cursor: pointer;
+}
+.carta-theme__default.carta-slash .carta-snippet-title {
+    font-size: theme(fontSize.sm);
+    font-weight: theme(fontWeight.semibold);
+}
+.carta-theme__default.carta-slash .carta-snippet-description {
+    font-size: theme(fontSize.xs);
+    text-overflow: ellipsis;
+}
+html.dark .shiki,
+html.dark .shiki span {
+    color: var(--shiki-dark) !important;
+}
