@@ -51,10 +51,9 @@ export async function getAdminConfig(db: DB) {
         .select({ value: schema.settingsTable.value })
         .from(schema.settingsTable)
         .where(eq(schema.settingsTable.key, "guild_id"));
-
     return {
-        adminRolesId: adminRolesId.value,
-        adminMembersId: adminMembersId.value,
-        guildId: guildId.value
+        adminRolesId: JSON.parse(JSON.stringify(adminRolesId)).value,
+        adminMembersId: JSON.parse(JSON.stringify(adminMembersId)).value,
+        guildId: JSON.parse(JSON.stringify(guildId)).value
     };
 }

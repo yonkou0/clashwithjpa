@@ -10,7 +10,7 @@
     import { invalidateAll } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
 
-    let { user }: { user: UserData | null} = $props();
+    let { user }: { user: UserData | null } = $props();
 
     async function logout() {
         try {
@@ -41,10 +41,7 @@
                             <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
                             <span class="text-sm">Logout</span>
                         </Button>
-                        <Button
-                            href="/apply"
-                            class="p-2"
-                        >
+                        <Button href="/apply" class="p-2">
                             <MaterialSymbolsLabProfileRounded class="size-5 transition-transform" />
                             <span class="text-sm">Apply</span>
                         </Button>
