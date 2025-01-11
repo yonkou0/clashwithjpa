@@ -1,4 +1,4 @@
-import { DISCORD_ID, DISCORD_SECRET, SECRET_KEY } from "$env/static/private";
+import { DISCORD_ID, DISCORD_SECRET, JWT_SECRET } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
@@ -44,7 +44,7 @@ export const GET: RequestHandler = async ({ fetch, url, cookies, locals }) => {
             });
 
             const userData = await getUserData(access_token, locals.db);
-            const token = await signData(userData, SECRET_KEY, `${expires_in}s`);
+            const token = await signData(userData, JWT_SECRET, `${expires_in}s`);
 
             if (userData) {
                 cookies.set("user", token, {

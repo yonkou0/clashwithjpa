@@ -17,9 +17,10 @@ jobs:
             PUBLIC_DISCORD_URL: ""
             DISCORD_ID: ""
             DISCORD_SECRET: ""
+            DISCORD_BOT_TOKEN: ""
             DATABASE_URL: ""
             MONGO_URL: ""
-            DISCORD_BOT_TOKEN: ""
+            JWT_SECRET: ""
             PUBLIC_TURNSTILE_SITE_KEY: ""
             TURNSTILE_SECRET_KEY: ""
         steps:
