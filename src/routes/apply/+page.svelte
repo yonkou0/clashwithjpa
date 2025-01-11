@@ -3,7 +3,7 @@
     import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
     import { toast } from "$lib/components/toast";
-    import { clanApplicationSchema } from "$lib/schema";
+    import { clanApplicationSchema } from "$lib/cf/schema";
     import { Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
