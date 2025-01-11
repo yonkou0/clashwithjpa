@@ -2,10 +2,11 @@ import type { UserData } from "$lib/auth/user";
 import { db } from "$lib/server/db";
 import type { Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
-import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
+import { DISCORD_ID, DISCORD_SECRET, SECRET_KEY } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import { getNewAccessToken } from "$lib/helpers";
 import { getUserData } from "$lib/auth/user";
+import { signData, verifyData } from "$lib/auth/jwt";
 
 const handleRefreshHook: Handle = async ({ event, resolve }) => {
     const accessToken: string | undefined = event.cookies.get("access_token");
@@ -29,8 +30,10 @@ const handleRefreshHook: Handle = async ({ event, resolve }) => {
                 httpOnly: true
             });
 
-            const userData = await getUserData(newToken.access_token);
-            event.cookies.set("user", JSON.stringify(userData), {
+            const userData = await getUserData(newToken.access_token, event.locals.db);
+            const token = await signData(userData, SECRET_KEY, `${newToken.expires_in}s`);
+
+            event.cookies.set("user", token, {
                 path: "/",
                 maxAge: newToken.expires_in,
                 sameSite: "lax",
@@ -48,7 +51,8 @@ const setLocalsHook: Handle = async ({ event, resolve }) => {
     const user: string | undefined = event.cookies.get("user");
 
     if (user) {
-        event.locals.user = JSON.parse(user) as UserData;
+        const data = await verifyData<UserData>(user, SECRET_KEY);
+        event.locals.user = data;
     }
     event.locals.db = db;
 

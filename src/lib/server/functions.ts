@@ -38,7 +38,7 @@ export async function getRules(db: DB) {
     return JSON.parse(JSON.stringify(rules)).value.content;
 }
 
-export async function getAdminRolesAndMembers(db: DB) {
+export async function getAdminConfig(db: DB) {
     const [adminRolesId] = await db
         .select({ value: schema.settingsTable.value })
         .from(schema.settingsTable)
@@ -47,9 +47,14 @@ export async function getAdminRolesAndMembers(db: DB) {
         .select({ value: schema.settingsTable.value })
         .from(schema.settingsTable)
         .where(eq(schema.settingsTable.key, "admin_members_id"));
+    const [guildId] = await db
+        .select({ value: schema.settingsTable.value })
+        .from(schema.settingsTable)
+        .where(eq(schema.settingsTable.key, "guild_id"));
 
     return {
         adminRolesId: adminRolesId.value,
-        adminMembersId: adminMembersId.value
+        adminMembersId: adminMembersId.value,
+        guildId: guildId.value
     };
 }

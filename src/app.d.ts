@@ -10,7 +10,7 @@ declare global {
             db: NeonHttpDatabase<Record<string, never>> & {
                 $client: NeonQueryFunction<false, false>;
             };
-            user: UserData | undefined;
+            user: UserData | null;
         }
         // interface PageData {}
         // interface PageState {}

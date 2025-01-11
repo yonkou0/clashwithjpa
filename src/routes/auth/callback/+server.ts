@@ -1,10 +1,11 @@
-import { DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
+import { DISCORD_ID, DISCORD_SECRET, SECRET_KEY } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { getUserData } from "$lib/auth/user";
+import { signData } from "$lib/auth/jwt";
 
-export const GET: RequestHandler = async ({ fetch, url, cookies }) => {
+export const GET: RequestHandler = async ({ fetch, url, cookies, locals }) => {
     const code = url.searchParams.get("code");
     if (!code) {
         error(400, "No code provided");
@@ -42,9 +43,11 @@ export const GET: RequestHandler = async ({ fetch, url, cookies }) => {
                 httpOnly: true
             });
 
-            const userData = await getUserData(access_token);
+            const userData = await getUserData(access_token, locals.db);
+            const token = await signData(userData, SECRET_KEY, `${expires_in}s`);
+
             if (userData) {
-                cookies.set("user", JSON.stringify(userData), {
+                cookies.set("user", token, {
                     path: "/",
                     maxAge: expires_in,
                     sameSite: "lax",

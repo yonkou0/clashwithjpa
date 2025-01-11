@@ -1,10 +1,11 @@
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import { error } from "@sveltejs/kit";
-import type { APIUser } from "discord-api-types/v10";
+import type { APIGuild, APIGuildMember, APIUser } from "discord-api-types/v10";
+import { getAdminConfig } from "$lib/server/functions";
 
-export type UserData = APIUser;
+export type UserData = APIUser & { inGuild: boolean; isAdmin: boolean };
 
-export async function getUserData(access_token: string): Promise<UserData> {
+export async function getUserData(access_token: string, db: any): Promise<UserData> {
     const userDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me`, {
         headers: {
             Authorization: `Bearer ${access_token}`
@@ -14,5 +15,33 @@ export async function getUserData(access_token: string): Promise<UserData> {
         error(userDataResponse.status, userDataResponse.statusText);
     }
     const userData: UserData = await userDataResponse.json();
+    const guildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds`, {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    });
+    if (!guildDataResponse.ok) {
+        error(guildDataResponse.status, guildDataResponse.statusText);
+    }
+    const guildData: APIGuild[] = await guildDataResponse.json();
+    const adminConfig = await getAdminConfig(db);
+
+    userData.inGuild = guildData.some((guild: APIGuild) => guild.id === adminConfig.guildId.value);
+    if (userData.inGuild) {
+        const userGuildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds/${adminConfig.guildId.value}/member`, {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        });
+        if (!userGuildDataResponse.ok) {
+            error(userGuildDataResponse.status, userGuildDataResponse.statusText);
+        }
+        const userGuildData: APIGuildMember = await userGuildDataResponse.json();
+
+        const adminMembers = adminConfig.adminMembersId;
+        const adminRoles = adminConfig.adminRolesId;
+
+        userData.isAdmin = adminMembers.includes(userData.id) || userGuildData.roles.some((roleID: string) => adminRoles.includes(roleID));
+    }
     return userData;
 }
