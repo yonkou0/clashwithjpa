@@ -4,7 +4,7 @@ import type { Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 import { DISCORD_ID, DISCORD_SECRET, JWT_SECRET } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
-import { getNewAccessToken } from "$lib/cf/helpers";
+import { getNewAccessToken } from "$lib/helpers";
 import { getUserData } from "$lib/auth/user";
 import { signData, verifyData } from "$lib/auth/jwt";
 
