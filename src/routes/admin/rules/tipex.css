@@ -3,6 +3,7 @@
 .tipex-editor {
     border-radius: 0;
     background-color: theme(colors.gray.950);
+    width: 100%;
 }
 
 .tipex-editor-wrap {
