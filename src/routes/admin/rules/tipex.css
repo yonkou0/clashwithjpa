@@ -17,13 +17,13 @@
 .tipex-controller {
     background-color: theme(colors.gray.900) !important;
     border: none;
-    border-radius: 0%;
-    @apply justify-center rounded-t-xl md:justify-start md:rounded-tl-none;
+    @apply rounded-t-xl md:rounded-tl-none;
 }
 .tipex-edit-button {
     background-color: theme(colors.gray.800) !important;
     border: none;
     border-radius: theme(borderRadius.lg) !important;
+    padding: theme(padding.1) !important;
 }
 .tipex-edit-button:hover {
     background-color: theme(colors.gray.700) !important;
@@ -32,10 +32,6 @@
 }
 .tipex-edit-button.active {
     background-color: theme(colors.gray.700) !important;
-}
-
-.tipex-utilities {
-    display: none;
 }
 
 .tipex-floating-group {
