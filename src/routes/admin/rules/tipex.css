@@ -2,19 +2,24 @@
 
 .tipex-editor {
     border-radius: 0;
+    background-color: theme(colors.gray.950);
+}
+
+.tipex-editor-wrap {
+    background-color: theme(colors.gray.950);
 }
 
 .tipex-editor-section {
     background-color: theme(colors.gray.950);
+    margin-bottom: theme(margin.5);
 }
 
 .tipex-controller {
     background-color: theme(colors.gray.900) !important;
     border: none;
-    margin: theme(padding.2);
-    border-radius: theme(borderRadius.xl);
+    border-radius: 0%;
+    @apply justify-center rounded-t-xl md:justify-start md:rounded-tl-none;
 }
-
 .tipex-edit-button {
     background-color: theme(colors.gray.800) !important;
     border: none;

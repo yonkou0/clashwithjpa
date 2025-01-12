@@ -6,7 +6,7 @@
     import "@friendofsvelte/tipex/styles/Controls.css";
     import "@friendofsvelte/tipex/styles/EditLink.css";
     import "@friendofsvelte/tipex/styles/CodeBlock.css";
-    import "./tipex.css"
+    import "./tipex.css";
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.compile.code);

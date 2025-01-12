@@ -43,7 +43,9 @@
 </script>
 
 <nav
-    class="max-w-screen sticky inset-x-0 bottom-0 z-20 flex w-screen items-center justify-evenly gap-2 rounded-t-xl bg-gray-900 p-2 backdrop-blur-sm transition-all md:inset-y-0 md:left-0 md:mt-[80px] md:max-h-screen md:w-fit md:max-w-lg md:flex-col md:justify-start md:rounded-t-none md:rounded-br-xl md:py-4"
+    class="max-w-screen sticky inset-x-0 bottom-0 z-20 flex w-screen items-center justify-evenly gap-2 bg-gray-900 p-2 backdrop-blur-sm transition-all md:inset-y-0 md:left-0 md:mt-[80px] md:max-h-screen md:w-fit md:max-w-lg md:flex-col md:justify-start md:rounded-t-none md:py-4"
+    class:rounded-t-xl={page.route.id !== "/admin/rules"}
+    class:md:rounded-br-xl={page.route.id !== "/admin/rules"}
 >
     {#each items as item}
         <a
