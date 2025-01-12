@@ -34,6 +34,10 @@
     background-color: theme(colors.gray.700) !important;
 }
 
+.tipex-utilities {
+    width: auto;
+}
+
 .tipex-floating-group {
     background-color: theme(colors.gray.900) !important;
     border: 1px solid theme(colors.gray.700) !important;
