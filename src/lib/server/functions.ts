@@ -57,3 +57,7 @@ export async function getAdminConfig(db: DB) {
         guildId: JSON.parse(JSON.stringify(guildId)).value
     };
 }
+
+export async function insertSettings(db: DB, key: schema.InsertSettings["key"], value: schema.InsertSettings["value"]) {
+    await db.insert(schema.settingsTable).values({ key, value });
+}
