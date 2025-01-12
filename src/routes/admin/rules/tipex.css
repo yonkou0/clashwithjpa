@@ -1,0 +1,30 @@
+@import "../../../app.css";
+
+.tipex-editor {
+    border-radius: 0;
+}
+
+.tipex-editor-section {
+    background-color: theme(colors.gray.950);
+}
+
+.tipex-controller {
+    background-color: theme(colors.gray.900) !important;
+    border: none;
+    margin: theme(padding.2);
+    border-radius: theme(borderRadius.xl);
+}
+
+.tipex-edit-button {
+    background-color: theme(colors.gray.800) !important;
+    border: 1px solid theme(colors.gray.700) !important;
+    border-radius: theme(borderRadius.lg) !important;
+}
+
+.tipex-edit-button.active {
+    background-color: theme(colors.gray.700) !important;
+}
+
+.tipex-utilities {
+    display: none;
+}

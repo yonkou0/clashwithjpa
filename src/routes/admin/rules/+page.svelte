@@ -6,15 +6,12 @@
     import "@friendofsvelte/tipex/styles/Controls.css";
     import "@friendofsvelte/tipex/styles/EditLink.css";
     import "@friendofsvelte/tipex/styles/CodeBlock.css";
+    import "./tipex.css"
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.compile.code);
 </script>
 
-<!-- <div class="flex h-full w-full flex-col marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
-    <article class="prose- prose w-full max-w-none bg-zinc-400"></article>
-</div> -->
-
-<div class="dark">
-    <Tipex body={rules} controls floating focal class="h-[70vh]" />
+<div class="dark flex size-full marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
+    <Tipex body={rules} controls floating focal={false} />
 </div>
