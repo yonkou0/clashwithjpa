@@ -1,20 +1,20 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { Carta, MarkdownEditor } from "carta-md";
-    import { emoji } from "@cartamd/plugin-emoji";
-    import { slash } from "@cartamd/plugin-slash";
-    import "./rules_editor.css";
+    import { Tipex } from "@friendofsvelte/tipex";
+    import "@friendofsvelte/tipex/styles/Tipex.css";
+    import "@friendofsvelte/tipex/styles/ProseMirror.css";
+    import "@friendofsvelte/tipex/styles/Controls.css";
+    import "@friendofsvelte/tipex/styles/EditLink.css";
+    import "@friendofsvelte/tipex/styles/CodeBlock.css";
 
     let { data }: { data: PageData } = $props();
-    let rules: string = $state(data.rules);
-
-    const carta = new Carta({
-        theme: "catppuccin-mocha",
-        sanitizer: false,
-        extensions: [emoji(), slash()]
-    });
+    let rules = $state(data.compile.code);
 </script>
 
-<div class="marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
-    <MarkdownEditor {carta} bind:value={rules} mode="tabs" />
+<!-- <div class="flex h-full w-full flex-col marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
+    <article class="prose- prose w-full max-w-none bg-zinc-400"></article>
+</div> -->
+
+<div class="dark">
+    <Tipex body={rules} controls floating focal class="h-[70vh]" />
 </div>
