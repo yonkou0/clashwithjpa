@@ -35,7 +35,7 @@ export async function getClansPublicData(db: DB) {
 
 export async function getRules(db: DB) {
     const [rules] = await db.select({ value: schema.settingsTable.value }).from(schema.settingsTable).where(eq(schema.settingsTable.key, "rules"));
-    return JSON.parse(JSON.stringify(rules)).value.content;
+    return JSON.parse(JSON.stringify(rules)).value;
 }
 
 export async function getAdminConfig(db: DB) {
@@ -56,8 +56,4 @@ export async function getAdminConfig(db: DB) {
         adminMembersId: JSON.parse(JSON.stringify(adminMembersId)).value,
         guildId: JSON.parse(JSON.stringify(guildId)).value
     };
-}
-
-export async function insertSettings(db: DB, key: schema.InsertSettings["key"], value: schema.InsertSettings["value"]) {
-    await db.insert(schema.settingsTable).values({ key, value });
 }

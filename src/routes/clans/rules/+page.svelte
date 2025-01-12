@@ -43,7 +43,7 @@
     >
         <article class="prose prose-invert w-full max-w-none">
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html data.compiled?.code}
+            {@html data.rules.content}
         </article>
     </div>
 </div>
