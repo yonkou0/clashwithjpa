@@ -17,14 +17,37 @@
 
 .tipex-edit-button {
     background-color: theme(colors.gray.800) !important;
-    border: 1px solid theme(colors.gray.700) !important;
+    border: none;
     border-radius: theme(borderRadius.lg) !important;
 }
-
+.tipex-edit-button:hover {
+    background-color: theme(colors.gray.700) !important;
+    transform: none;
+    transition: all theme(transitionDuration.200);
+}
 .tipex-edit-button.active {
     background-color: theme(colors.gray.700) !important;
 }
 
 .tipex-utilities {
     display: none;
+}
+
+.tipex-floating-group {
+    background-color: theme(colors.gray.900) !important;
+    border: 1px solid theme(colors.gray.700) !important;
+    border-radius: theme(borderRadius.lg);
+    padding: theme(padding.1);
+    gap: theme(gap.1);
+}
+
+.tipex-floating-button {
+    background-color: theme(colors.gray.800) !important;
+    color: theme(colors.gray.100) !important;
+    border: none;
+    border-radius: theme(borderRadius.md);
+}
+.tipex-floating-button:hover {
+    background-color: theme(colors.gray.700) !important;
+    transition: all theme(transitionDuration.200);
 }
