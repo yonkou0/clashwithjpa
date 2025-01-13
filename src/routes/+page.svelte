@@ -58,14 +58,14 @@
     </div>
 
     <div class="fixed bottom-4 right-8 z-[11] flex space-x-4">
-        <button onclick={togglePause} class="size-6 rounded-full transition-colors hover:text-gray-300">
+        <button onclick={togglePause} class="size-6 rounded-full transition-colors hover:text-gray-200">
             {#if isPaused}
                 <MaterialSymbolsPlayCircleRounded class="size-full" />
             {:else}
                 <MaterialSymbolsPauseCircleRounded class="size-full" />
             {/if}
         </button>
-        <button onclick={toggleMute} class="size-6 rounded-full transition-colors hover:text-gray-300">
+        <button onclick={toggleMute} class="size-6 rounded-full transition-colors hover:text-gray-200">
             {#if isMuted}
                 <MaterialSymbolsVolumeOffRounded class="size-full" />
             {:else}
