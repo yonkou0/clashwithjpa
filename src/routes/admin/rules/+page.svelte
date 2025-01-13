@@ -27,7 +27,7 @@
                 content: htmlContent
             }
         };
-        let response = await fetch("/admin/rules", {
+        let response = await fetch("/admin/api", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -62,8 +62,7 @@
     <Tipex bind:tipex={editor} body={rules} controls floating focal={false}>
         {#snippet utilities()}
             <button
-                class="tipex-edit-button transition-all disabled:opacity-50 disabled:hover:!bg-gray-800"
-                class:cursor-wait={disabled}
+                class="tipex-edit-button transition-all disabled:cursor-wait disabled:opacity-50 disabled:hover:!bg-gray-800"
                 onclick={save}
                 {disabled}
             >
