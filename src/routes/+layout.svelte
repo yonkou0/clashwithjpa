@@ -66,6 +66,6 @@
 {/if}
 
 <main class="h-screen w-screen">
-    <Navbar user={data.user as UserData} />
+    <Navbar user={data.user as UserData} applicationEnabled={data.applicationEnabled} />
     {@render children?.()}
 </main>

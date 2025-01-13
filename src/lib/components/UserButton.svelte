@@ -1,16 +1,16 @@
 <script lang="ts">
-    import Button from "$lib/components/Button.svelte";
-    import { Popover } from "bits-ui";
-    import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
-    import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
-    import MaterialSymbolsCrownRounded from "~icons/material-symbols/crown-rounded";
-    import MaterialSymbolsAdminPanelSettingsRounded from "~icons/material-symbols/admin-panel-settings-rounded";
-    import MdiSwordCross from "~icons/mdi/sword-cross";
-    import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
+    import Button from "$lib/components/Button.svelte";
+    import { toast } from "$lib/components/toast";
+    import { Popover } from "bits-ui";
+    import MaterialSymbolsAdminPanelSettingsRounded from "~icons/material-symbols/admin-panel-settings-rounded";
+    import MaterialSymbolsCrownRounded from "~icons/material-symbols/crown-rounded";
+    import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
+    import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
+    import MdiSwordCross from "~icons/mdi/sword-cross";
 
-    let { user }: { user: UserData | null } = $props();
+    let { user, applicationEnabled }: { user: UserData | null; applicationEnabled: boolean } = $props();
 
     async function logout() {
         try {
@@ -41,7 +41,13 @@
                             <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
                             <span class="text-sm">Logout</span>
                         </Button>
-                        <Button href="/apply" class="p-2">
+                        <Button
+                            href="/apply"
+                            onclick={() => {
+                                if (!applicationEnabled) toast.error("Applications are closed");
+                            }}
+                            class="p-2"
+                        >
                             <MaterialSymbolsLabProfileRounded class="size-5 transition-transform" />
                             <span class="text-sm">Apply</span>
                         </Button>

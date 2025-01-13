@@ -7,6 +7,14 @@ type DB = NeonHttpDatabase<Record<string, never>> & {
     $client: NeonQueryFunction<false, false>;
 };
 
+export async function isApplicationEnabled(db: DB) {
+    const [status] = await db
+        .select({ value: schema.settingsTable.value })
+        .from(schema.settingsTable)
+        .where(eq(schema.settingsTable.key, "applications_enabled"));
+    return status.value as boolean;
+}
+
 export async function createClanApplication(db: DB, data: schema.InsertClanApplication) {
     await db.insert(schema.clanApplicationTable).values(data);
 }

@@ -4,7 +4,7 @@ import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
 import { validateCFToken } from "$lib/helpers";
 import { clanApplicationSchema } from "$lib/schema";
-import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag } from "$lib/server/functions";
+import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
 import { fail, redirect } from "@sveltejs/kit";
 import { message, superValidate } from "sveltekit-superforms";
@@ -12,6 +12,9 @@ import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
+    const applicationEnabled = await isApplicationEnabled(locals.db);
+    if (!applicationEnabled) return redirect(302, "/");
+
     const user = locals.user;
     const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
     if (!user) {

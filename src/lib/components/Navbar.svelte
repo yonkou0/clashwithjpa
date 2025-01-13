@@ -19,7 +19,7 @@
         { name: "Rules", href: "/clans/rules" }
     ];
 
-    let { user }: { user: UserData | null } = $props();
+    let { user, applicationEnabled }: { user: UserData | null; applicationEnabled: boolean } = $props();
 
     let isOpen = $state(false);
     function toggleMenu() {
@@ -40,7 +40,7 @@
             <p class="text-2xl">JPA</p>
         </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
-            <UserButton {user} />
+            <UserButton {user} {applicationEnabled} />
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
                 {#if isOpen}
                     <AkarIconsCross class="size-6" />
@@ -55,7 +55,7 @@
                     {item.name}
                 </InlineLink>
             {/each}
-            <UserButton {user} />
+            <UserButton {user} {applicationEnabled} />
         </div>
     </div>
     {#if isOpen}
