@@ -24,7 +24,7 @@
                 content: htmlContent
             }
         };
-        let response = await fetch("/api/admin/rules", {
+        let response = await fetch("/admin/rules", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
