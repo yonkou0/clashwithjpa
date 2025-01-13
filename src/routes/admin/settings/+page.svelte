@@ -45,10 +45,10 @@
                 bind:checked={applicationEnabled}
                 onCheckedChange={changeAppStatus}
                 {disabled}
-                class="inline-flex h-11 w-20 cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-wait disabled:opacity-50 data-[state=checked]:bg-green-800"
+                class="inline-flex h-10 w-[70px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-wait disabled:opacity-50 data-[state=checked]:bg-green-800"
             >
                 <Switch.Thumb
-                    class="pointer-events-none block size-10 shrink-0 rounded-full bg-gray-100 transition-all data-[state=checked]:translate-x-[80%] data-[state=unchecked]:translate-x-0"
+                    class="pointer-events-none block size-9 shrink-0 rounded-full bg-gray-100 transition-all data-[state=checked]:translate-x-[75%] data-[state=unchecked]:translate-x-0"
                 />
             </Switch.Root>
         </div>
