@@ -10,14 +10,17 @@
     import "./tipex.css";
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
+    import { onMount } from "svelte";
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.rules.content);
 
     let editor: TipexEditor | undefined = $state();
     let htmlContent = $derived(editor?.getHTML());
+    let disabled: boolean = $state(false);
 
     async function save() {
+        disabled = true;
         const body = {
             key: "rules",
             value: {
@@ -33,16 +36,37 @@
         if (response.ok) {
             toast.success("Rules saved successfully");
             invalidateAll();
+            setTimeout(() => {
+                disabled = false;
+            }, 2000);
         } else {
             toast.error("Failed to save rules");
+            setTimeout(() => {
+                disabled = false;
+            }, 2000);
         }
     }
+
+    onMount(() => {
+        onkeydown = (e) => {
+            if (e.ctrlKey && e.key === "s") {
+                e.preventDefault();
+                if (disabled) return null;
+                save();
+            }
+        };
+    });
 </script>
 
 <div class="dark flex size-full marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
     <Tipex bind:tipex={editor} body={rules} controls floating focal={false}>
         {#snippet utilities()}
-            <button class="tipex-edit-button" onclick={save}>
+            <button
+                class="tipex-edit-button transition-all disabled:opacity-50 disabled:hover:!bg-gray-800"
+                class:cursor-wait={disabled}
+                onclick={save}
+                {disabled}
+            >
                 <MaterialSymbolsSendRounded class="size-6" />
             </button>
         {/snippet}

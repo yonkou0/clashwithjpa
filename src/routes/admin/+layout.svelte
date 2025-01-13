@@ -11,7 +11,7 @@
 
 <main class="flex size-full flex-col-reverse md:flex-row">
     <AdminSidebar />
-    <main class="mt-24 flex w-full flex-col overflow-auto">
+    <main class="pt-24 size-full overflow-auto">
         {@render children?.()}
     </main>
 </main>

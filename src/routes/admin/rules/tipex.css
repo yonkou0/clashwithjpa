@@ -18,6 +18,7 @@
 .tipex-controller {
     background-color: theme(colors.gray.900) !important;
     border: none;
+    border-radius: 0;
     @apply rounded-t-xl md:rounded-tl-none;
 }
 .tipex-edit-button {
@@ -40,6 +41,7 @@
 }
 
 .tipex-floating-group {
+    position: static;
     background-color: theme(colors.gray.900) !important;
     border: 1px solid theme(colors.gray.700) !important;
     border-radius: theme(borderRadius.lg);
@@ -54,6 +56,6 @@
     border-radius: theme(borderRadius.md);
 }
 .tipex-floating-button:hover {
-    background-color: theme(colors.gray.700) !important;
+    background-color: theme(colors.gray.700);
     transition: all theme(transitionDuration.200);
 }
