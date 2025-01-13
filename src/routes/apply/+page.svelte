@@ -151,7 +151,13 @@
                         <Description>Your account tag (include #)</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input {...props} type="text" placeholder="#ABCDEFGHI" bind:value={$formData.tag} class="rounded-xl text-gray-950" />
+                                <input
+                                    {...props}
+                                    type="text"
+                                    placeholder="#ABCDEFGHI"
+                                    bind:value={$formData.tag}
+                                    class="rounded-xl border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
+                                />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -165,7 +171,7 @@
                                     type="text"
                                     placeholder="API Token"
                                     bind:value={$formData.apiToken}
-                                    class="rounded-xl text-gray-950"
+                                    class="rounded-xl border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
                                 />
                             {/snippet}
                         </Control>
@@ -186,7 +192,7 @@
                     <button
                         disabled={buttonDisabled || $delayed}
                         type="submit"
-                        class="mt-4 flex items-center justify-center rounded-xl bg-white px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                        class="mt-4 flex items-center justify-center rounded-xl bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
                         class:cursor-wait={$delayed}
                     >
                         {#if $delayed}
