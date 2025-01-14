@@ -14,6 +14,9 @@
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.rules.content);
+    $effect(() => {
+        rules = data.rules.content;
+    });
 
     let editor: TipexEditor | undefined = $state();
     let htmlContent = $derived(editor?.getHTML());

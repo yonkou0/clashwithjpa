@@ -33,7 +33,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         }
     }
 
-    // Check and add role_id to settings if key is "add_admin_role_id"
+    // Check and add/remove admin role
     let roleData = null;
     if (key === "add_admin_role_id") {
         roleData = await checkRole(locals.db, value);
