@@ -192,7 +192,7 @@
                     <button
                         disabled={buttonDisabled || $delayed}
                         type="submit"
-                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-300 disabled:bg-gray-400"
                         class:cursor-wait={$delayed}
                     >
                         {#if $delayed}
