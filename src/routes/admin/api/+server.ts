@@ -41,18 +41,29 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             return json({ error: "Invalid Role ID" }, { status: 400 });
         } else {
             const newAdminRolesId = adminConfig.adminRolesId.concat(value);
-            await locals.db
-                .update(settingsTable)
-                .set({ value: newAdminRolesId })
-                .where(eq(settingsTable.key, "admin_roles_id"));
+            await locals.db.update(settingsTable).set({ value: newAdminRolesId }).where(eq(settingsTable.key, "admin_roles_id"));
             return json(roleData);
         }
     } else if (key === "remove_admin_role_id") {
         const newAdminRolesId = adminConfig.adminRolesId.filter((id: string) => id !== value);
-        await locals.db
-            .update(settingsTable)
-            .set({ value: newAdminRolesId })
-            .where(eq(settingsTable.key, "admin_roles_id"));
+        await locals.db.update(settingsTable).set({ value: newAdminRolesId }).where(eq(settingsTable.key, "admin_roles_id"));
+        return json({ success: true });
+    }
+
+    // Check and add/remove admin member
+    let userData = null;
+    if (key === "add_admin_id") {
+        userData = await checkUser(value);
+        if (userData.error) {
+            return json({ error: "Invalid User ID" }, { status: 400 });
+        } else {
+            const newAdminMembersId = adminConfig.adminMembersId.concat(value);
+            await locals.db.update(settingsTable).set({ value: newAdminMembersId }).where(eq(settingsTable.key, "admin_members_id"));
+            return json(userData);
+        }
+    } else if (key === "remove_admin_id") {
+        const newAdminMembersId = adminConfig.adminMembersId.filter((id: string) => id !== value);
+        await locals.db.update(settingsTable).set({ value: newAdminMembersId }).where(eq(settingsTable.key, "admin_members_id"));
         return json({ success: true });
     }
 
@@ -83,6 +94,19 @@ async function checkGuild(id: string) {
 async function checkRole(db: DB, role: string) {
     const adminConfig = await getAdminConfig(db);
     const resp = await fetch(`${PUBLIC_DISCORD_URL}/guilds/${adminConfig.guildId}/roles/${role}`, {
+        headers: {
+            Authorization: `Bot ${DISCORD_BOT_TOKEN}`
+        }
+    });
+    if (!resp.ok) {
+        return { error: true };
+    }
+    return await resp.json();
+}
+
+// User check func
+async function checkUser(id: string) {
+    const resp = await fetch(`${PUBLIC_DISCORD_URL}/users/${id}`, {
         headers: {
             Authorization: `Bot ${DISCORD_BOT_TOKEN}`
         }
