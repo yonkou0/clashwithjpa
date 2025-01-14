@@ -7,6 +7,9 @@ export default {
 
     theme: {
         extend: {
+            screens: {
+                "3xl": "2560px"
+            },
             fontFamily: {
                 coc: "COC"
             }

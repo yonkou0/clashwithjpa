@@ -22,7 +22,7 @@
         guildID = data.adminConfig.guildId;
         adminRoles = data.adminRoles;
         admins = data.admins;
-    })
+    });
 
     $effect(() => {
         if (guildID == data.adminConfig.guildId) {
@@ -249,8 +249,8 @@
     }
 </script>
 
-<div class="size-full p-5 md:p-11 overflow-scroll">
-    <div class="flex flex-col items-start justify-center gap-5 md:flex-row md:gap-28">
+<div class="flex size-full items-start justify-center overflow-auto p-5 md:p-11">
+    <div class="flex flex-col items-start justify-center gap-5 md:gap-28 lg:flex-row 3xl:w-4/5">
         <div class="flex flex-col items-start justify-center gap-5">
             <!-- Application Status -->
             <div class="flex items-center gap-2">
@@ -288,7 +288,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex size-full flex-col items-start justify-center gap-5">
+        <div class="flex flex-col items-start justify-center gap-5">
             <!-- Admin Roles -->
             <div class="flex flex-col items-start justify-center gap-2">
                 <span>Admin Roles</span>
@@ -313,7 +313,7 @@
                         <div
                             in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
                             out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}
-                            class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
+                            class="flex flex-col gap-1 rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
                         >
                             <div class="flex items-center justify-start gap-2" class:opacity-50={disabled.role.input}>
                                 <button
@@ -368,7 +368,7 @@
                         <div
                             in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
                             out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}
-                            class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
+                            class="flex flex-col gap-1 rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
                         >
                             <div class="flex items-center justify-start gap-2" class:opacity-50={disabled.admins.input}>
                                 <button
@@ -376,10 +376,14 @@
                                         removeAdmin(admin.id);
                                     }}
                                     disabled={disabled.admins.input}
-                                    class="group flex size-4 items-center justify-center rounded-full bg-gray-500 p-0.5 text-gray-950 disabled:cursor-not-allowed"
-                                    style="background-color: #{admin.accent_color}"
+                                    class="group flex size-6 items-center justify-center rounded-full bg-cover text-gray-950 disabled:cursor-not-allowed"
+                                    style="background-image: url(https://media.discordapp.net/avatars/{admin.id}/{admin.avatar}.webp);"
                                 >
-                                    <MaterialSymbolsCloseRounded class="size-fit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                                    <div
+                                        class="size-full rounded-full p-0.5 opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100"
+                                    >
+                                        <MaterialSymbolsCloseRounded class="size-fit" />
+                                    </div>
                                 </button>
                                 <Tooltip.Provider>
                                     <Tooltip.Root delayDuration={200}>
