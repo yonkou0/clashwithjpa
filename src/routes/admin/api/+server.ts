@@ -41,7 +41,6 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             return json({ error: "Invalid Role ID" }, { status: 400 });
         } else {
             const newAdminRolesId = adminConfig.adminRolesId.concat(value);
-            console.log(newAdminRolesId);
             await locals.db
                 .update(settingsTable)
                 .set({ value: newAdminRolesId })
