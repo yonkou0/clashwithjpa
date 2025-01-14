@@ -2,6 +2,7 @@
     import { invalidateAll } from "$app/navigation";
     import { toast } from "$lib/components/toast";
     import { Switch } from "bits-ui";
+    import type { APIGuild } from "discord-api-types/v10";
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
     import type { PageData } from "./$types";
 
@@ -61,24 +62,24 @@
         disabled.guildID.button = true;
         const body = {
             key: "guild_id",
-            value: { id: guildID }
+            value: { id: guildID.toString() }
         };
-        let response = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
         });
 
-        if (response.ok) {
-            toast.success(`Guild ID set to ${guildID}`);
+        if (resp.ok) {
+            const respData: APIGuild = await resp.json();
+            toast.success(`Guild is set to ${respData.name}`);
             invalidateAll();
             setTimeout(() => {
                 disabled.guildID.input = false;
                 disabled.guildID.button = false;
             }, 2000);
         } else {
-            const err = (await response.json()).error;
-            toast.error(err);
+            toast.error("Invalid Guild ID");
             setTimeout(() => {
                 disabled.guildID.input = false;
                 disabled.guildID.button = false;
@@ -106,7 +107,7 @@
         <div class="flex items-center gap-2">
             <span>Guild ID</span>
             <input
-                type="number"
+                typeof="number"
                 class="rounded-lg border border-gray-700 bg-gray-800 transition-all focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                 placeholder="Enter Guild ID"
                 maxlength="19"
