@@ -14,7 +14,8 @@
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.rules.content);
-    $effect.pre(() => {
+
+    $effect(() => {
         rules = data.rules.content;
     });
 

@@ -17,7 +17,7 @@
     let adminID: string = $state("");
     let admins: APIUser[] = $state(data.admins);
 
-    $effect.pre(() => {
+    $effect(() => {
         applicationEnabled = data.applicationEnabled;
         guildID = data.adminConfig.guildId;
         adminRoles = data.adminRoles;
