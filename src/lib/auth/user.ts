@@ -32,9 +32,9 @@ export async function getUserData(access_token: string, db: DB): Promise<UserDat
     const guildData: APIGuild[] = await guildDataResponse.json();
     const adminConfig = await getAdminConfig(db);
 
-    userData.inGuild = guildData.some((guild: APIGuild) => guild.id === adminConfig.guildId.value);
+    userData.inGuild = guildData.some((guild: APIGuild) => guild.id === adminConfig.guildId);
     if (userData.inGuild) {
-        const userGuildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds/${adminConfig.guildId.value}/member`, {
+        const userGuildDataResponse = await fetch(`${PUBLIC_DISCORD_URL}/users/@me/guilds/${adminConfig.guildId}/member`, {
             headers: {
                 Authorization: `Bearer ${access_token}`
             }
