@@ -18,7 +18,7 @@
     background-color: theme(colors.gray.900) !important;
     border: none;
     border-radius: 0;
-    @apply rounded-t-xl md:rounded-tl-none;
+    @apply rounded-t-2xl md:rounded-tl-none;
 }
 .tipex-edit-button {
     background-color: theme(colors.gray.800) !important;

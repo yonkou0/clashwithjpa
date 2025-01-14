@@ -109,7 +109,7 @@
                                                                 {/if}
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
-                                                                class="rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                             >
                                                                 {application.status.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase())}
                                                             </Tooltip.Content>
@@ -123,7 +123,7 @@
                                                                 <p class="w-24 truncate">{application.playerData.name}</p>
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
-                                                                class="rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                             >
                                                                 <p>{application.playerData.name}</p>
                                                             </Tooltip.Content>
@@ -156,7 +156,7 @@
                                     type="text"
                                     placeholder="#ABCDEFGHI"
                                     bind:value={$formData.tag}
-                                    class="rounded-xl border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
+                                    class="rounded-lg border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
                                 />
                             {/snippet}
                         </Control>
@@ -171,7 +171,7 @@
                                     type="text"
                                     placeholder="API Token"
                                     bind:value={$formData.apiToken}
-                                    class="rounded-xl border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
+                                    class="rounded-lg border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
                                 />
                             {/snippet}
                         </Control>
@@ -192,7 +192,7 @@
                     <button
                         disabled={buttonDisabled || $delayed}
                         type="submit"
-                        class="mt-4 flex items-center justify-center rounded-xl bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
+                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-200 disabled:bg-gray-400"
                         class:cursor-wait={$delayed}
                     >
                         {#if $delayed}
@@ -209,7 +209,7 @@
             {#if data.applications.length}
                 <div class="fixed bottom-0 w-full max-w-lg p-5 lg:w-1/2">
                     <button
-                        class="group w-full rounded-xl border border-gray-700 px-4 py-3 text-sm text-gray-500"
+                        class="group w-full rounded-lg border border-gray-700 px-4 py-3 text-sm text-gray-500"
                         onclick={() => (showPrevApps = !showPrevApps)}
                     >
                         {#if showPrevApps}

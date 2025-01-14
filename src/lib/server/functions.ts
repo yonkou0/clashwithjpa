@@ -62,6 +62,6 @@ export async function getAdminConfig(db: DB) {
     return {
         adminRolesId: JSON.parse(JSON.stringify(adminRolesId)).value,
         adminMembersId: JSON.parse(JSON.stringify(adminMembersId)).value,
-        guildId: JSON.parse(JSON.stringify(guildId)).value
+        guildId: JSON.parse(JSON.stringify(guildId)).value.id
     };
 }
