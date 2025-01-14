@@ -1,14 +1,17 @@
 <script lang="ts">
-    import { invalidateAll } from "$app/navigation";
+    import { invalidate, invalidateAll } from "$app/navigation";
     import { toast } from "$lib/components/toast";
-    import { Switch } from "bits-ui";
-    import type { APIGuild } from "discord-api-types/v10";
+    import { Switch, Tooltip } from "bits-ui";
+    import type { APIGuild, APIRole } from "discord-api-types/v10";
+    import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
     let applicationEnabled: boolean = $state(data.applicationEnabled);
     let guildID: string = $state(data.adminConfig.guildId);
+    let adminRoleID: string = $state("");
+    let adminRoles: APIRole[] = $state(data.adminRoles);
 
     let disabled: {
         applicationStatus: boolean;
@@ -16,12 +19,14 @@
             input: boolean;
             button: boolean;
         };
+        role: boolean;
     } = $state({
         applicationStatus: false,
         guildID: {
             input: false,
             button: true
-        }
+        },
+        role: false
     });
 
     async function changeAppStatus() {
@@ -86,41 +91,153 @@
             }, 2000);
         }
     }
+
+    async function setAdminRole() {
+        disabled.role = true;
+        disabled.role = true;
+        const body = {
+            key: "add_admin_role_id",
+            value: adminRoleID.toString()
+        };
+        let resp = await fetch("/admin/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        if (resp.ok) {
+            const respData: APIRole = await resp.json();
+            toast.success(`Added role ${respData.name}`);
+            invalidateAll();
+            setTimeout(() => {
+                disabled.role = false;
+                disabled.role = false;
+            }, 2000);
+        } else {
+            toast.error("Invalid Role ID");
+            setTimeout(() => {
+                disabled.role = false;
+                disabled.role = false;
+            }, 2000);
+        }
+    }
+    async function removeAdminRole(roleID: string) {
+        disabled.role = true;
+        const body = {
+            key: "remove_admin_role_id",
+            value: roleID
+        };
+        let resp = await fetch("/admin/api", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        if (resp.ok) {
+            toast.success(`Removed role ${adminRoles.find((r) => r.id == roleID)?.name}`);
+            invalidate("/admin/settings");
+            setTimeout(() => {
+                disabled.role = false;
+            }, 2000);
+        } else {
+            toast.error("Failed to remove role");
+            setTimeout(() => {
+                disabled.role = false;
+            }, 2000);
+        }
+    }
 </script>
 
-<div class="flex size-full items-center justify-center">
-    <div class="flex flex-col items-start justify-center gap-5">
-        <div class="flex items-center gap-2">
-            <span>Application Status</span>
-            <Switch.Root
-                name="applicationStatus"
-                bind:checked={applicationEnabled}
-                onCheckedChange={changeAppStatus}
-                disabled={disabled.applicationStatus}
-                class="inline-flex h-10 w-[70px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-800"
-            >
-                <Switch.Thumb
-                    class="pointer-events-none block size-9 shrink-0 rounded-full bg-gray-100 transition-all data-[state=checked]:translate-x-[75%] data-[state=unchecked]:translate-x-0"
-                />
-            </Switch.Root>
+<div class="flex size-full items-center justify-center p-5">
+    <div class="flex flex-col items-start justify-center gap-5 md:flex-row md:gap-28">
+        <div class="flex flex-col items-start justify-center gap-5">
+            <div class="flex items-center gap-2">
+                <span>Application Status</span>
+                <Switch.Root
+                    name="applicationStatus"
+                    bind:checked={applicationEnabled}
+                    onCheckedChange={changeAppStatus}
+                    disabled={disabled.applicationStatus}
+                    class="inline-flex h-8 w-[60px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-800"
+                >
+                    <Switch.Thumb
+                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-100 transition-all data-[state=checked]:translate-x-[90%] data-[state=unchecked]:translate-x-0"
+                    />
+                </Switch.Root>
+            </div>
+            <div class="flex flex-col items-start gap-2">
+                <span>Guild ID</span>
+                <div class="flex items-center gap-2">
+                    <input
+                        typeof="number"
+                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-all focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+                        placeholder="Enter Guild ID"
+                        maxlength="19"
+                        bind:value={guildID}
+                        disabled={disabled.guildID.input}
+                    />
+                    <button
+                        class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
+                        onclick={setGuildID}
+                        disabled={disabled.guildID.button}
+                    >
+                        <MaterialSymbolsSendRounded class="size-6" />
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="flex items-center gap-2">
-            <span>Guild ID</span>
-            <input
-                typeof="number"
-                class="rounded-lg border border-gray-700 bg-gray-800 transition-all focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                placeholder="Enter Guild ID"
-                maxlength="19"
-                bind:value={guildID}
-                disabled={disabled.guildID.input}
-            />
-            <button
-                class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
-                onclick={setGuildID}
-                disabled={disabled.guildID.button}
-            >
-                <MaterialSymbolsSendRounded class="size-6" />
-            </button>
+        <div class="flex flex-col items-start justify-center gap-5">
+            <div class="flex flex-col items-start justify-center gap-2">
+                <span>Admin Roles</span>
+                <div class="flex items-center gap-2">
+                    <input
+                        typeof="number"
+                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-all focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+                        placeholder="Enter Role ID"
+                        maxlength="19"
+                        bind:value={adminRoleID}
+                        disabled={disabled.role}
+                    />
+                    <button
+                        class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
+                        onclick={setAdminRole}
+                        disabled={disabled.role}
+                    >
+                        <MaterialSymbolsSendRounded class="size-6" />
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    {#each adminRoles as role}
+                        <div class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2">
+                            <div class="flex items-center justify-start gap-2" class:opacity-50={disabled.role}>
+                                <button
+                                    onclick={() => {
+                                        removeAdminRole(role.id);
+                                    }}
+                                    disabled={disabled.role}
+                                    class="group flex size-4 items-center justify-center rounded-full bg-gray-500 p-0.5 text-gray-950 disabled:cursor-not-allowed"
+                                    style="background-color: #{role.color}"
+                                >
+                                    <MaterialSymbolsCloseRounded class="size-fit opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                                </button>
+                                <Tooltip.Provider>
+                                    <Tooltip.Root delayDuration={200}>
+                                        <Tooltip.Trigger class="cursor-default">
+                                            <p>{role.name.length >= 10 ? `${role.name.slice(0, 10)}...` : role.name}</p>
+                                        </Tooltip.Trigger>
+                                        <Tooltip.Content
+                                            class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                        >
+                                            <p>{role.name}</p>
+                                        </Tooltip.Content>
+                                    </Tooltip.Root>
+                                </Tooltip.Provider>
+                            </div>
+                            <span class="text-xs text-gray-400">{role.id}</span>
+                        </div>
+                    {/each}
+                </div>
+            </div>
         </div>
     </div>
 </div>
