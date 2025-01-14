@@ -17,12 +17,14 @@
     let adminID: string = $state("");
     let admins: APIUser[] = $state(data.admins);
 
-    $effect(() => {
+    $effect.pre(() => {
         applicationEnabled = data.applicationEnabled;
         guildID = data.adminConfig.guildId;
         adminRoles = data.adminRoles;
         admins = data.admins;
+    })
 
+    $effect(() => {
         if (guildID == data.adminConfig.guildId) {
             disabled.guildID.button = true;
         } else {
