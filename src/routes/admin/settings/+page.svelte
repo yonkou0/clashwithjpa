@@ -22,7 +22,30 @@
         admins = data.admins;
     });
 
+    let disabled: {
+        applicationStatus: boolean;
+        guildID: {
+            input: boolean;
+            button: boolean;
+        };
+    } = $state({
+        applicationStatus: false,
+        guildID: {
+            input: false,
+            button: true
+        }
+    });
+
+    $effect(() => {
+        if (guildID == data.adminConfig.guildId) {
+            disabled.guildID.button = true;
+        } else {
+            disabled.guildID.button = false;
+        }
+    });
+
     async function changeAppStatus() {
+        disabled.applicationStatus = true;
         const body = {
             key: "applications_enabled",
             value: applicationEnabled
@@ -39,9 +62,14 @@
         } else {
             toast.error("Failed to set application status");
         }
+        setTimeout(() => {
+            disabled.applicationStatus = false;
+        }, 2000);
     }
 
     async function setGuildID() {
+        disabled.guildID.input = true;
+        disabled.guildID.button = true;
         const body = {
             key: "guild_id",
             value: { id: guildID.toString() }
@@ -59,6 +87,10 @@
         } else {
             toast.error("Invalid Guild ID");
         }
+        setTimeout(() => {
+            disabled.guildID.input = false;
+            disabled.guildID.button = false;
+        }, 2000);
     }
 
     async function setAdminRole() {
@@ -149,6 +181,7 @@
                 <Switch.Root
                     name="applicationStatus"
                     bind:checked={applicationEnabled}
+                    disabled={disabled.applicationStatus}
                     onCheckedChange={changeAppStatus}
                     class="inline-flex h-8 w-[60px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-600"
                 >
@@ -166,10 +199,12 @@
                         placeholder="Enter Guild ID"
                         maxlength="19"
                         bind:value={guildID}
+                        disabled={disabled.guildID.input}
                     />
                     <button
                         class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
                         onclick={setGuildID}
+                        disabled={disabled.guildID.button}
                     >
                         <MaterialSymbolsSendRounded class="size-6" />
                     </button>
