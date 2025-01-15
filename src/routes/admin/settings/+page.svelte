@@ -162,7 +162,7 @@
                 <span>Guild ID</span>
                 <div class="flex items-center gap-2">
                     <input
-                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-all focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
+                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-colors focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
                         placeholder="Enter Guild ID"
                         maxlength="19"
                         bind:value={guildID}
