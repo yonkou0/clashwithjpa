@@ -15,7 +15,7 @@ type DB = NeonHttpDatabase<Record<string, never>> & {
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;
     const body = await request.json();
-    let adminConfig = await getAdminConfig(locals.db);
+    const adminConfig = await getAdminConfig(locals.db);
 
     // Check if user is an admin
     if (!user || !user.isAdmin) {

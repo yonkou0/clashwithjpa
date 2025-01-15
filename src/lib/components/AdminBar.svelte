@@ -25,9 +25,9 @@
             href: "/admin/clans"
         },
         {
-            name: "Forms",
+            name: "Applications",
             icon: MaterialSymbolsLabProfileRounded,
-            href: "/admin/forms"
+            href: "/admin/applications"
         },
         {
             name: "Rules",

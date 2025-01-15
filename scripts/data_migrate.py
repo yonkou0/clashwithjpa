@@ -1,6 +1,3 @@
-# MongoDB to PostgreSQL migration script using Python
-# pip install asyncpg python-dotenv motor requests
-
 import os
 import asyncio
 import asyncpg

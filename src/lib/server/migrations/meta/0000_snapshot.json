@@ -1,5 +1,5 @@
 {
-  "id": "770fc9a3-5aa1-4bcd-a7f3-eb4184a74560",
+  "id": "488439e9-7b74-43da-af7e-27e2219371a2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -71,7 +71,8 @@
         },
         "status": {
           "name": "status",
-          "type": "text",
+          "type": "application_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true,
           "default": "'pending'"
@@ -87,7 +88,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "clan_application_table_tag_unique": {
+          "name": "clan_application_table_tag_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "tag"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -113,6 +122,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "clan_level": {
+          "name": "clan_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
         },
         "clan_tag": {
           "name": "clan_tag",
@@ -182,12 +197,6 @@
         },
         "clan_data": {
           "name": "clan_data",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "clan_members": {
-          "name": "clan_members",
           "type": "jsonb",
           "primaryKey": false,
           "notNull": false
@@ -318,7 +327,17 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.application_status": {
+      "name": "application_status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "accepted",
+        "rejected"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

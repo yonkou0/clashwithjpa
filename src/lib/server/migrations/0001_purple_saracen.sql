@@ -1,1 +1,0 @@
-ALTER TABLE "clan_application_table" ADD CONSTRAINT "clan_application_table_tag_unique" UNIQUE("tag");

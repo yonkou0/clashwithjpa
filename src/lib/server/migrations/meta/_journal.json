@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1735653506315,
-      "tag": "0000_fuzzy_killmonger",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1735735342048,
-      "tag": "0001_purple_saracen",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1735741205399,
-      "tag": "0002_colossal_maverick",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1735741448304,
-      "tag": "0003_keen_barracuda",
+      "when": 1736959445172,
+      "tag": "0000_amusing_scream",
       "breakpoints": true
     }
   ]

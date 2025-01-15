@@ -1,3 +1,4 @@
+CREATE TYPE "public"."application_status" AS ENUM('pending', 'accepted', 'rejected');--> statement-breakpoint
 CREATE TABLE "base_table" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"code" text NOT NULL,
@@ -10,14 +11,16 @@ CREATE TABLE "clan_application_table" (
 	"tag" text NOT NULL,
 	"player_data" jsonb NOT NULL,
 	"discord_id" text NOT NULL,
-	"status" text DEFAULT 'pending' NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"status" "application_status" DEFAULT 'pending' NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "clan_application_table_tag_unique" UNIQUE("tag")
 );
 --> statement-breakpoint
 CREATE TABLE "clan_table" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"clan_code" text NOT NULL,
 	"clan_name" text NOT NULL,
+	"clan_level" integer,
 	"clan_tag" text NOT NULL,
 	"clan_role_id" text NOT NULL,
 	"member_role_id" text NOT NULL,
@@ -30,7 +33,6 @@ CREATE TABLE "clan_table" (
 	"donations_requirement" integer NOT NULL,
 	"clangames_requirement" integer NOT NULL,
 	"clan_data" jsonb,
-	"clan_members" jsonb,
 	"clan_current_war" jsonb
 );
 --> statement-breakpoint

@@ -1,5 +1,5 @@
 import type { APIClanWar, APIClan, APIPlayer } from "$lib/coc/types";
-import { boolean, integer, jsonb, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, pgTable, serial, text, timestamp, pgEnum } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user_table", {
     id: serial("id").primaryKey(),
@@ -40,12 +40,13 @@ export const baseTable = pgTable("base_table", {
     imageLink: text("image_link").notNull()
 });
 
+export const applicationStatusEnum = pgEnum("application_status", ["pending", "accepted", "rejected"]);
 export const clanApplicationTable = pgTable("clan_application_table", {
     id: serial("id").primaryKey(),
     tag: text("tag").notNull().unique(),
     playerData: jsonb("player_data").$type<APIPlayer>().notNull(),
     discordId: text("discord_id").notNull(),
-    status: text("status").notNull().default("pending"),
+    status: applicationStatusEnum("status").notNull().default("pending"),
     createdAt: timestamp("created_at").notNull().defaultNow()
 });
 
