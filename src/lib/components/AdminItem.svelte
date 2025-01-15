@@ -14,17 +14,18 @@
         items: APIRole[] | APIUser[];
         removeItem: (id: string) => void;
     }
-    let {
-        title = "",
-        placeholder = "",
-        inputValue = $bindable(""),
-        onSubmit = () => {},
-        items = [],
-        removeItem = () => {}
-    }: Props = $props();
+    let { title = "", placeholder = "", inputValue = $bindable(""), onSubmit = () => {}, items = [], removeItem = () => {} }: Props = $props();
 
     let disabledInput: boolean = $state(false);
     let disabledButton: boolean = $state(false);
+
+    $effect(() => {
+        if (inputValue.length <= 0 || items.find((item) => item.id === inputValue)) {
+            disabledButton = true;
+        } else {
+            disabledButton = false;
+        }
+    });
 
     const isRole = (item: APIRole | APIUser): item is APIRole => {
         return (item as APIRole).name !== undefined;
