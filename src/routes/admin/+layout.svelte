@@ -9,6 +9,10 @@
     let { children }: Props = $props();
 </script>
 
+<svelte:head>
+    <title>JPA | Admin</title>
+</svelte:head>
+
 <main class="flex size-full flex-col-reverse md:flex-row">
     <AdminSidebar />
     <main class="size-full overflow-auto pt-20 md:pt-24">
