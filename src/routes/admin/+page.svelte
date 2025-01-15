@@ -8,4 +8,4 @@
     let { data }: Props = $props();
 </script>
 
-<div class="size-full rounded-xl">Hi</div>
+<div class="size-full overflow-auto p-5">Hi</div>
