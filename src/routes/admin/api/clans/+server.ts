@@ -1,16 +1,10 @@
 import { API_TOKEN } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
-import type { APIClan, APIClanWar, APIWarClan } from "$lib/coc/types";
+import type { APIClan, APIClanWar } from "$lib/coc/types";
 import { clanTable, type InsertClan } from "$lib/server/schema";
-import type { NeonQueryFunction } from "@neondatabase/serverless";
 import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
-import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 import type { RequestHandler } from "./$types";
-
-type DB = NeonHttpDatabase<Record<string, never>> & {
-    $client: NeonQueryFunction<false, false>;
-};
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;
