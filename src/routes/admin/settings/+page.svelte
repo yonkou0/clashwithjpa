@@ -50,7 +50,7 @@
             key: "applications_enabled",
             value: applicationEnabled
         };
-        let response = await fetch("/admin/api", {
+        let response = await fetch("/admin/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -74,7 +74,7 @@
             key: "guild_id",
             value: { id: guildID.toString() }
         };
-        let resp = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -98,7 +98,7 @@
             key: "add_admin_role_id",
             value: adminRoleID.toString()
         };
-        let resp = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -118,7 +118,7 @@
             key: "remove_admin_role_id",
             value: roleID
         };
-        let resp = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api/settings", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -137,7 +137,7 @@
             key: "add_admin_id",
             value: adminID.toString()
         };
-        let resp = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -157,7 +157,7 @@
             key: "remove_admin_id",
             value: adminID
         };
-        let resp = await fetch("/admin/api", {
+        let resp = await fetch("/admin/api/settings", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -194,13 +194,7 @@
             <div class="flex flex-col items-start gap-2">
                 <span>Guild ID</span>
                 <div class="flex items-center gap-2">
-                    <input
-                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-colors focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                        placeholder="Enter Guild ID"
-                        maxlength="19"
-                        bind:value={guildID}
-                        disabled={disabled.guildID.input}
-                    />
+                    <input placeholder="Enter Guild ID" maxlength="19" bind:value={guildID} disabled={disabled.guildID.input} />
                     <button
                         class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
                         onclick={setGuildID}
