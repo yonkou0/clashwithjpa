@@ -1,7 +1,7 @@
-import type { PageServerLoad } from "./$types";
 import { getClansPublicData } from "$lib/server/functions";
+import type { PageServerLoad } from "./$types";
 
-export const load = (async ({ setHeaders, locals }) => {
+export const load = (async ({ locals }) => {
     const clans = await getClansPublicData(locals.db);
 
     return { clans };

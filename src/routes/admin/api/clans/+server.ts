@@ -1,12 +1,13 @@
 import { API_TOKEN } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
+import type { UserData } from "$lib/auth/user";
 import { checkClan, getClanWarData } from "$lib/coc/clan";
 import { clanTable, type InsertClan } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import type { RequestHandler } from "./$types";
 
-const isAdmin = (user: any) => user && user.isAdmin;
+const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
 const handleAddClan = async (locals: any, value: any) => {
     const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);

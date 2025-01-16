@@ -1,5 +1,6 @@
 import { DISCORD_BOT_TOKEN } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
+import type { UserData } from "$lib/auth/user";
 import { checkGuild, checkRole, checkUser } from "$lib/discord/check";
 import { getAdminConfig } from "$lib/server/functions";
 import { settingsTable } from "$lib/server/schema";
@@ -7,7 +8,7 @@ import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import type { RequestHandler } from "./$types";
 
-const isAdmin = (user: any) => user && user.isAdmin;
+const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
 const handleAddAdminRole = async (locals: any, value: any, adminConfig: any) => {
     const roleData = await checkRole(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, locals.db, value);
