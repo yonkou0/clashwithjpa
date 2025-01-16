@@ -19,7 +19,7 @@ export async function postVerifyToken(
     token: string,
     apiToken: string
 ): Promise<SuccessPlayerVerifyToken | ErrorPlayerVerifyToken> {
-    const response = await fetch(`${baseURI}/v1/players/${encodeURIComponent(tag)}/verifytoken`, {
+    const response = await fetch(`${baseURI}/players/${encodeURIComponent(tag)}/verifytoken`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -39,7 +39,7 @@ export async function postVerifyToken(
 }
 
 export async function getPlayerInfo(baseURI: string, tag: string, apiToken: string) {
-    const response = await fetch(`${baseURI}/v1/players/${encodeURIComponent(tag)}`, {
+    const response = await fetch(`${baseURI}/players/${encodeURIComponent(tag)}`, {
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${apiToken}`
