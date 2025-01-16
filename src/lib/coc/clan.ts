@@ -1,4 +1,30 @@
-import type { APIClanMember } from "$lib/coc/types";
+import type { APIClan, APIClanMember, APIClanWar } from "$lib/coc/types";
+
+// Clan check func
+export async function checkClan(baseURI: string, apiToken: string, tag: string) {
+    const resp = await fetch(`${baseURI}/clans/${tag}`, {
+        headers: {
+            Authorization: `Bearer ${apiToken}`
+        }
+    });
+    if (!resp.ok) {
+        return { error: true };
+    }
+    return (await resp.json()) as APIClan;
+}
+
+// Get clan war data
+export async function getClanWarData(baseURI: string, apiToken: string, tag: string) {
+    const resp = await fetch(`${baseURI}/clans/${tag}/currentwar`, {
+        headers: {
+            Authorization: `Bearer ${apiToken}`
+        }
+    });
+    if (!resp.ok) {
+        return { error: true };
+    }
+    return (await resp.json()) as APIClanWar;
+}
 
 export function formatDate(date: string, dateStyle: Intl.DateTimeFormatOptions["dateStyle"] = "medium", locales = "en") {
     const dateToFormat = new Date(date.replaceAll("-", "/"));

@@ -1,5 +1,6 @@
 import { API_TOKEN } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
+import { checkClan, getClanWarData } from "$lib/coc/clan";
 import type { APIClan, APIClanWar } from "$lib/coc/types";
 import { clanTable, type InsertClan } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
@@ -20,11 +21,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
     // Check and add clan
     let clanData: APIClan | null | { error: boolean } = null;
     if (key === "add_clan") {
-        clanData = await checkClan(value.tag);
+        clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
         if ("error" in clanData) {
             return json({ error: "Invalid Clan ID" }, { status: 400 });
         } else {
-            const clanWarData: APIClanWar | { error: boolean } = await getClanWarData(value.tag);
+            const clanWarData: APIClanWar | { error: boolean } = await getClanWarData(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
             if ("error" in clanWarData) {
                 return json({ error: "Unable to fetch data" }, { status: 400 });
             }
@@ -73,29 +74,3 @@ export const DELETE: RequestHandler = async ({ locals, request }) => {
 
     return json({ error: "Invalid key" }, { status: 400 });
 };
-
-// Clan check func
-async function checkClan(tag: string) {
-    const resp = await fetch(`${PUBLIC_API_BASE_URI}/clans/${tag}`, {
-        headers: {
-            Authorization: `Bearer ${API_TOKEN}`
-        }
-    });
-    if (!resp.ok) {
-        return { error: true };
-    }
-    return (await resp.json()) as APIClan;
-}
-
-// Get clan war data
-async function getClanWarData(tag: string) {
-    const resp = await fetch(`${PUBLIC_API_BASE_URI}/clans/${tag}/currentwar`, {
-        headers: {
-            Authorization: `Bearer ${API_TOKEN}`
-        }
-    });
-    if (!resp.ok) {
-        return { error: true };
-    }
-    return await resp.json();
-}

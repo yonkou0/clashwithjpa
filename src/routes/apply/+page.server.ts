@@ -1,9 +1,9 @@
 import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
-import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
 import { validateCFToken } from "$lib/cf/helpers";
 import { clanApplicationSchema } from "$lib/cf/schema";
+import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
 import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
 import { fail, redirect } from "@sveltejs/kit";
@@ -51,7 +51,7 @@ export const actions: Actions = {
         const playerTag = form.data.tag;
 
         const playerToken = form.data.apiToken;
-        const playerVerifyData = await postVerifyToken(PUBLIC_API_BASE_URI, playerTag, playerToken, API_TOKEN);
+        const playerVerifyData = await postVerifyToken(PUBLIC_API_BASE_URI, API_TOKEN, playerTag, playerToken);
         if ("status" in playerVerifyData && playerVerifyData.status !== "ok") {
             console.error(playerVerifyData);
             return message(form, "Invalid player tag or token", {
@@ -59,7 +59,7 @@ export const actions: Actions = {
             });
         }
 
-        const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, playerTag, API_TOKEN);
+        const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, playerTag);
 
         const [alreadyApplied] = await getClanApplicationFromTag(event.locals.db, playerData.tag);
         if (alreadyApplied) {

@@ -15,9 +15,9 @@ interface ErrorPlayerVerifyToken {
 
 export async function postVerifyToken(
     baseURI: string,
+    apiToken: string,
     tag: string,
-    token: string,
-    apiToken: string
+    token: string
 ): Promise<SuccessPlayerVerifyToken | ErrorPlayerVerifyToken> {
     const response = await fetch(`${baseURI}/players/${encodeURIComponent(tag)}/verifytoken`, {
         method: "POST",
@@ -38,7 +38,7 @@ export async function postVerifyToken(
     }
 }
 
-export async function getPlayerInfo(baseURI: string, tag: string, apiToken: string) {
+export async function getPlayerInfo(baseURI: string, apiToken: string, tag: string) {
     const response = await fetch(`${baseURI}/players/${encodeURIComponent(tag)}`, {
         headers: {
             Accept: "application/json",
