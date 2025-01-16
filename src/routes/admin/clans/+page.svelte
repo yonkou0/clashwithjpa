@@ -53,7 +53,7 @@
     <h1 class="text-4xl">Clans {data.clans.length}</h1>
     <div class="flex w-full flex-col items-center justify-center">
         <div class="flex w-full flex-col items-center">
-            <div class="flex w-full flex-wrap items-center justify-center gap-2 md:justify-start">
+            <div class="flex w-full flex-wrap items-start justify-center gap-2 md:justify-start">
                 {#each data.clans as clan, idx}
                     <div in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }} out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}>
                         <div class="flex flex-col justify-between rounded-xl border border-gray-700">

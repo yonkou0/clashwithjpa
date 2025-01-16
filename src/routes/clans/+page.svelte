@@ -41,9 +41,9 @@
 
     <div class="flex w-full flex-col items-center justify-center p-11">
         <div class="flex w-full flex-col items-center">
-            <div class="flex w-full flex-wrap items-center justify-center gap-5 lg:gap-11">
+            <div class="flex w-full flex-wrap items-stretch justify-center gap-5 lg:gap-11">
                 {#each data.clans as clan, idx}
-                    <CardContainer bind:isMouseEntered={mouseEvents[idx]}>
+                    <CardContainer class="size-full items-stretch" bind:isMouseEntered={mouseEvents[idx]}>
                         <CardBody class="flex flex-col justify-between rounded-xl border border-gray-700">
                             <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-80 items-center space-x-4 p-4">
                                 <img class="size-20" src={clan.clanData?.badgeUrls.medium} alt={clan.clanData?.name} />
