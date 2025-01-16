@@ -47,7 +47,7 @@
                         <CardBody class="flex flex-col justify-between rounded-xl border border-gray-700">
                             <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-80 items-center space-x-4 p-4">
                                 <img class="size-20" src={clan.clanData?.badgeUrls.medium} alt={clan.clanData?.name} />
-                                <div class="flex flex-col items-start">
+                                <div class="flex size-full flex-col items-start">
                                     <h2 class="text-2xl">{clan.clanData?.name}</h2>
                                     <p class="text-sm">{clan.clanData?.tag}</p>
                                     <p class="text-sm">LVL. {clan.clanData?.clanLevel}</p>

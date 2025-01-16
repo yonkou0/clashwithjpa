@@ -95,12 +95,12 @@
                                                 <span
                                                     class:text-red-400={application.status === "rejected"}
                                                     class:text-yellow-400={application.status === "pending"}
-                                                    class:text-green-400={application.status === "approved"}
+                                                    class:text-green-400={application.status === "accepted"}
                                                 >
                                                     <Tooltip.Provider>
                                                         <Tooltip.Root delayDuration={200}>
                                                             <Tooltip.Trigger class="cursor-default">
-                                                                {#if application.status === "approved"}
+                                                                {#if application.status === "accepted"}
                                                                     <MaterialSymbolsCheckCircle class="size-10" />
                                                                 {:else if application.status === "rejected"}
                                                                     <MaterialSymbolsCancelRounded class="size-10" />
@@ -151,13 +151,7 @@
                         <Description>Your account tag (include #)</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input
-                                    {...props}
-                                    type="text"
-                                    placeholder="#ABCDEFGHI"
-                                    bind:value={$formData.tag}
-                                    class="rounded-lg border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
-                                />
+                                <input {...props} class="rounded-lg" type="text" placeholder="#ABCDEFGHI" bind:value={$formData.tag} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -166,13 +160,7 @@
                         <Description>Your API token</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input
-                                    {...props}
-                                    type="text"
-                                    placeholder="API Token"
-                                    bind:value={$formData.apiToken}
-                                    class="rounded-lg border border-gray-700 bg-gray-100 text-gray-950 transition-colors focus:border-blue-700 focus:ring-0"
-                                />
+                                <input {...props} class="rounded-lg" type="text" placeholder="API Token" bind:value={$formData.apiToken} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -192,7 +180,7 @@
                     <button
                         disabled={buttonDisabled || $delayed}
                         type="submit"
-                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-100 px-4 py-3 text-gray-950 transition-all duration-200 hover:bg-gray-300 disabled:bg-gray-400"
+                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-800 p-2 px-4 py-3 transition-all duration-200 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
                         class:cursor-wait={$delayed}
                     >
                         {#if $delayed}

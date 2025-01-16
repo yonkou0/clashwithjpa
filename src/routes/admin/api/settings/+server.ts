@@ -81,14 +81,14 @@ export const DELETE: RequestHandler = async ({ locals, request }) => {
 
     const { key, value } = body;
 
-    // Check and remove admin role
+    // Remove admin role
     if (key === "remove_admin_role_id") {
         const newAdminRolesId = adminConfig.adminRolesId.filter((id: string) => id !== value);
         await locals.db.update(settingsTable).set({ value: newAdminRolesId }).where(eq(settingsTable.key, "admin_roles_id"));
         return json({ success: true });
     }
 
-    // Check and remove admin member
+    // Remove admin member
     if (key === "remove_admin_id") {
         const newAdminMembersId = adminConfig.adminMembersId.filter((id: string) => id !== value);
         await locals.db.update(settingsTable).set({ value: newAdminMembersId }).where(eq(settingsTable.key, "admin_members_id"));

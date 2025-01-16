@@ -51,13 +51,7 @@
 <div class="flex flex-col items-start justify-center gap-2">
     <span>{title}</span>
     <div class="flex items-center gap-2">
-        <input
-            class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 transition-colors focus:border-blue-700 focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-            {placeholder}
-            maxlength="19"
-            bind:value={inputValue}
-            disabled={disabledInput}
-        />
+        <input {placeholder} maxlength="19" bind:value={inputValue} disabled={disabledInput} />
         <button
             class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
             onclick={handleSubmit}
