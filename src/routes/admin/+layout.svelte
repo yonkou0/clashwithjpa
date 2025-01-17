@@ -13,9 +13,9 @@
     <title>JPA | Admin</title>
 </svelte:head>
 
-<main class="flex size-full flex-col-reverse pt-20 md:flex-row">
+<main class="flex size-full flex-col-reverse md:flex-row">
     <AdminSidebar />
-    <main class="size-full overflow-auto">
+    <main class="size-full overflow-auto pb-20 pt-20 md:pl-52 md:pb-0">
         {@render children?.()}
     </main>
 </main>
