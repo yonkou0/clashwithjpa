@@ -90,19 +90,17 @@
                     <Field {form} name={key as keyof typeof $formData}>
                         <Description>{clanForm[key].desc}</Description>
                         <Tooltip.Provider>
-                            <Tooltip.Root delayDuration={0} bind:open={openTooltip[idx]}>
+                            <Tooltip.Root delayDuration={0} bind:open={openTooltip[idx]} disableCloseOnTriggerClick>
                                 <Tooltip.Trigger class="flex w-full flex-grow">
                                     <Control>
                                         {#snippet children({ props })}
                                             <input
                                                 {...props}
-                                                oninput={() => {
-                                                    if ($errors[key as keyof typeof $formData]) {
-                                                        openTooltip[idx] = true;
-                                                    }
-                                                }}
+                                                onclick={() => (openTooltip[idx] = !openTooltip[idx])}
                                                 disabled={disabled.input}
-                                                class="w-full rounded-lg {$errors[key as keyof typeof $formData] ? '!border-red-700' : ''}"
+                                                class="w-full rounded-lg border border-gray-700 {$errors[key as keyof typeof $formData]
+                                                    ? '!border-red-700'
+                                                    : ''}"
                                                 type={clanForm[key].type}
                                                 placeholder={clanForm[key].placeholder}
                                                 bind:value={$formData[key as keyof typeof $formData]}
