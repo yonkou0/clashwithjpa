@@ -6,8 +6,8 @@ import { clanApplicationSchema } from "$lib/cf/schema";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
 import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
-import { fail, redirect } from "@sveltejs/kit";
-import { message, superValidate } from "sveltekit-superforms";
+import { redirect } from "@sveltejs/kit";
+import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 

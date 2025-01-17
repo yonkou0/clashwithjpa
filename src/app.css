@@ -45,15 +45,13 @@ body {
 }
 
 input {
-    border: 1px;
+    border: 1px solid theme(colors.gray.700);
     border-radius: theme(borderRadius.lg);
     background: linear-gradient(to right, theme(colors.gray.900), theme(colors.gray.800), theme(colors.gray.900));
-    @apply !transition-colors;
 }
 input:focus {
-    outline: none;
     border-color: theme(colors.blue.700);
-    @apply !transition-colors;
+    @apply !outline-none !ring-0 !transition-colors;
 }
 input:disabled {
     cursor: theme(cursor.not-allowed);

@@ -1,17 +1,46 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
+    import { page } from "$app/state";
+    import { clanForm, clanFormSchema } from "$lib/coc/schema";
     import ClanInfo from "$lib/components/ClanInfo.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
     import { toast } from "$lib/components/toast";
-    import { Popover } from "bits-ui";
+    import { Popover, Tooltip } from "bits-ui";
+    import { Control, Description, Field, FieldErrors } from "formsnap";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fly, slide } from "svelte/transition";
+    import { fade, fly, slide } from "svelte/transition";
+    import { superForm } from "sveltekit-superforms";
+    import { zodClient } from "sveltekit-superforms/adapters";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
     import MaterialSymbolsKeyboardDoubleArrowDownRounded from "~icons/material-symbols/keyboard-double-arrow-down-rounded";
     import MaterialSymbolsKeyboardDoubleArrowUpRounded from "~icons/material-symbols/keyboard-double-arrow-up-rounded";
+    import TablerLoader2 from "~icons/tabler/loader-2";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
+
+    let reset = $state<() => void>();
+    const form = superForm(data.form, {
+        validators: zodClient(clanFormSchema),
+        onUpdated() {
+            reset?.();
+        }
+    });
+    const { form: formData, enhance, message, delayed, errors } = form;
+    let openTooltip: boolean[] = $state(Array(Object.keys(clanForm).length).fill(false));
+    $effect(() => {
+        if ($message && (page.status === 200 || page.status == 400)) {
+            switch (page.status) {
+                case 200:
+                    toast.success($message);
+                    break;
+                case 400:
+                    toast.error($message);
+                    break;
+            }
+        }
+    });
+
     let hidden: boolean[] = $state(Array(data.clans.length).fill(true));
     let disabled: {
         input: boolean;
@@ -19,6 +48,9 @@
     } = $state({
         input: false,
         button: true
+    });
+    $effect(() => {
+        disabled.button = !Object.values(formData).every((v) => v !== undefined && v !== null);
     });
 
     async function removeClan(tag: string, name: string | undefined) {
@@ -49,7 +81,64 @@
 
 <div class="flex size-full flex-col gap-5 overflow-auto p-5 md:p-11">
     <h1 class="text-4xl">Add Clan</h1>
-    <input />
+    <form in:fade method="POST" action="/admin/clans" use:enhance class="w-full">
+        <div class="flex w-full flex-wrap items-start justify-center gap-2">
+            {#each Object.keys(clanForm) as key, idx}
+                <div class="flex w-full flex-grow cursor-default flex-col gap-2 md:w-fit">
+                    <Field {form} name={key as keyof typeof $formData}>
+                        <Description>{clanForm[key].desc}</Description>
+                        <Tooltip.Provider>
+                            <Tooltip.Root delayDuration={0} bind:open={openTooltip[idx]}>
+                                <Tooltip.Trigger class="flex w-full flex-grow">
+                                    <Control>
+                                        {#snippet children({ props })}
+                                            <input
+                                                {...props}
+                                                oninput={() => {
+                                                    if ($errors[key as keyof typeof $formData]) {
+                                                        openTooltip[idx] = true;
+                                                        console.log(openTooltip[idx]);
+                                                    }
+                                                }}
+                                                class="w-full rounded-lg {$errors[key as keyof typeof $formData] ? '!border-red-700' : ''}"
+                                                type={clanForm[key].type}
+                                                placeholder={clanForm[key].placeholder}
+                                                bind:value={$formData[key as keyof typeof $formData]}
+                                            />
+                                        {/snippet}
+                                    </Control>
+                                </Tooltip.Trigger>
+                                <Tooltip.Portal>
+                                    <Tooltip.Content
+                                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2
+                                        {$errors[key as keyof typeof $formData] ? '' : 'hidden'}"
+                                    >
+                                        <FieldErrors class="text-xs text-red-400" />
+                                        <Tooltip.Arrow class="text-slate-700" />
+                                    </Tooltip.Content>
+                                </Tooltip.Portal>
+                            </Tooltip.Root>
+                        </Tooltip.Provider>
+                    </Field>
+                </div>
+            {/each}
+        </div>
+        <button
+            disabled={disabled.button || $delayed}
+            type="submit"
+            class="mt-4 flex w-full items-center justify-center rounded-lg bg-gray-800 p-2 px-4 py-3 transition-all duration-200 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
+            class:cursor-wait={$delayed}
+        >
+            {#if $delayed}
+                <span in:fly class="flex size-full items-center justify-center gap-2">
+                    <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                    Submitting...
+                </span>
+            {:else}
+                <span in:fly class="flex size-full items-center justify-center">Submit</span>
+            {/if}
+        </button>
+    </form>
     <h1 class="text-4xl">Clans {data.clans.length}</h1>
     <div class="flex w-full flex-col items-center justify-center">
         <div class="flex w-full flex-col items-center">
