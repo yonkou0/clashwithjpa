@@ -97,7 +97,6 @@
                                                 oninput={() => {
                                                     if ($errors[key as keyof typeof $formData]) {
                                                         openTooltip[idx] = true;
-                                                        console.log(openTooltip[idx]);
                                                     }
                                                 }}
                                                 class="w-full rounded-lg {$errors[key as keyof typeof $formData] ? '!border-red-700' : ''}"

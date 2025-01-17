@@ -71,14 +71,14 @@ export const clanForm: {
 
 export const clanFormSchema = z.object({
     tag: z.string().min(5).startsWith("#"),
-    clanCode: z.string().min(2).max(2).nonempty(),
-    clanRoleID: z.string().length(19).nonempty(),
-    memberRoleID: z.string().length(19).nonempty(),
-    elderRoleID: z.string().length(19).nonempty(),
-    coleaderRoleID: z.string().length(19).nonempty(),
-    leaderRoleID: z.string().length(19).nonempty(),
-    leaderID: z.string().length(19).nonempty(),
-    channelID: z.string().length(19).nonempty(),
+    clanCode: z.string().length(2).nonempty(),
+    clanRoleID: z.string().max(19).nonempty(),
+    memberRoleID: z.string().max(19).nonempty(),
+    elderRoleID: z.string().max(19).nonempty(),
+    coleaderRoleID: z.string().max(19).nonempty(),
+    leaderRoleID: z.string().max(19).nonempty(),
+    leaderID: z.string().max(19).nonempty(),
+    channelID: z.string().max(19).nonempty(),
     attacksRequirement: z.number().int(),
     donationsRequirement: z.number().int(),
     clangamesRequirement: z.number().int()

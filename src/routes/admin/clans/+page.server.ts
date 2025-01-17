@@ -1,9 +1,10 @@
 import { clanFormSchema } from "$lib/coc/schema";
 import { getClansPublicData } from "$lib/server/functions";
 import type { Actions } from "@sveltejs/kit";
-import { fail, superValidate } from "sveltekit-superforms";
+import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { PageServerLoad } from "./$types";
+import type { APIClan } from "$lib/coc/types";
 
 export const load = (async ({ locals }) => {
     const clans = await getClansPublicData(locals.db);
@@ -18,11 +19,20 @@ export const actions: Actions = {
             return fail(400, { form });
         }
 
-        return {
-            status: 200,
-            body: {
-                form
-            }
-        };
+        const resp = await event.fetch("/admin/api/clans", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ key: "add_clan", value: form.data })
+        });
+
+        if (!resp.ok) {
+            const data: { error: string } = await resp.json();
+            return message(form, data.error, { status: 400 });
+        }
+
+        const data: APIClan = await resp.json();
+        return message(form, `Added clan ${data.name}`);
     }
 };

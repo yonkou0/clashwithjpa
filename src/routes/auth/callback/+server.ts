@@ -1,9 +1,9 @@
 import { DISCORD_ID, DISCORD_SECRET, JWT_SECRET } from "$env/static/private";
 import { PUBLIC_DISCORD_URL } from "$env/static/public";
+import { signData } from "$lib/auth/jwt";
+import { getUserData } from "$lib/auth/user";
 import { error } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { getUserData } from "$lib/auth/user";
-import { signData } from "$lib/auth/jwt";
 
 export const GET: RequestHandler = async ({ fetch, url, cookies, locals }) => {
     const code = url.searchParams.get("code");
@@ -66,8 +66,7 @@ export const GET: RequestHandler = async ({ fetch, url, cookies, locals }) => {
         } else {
             error(resp.status, await resp.text());
         }
-    } catch (e) {
-        console.error(e);
+    } catch {
         error(500, "Failed to get tokens");
     }
 };

@@ -20,12 +20,10 @@ export const load = (async ({ locals }) => {
     );
 
     const [adminRoles, admins] = await Promise.all([
-        Promise.all(adminRolesPromises).catch((err) => {
-            console.error(err);
+        Promise.all(adminRolesPromises).catch(() => {
             return [];
         }),
-        Promise.all(adminsPromises).catch((err) => {
-            console.error(err);
+        Promise.all(adminsPromises).catch(() => {
             return [];
         })
     ]);

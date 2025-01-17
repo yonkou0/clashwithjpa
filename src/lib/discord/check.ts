@@ -1,6 +1,6 @@
 import { getAdminConfig } from "$lib/server/functions";
 import type { NeonQueryFunction } from "@neondatabase/serverless";
-import type { APIGuild, APIRole, APIUser } from "discord-api-types/v10";
+import type { APIChannel, APIGuild, APIRole, APIUser } from "discord-api-types/v10";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 
 type DB = NeonHttpDatabase<Record<string, never>> & {
@@ -45,4 +45,17 @@ export async function checkUser(baseURI: string, botToken: string, id: string) {
         return { error: true };
     }
     return (await resp.json()) as APIUser;
+}
+
+// Channel check funcs
+export async function checkChannel(baseURI: string, botToken: string, id: string) {
+    const resp = await fetch(`${baseURI}/channels/${id}`, {
+        headers: {
+            Authorization: `Bot ${botToken}`
+        }
+    });
+    if (!resp.ok) {
+        return { error: true };
+    }
+    return (await resp.json()) as APIChannel;
 }

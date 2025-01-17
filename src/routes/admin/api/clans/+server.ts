@@ -1,7 +1,8 @@
-import { API_TOKEN } from "$env/static/private";
-import { PUBLIC_API_BASE_URI } from "$env/static/public";
+import { API_TOKEN, DISCORD_BOT_TOKEN } from "$env/static/private";
+import { PUBLIC_API_BASE_URI, PUBLIC_DISCORD_URL } from "$env/static/public";
 import type { UserData } from "$lib/auth/user";
 import { checkClan, getClanWarData } from "$lib/coc/clan";
+import { checkChannel, checkRole, checkUser } from "$lib/discord/check";
 import { clanTable, type InsertClan } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
@@ -12,12 +13,41 @@ const isAdmin = (user: UserData | null) => user && user.isAdmin;
 const handleAddClan = async (locals: any, value: any) => {
     const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
     if ("error" in clanData) {
-        return { error: "Invalid Clan ID", status: 400 };
+        return { error: "Invalid Clan Tag", status: 400 };
     }
     const clanWarData = await getClanWarData(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
     if ("error" in clanWarData) {
         return { error: "Unable to fetch data", status: 400 };
     }
+
+    const leader = await checkUser(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, value.leaderID);
+    if ("error" in leader) {
+        return { error: "Invalid Leader ID", status: 400 };
+    }
+    const channel = await checkChannel(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, value.channelID);
+    if ("error" in channel) {
+        return { error: "Invalid Channel ID", status: 400 };
+    }
+
+    for (const role of [value.clanRoleID, value.memberRoleID, value.elderRoleID, value.coleaderRoleID, value.leaderRoleID]) {
+        if (role) {
+            const roleData = await checkRole(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, locals.db, role);
+            if ("error" in roleData) {
+                const roleNames = {
+                    [value.clanRoleID]: "Clan",
+                    [value.memberRoleID]: "Member",
+                    [value.elderRoleID]: "Elder",
+                    [value.coleaderRoleID]: "Co-Leader",
+                    [value.leaderRoleID]: "Leader"
+                };
+                return {
+                    error: `Invalid ${roleNames[role]} Role ID`,
+                    status: 400
+                };
+            }
+        }
+    }
+
     const dbData: InsertClan = {
         clanCode: value.clanCode,
         clanName: clanData.name,

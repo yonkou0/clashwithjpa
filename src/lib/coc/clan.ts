@@ -2,7 +2,7 @@ import type { APIClan, APIClanMember, APIClanWar } from "$lib/coc/types";
 
 // Clan check func
 export async function checkClan(baseURI: string, apiToken: string, tag: string) {
-    const resp = await fetch(`${baseURI}/clans/${tag}`, {
+    const resp = await fetch(`${baseURI}/clans/${encodeURIComponent(tag)}`, {
         headers: {
             Authorization: `Bearer ${apiToken}`
         }
@@ -15,7 +15,7 @@ export async function checkClan(baseURI: string, apiToken: string, tag: string) 
 
 // Get clan war data
 export async function getClanWarData(baseURI: string, apiToken: string, tag: string) {
-    const resp = await fetch(`${baseURI}/clans/${tag}/currentwar`, {
+    const resp = await fetch(`${baseURI}/clans/${encodeURIComponent(tag)}/currentwar`, {
         headers: {
             Authorization: `Bearer ${apiToken}`
         }
