@@ -55,7 +55,7 @@ input:focus {
 }
 input:disabled {
     cursor: theme(cursor.not-allowed);
-    opacity: theme(opacity.0);
+    opacity: theme(opacity.50);
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

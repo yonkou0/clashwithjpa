@@ -50,7 +50,9 @@
         button: true
     });
     $effect(() => {
-        disabled.button = !Object.values(formData).every((v) => v !== undefined && v !== null);
+        disabled.input = $delayed;
+        disabled.button =
+            !Object.values(formData).every((v) => v !== undefined && v !== null) || data.clans.some((clan) => clan.clanTag == $formData.tag);
     });
 
     async function removeClan(tag: string, name: string | undefined) {
@@ -99,6 +101,7 @@
                                                         openTooltip[idx] = true;
                                                     }
                                                 }}
+                                                disabled={disabled.input}
                                                 class="w-full rounded-lg {$errors[key as keyof typeof $formData] ? '!border-red-700' : ''}"
                                                 type={clanForm[key].type}
                                                 placeholder={clanForm[key].placeholder}
