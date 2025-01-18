@@ -1,0 +1,1 @@
+ALTER TABLE "clan_table" ALTER COLUMN "clan_name" DROP NOT NULL;

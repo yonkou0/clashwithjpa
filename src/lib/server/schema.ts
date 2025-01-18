@@ -16,7 +16,7 @@ export const cocTable = pgTable("coc_table", {
 export const clanTable = pgTable("clan_table", {
     id: serial("id").primaryKey(),
     clanCode: text("clan_code").notNull(),
-    clanName: text("clan_name").notNull(),
+    clanName: text("clan_name"),
     clanLevel: integer("clan_level"),
     clanTag: text("clan_tag").notNull(),
     clanRoleID: text("clan_role_id").notNull(),
