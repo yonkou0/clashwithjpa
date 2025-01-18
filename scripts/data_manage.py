@@ -92,8 +92,8 @@ async def main():
     if want_backup == "yes":
         await backup_settings(pool)
 
-    delete_table = input("Do you want to delete the tables? (yes/no): ")
-    if delete_table == "yes":
+    truncate_table = input("Do you want to truncate the tables? (yes/no): ")
+    if truncate_table == "yes":
         async with pool.acquire() as conn:
             for table in tables:
                 await conn.execute(f"TRUNCATE TABLE {table} RESTART IDENTITY CASCADE")
