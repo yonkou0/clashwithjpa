@@ -124,7 +124,7 @@
                 </div>
             {/each}
         </div>
-        <Button disabled={disabled.button || $delayed} type="submit" class="w-full p-2 px-4 py-3 {$delayed ? 'cursor-wait' : ''}">
+        <Button disabled={disabled.button || $delayed} type="submit" class="w-full px-4 py-3 {$delayed ? 'cursor-wait' : ''}">
             {#if $delayed}
                 <span in:fly class="flex size-full items-center justify-center gap-2">
                     <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>

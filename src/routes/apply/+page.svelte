@@ -190,7 +190,7 @@
                             />
                         </Field>
                     {/if}
-                    <Button class="p-2 px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
+                    <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
                         {#if $delayed}
                             <span in:fly class="flex size-full items-center justify-center gap-2">
                                 <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
