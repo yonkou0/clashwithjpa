@@ -72,7 +72,6 @@ const handleAddClan = async (locals: App.Locals, value: any) => {
 
 const handleClanEdit = async (locals: App.Locals, value: any) => {
     const clanData = await locals.db.select().from(clanTable).where(eq(clanTable.clanTag, value.tag));
-    console.log(clanData);
     if ("error" in clanData) {
         return { error: "Invalid Clan Tag", status: 400 };
     }
