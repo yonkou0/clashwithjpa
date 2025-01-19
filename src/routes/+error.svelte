@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import Button from "$lib/components/Button.svelte";
+    import CocButton from "$lib/components/CocButton.svelte";
     import MaterialSymbolsChevronLeftRounded from "~icons/material-symbols/chevron-left-rounded";
 </script>
 
@@ -16,10 +16,10 @@
             <h1 class="text-4xl font-bold md:text-6xl lg:text-5xl">{page.status}</h1>
             <h2 class="text-xl font-semibold text-gray-400 lg:text-2xl">{page.error?.message}</h2>
             <div class="pt-5">
-                <Button href="/" size="md" class="group">
+                <CocButton href="/" size="md" class="group">
                     <MaterialSymbolsChevronLeftRounded class="size-8 transition-transform group-hover:-translate-x-2" />
                     <span>Homepage</span>
-                </Button>
+                </CocButton>
             </div>
         </div>
     </div>

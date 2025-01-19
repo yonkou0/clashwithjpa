@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import Button from "$lib/components/Button.svelte";
+    import CocButton from "$lib/components/CocButton.svelte";
     import { onMount } from "svelte";
     import { fade } from "svelte/transition";
     import MaterialSymbolsArrowUpwardRounded from "~icons/material-symbols/arrow-upward-rounded";
@@ -28,14 +28,14 @@
 <div class="mt-32 flex w-full flex-col items-start gap-5 px-5 pb-5 lg:flex-row lg:px-10">
     {#if showScrollButton}
         <div transition:fade={{ duration: 200 }} class="fixed bottom-4 right-4 z-10">
-            <Button
+            <CocButton
                 onclick={() => {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 class="group size-11"
             >
                 <MaterialSymbolsArrowUpwardRounded class="size-5 transition-transform group-hover:-translate-y-1 " />
-            </Button>
+            </CocButton>
         </div>
     {/if}
     <div

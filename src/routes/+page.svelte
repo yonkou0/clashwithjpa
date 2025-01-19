@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from "$lib/components/Button.svelte";
+    import CocButton from "$lib/components/CocButton.svelte";
     import H1 from "$lib/components/H1.svelte";
     import { onMount } from "svelte";
     import MaterialSymbolsPauseCircleRounded from "~icons/material-symbols/pause-circle-rounded";
@@ -53,7 +53,7 @@
                 FWA experts in War-Farming, offering diverse clans and simultaneous 50v50 FWA wars and CWL action. Join one of the clans in our family
                 today!
             </p>
-            <Button href="/clans" size="md" class="mt-10">See our clans</Button>
+            <CocButton href="/clans" size="md" class="mt-10">See our clans</CocButton>
         </div>
     </div>
 

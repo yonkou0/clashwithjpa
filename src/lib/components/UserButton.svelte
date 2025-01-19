@@ -1,7 +1,7 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import type { UserData } from "$lib/auth/user";
-    import Button from "$lib/components/Button.svelte";
+    import CocButton from "$lib/components/CocButton.svelte";
     import { toast } from "$lib/components/toast";
     import { Popover } from "bits-ui";
     import MaterialSymbolsAdminPanelSettingsRounded from "~icons/material-symbols/admin-panel-settings-rounded";
@@ -37,11 +37,11 @@
                     class="flex flex-col gap-5 rounded-xl border border-gray-950 bg-gradient-to-b from-gray-800 via-gray-800 to-gray-900 p-5 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 backdrop-blur-md"
                 >
                     <div class="flex gap-x-5">
-                        <Button onclick={logout} class="p-2" type="danger">
+                        <CocButton onclick={logout} class="p-2" type="danger">
                             <MaterialSymbolsLogoutRounded class="size-5 rotate-180 transition-transform" />
                             <span class="text-sm">Logout</span>
-                        </Button>
-                        <Button
+                        </CocButton>
+                        <CocButton
                             href="/apply"
                             onclick={() => {
                                 if (!applicationEnabled) toast.error("Applications are closed");
@@ -50,22 +50,22 @@
                         >
                             <MaterialSymbolsLabProfileRounded class="size-5 transition-transform" />
                             <span class="text-sm">Apply</span>
-                        </Button>
+                        </CocButton>
                     </div>
-                    <Button href="/cwl" class="p-2">
+                    <CocButton href="/cwl" class="p-2">
                         <MdiSwordCross class="size-5 transition-transform" />
                         <span class="text-sm">Clan War League</span>
-                    </Button>
+                    </CocButton>
                     {#if user.isAdmin}
-                        <Button href="/admin" class="p-2">
+                        <CocButton href="/admin" class="p-2">
                             <MaterialSymbolsAdminPanelSettingsRounded class="size-5 transition-transform" />
                             <span class="text-sm">Admin Panel</span>
-                        </Button>
+                        </CocButton>
                     {/if}
                 </div>
             </Popover.Content>
         </Popover.Portal>
     </Popover.Root>
 {:else}
-    <Button href="/auth/login" size="sm">Login</Button>
+    <CocButton href="/auth/login" size="sm">Login</CocButton>
 {/if}

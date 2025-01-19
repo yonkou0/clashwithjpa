@@ -43,14 +43,14 @@
 </script>
 
 <nav
-    class="max-w-screen fixed mt-20 inset-x-0 bottom-0 z-20 flex w-screen items-center justify-evenly gap-2 bg-gray-900 p-2 backdrop-blur-sm transition-all md:inset-y-0 md:left-0 md:max-h-screen md:w-fit md:max-w-lg md:flex-col md:justify-start md:rounded-t-none md:py-4"
+    class="max-w-screen fixed inset-x-0 bottom-0 z-20 mt-20 flex w-screen items-center justify-evenly gap-2 bg-gray-900 p-2 backdrop-blur-sm transition-all md:inset-y-0 md:left-0 md:max-h-screen md:w-fit md:max-w-lg md:flex-col md:justify-start md:rounded-t-none md:py-4"
     class:rounded-t-2xl={page.route.id !== "/admin/rules"}
     class:md:rounded-br-2xl={page.route.id !== "/admin/rules"}
 >
     {#each items as item}
         <a
             href={item.href}
-            class="flex w-full flex-col items-center justify-start rounded-xl p-2 md:px-5 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2"
+            class="flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
             class:bg-gray-950={page.route.id === item.href}
             class:bg-opacity-50={page.route.id === item.href}
         >

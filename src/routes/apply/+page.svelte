@@ -18,6 +18,7 @@
     import MaterialSymbolsWarningRounded from "~icons/material-symbols/warning-rounded";
     import type { PageData } from "./$types";
     import TablerLoader2 from "~icons/tabler/loader-2";
+    import Button from "$lib/components/Button.svelte";
 
     let { data }: { data: PageData } = $props();
 
@@ -151,7 +152,13 @@
                         <Description>Your account tag (include #)</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input {...props} class="rounded-lg border border-gray-700" type="text" placeholder="#ABCDEFGHI" bind:value={$formData.tag} />
+                                <input
+                                    {...props}
+                                    class="rounded-lg border border-gray-700"
+                                    type="text"
+                                    placeholder="#ABCDEFGHI"
+                                    bind:value={$formData.tag}
+                                />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -160,7 +167,13 @@
                         <Description>Your API token</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input {...props} class="rounded-lg border border-gray-700" type="text" placeholder="API Token" bind:value={$formData.apiToken} />
+                                <input
+                                    {...props}
+                                    class="rounded-lg border border-gray-700"
+                                    type="text"
+                                    placeholder="API Token"
+                                    bind:value={$formData.apiToken}
+                                />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -177,12 +190,7 @@
                             />
                         </Field>
                     {/if}
-                    <button
-                        disabled={buttonDisabled || $delayed}
-                        type="submit"
-                        class="mt-4 flex items-center justify-center rounded-lg bg-gray-800 p-2 px-4 py-3 transition-all duration-200 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
-                        class:cursor-wait={$delayed}
-                    >
+                    <Button class="p-2 px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
                         {#if $delayed}
                             <span in:fly class="flex size-full items-center justify-center gap-2">
                                 <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
@@ -191,7 +199,7 @@
                         {:else}
                             <span in:fly class="flex size-full items-center justify-center">Submit</span>
                         {/if}
-                    </button>
+                    </Button>
                 </form>
             {/if}
             {#if data.applications.length}

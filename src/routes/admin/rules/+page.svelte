@@ -11,6 +11,7 @@
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
     import { onMount } from "svelte";
+    import Button from "$lib/components/Button.svelte";
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.rules.content);
@@ -65,13 +66,13 @@
 <div class="dark flex size-full marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
     <Tipex bind:tipex={editor} body={rules} controls floating focal={false}>
         {#snippet utilities()}
-            <button
-                class="tipex-edit-button transition-all disabled:cursor-wait disabled:opacity-50 disabled:hover:!bg-gray-800"
+            <Button
+                class="tipex-edit-button disabled:cursor-wait"
                 onclick={save}
                 {disabled}
             >
                 <MaterialSymbolsSendRounded class="size-6" />
-            </button>
+            </Button>
         {/snippet}
     </Tipex>
 </div>

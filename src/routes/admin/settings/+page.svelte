@@ -6,6 +6,7 @@
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
     import AdminItem from "../../../lib/components/AdminItem.svelte";
     import type { PageData } from "./$types";
+    import Button from "$lib/components/Button.svelte";
 
     let { data }: { data: PageData } = $props();
     let applicationEnabled: boolean = $state(data.applicationEnabled);
@@ -195,13 +196,9 @@
                 <span>Guild ID</span>
                 <div class="flex items-center gap-2">
                     <input placeholder="Enter Guild ID" maxlength="19" bind:value={guildID} disabled={disabled.guildID.input} />
-                    <button
-                        class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
-                        onclick={setGuildID}
-                        disabled={disabled.guildID.button}
-                    >
+                    <Button class="h-full p-2" onclick={setGuildID} disabled={disabled.guildID.button}>
                         <MaterialSymbolsSendRounded class="size-6" />
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

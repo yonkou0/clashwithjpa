@@ -2,6 +2,7 @@
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
     import { clanForm, clanFormSchema } from "$lib/coc/schema";
+    import Button from "$lib/components/Button.svelte";
     import ClanInfo from "$lib/components/ClanInfo.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
     import { toast } from "$lib/components/toast";
@@ -123,12 +124,7 @@
                 </div>
             {/each}
         </div>
-        <button
-            disabled={disabled.button || $delayed}
-            type="submit"
-            class="mt-4 flex w-full items-center justify-center rounded-lg bg-gray-800 p-2 px-4 py-3 transition-all duration-200 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
-            class:cursor-wait={$delayed}
-        >
+        <Button disabled={disabled.button || $delayed} type="submit" class="mt-4 w-full p-2 px-4 py-3 {$delayed ? 'cursor-wait' : ''}">
             {#if $delayed}
                 <span in:fly class="flex size-full items-center justify-center gap-2">
                     <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
@@ -137,7 +133,7 @@
             {:else}
                 <span in:fly class="flex size-full items-center justify-center">Submit</span>
             {/if}
-        </button>
+        </Button>
     </form>
     <h1 class="text-4xl">Clans {data.clans.length}</h1>
     <div class="flex w-full flex-col items-center justify-center">
@@ -151,24 +147,20 @@
                                 <div class="flex size-full flex-col items-start">
                                     <div class="flex size-full items-start justify-between">
                                         <h2 class="text-2xl">{clan.clanData?.name}</h2>
-                                        <button
-                                            class="size-fit rounded-lg bg-slate-800 p-1 transition-all hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-800"
+                                        <Button
+                                            class="size-fit p-1"
                                             disabled={disabled.input}
                                             onclick={async () => {
                                                 await removeClan(clan.clanTag, clan.clanData?.name);
                                             }}
                                         >
                                             <MaterialSymbolsCloseRounded class="size-fit" />
-                                        </button>
+                                        </Button>
                                     </div>
                                     <p class="text-sm">{clan.clanData?.tag}</p>
                                     <div class="flex size-full items-start justify-between">
                                         <p class="text-sm">LVL. {clan.clanData?.clanLevel}</p>
-                                        <button
-                                            class="flex size-fit items-center justify-center rounded-lg bg-slate-800 p-1 transition-all hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-800"
-                                            disabled={disabled.input}
-                                            onclick={() => (hidden[idx] = !hidden[idx])}
-                                        >
+                                        <Button class="size-fit p-1" disabled={disabled.input} onclick={() => (hidden[idx] = !hidden[idx])}>
                                             {#if hidden[idx]}
                                                 <span in:fly class="size-fit">
                                                     <MaterialSymbolsKeyboardDoubleArrowDownRounded class="size-fit" />
@@ -178,7 +170,7 @@
                                                     <MaterialSymbolsKeyboardDoubleArrowUpRounded class="size-fit" />
                                                 </span>
                                             {/if}
-                                        </button>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

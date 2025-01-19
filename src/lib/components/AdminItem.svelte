@@ -5,6 +5,7 @@
     import { fly } from "svelte/transition";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
+    import Button from "./Button.svelte";
 
     interface Props {
         title: string;
@@ -52,13 +53,9 @@
     <span>{title}</span>
     <div class="flex items-center gap-2">
         <input {placeholder} maxlength="19" bind:value={inputValue} disabled={disabledInput} />
-        <button
-            class="h-full rounded-lg bg-gray-800 p-2 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:!bg-gray-800"
-            onclick={handleSubmit}
-            disabled={disabledButton}
-        >
+        <Button class="h-full p-2" onclick={handleSubmit} disabled={disabledButton}>
             <MaterialSymbolsSendRounded class="size-6" />
-        </button>
+        </Button>
     </div>
     <div class="flex flex-wrap gap-2 overflow-hidden">
         {#each items as item}
