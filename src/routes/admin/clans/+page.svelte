@@ -9,10 +9,12 @@
     import { Popover, Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fade, fly, slide } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
     import { superForm } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
+    import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
+    import MaterialSymbolsEditRounded from "~icons/material-symbols/edit-rounded";
     import MaterialSymbolsKeyboardDoubleArrowDownRounded from "~icons/material-symbols/keyboard-double-arrow-down-rounded";
     import MaterialSymbolsKeyboardDoubleArrowUpRounded from "~icons/material-symbols/keyboard-double-arrow-up-rounded";
     import TablerLoader2 from "~icons/tabler/loader-2";
@@ -56,6 +58,11 @@
             !Object.values(formData).every((v) => v !== undefined && v !== null) || data.clans.some((clan) => clan.clanTag == $formData.tag);
     });
 
+    function getInputLen(data: any) {
+        const len = (data ?? "").toString().length;
+        return `${Math.min(len, 8) + 2}ch`;
+    }
+
     async function removeClan(tag: string, name: string | undefined) {
         disabled.input = true;
         disabled.button = true;
@@ -74,6 +81,57 @@
             invalidateAll();
         } else {
             toast.error("Failed to remove clan");
+        }
+        setTimeout(() => {
+            disabled.input = false;
+            disabled.button = false;
+        }, 2000);
+    }
+
+    let clanData: {
+        [key: string]: {
+            disabled: boolean;
+            attacksRequirement: number;
+            donationsRequirement: number;
+            clangamesRequirement: number;
+        };
+    } = $state(
+        Object.fromEntries(
+            data.clans.map((clan) => [
+                clan.clanTag,
+                {
+                    disabled: true,
+                    attacksRequirement: clan.attacksRequirement,
+                    donationsRequirement: clan.donationsRequirement,
+                    clangamesRequirement: clan.clangamesRequirement
+                }
+            ])
+        )
+    );
+    async function editClan(tag: string, name: string | undefined) {
+        disabled.input = true;
+        disabled.button = true;
+        clanData[tag].disabled = true;
+        const body = {
+            key: "edit_clan",
+            value: {
+                tag,
+                attacksRequirement: clanData[tag].attacksRequirement,
+                donationsRequirement: clanData[tag].donationsRequirement,
+                clangamesRequirement: clanData[tag].clangamesRequirement
+            }
+        };
+        let response = await fetch("/admin/api/clans", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        if (response.ok) {
+            toast.success(`Edited clan ${name || tag}`);
+            invalidateAll();
+        } else {
+            toast.error("Failed to edit clan");
         }
         setTimeout(() => {
             disabled.input = false;
@@ -154,7 +212,7 @@
                                                 await removeClan(clan.clanTag, clan.clanData?.name);
                                             }}
                                         >
-                                            <MaterialSymbolsCloseRounded class="size-fit" />
+                                            <MaterialSymbolsCloseRounded class="size-full" />
                                         </Button>
                                     </div>
                                     <p class="text-sm">{clan.clanData?.tag}</p>
@@ -162,12 +220,12 @@
                                         <p class="text-sm">LVL. {clan.clanData?.clanLevel}</p>
                                         <Button class="size-fit p-1" disabled={disabled.input} onclick={() => (hidden[idx] = !hidden[idx])}>
                                             {#if hidden[idx]}
-                                                <span in:fly class="size-fit">
-                                                    <MaterialSymbolsKeyboardDoubleArrowDownRounded class="size-fit" />
+                                                <span in:fly class="size-full">
+                                                    <MaterialSymbolsKeyboardDoubleArrowDownRounded class="size-full" />
                                                 </span>
                                             {:else}
-                                                <span in:fly class="size-fit">
-                                                    <MaterialSymbolsKeyboardDoubleArrowUpRounded class="size-fit" />
+                                                <span in:fly class="size-full">
+                                                    <MaterialSymbolsKeyboardDoubleArrowUpRounded class="size-full" />
                                                 </span>
                                             {/if}
                                         </Button>
@@ -210,29 +268,113 @@
                                         </div>
                                     </div>
                                     <div class="flex w-full flex-col">
-                                        <div class="flex flex-col items-center justify-between p-4">
+                                        <div class="flex size-full items-center justify-evenly p-4">
                                             <p>Minimum Requirements</p>
+                                            <Button
+                                                class="size-fit p-1"
+                                                disabled={disabled.input}
+                                                onclick={() => {
+                                                    clanData[clan.clanTag].disabled = !clanData[clan.clanTag].disabled;
+                                                    if (clanData[clan.clanTag].disabled) {
+                                                        clanData[clan.clanTag].attacksRequirement = clan.attacksRequirement;
+                                                        clanData[clan.clanTag].donationsRequirement = clan.donationsRequirement;
+                                                        clanData[clan.clanTag].clangamesRequirement = clan.clangamesRequirement;
+                                                    }
+                                                }}
+                                            >
+                                                {#if clanData[clan.clanTag].disabled}
+                                                    <span in:fly class="size-full">
+                                                        <MaterialSymbolsEditRounded class="size-full" />
+                                                    </span>
+                                                {:else}
+                                                    <span in:fly class="size-full">
+                                                        <MaterialSymbolsCloseRounded class="size-full" />
+                                                    </span>
+                                                {/if}
+                                            </Button>
+                                            {#if !clanData[clan.clanTag].disabled}
+                                                <div
+                                                    in:slide={{ duration: 100, axis: "x" }}
+                                                    out:slide={{ duration: 100, axis: "x" }}
+                                                    class="flex size-fit items-center justify-center"
+                                                >
+                                                    <Button
+                                                        class="size-fit p-1"
+                                                        disabled={disabled.input}
+                                                        onclick={() => {
+                                                            clanData[clan.clanTag].disabled = true;
+                                                            editClan(clan.clanTag, clan.clanData?.name);
+                                                        }}
+                                                    >
+                                                        <span class="size-full">
+                                                            <MaterialSymbolsCheckRounded class="size-full" />
+                                                        </span>
+                                                    </Button>
+                                                </div>
+                                            {/if}
                                         </div>
                                         <div
                                             class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                         >
                                             <div class="flex items-center">
                                                 <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />
-                                                <p class="ml-2">
-                                                    {clan.attacksRequirement} Attacks
-                                                </p>
+                                                <div class="ml-2 flex items-center justify-start gap-1">
+                                                    <input
+                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        style="width: {getInputLen(clanData[clan.clanTag].attacksRequirement)}"
+                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        placeholder="Attacks"
+                                                        type="number"
+                                                        bind:value={clanData[clan.clanTag].attacksRequirement}
+                                                        oninput={() =>
+                                                            (clanData[clan.clanTag].attacksRequirement = Math.max(
+                                                                0,
+                                                                clanData[clan.clanTag].attacksRequirement
+                                                            ))}
+                                                    />
+                                                    Attacks
+                                                </div>
                                             </div>
                                             <div class="flex items-center">
                                                 <img class="size-11" src={`/labels/donations.webp`} alt="donations" />
-                                                <p class="ml-2">
-                                                    {clan.donationsRequirement} Donations
-                                                </p>
+                                                <div class="ml-2 flex items-center justify-start gap-1">
+                                                    <input
+                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        style="width: {getInputLen(clanData[clan.clanTag].donationsRequirement)}"
+                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        placeholder="Attacks"
+                                                        type="number"
+                                                        bind:value={clanData[clan.clanTag].donationsRequirement}
+                                                        oninput={() =>
+                                                            (clanData[clan.clanTag].donationsRequirement = Math.max(
+                                                                0,
+                                                                clanData[clan.clanTag].donationsRequirement
+                                                            ))}
+                                                    />
+                                                    Donations
+                                                </div>
                                             </div>
                                             <div class="flex items-center">
                                                 <img class="size-11" src={`/labels/clangames.webp`} alt="clangames" />
-                                                <p class="ml-2">
-                                                    {clan.clangamesRequirement} Clan Games Points
-                                                </p>
+                                                <div class="ml-2 flex items-center justify-start gap-1">
+                                                    <input
+                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        style="width: {getInputLen(clanData[clan.clanTag].clangamesRequirement)}"
+                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        placeholder="Attacks"
+                                                        type="number"
+                                                        bind:value={clanData[clan.clanTag].clangamesRequirement}
+                                                        oninput={() =>
+                                                            (clanData[clan.clanTag].clangamesRequirement = Math.max(
+                                                                0,
+                                                                clanData[clan.clanTag].clangamesRequirement
+                                                            ))}
+                                                    />
+                                                    Clan Games
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

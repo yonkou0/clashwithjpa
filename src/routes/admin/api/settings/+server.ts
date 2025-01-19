@@ -10,7 +10,7 @@ import type { RequestHandler } from "./$types";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
-const handleAddAdminRole = async (locals: any, value: any, adminConfig: any) => {
+const handleAddAdminRole = async (locals: App.Locals, value: any, adminConfig: any) => {
     const roleData = await checkRole(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, locals.db, value);
     if ("error" in roleData) {
         return { error: "Invalid Role ID", status: 400 };
@@ -20,7 +20,7 @@ const handleAddAdminRole = async (locals: any, value: any, adminConfig: any) => 
     return roleData;
 };
 
-const handleAddAdminMember = async (locals: any, value: any, adminConfig: any) => {
+const handleAddAdminMember = async (locals: App.Locals, value: any, adminConfig: any) => {
     const userData = await checkUser(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, value);
     if ("error" in userData) {
         return { error: "Invalid User ID", status: 400 };

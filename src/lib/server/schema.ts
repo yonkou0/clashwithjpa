@@ -1,5 +1,5 @@
-import type { APIClanWar, APIClan, APIPlayer } from "$lib/coc/types";
-import { boolean, integer, jsonb, pgTable, serial, text, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import type { APIClan, APIClanWar, APIPlayer } from "$lib/coc/types";
+import { boolean, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user_table", {
     id: serial("id").primaryKey(),
@@ -74,6 +74,11 @@ export type InsertCoc = typeof cocTable.$inferInsert;
 export type SelectCoc = typeof cocTable.$inferSelect;
 
 export type InsertClan = typeof clanTable.$inferInsert;
+export type EditClan = {
+    attacksRequirement: typeof clanTable.attacksRequirement;
+    donationsRequirement: typeof clanTable.donationsRequirement;
+    clangamesRequirement: typeof clanTable.clangamesRequirement;
+};
 export type SelectClan = typeof clanTable.$inferSelect;
 
 export type InsertBase = typeof baseTable.$inferInsert;

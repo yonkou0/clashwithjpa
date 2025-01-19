@@ -3,14 +3,14 @@ import { PUBLIC_API_BASE_URI, PUBLIC_DISCORD_URL } from "$env/static/public";
 import type { UserData } from "$lib/auth/user";
 import { checkClan, getClanWarData } from "$lib/coc/clan";
 import { checkChannel, checkRole, checkUser } from "$lib/discord/check";
-import { clanTable, type InsertClan } from "$lib/server/schema";
+import { clanTable, type EditClan, type InsertClan } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import type { RequestHandler } from "./$types";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
-const handleAddClan = async (locals: any, value: any) => {
+const handleAddClan = async (locals: App.Locals, value: any) => {
     const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
     if ("error" in clanData) {
         return { error: "Invalid Clan Tag", status: 400 };
@@ -70,6 +70,22 @@ const handleAddClan = async (locals: any, value: any) => {
     return clanData;
 };
 
+const handleClanEdit = async (locals: App.Locals, value: any) => {
+    const clanData = await locals.db.select().from(clanTable).where(eq(clanTable.clanTag, value.tag));
+    console.log(clanData);
+    if ("error" in clanData) {
+        return { error: "Invalid Clan Tag", status: 400 };
+    }
+
+    const dbData: EditClan = {
+        attacksRequirement: value.attacksRequirement,
+        donationsRequirement: value.donationsRequirement,
+        clangamesRequirement: value.clangamesRequirement
+    };
+    await locals.db.update(clanTable).set(dbData).where(eq(clanTable.clanTag, value.tag));
+    return clanData;
+};
+
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;
     const body = await request.json();
@@ -82,6 +98,12 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
     if (key === "add_clan") {
         const result = await handleAddClan(locals, value);
+        if ("error" in result) {
+            return json({ error: result.error }, { status: result.status });
+        }
+        return json(result);
+    } else if (key === "edit_clan") {
+        const result = await handleClanEdit(locals, value);
         if ("error" in result) {
             return json({ error: result.error }, { status: result.status });
         }
