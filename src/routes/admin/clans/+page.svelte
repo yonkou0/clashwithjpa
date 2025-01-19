@@ -321,9 +321,9 @@
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
                                                         class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
-                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].attacksRequirement)}"
-                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        disabled={clanData[clan.clanTag].disabled || disabled.input}
                                                         placeholder="Attacks"
                                                         type="number"
                                                         bind:value={clanData[clan.clanTag].attacksRequirement}
@@ -341,9 +341,9 @@
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
                                                         class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
-                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].donationsRequirement)}"
-                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        disabled={clanData[clan.clanTag].disabled || disabled.input}
                                                         placeholder="Attacks"
                                                         type="number"
                                                         bind:value={clanData[clan.clanTag].donationsRequirement}
@@ -361,9 +361,9 @@
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
                                                         class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
-                                                        class:!border-transparent={clanData[clan.clanTag].disabled}
+                                                        class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].clangamesRequirement)}"
-                                                        disabled={clanData[clan.clanTag].disabled}
+                                                        disabled={clanData[clan.clanTag].disabled || disabled.input}
                                                         placeholder="Attacks"
                                                         type="number"
                                                         bind:value={clanData[clan.clanTag].clangamesRequirement}
