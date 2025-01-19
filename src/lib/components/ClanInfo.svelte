@@ -36,11 +36,11 @@
             <p class="text-sm">{clan.clanData?.tag}</p>
         </div>
     </div>
-    <div class="text-base">
+    <div>
         <p>Clan LVL. {clan.clanData?.clanLevel}</p>
         <p>Capital LVL. {clan.clanData?.clanCapital.capitalHallLevel}</p>
     </div>
-    <div class="w-full text-base">
+    <div class="w-full">
         <p>
             Leader:
             <span class="bg-gradient-to-r from-yellow-400 via-orange-600 to-orange-600 bg-clip-text text-transparent">
@@ -48,7 +48,7 @@
             </span>
         </p>
         <button class="flex cursor-pointer items-center justify-between space-x-1" onclick={() => (showCoLeaders = !showCoLeaders)}>
-            <p class="text-base">Co-Leaders</p>
+            <p>Co-Leaders</p>
             <div class="rounded-lg p-1 transition-all duration-300 ease-in-out hover:bg-gray-800">
                 {#if showCoLeaders}
                     <div in:fade>
@@ -65,7 +65,7 @@
             <div transition:slide={{ duration: 200 }}>
                 <ul class="ml-6 list-disc">
                     {#each members.coLeader as member (member.tag)}
-                        <li class="text-base">{member.name}</li>
+                        <li class="text-sm">{member.name}</li>
                     {/each}
                 </ul>
             </div>

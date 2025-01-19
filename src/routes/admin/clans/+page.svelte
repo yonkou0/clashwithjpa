@@ -42,7 +42,7 @@
         }
     });
 
-    let hidden: boolean[] = $state(Array(data.clans.length).fill(true));
+    let hidden: boolean[] = $state(Array(data.clans.length).fill(false));
     let disabled: {
         input: boolean;
         button: boolean;
@@ -177,7 +177,7 @@
                             {#if !hidden[idx]}
                                 <div transition:slide={{ axis: "y" }} class="flex flex-col justify-between transition-opacity">
                                     <div
-                                        class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-base"
+                                        class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                     >
                                         <div class="flex flex-col items-start gap-2">
                                             <div class="flex items-center gap-1">
@@ -193,7 +193,7 @@
                                                 <Popover.Portal>
                                                     <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                         <div
-                                                            class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-base"
+                                                            class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                                         >
                                                             <ClanInfo {clan} />
                                                         </div>
@@ -210,7 +210,9 @@
                                         </div>
                                     </div>
                                     <div class="flex w-full flex-col">
-                                        <p class="p-4 text-center text-base">Minimum Requirements</p>
+                                        <div class="flex flex-col items-center justify-between p-4">
+                                            <p>Minimum Requirements</p>
+                                        </div>
                                         <div
                                             class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                         >

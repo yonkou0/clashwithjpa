@@ -56,7 +56,7 @@
                             <CardItem
                                 isMouseEntered={mouseEvents[idx]}
                                 translateZ="100"
-                                class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-base"
+                                class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                             >
                                 <div class="flex flex-col items-start gap-2">
                                     <div class="flex items-center gap-1">
@@ -72,7 +72,7 @@
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                 <div
-                                                    class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4 text-base"
+                                                    class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                                 >
                                                     <ClanInfo {clan} />
                                                 </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </CardItem>
                             <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-full flex-col">
-                                <p class="p-4 text-center text-base">Minimum Requirements</p>
+                                <p class="p-4 text-center">Minimum Requirements</p>
                                 <div
                                     class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                 >
