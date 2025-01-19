@@ -44,7 +44,7 @@
         }
     });
 
-    let hidden: boolean[] = $state(Array(data.clans.length).fill(false));
+    let hidden: boolean[] = $state(Array(data.clans.length).fill(true));
     let disabled: {
         input: boolean;
         button: boolean;
