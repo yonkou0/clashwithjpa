@@ -84,7 +84,7 @@
 
 <div class="flex size-full flex-col gap-5 overflow-auto p-5 md:p-11">
     <h1 class="text-4xl">Add Clan</h1>
-    <form in:fade method="POST" action="/admin/clans" use:enhance class="w-full">
+    <form method="POST" action="/admin/clans" use:enhance class="flex w-full flex-col gap-4">
         <div class="flex w-full flex-wrap items-start justify-center gap-2">
             {#each Object.keys(clanForm) as key, idx}
                 <div class="flex w-full flex-grow cursor-default flex-col gap-2 md:w-fit">
@@ -124,7 +124,7 @@
                 </div>
             {/each}
         </div>
-        <Button disabled={disabled.button || $delayed} type="submit" class="mt-4 w-full p-2 px-4 py-3 {$delayed ? 'cursor-wait' : ''}">
+        <Button disabled={disabled.button || $delayed} type="submit" class="w-full p-2 px-4 py-3 {$delayed ? 'cursor-wait' : ''}">
             {#if $delayed}
                 <span in:fly class="flex size-full items-center justify-center gap-2">
                     <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
