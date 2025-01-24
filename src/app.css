@@ -1,6 +1,13 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+@theme {
+    --breakpoint-3xl: 2560px;
+
+    --font-coc: COC;
+}
 
 @font-face {
     font-family: "COC";
@@ -20,8 +27,8 @@
 
 body {
     font-family: "COC", sans-serif;
-    background-color: theme(colors.gray.950);
-    color: theme(colors.gray.100);
+    background-color: var(--color-gray-950);
+    color: var(--color-gray-100);
     scroll-behavior: smooth;
     overflow-x: hidden;
     font-size: 1rem;
@@ -37,7 +44,7 @@ body {
     background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: theme(colors.gray.800);
+    background-color: var(--color-gray-800);
     border-radius: 0rem;
 }
 ::-webkit-scrollbar-corner {
@@ -45,13 +52,13 @@ body {
 }
 
 input {
-    border: 1px solid theme(colors.gray.700);
-    border-radius: theme(borderRadius.lg);
-    background: linear-gradient(to right, theme(colors.gray.900), theme(colors.gray.800), theme(colors.gray.900));
+    border: 1px solid var(--color-gray-700);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(to right, var(--color-gray-900), var(--color-gray-800), var(--color-gray-900));
 }
 input:focus {
-    border-color: theme(colors.blue.700);
-    @apply !outline-none !ring-0 !transition-colors;
+    border-color: var(--color-blue-700);
+    @apply ring-0! outline-hidden! transition-colors!;
 }
 input:disabled {
     cursor: theme(cursor.not-allowed);

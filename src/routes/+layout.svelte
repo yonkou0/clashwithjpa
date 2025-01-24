@@ -49,7 +49,7 @@
     position="bottom-left"
     toastOptions={{
         classes: {
-            toast: "mb-[100px] ml-[130px] !w-[40vw] lg:!w-full shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] rounded-md",
+            toast: "mb-[100px] ml-[130px] w-[40vw]! lg:w-full! shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] rounded-md",
             title: "font-coc text-sm",
             description: "font-coc text-[0.65rem] brightness-75"
         }
@@ -61,7 +61,7 @@
         transition:fly={{ duration: 500, easing: expoOut, x: 0, y: 100 }}
         src="/villager.webp"
         alt="Villager"
-        class="fixed -bottom-24 left-0 z-[1000] h-80 lg:h-96"
+        class="fixed -bottom-24 left-0 z-1000 h-80 lg:h-96"
     />
 {/if}
 

@@ -62,7 +62,7 @@
             <div
                 in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
                 out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}
-                class="flex flex-col gap-1 rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
+                class="flex flex-col gap-1 rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2"
             >
                 <div class="flex items-center justify-start gap-2" class:opacity-50={disabledInput}>
                     <button
@@ -76,7 +76,7 @@
                             : `background-image: url(https://media.discordapp.net/avatars/${item.id}/${item.avatar}.webp);`}
                     >
                         <div
-                            class="flex size-full items-center justify-center rounded-full p-0.5 opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 group-disabled:!opacity-0"
+                            class="flex size-full items-center justify-center rounded-full p-0.5 opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 group-disabled:opacity-0!"
                         >
                             <MaterialSymbolsCloseRounded class="size-fit" />
                         </div>
@@ -88,7 +88,7 @@
                                 <p>{itemName.length >= 10 ? `${itemName.slice(0, 10)}...` : itemName}</p>
                             </Tooltip.Trigger>
                             <Tooltip.Content
-                                class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                             >
                                 <p>{itemName}</p>
                             </Tooltip.Content>

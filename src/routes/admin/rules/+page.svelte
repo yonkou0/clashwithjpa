@@ -63,14 +63,10 @@
     });
 </script>
 
-<div class="dark flex size-full marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400">
+<div class="dark prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400 flex size-full marker:text-orange-400">
     <Tipex bind:tipex={editor} body={rules} controls floating focal={false}>
         {#snippet utilities()}
-            <Button
-                class="tipex-edit-button disabled:cursor-wait"
-                onclick={save}
-                {disabled}
-            >
+            <Button class="tipex-edit-button disabled:cursor-wait" onclick={save} {disabled}>
                 <MaterialSymbolsSendRounded class="size-6" />
             </Button>
         {/snippet}

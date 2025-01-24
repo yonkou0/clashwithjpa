@@ -1,6 +1,7 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import Icons from "unplugin-icons/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
     server: {
@@ -8,5 +9,5 @@ export default defineConfig({
             allow: ["./data"]
         }
     },
-    plugins: [sveltekit(), Icons({ compiler: "svelte" })]
+    plugins: [sveltekit(), tailwindcss(), Icons({ compiler: "svelte" })]
 });

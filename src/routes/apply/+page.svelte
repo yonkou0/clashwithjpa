@@ -85,12 +85,12 @@
                             <li class="flex w-full flex-col items-start justify-center">
                                 <p class="flex w-full items-center text-gray-500">
                                     {date}
-                                    <span class="mx-2 flex-grow rounded-xl border-t border-gray-500"></span>
+                                    <span class="mx-2 grow rounded-xl border-t border-gray-500"></span>
                                 </p>
                                 <ul class="mt-2 flex w-full flex-wrap items-center justify-center gap-2">
                                     {#each applications as application}
                                         <div
-                                            class="flex w-fit items-center justify-between gap-5 rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                            class="flex w-fit items-center justify-between gap-5 rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                         >
                                             <div class="flex items-center justify-center gap-1">
                                                 <span
@@ -110,7 +110,7 @@
                                                                 {/if}
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
-                                                                class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                             >
                                                                 {application.status.toLowerCase().replace(/\b\w/g, (s) => s.toUpperCase())}
                                                             </Tooltip.Content>
@@ -124,7 +124,7 @@
                                                                 <p class="w-24 truncate">{application.playerData.name}</p>
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
-                                                                class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                                class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
                                                             >
                                                                 <p>{application.playerData.name}</p>
                                                             </Tooltip.Content>

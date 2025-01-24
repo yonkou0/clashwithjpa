@@ -20,7 +20,7 @@
     <header class="top-0 w-full">
         <div class="z-10 h-full w-full overflow-hidden bg-cover bg-fixed bg-center" style="background-image: url('/clans_header.webp');">
             <div class="flex h-full items-center bg-gray-950/40">
-                <div class="mt-32 flex flex-grow flex-col items-start space-y-10 px-5 pb-5 md:px-24 lg:px-32">
+                <div class="mt-32 flex grow flex-col items-start space-y-10 px-5 pb-5 md:px-24 lg:px-32">
                     <H1 class="text-5xl lg:text-6xl">JPA Clans</H1>
                     <p class="max-w-2xl text-lg font-medium md:text-xl">
                         With over {data.clans.length} clans we have a place for everyone.
@@ -56,7 +56,7 @@
                             <CardItem
                                 isMouseEntered={mouseEvents[idx]}
                                 translateZ="100"
-                                class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                class="flex flex-col rounded-xl border-y border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                             >
                                 <div class="flex flex-col items-start gap-2">
                                     <div class="flex items-center gap-1">
@@ -72,7 +72,7 @@
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                 <div
-                                                    class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                                    class="flex flex-col rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                                 >
                                                     <ClanInfo {clan} />
                                                 </div>
@@ -91,7 +91,7 @@
                             <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-full flex-col">
                                 <p class="p-4 text-center">Minimum Requirements</p>
                                 <div
-                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                 >
                                     <div class="flex items-center">
                                         <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />

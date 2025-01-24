@@ -145,12 +145,12 @@
     <form method="POST" action="/admin/clans" use:enhance class="flex w-full flex-col gap-4">
         <div class="flex w-full flex-wrap items-start justify-center gap-2">
             {#each Object.keys(clanForm) as key, idx}
-                <div class="flex w-full flex-grow cursor-default flex-col gap-2 md:w-fit">
+                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
                     <Field {form} name={key as keyof typeof $formData}>
                         <Description>{clanForm[key].desc}</Description>
                         <Tooltip.Provider>
                             <Tooltip.Root delayDuration={0} bind:open={openTooltip[idx]} disableCloseOnTriggerClick>
-                                <Tooltip.Trigger class="flex w-full flex-grow">
+                                <Tooltip.Trigger class="flex w-full grow">
                                     <Control>
                                         {#snippet children({ props })}
                                             <input
@@ -158,7 +158,7 @@
                                                 onclick={() => (openTooltip[idx] = !openTooltip[idx])}
                                                 disabled={disabled.input}
                                                 class="w-full rounded-lg border border-gray-700 {$errors[key as keyof typeof $formData]
-                                                    ? '!border-red-700'
+                                                    ? 'border-red-700!'
                                                     : ''}"
                                                 type={clanForm[key].type}
                                                 placeholder={clanForm[key].placeholder}
@@ -169,7 +169,7 @@
                                 </Tooltip.Trigger>
                                 <Tooltip.Portal>
                                     <Tooltip.Content
-                                        class="rounded-lg border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-2
+                                        class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2
                                         {$errors[key as keyof typeof $formData] ? '' : 'hidden'}"
                                     >
                                         <FieldErrors class="text-xs text-red-400" />
@@ -235,7 +235,7 @@
                             {#if !hidden[idx]}
                                 <div transition:slide={{ axis: "y" }} class="flex flex-col justify-between transition-opacity">
                                     <div
-                                        class="flex flex-col rounded-xl border-y border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                        class="flex flex-col rounded-xl border-y border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                     >
                                         <div class="flex flex-col items-start gap-2">
                                             <div class="flex items-center gap-1">
@@ -251,7 +251,7 @@
                                                 <Popover.Portal>
                                                     <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                         <div
-                                                            class="flex flex-col rounded-xl border border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                                            class="flex flex-col rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                                         >
                                                             <ClanInfo {clan} />
                                                         </div>
@@ -314,13 +314,13 @@
                                             {/if}
                                         </div>
                                         <div
-                                            class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                            class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                         >
                                             <div class="flex items-center">
                                                 <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].attacksRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}
@@ -340,7 +340,7 @@
                                                 <img class="size-11" src={`/labels/donations.webp`} alt="donations" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].donationsRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}
@@ -360,7 +360,7 @@
                                                 <img class="size-11" src={`/labels/clangames.webp`} alt="clangames" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg !bg-transparent !bg-none focus:!border-blue-700 disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].clangamesRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}

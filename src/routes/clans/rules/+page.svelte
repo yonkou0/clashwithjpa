@@ -27,7 +27,7 @@
 
 <div class="mt-32 flex w-full flex-col items-start gap-5 px-5 pb-5 lg:flex-row lg:px-10">
     {#if showScrollButton}
-        <div transition:fade={{ duration: 200 }} class="fixed bottom-4 right-4 z-10">
+        <div transition:fade={{ duration: 200 }} class="fixed right-4 bottom-4 z-10">
             <CocButton
                 onclick={() => {
                     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -39,7 +39,7 @@
         </div>
     {/if}
     <div
-        class="w-full flex-1 pt-5 marker:text-orange-400 prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400 lg:pl-5 lg:pt-0"
+        class="prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400 w-full flex-1 pt-5 marker:text-orange-400 lg:pt-0 lg:pl-5"
     >
         <article class="prose prose-invert w-full max-w-none">
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->

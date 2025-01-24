@@ -174,7 +174,7 @@
 </script>
 
 <div class="flex size-full items-start justify-center overflow-auto p-5 md:p-11">
-    <div class="flex flex-col items-start justify-center gap-5 md:gap-28 lg:flex-row 3xl:w-4/5">
+    <div class="3xl:w-4/5 flex flex-col items-start justify-center gap-5 md:gap-28 lg:flex-row">
         <div class="flex flex-col items-start justify-center gap-5">
             <!-- Application Status -->
             <div class="flex items-center gap-2">

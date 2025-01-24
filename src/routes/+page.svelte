@@ -41,7 +41,7 @@
 </svelte:head>
 
 <main class="size-full">
-    <video bind:this={videoElement} autoplay loop muted class="fixed left-0 top-0 -z-10 size-full object-cover">
+    <video bind:this={videoElement} autoplay loop muted class="fixed top-0 left-0 -z-10 size-full object-cover">
         <source src="/clips/bg.webm" type="video/webm" />
         Your browser does not support the video tag.
     </video>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="fixed bottom-4 right-8 z-[11] flex space-x-4">
+    <div class="fixed right-8 bottom-4 z-11 flex space-x-4">
         <button onclick={togglePause} class="size-6 rounded-full transition-colors hover:text-gray-300">
             {#if isPaused}
                 <MaterialSymbolsPlayCircleRounded class="size-full" />
