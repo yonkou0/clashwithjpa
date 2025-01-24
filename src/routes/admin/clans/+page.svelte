@@ -320,7 +320,7 @@
                                                 <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100!"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].attacksRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}
@@ -340,7 +340,7 @@
                                                 <img class="size-11" src={`/labels/donations.webp`} alt="donations" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100!"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].donationsRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}
@@ -360,7 +360,7 @@
                                                 <img class="size-11" src={`/labels/clangames.webp`} alt="clangames" />
                                                 <div class="ml-2 flex items-center justify-start gap-1">
                                                     <input
-                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100"
+                                                        class="rounded-lg bg-transparent! bg-none! focus:border-blue-700! disabled:opacity-100!"
                                                         class:!border-transparent={clanData[clan.clanTag].disabled || disabled.input}
                                                         style="width: {getInputLen(clanData[clan.clanTag].clangamesRequirement)}"
                                                         disabled={clanData[clan.clanTag].disabled || disabled.input}
