@@ -1,36 +1,38 @@
+@import "tailwindcss";
+
 .tipex-editor {
     border-radius: 0;
-    background-color: theme(colors.gray.950);
+    background-color: var(--color-gray-950);
     width: 100%;
 }
 
 .tipex-editor-wrap {
-    background-color: theme(colors.gray.950);
+    background-color: var(--color-gray-950);
 }
 
 .tipex-editor-section {
-    background-color: theme(colors.gray.950);
+    background-color: var(--color-gray-950);
 }
 
 .tipex-controller {
-    background-color: theme(colors.gray.900) !important;
+    background-color: var(--color-gray-900) !important;
     border: none;
     border-radius: 0;
     @apply rounded-t-2xl md:rounded-tl-none;
 }
 .tipex-edit-button {
-    background-color: theme(colors.gray.800) !important;
+    background-color: var(--color-gray-800) !important;
     border: none;
-    border-radius: theme(borderRadius.lg) !important;
-    padding: theme(padding.1) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 4px !important;
 }
 .tipex-edit-button:hover {
-    background-color: theme(colors.gray.700) !important;
+    background-color: var(--color-gray-700) !important;
     transform: none;
-    transition: all theme(transitionDuration.200);
+    transition: all 200ms;
 }
 .tipex-edit-button.active {
-    background-color: theme(colors.gray.700) !important;
+    background-color: var(--color-gray-700) !important;
 }
 
 .tipex-utilities {
@@ -38,21 +40,22 @@
 }
 
 .tipex-floating-group {
-    position: static;
-    background-color: theme(colors.gray.900) !important;
-    border: 1px solid theme(colors.gray.700) !important;
-    border-radius: theme(borderRadius.lg);
-    padding: theme(padding.1);
-    gap: theme(gap.1);
+    position: absolute;
+    background-color: var(--color-gray-900) !important;
+    border: 1px solid var(--color-gray-700) !important;
+    border-radius: var(--radius-lg);
+    margin-left: 11px;
+    padding: 4px;
+    gap: 4px;
 }
 
 .tipex-floating-button {
-    background-color: theme(colors.gray.800) !important;
-    color: theme(colors.gray.100) !important;
+    background-color: var(--color-gray-800) !important;
+    color: var(--color-gray-100) !important;
     border: none;
-    border-radius: theme(borderRadius.md);
+    border-radius: var(--radius-md);
 }
 .tipex-floating-button:hover {
-    background-color: theme(colors.gray.700);
-    transition: all theme(transitionDuration.200);
+    background-color: var(--color-gray-700) !important;
+    transition: all 200ms;
 }
