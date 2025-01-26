@@ -1,0 +1,17 @@
+<script lang="ts">
+    import AdminApplications from "$lib/components/AdminApplications.svelte";
+    import type { PageData } from "./$types";
+
+    let { data }: { data: PageData } = $props();
+
+    const types: ("pending" | "accepted" | "rejected")[] = ["pending", "accepted", "rejected"];
+</script>
+
+<div class="p-5 *:not-first:mt-11 md:p-11">
+    {#each types as type}
+        <div class="flex w-full flex-col">
+            <h1 class="text-3xl font-bold md:text-4xl">{type.replace(/^\w/, (c) => c.toUpperCase())}</h1>
+            <AdminApplications applications={data.applications} {type} />
+        </div>
+    {/each}
+</div>

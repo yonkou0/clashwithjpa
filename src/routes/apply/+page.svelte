@@ -121,7 +121,7 @@
                                                     <Tooltip.Provider>
                                                         <Tooltip.Root delayDuration={200}>
                                                             <Tooltip.Trigger class="cursor-default">
-                                                                <p class="w-24 truncate">{application.playerData.name}</p>
+                                                                <p class="w-24 truncate text-ellipsis">{application.playerData.name}</p>
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
                                                                 class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"

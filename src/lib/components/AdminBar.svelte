@@ -50,9 +50,9 @@
     {#each items as item}
         <a
             href={item.href}
-            class="flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
-            class:bg-gray-950={page.route.id === item.href}
-            class:bg-opacity-50={page.route.id === item.href}
+            class="{page.route.id === item.href
+                ? 'bg-gray-950/50'
+                : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
         >
             <item.icon class="size-6 md:size-8" />
             <span class="text-[8px] md:text-base">{item.name}</span>

@@ -19,6 +19,10 @@ export async function createClanApplication(db: DB, data: schema.InsertClanAppli
     await db.insert(schema.clanApplicationTable).values(data);
 }
 
+export async function getApplications(db: DB) {
+    return db.select().from(schema.clanApplicationTable);
+}
+
 export async function getClanApplicationFromTag(db: DB, tag: schema.SelectClanApplication["tag"]) {
     return db.select({ tag: schema.clanApplicationTable.tag }).from(schema.clanApplicationTable).where(eq(schema.clanApplicationTable.tag, tag));
 }
