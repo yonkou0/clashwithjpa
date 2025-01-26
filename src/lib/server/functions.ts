@@ -1,7 +1,7 @@
-import * as schema from "./schema";
-import { desc, eq } from "drizzle-orm";
 import type { NeonQueryFunction } from "@neondatabase/serverless";
+import { desc, eq } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
+import * as schema from "./schema";
 
 type DB = NeonHttpDatabase<Record<string, never>> & {
     $client: NeonQueryFunction<false, false>;
@@ -29,6 +29,14 @@ export async function getClanApplicationFromTag(db: DB, tag: schema.SelectClanAp
 
 export async function getClanApplicationFromDiscordId(db: DB, discordId: schema.SelectClanApplication["discordId"]) {
     return db.select().from(schema.clanApplicationTable).where(eq(schema.clanApplicationTable.discordId, discordId));
+}
+
+export async function acceptApplication(db: DB, tag: schema.SelectClanApplication["tag"]) {
+    await db.update(schema.clanApplicationTable).set({ status: "accepted" }).where(eq(schema.clanApplicationTable.tag, tag));
+}
+
+export async function rejectApplication(db: DB, tag: schema.SelectClanApplication["tag"]) {
+    await db.update(schema.clanApplicationTable).set({ status: "rejected" }).where(eq(schema.clanApplicationTable.tag, tag));
 }
 
 export async function getClansPublicData(db: DB) {
