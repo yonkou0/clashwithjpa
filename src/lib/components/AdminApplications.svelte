@@ -17,7 +17,7 @@
     }
     let { applications, type }: Props = $props();
 
-    function sortApps(apps: SelectClanApplication[], type: "pending" | "accepted" | "rejected") {
+    function sortApps(apps: SelectClanApplication[]) {
         const sortedApps = Object.entries(
             applications.reduce((acc: { [key: string]: typeof applications }, app) => {
                 if (app.status === type) {
@@ -32,14 +32,16 @@
         return sortedApps;
     }
 
-    let sortedApps = $state(sortApps(applications, type));
+    let sortedApps = $state(sortApps(applications));
     $effect(() => {
-        sortedApps = sortApps(applications, type);
+        sortedApps = sortApps(applications);
     });
 
-    let hidden: boolean[] = Array(sortedApps.length)
-        .fill(false)
-        .map((_, i) => (i === 0 ? false : true));
+    let hidden: boolean[] = $state(
+        Array(applications.filter((app) => app.status === type).length)
+            .fill(false)
+            .map((_, i) => (i === 0 ? false : true))
+    );
 
     let disabled: boolean = $state(false);
 
