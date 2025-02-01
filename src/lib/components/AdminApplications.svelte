@@ -17,7 +17,7 @@
     }
     let { applications, type }: Props = $props();
 
-    function sortApps(apps: SelectClanApplication[]) {
+    function sortApps() {
         const sortedApps = Object.entries(
             applications.reduce((acc: { [key: string]: typeof applications }, app) => {
                 if (app.status === type) {
@@ -32,9 +32,9 @@
         return sortedApps;
     }
 
-    let sortedApps = $state(sortApps(applications));
+    let sortedApps = $state(sortApps());
     $effect(() => {
-        sortedApps = sortApps(applications);
+        sortedApps = sortApps();
     });
 
     let hidden: boolean[] = $state(
@@ -45,12 +45,14 @@
 
     let disabled: boolean = $state(false);
 
-    async function handleApplication(tag: string, name: string, status: "accepted" | "rejected") {
+    async function handleApplication(tag: string, name: string, status: "accepted" | "rejected", discordId: string = "") {
         disabled = true;
+        const body: { status: "accepted" | "rejected"; discordId?: string } = { status: status };
+        if (status === "accepted") body["discordId"] = discordId;
         let response = await fetch(`/admin/api/applications/${encodeURIComponent(tag)}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: status })
+            body: JSON.stringify(body)
         });
 
         if (response.ok) {
@@ -137,7 +139,7 @@
                                                 class="w-full"
                                                 {disabled}
                                                 onclick={async () => {
-                                                    await handleApplication(application.tag, application.playerData.name, "accepted");
+                                                    await handleApplication(application.tag, application.playerData.name, "accepted", application.discordId);
                                                 }}
                                             >
                                                 <MaterialSymbolsCheckRounded class="size-6" />

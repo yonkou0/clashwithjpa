@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ locals, request, params }) => {
     }
 
     if (body.status === "accepted") {
-        await acceptApplication(locals.db, tag);
+        await acceptApplication(locals.db, tag, body.discordId);
     } else if (body.status === "rejected") {
         await rejectApplication(locals.db, tag);
     }
