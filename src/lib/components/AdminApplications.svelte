@@ -4,7 +4,7 @@
     import type { SelectClanApplication } from "$lib/server/schema";
     import { Tooltip } from "bits-ui";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fade, fly, slide } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
     import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
@@ -146,7 +146,7 @@
                                             })}
                                         </p>
                                     </div>
-                                    <div class="flex w-full flex-col items-center justify-center text-xs text-gray-400">
+                                    <div class="flex w-full flex-col items-center justify-center text-sm text-gray-400">
                                         <button
                                             onclick={() => (hiddenInfo[idx] = !hiddenInfo[idx])}
                                             class="flex w-full items-center justify-center gap-1"
@@ -168,11 +168,23 @@
                                             {#await fetchPlayerInfo(application.tag)}
                                                 <span in:slide>Fetching...</span>
                                             {:then playerInfo}
-                                                <div transition:slide class="flex w-full flex-col items-start justify-center gap-2">
-                                                    <div class="flex w-full items-center justify-start">
-                                                        <img src="/emoji/donations.webp" alt="Donations" class="size-8" />
-                                                        <p class="text-xs text-gray-300">
+                                                <div transition:slide class="flex w-full flex-col items-start justify-center gap-1">
+                                                    <div class="flex w-full items-center justify-start gap-1">
+                                                        <img src="/labels/attacks.webp" alt="Donations" class="size-6" />
+                                                        <p class="text-gray-300">
+                                                            Attack Wins: {playerInfo?.attackWins}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex w-full items-center justify-start gap-1">
+                                                        <img src="/labels/donations.webp" alt="Donations" class="size-6" />
+                                                        <p class="text-gray-300">
                                                             Donations: {playerInfo?.donations}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex w-full items-center justify-start gap-1">
+                                                        <img src="/labels/trophypushing.webp" alt="Donations" class="size-6" />
+                                                        <p class="text-gray-300">
+                                                            Best Trophies: {playerInfo?.bestTrophies}
                                                         </p>
                                                     </div>
                                                 </div>
