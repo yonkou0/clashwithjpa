@@ -1,9 +1,10 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
+    import type { APIPlayer } from "$lib/coc/types";
     import type { SelectClanApplication } from "$lib/server/schema";
     import { Tooltip } from "bits-ui";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fly, slide } from "svelte/transition";
+    import { fade, fly, slide } from "svelte/transition";
     import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
@@ -42,8 +43,22 @@
             .fill(false)
             .map((_, i) => (i === 0 ? false : true))
     );
+    let hiddenInfo: boolean[] = $state(
+        Array(applications.filter((app) => app.status === type).length)
+            .fill(false)
+            .map((_, i) => true)
+    );
 
     let disabled: boolean = $state(false);
+
+    async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
+        const resp = await fetch(`/admin/api/player?tag=${encodeURIComponent(tag)}`);
+        if (resp.ok) {
+            const plInfo: APIPlayer = await resp.json();
+            return plInfo;
+        }
+        return null;
+    }
 
     async function handleApplication(tag: string, name: string, status: "accepted" | "rejected", discordId: string = "") {
         disabled = true;
@@ -131,6 +146,39 @@
                                             })}
                                         </p>
                                     </div>
+                                    <div class="flex w-full flex-col items-center justify-center text-xs text-gray-400">
+                                        <button
+                                            onclick={() => (hiddenInfo[idx] = !hiddenInfo[idx])}
+                                            class="flex w-full items-center justify-center gap-1"
+                                        >
+                                            <span class="grow rounded-xl border-t border-gray-400"></span>
+                                            {#if hiddenInfo[idx]}
+                                                <span>
+                                                    <LineMdChevronSmallRight class="size-fit" />
+                                                </span>
+                                            {:else}
+                                                <span>
+                                                    <LineMdChevronSmallDown class="size-fit" />
+                                                </span>
+                                            {/if}
+                                            Player Data
+                                            <span class="grow rounded-xl border-t border-gray-400"></span>
+                                        </button>
+                                        {#if !hiddenInfo[idx]}
+                                            {#await fetchPlayerInfo(application.tag)}
+                                                <span in:slide>Fetching...</span>
+                                            {:then playerInfo}
+                                                <div transition:slide class="flex w-full flex-col items-start justify-center gap-2">
+                                                    <div class="flex w-full items-center justify-start">
+                                                        <img src="/emoji/donations.webp" alt="Donations" class="size-8" />
+                                                        <p class="text-xs text-gray-300">
+                                                            Donations: {playerInfo?.donations}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {/await}
+                                        {/if}
+                                    </div>
                                     <div class="flex w-full items-center justify-evenly gap-5">
                                         {#if type !== "accepted"}
                                             <CocButton
@@ -139,7 +187,12 @@
                                                 class="w-full"
                                                 {disabled}
                                                 onclick={async () => {
-                                                    await handleApplication(application.tag, application.playerData.name, "accepted", application.discordId);
+                                                    await handleApplication(
+                                                        application.tag,
+                                                        application.playerData.name,
+                                                        "accepted",
+                                                        application.discordId
+                                                    );
                                                 }}
                                             >
                                                 <MaterialSymbolsCheckRounded class="size-6" />
