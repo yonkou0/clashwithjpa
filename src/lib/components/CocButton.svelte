@@ -58,7 +58,7 @@
     data-sveltekit-preload-data="hover"
 >
     <div
-        class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_4px_0_var(--tw-shadow-color)]"
+        class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_2px_0_var(--tw-shadow-color)]"
         style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
     >
         {@render children?.()}
