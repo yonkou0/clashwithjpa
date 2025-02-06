@@ -9,8 +9,8 @@
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
-    import CocButton from "./CocButton.svelte";
-    import { toast } from "./toast";
+    import CocButton from "../CocButton.svelte";
+    import { toast } from "../toast";
 
     interface Props {
         applications: SelectClanApplication[];

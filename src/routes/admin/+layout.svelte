@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AdminSidebar from "$lib/components/AdminBar.svelte";
+    import AdminBar from "$lib/components/Admin/AdminBar.svelte";
     import type { Snippet } from "svelte";
 
     interface Props {
@@ -14,7 +14,7 @@
 </svelte:head>
 
 <main class="flex size-full flex-col-reverse md:flex-row">
-    <AdminSidebar />
+    <AdminBar />
     <main class="size-full overflow-auto pt-20 pb-20 md:pb-0 md:pl-52">
         {@render children?.()}
     </main>

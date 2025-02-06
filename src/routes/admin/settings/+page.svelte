@@ -1,12 +1,12 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
+    import AdminItem from "$lib/components/Admin/AdminItem.svelte";
+    import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { Switch } from "bits-ui";
     import type { APIGuild, APIRole, APIUser } from "discord-api-types/v10";
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
-    import AdminItem from "../../../lib/components/AdminItem.svelte";
     import type { PageData } from "./$types";
-    import Button from "$lib/components/Button.svelte";
 
     let { data }: { data: PageData } = $props();
     let applicationEnabled: boolean = $state(data.applicationEnabled);
