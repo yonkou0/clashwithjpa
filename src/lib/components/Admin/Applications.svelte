@@ -44,7 +44,6 @@
             .map((_, i) => (i === 0 ? false : true))
     );
     let hiddenInfo: boolean[] = $state(Array(applications.filter((app) => app.status === type).length).fill(true));
-    $inspect(hiddenInfo);
     let disabled: boolean = $state(false);
 
     async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
