@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AdminApplications from "$lib/components/Admin/AdminApplications.svelte";
+    import AdminApplications from "$lib/components/Admin/Applications.svelte";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();

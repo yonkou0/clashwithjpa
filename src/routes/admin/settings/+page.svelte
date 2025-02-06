@@ -1,6 +1,6 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
-    import AdminItem from "$lib/components/Admin/AdminItem.svelte";
+    import AdminItem from "$lib/components/Admin/Item.svelte";
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { Switch } from "bits-ui";

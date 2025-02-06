@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AdminBar from "$lib/components/Admin/AdminBar.svelte";
+    import AdminBar from "$lib/components/Admin/Bar.svelte";
     import type { Snippet } from "svelte";
 
     interface Props {
