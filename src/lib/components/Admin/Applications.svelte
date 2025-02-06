@@ -103,7 +103,7 @@
                     </button>
                     {#if !hidden[idx]}
                         <ul transition:slide class="mt-2 flex w-full flex-wrap items-start justify-start gap-2">
-                            {#each apps as application, idx}
+                            {#each apps as application, appIdx}
                                 <div
                                     in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
                                     out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}
@@ -111,11 +111,22 @@
                                 >
                                     <div class="flex w-full items-center justify-between gap-5">
                                         <div class="flex items-center justify-center gap-1">
-                                            <img
-                                                src="/townhall/{application.playerData.townHallLevel}.webp"
-                                                alt="Town Hall"
-                                                class="size-15 rounded-lg"
-                                            />
+                                            <Tooltip.Provider>
+                                                <Tooltip.Root delayDuration={200}>
+                                                    <Tooltip.Trigger>
+                                                        <img
+                                                            src="/townhall/{application.playerData.townHallLevel}.webp"
+                                                            alt="TH {application.playerData.townHallLevel}"
+                                                            class="size-15 rounded-lg"
+                                                        />
+                                                    </Tooltip.Trigger>
+                                                    <Tooltip.Content
+                                                        class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
+                                                    >
+                                                        <p>Townhall {application.playerData.townHallLevel}</p>
+                                                    </Tooltip.Content>
+                                                </Tooltip.Root>
+                                            </Tooltip.Provider>
                                             <span class="flex flex-col items-start justify-center">
                                                 <Tooltip.Provider>
                                                     <Tooltip.Root delayDuration={200}>
@@ -145,11 +156,11 @@
                                     </div>
                                     <div class="flex w-full flex-col items-center justify-center text-sm text-gray-400">
                                         <button
-                                            onclick={() => (hiddenInfo[idx] = !hiddenInfo[idx])}
+                                            onclick={() => (hiddenInfo[appIdx + idx] = !hiddenInfo[appIdx + idx])}
                                             class="flex w-full items-center justify-center gap-1"
                                         >
                                             <span class="grow rounded-xl border-t border-gray-400"></span>
-                                            {#if hiddenInfo[idx]}
+                                            {#if hiddenInfo[appIdx + idx]}
                                                 <span>
                                                     <LineMdChevronSmallRight class="size-fit" />
                                                 </span>
@@ -161,7 +172,7 @@
                                             Player Data
                                             <span class="grow rounded-xl border-t border-gray-400"></span>
                                         </button>
-                                        {#if !hiddenInfo[idx]}
+                                        {#if !hiddenInfo[appIdx + idx]}
                                             {#await fetchPlayerInfo(application.tag)}
                                                 <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
                                                     {#each new Array(3) as _}
