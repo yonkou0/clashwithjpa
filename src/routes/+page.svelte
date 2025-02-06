@@ -41,8 +41,8 @@
 </svelte:head>
 
 <main class="size-full">
-    <img src="/clips/bg.webp" alt="Clash With JPA" class="fixed top-0 left-0 -z-11 size-full object-cover" />
-    <video bind:this={videoElement} autoplay loop muted class="fixed top-0 left-0 -z-10 size-full object-cover">
+    <img src="/clips/bg.webp" alt="Clash With JPA" class="fixed inset-0 -z-11 size-full object-cover" />
+    <video bind:this={videoElement} autoplay loop muted class="fixed inset-0 -z-10 size-full object-cover">
         <source src="/clips/bg.webm" type="video/webm" />
         Your browser does not support the video tag.
     </video>
