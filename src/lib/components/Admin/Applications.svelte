@@ -4,7 +4,7 @@
     import type { SelectClanApplication } from "$lib/server/schema";
     import { Tooltip } from "bits-ui";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fly, slide } from "svelte/transition";
+    import { fade, fly, slide } from "svelte/transition";
     import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
@@ -43,12 +43,8 @@
             .fill(false)
             .map((_, i) => (i === 0 ? false : true))
     );
-    let hiddenInfo: boolean[] = $state(
-        Array(applications.filter((app) => app.status === type).length)
-            .fill(false)
-            .map((_, i) => true)
-    );
-
+    let hiddenInfo: boolean[] = $state(Array(applications.filter((app) => app.status === type).length).fill(true));
+    $inspect(hiddenInfo);
     let disabled: boolean = $state(false);
 
     async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
@@ -56,8 +52,9 @@
         if (resp.ok) {
             const plInfo: APIPlayer = await resp.json();
             return plInfo;
+        } else {
+            throw new Error("Failed to fetch player info");
         }
-        return null;
     }
 
     async function handleApplication(tag: string, name: string, status: "accepted" | "rejected", discordId: string = "") {
@@ -105,8 +102,8 @@
                         {apps.length > 1 ? "Applications" : "Application"}
                     </button>
                     {#if !hidden[idx]}
-                        <ul transition:slide class="mt-2 flex w-full flex-wrap items-center justify-start gap-2">
-                            {#each apps as application}
+                        <ul transition:slide class="mt-2 flex w-full flex-wrap items-start justify-start gap-2">
+                            {#each apps as application, idx}
                                 <div
                                     in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
                                     out:fly={{ duration: 500, easing: expoOut, x: 100, y: 0 }}
@@ -166,9 +163,16 @@
                                         </button>
                                         {#if !hiddenInfo[idx]}
                                             {#await fetchPlayerInfo(application.tag)}
-                                                <span in:slide>Fetching...</span>
+                                                <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
+                                                    {#each new Array(3) as _}
+                                                        <div class="flex w-full animate-pulse items-center justify-start gap-1">
+                                                            <div class="size-6 shrink-0 rounded-xs bg-gray-500"></div>
+                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
+                                                        </div>
+                                                    {/each}
+                                                </div>
                                             {:then playerInfo}
-                                                <div transition:slide class="flex w-full flex-col items-start justify-center gap-1">
+                                                <div transition:fade class="flex w-full flex-col items-start justify-center gap-1">
                                                     <div class="flex w-full items-center justify-start gap-1">
                                                         <img src="/labels/attacks.webp" alt="Donations" class="size-6" />
                                                         <p class="text-gray-300">
@@ -187,6 +191,10 @@
                                                             Best Trophies: {playerInfo?.bestTrophies}
                                                         </p>
                                                     </div>
+                                                </div>
+                                            {:catch error}
+                                                <div transition:slide class="flex w-full items-center justify-center gap-1">
+                                                    <p class="text-red-400">{error.message}</p>
                                                 </div>
                                             {/await}
                                         {/if}
