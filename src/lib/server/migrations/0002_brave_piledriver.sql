@@ -1,0 +1,1 @@
+ALTER TABLE "coc_table" ADD CONSTRAINT "coc_table_tag_unique" UNIQUE("tag");
