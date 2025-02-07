@@ -45,6 +45,7 @@ export async function getPlayerInfo(baseURI: string, apiToken: string, tag: stri
             Authorization: `Bearer ${apiToken}`
         }
     });
+    console.log("->", response);
 
     return (await response.json()) as APIPlayer;
 }

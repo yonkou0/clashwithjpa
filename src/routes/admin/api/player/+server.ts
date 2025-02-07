@@ -24,6 +24,7 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders }) => {
     }
 
     const playerInfo = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, tag);
+    console.log("-->", playerInfo);
 
     return json(playerInfo);
 };
