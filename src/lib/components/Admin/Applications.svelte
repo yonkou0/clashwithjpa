@@ -179,7 +179,7 @@
                                                     {#each new Array(3) as _}
                                                         <div class="flex w-full animate-pulse items-center justify-start gap-1">
                                                             <div class="size-6 shrink-0 rounded-xs bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
+                                                            <div class="h-4 w-2/3 rounded-lg bg-gray-500"></div>
                                                         </div>
                                                     {/each}
                                                     <div class="flex w-full items-center justify-center gap-1">
@@ -190,7 +190,7 @@
                                                     {#each new Array(3) as _}
                                                         <div class="flex w-full animate-pulse items-center justify-start gap-1">
                                                             <div class="size-6 shrink-0 rounded-xs bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
+                                                            <div class="h-4 w-2/3 rounded-lg bg-gray-500"></div>
                                                         </div>
                                                     {/each}
                                                     <div class="flex w-full items-center justify-center gap-1">
@@ -201,7 +201,7 @@
                                                     {#each new Array(5) as _}
                                                         <div class="flex w-full animate-pulse items-center justify-start gap-1">
                                                             <div class="size-6 shrink-0 rounded-xs bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
+                                                            <div class="h-4 w-2/3 rounded-lg bg-gray-500"></div>
                                                         </div>
                                                     {/each}
                                                 </div>

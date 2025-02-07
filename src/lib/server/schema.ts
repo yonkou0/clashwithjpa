@@ -10,7 +10,7 @@ export const userTable = pgTable("user_table", {
 export const cocTable = pgTable("coc_table", {
     id: serial("id").primaryKey(),
     userId: text("user_id").references(() => userTable.discordId, { onDelete: "cascade" }),
-    tag: text("tag").notNull()
+    tag: text("tag").notNull().unique()
 });
 
 export const clanTable = pgTable("clan_table", {
