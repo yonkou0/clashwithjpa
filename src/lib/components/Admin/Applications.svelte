@@ -54,7 +54,6 @@
             const plInfo: APIPlayer = await resp.json();
             return plInfo;
         } else {
-            console.log(resp);
             throw new Error("Failed to fetch player info");
         }
     }

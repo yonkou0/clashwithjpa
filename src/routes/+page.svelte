@@ -44,7 +44,6 @@
     <img src="/clips/bg.webp" alt="Clash With JPA" class="fixed inset-0 -z-11 size-full object-cover" />
     <video bind:this={videoElement} autoplay loop muted class="fixed inset-0 -z-10 size-full object-cover">
         <source src="/clips/bg.webm" type="video/webm" />
-        Your browser does not support the video tag.
     </video>
 
     <div class="z-10 flex size-full items-center justify-center bg-gray-950/50 p-5">
