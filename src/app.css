@@ -28,7 +28,7 @@
 body {
     font-family: "COC", sans-serif;
     background-color: var(--color-gray-950);
-    color: var(--color-gray-100);
+    color: var(--color-gray-50);
     scroll-behavior: smooth;
     overflow-x: hidden;
     font-size: 1rem;

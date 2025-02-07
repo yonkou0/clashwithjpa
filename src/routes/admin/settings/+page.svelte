@@ -187,7 +187,7 @@
                     class="inline-flex h-8 w-[60px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-600"
                 >
                     <Switch.Thumb
-                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-100 transition-all data-[state=checked]:translate-x-[90%] data-[state=unchecked]:translate-x-0"
+                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-50 transition-all data-[state=checked]:translate-x-[90%] data-[state=unchecked]:translate-x-0"
                     />
                 </Switch.Root>
             </div>

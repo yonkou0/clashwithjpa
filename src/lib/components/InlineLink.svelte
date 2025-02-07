@@ -16,7 +16,7 @@
 
     function getClass(pathname: string, href: string | null): string {
         const baseClass =
-            "relative text-base after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-gray-100 after:transition-transform after:duration-300 after:ease-in-out";
+            "relative text-base after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-gray-50 after:transition-transform after:duration-300 after:ease-in-out";
         const activeClass = "after:origin-bottom-left after:scale-x-100 hover:after:origin-bottom-right hover:after:scale-x-0";
         const inactiveClass = "after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100";
         return `${baseClass} ${pathname === (href || "") ? activeClass : inactiveClass}`;

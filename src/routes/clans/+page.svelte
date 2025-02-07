@@ -8,6 +8,8 @@
 
     let { data }: { data: PageData } = $props();
     let mouseEvents: boolean[] = $state(Array(data.clans.length).fill(false));
+
+    const cardGradient: string = "from-red-900 from-20% via-red-950 via-90% to-red-950 inset-shadow-rose-700";
 </script>
 
 <svelte:head>
@@ -42,7 +44,7 @@
             <div class="flex w-full flex-wrap items-stretch justify-center gap-5 lg:gap-11">
                 {#each data.clans as clan, idx}
                     <Card
-                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b from-blue-900 from-20% via-blue-950 via-90% to-blue-950 inset-shadow-sm shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 inset-shadow-sky-700"
+                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b {cardGradient} inset-shadow-sm shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950"
                         bind:isMouseEntered={mouseEvents[idx]}
                     >
                         <div class="flex flex-col justify-between">
@@ -60,7 +62,7 @@
                                 </div>
                             </div>
                             <div
-                                class="mx-2 flex flex-col rounded-xl border-1 border-gray-950 bg-gray-100/10 p-4 inset-shadow-sm inset-shadow-gray-200"
+                                class="mx-2 flex flex-col rounded-xl border-1 border-gray-950 bg-gray-50/10 p-4 inset-shadow-sm inset-shadow-gray-200"
                             >
                                 <div class="flex flex-col items-start gap-2">
                                     <div class="flex items-center gap-1">
@@ -76,7 +78,7 @@
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                 <div
-                                                    class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b from-blue-900 from-20% via-blue-950 via-90% to-blue-950 p-4 inset-shadow-sm shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] shadow-gray-950 inset-shadow-sky-700"
+                                                    class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b {cardGradient} p-4 inset-shadow-sm shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] shadow-gray-950"
                                                 >
                                                     <ClanInfo {clan} />
                                                 </div>
@@ -95,7 +97,7 @@
                             <div class="mx-2 mb-2 flex flex-col">
                                 <p class="p-4 text-center">Minimum Requirements</p>
                                 <div
-                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-1 border-gray-950 bg-gray-100/10 p-4 inset-shadow-sm inset-shadow-gray-200"
+                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-1 border-gray-950 bg-gray-50/10 p-4 inset-shadow-sm inset-shadow-gray-200"
                                 >
                                     <div class="flex items-center">
                                         <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />

@@ -48,8 +48,9 @@
     role={href ? "link" : "button"}
     tabindex="0"
     class={cn(
-        `z-10 flex items-center justify-center rounded-xl bg-linear-to-b disabled:cursor-not-allowed disabled:opacity-50 ${typeClass} shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all not-disabled:hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90`,
+        "z-10 flex items-center justify-center rounded-xl bg-linear-to-b shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_6px_0_6px_#0006] transition-all not-disabled:hover:brightness-110 active:translate-y-[2px] active:shadow-[0_0_0_3px_#F3F4F6,0_1px_0_6px_#030712,0_0_0_6px_#0006] active:brightness-90 disabled:cursor-not-allowed disabled:opacity-50",
         sizeClass,
+        typeClass,
         className
     )}
     {onclick}
