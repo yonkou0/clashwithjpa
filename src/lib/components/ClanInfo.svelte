@@ -49,7 +49,7 @@
         </p>
         <button class="flex cursor-pointer items-center justify-between space-x-1" onclick={() => (showCoLeaders = !showCoLeaders)}>
             <p>Co-Leaders</p>
-            <div class="rounded-lg p-1 transition-all duration-300 ease-in-out hover:bg-gray-800">
+            <div class="rounded-lg p-1 transition-all">
                 {#if showCoLeaders}
                     <div in:fade>
                         <MaterialSymbolsArrowUpwardRounded class="size-4" />

@@ -1,12 +1,10 @@
 <script lang="ts">
-    import type { PageData } from "./$types";
+    import Card from "$lib/components/Card.svelte";
+    import ClanInfo from "$lib/components/ClanInfo.svelte";
     import H1 from "$lib/components/H1.svelte";
     import InlineLink from "$lib/components/InlineLink.svelte";
-    import CardBody from "$lib/components/3D/CardBody.svelte";
-    import CardContainer from "$lib/components/3D/CardContainer.svelte";
-    import CardItem from "$lib/components/3D/CardItem.svelte";
     import { Popover } from "bits-ui";
-    import ClanInfo from "$lib/components/ClanInfo.svelte";
+    import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
     let mouseEvents: boolean[] = $state(Array(data.clans.length).fill(false));
@@ -43,20 +41,26 @@
         <div class="flex w-full flex-col items-center">
             <div class="flex w-full flex-wrap items-stretch justify-center gap-5 lg:gap-11">
                 {#each data.clans as clan, idx}
-                    <CardContainer class="size-full items-stretch" bind:isMouseEntered={mouseEvents[idx]}>
-                        <CardBody class="flex flex-col justify-between rounded-xl border border-gray-700">
-                            <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-80 items-center space-x-4 p-4">
+                    <Card
+                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b from-blue-900 from-20% via-blue-950 via-90% to-blue-950 inset-shadow-sm shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950 inset-shadow-sky-700"
+                        bind:isMouseEntered={mouseEvents[idx]}
+                    >
+                        <div class="flex flex-col justify-between">
+                            <div class="flex w-80 items-center space-x-4 p-4">
                                 <img class="size-20" src={clan.clanData?.badgeUrls.medium} alt={clan.clanData?.name} />
                                 <div class="flex size-full flex-col items-start">
-                                    <h2 class="text-2xl">{clan.clanData?.name}</h2>
+                                    <h2
+                                        class="text-2xl shadow-gray-950 drop-shadow-[0_2px_0_var(--tw-shadow-color)]"
+                                        style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
+                                    >
+                                        {clan.clanData?.name}
+                                    </h2>
                                     <p class="text-sm">{clan.clanData?.tag}</p>
                                     <p class="text-sm">LVL. {clan.clanData?.clanLevel}</p>
                                 </div>
-                            </CardItem>
-                            <CardItem
-                                isMouseEntered={mouseEvents[idx]}
-                                translateZ="100"
-                                class="flex flex-col rounded-xl border-y border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                            </div>
+                            <div
+                                class="mx-2 flex flex-col rounded-xl border-1 border-gray-950 bg-gray-100/10 p-4 inset-shadow-sm inset-shadow-gray-200"
                             >
                                 <div class="flex flex-col items-start gap-2">
                                     <div class="flex items-center gap-1">
@@ -72,7 +76,7 @@
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                 <div
-                                                    class="flex flex-col rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                                    class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b from-blue-900 from-20% via-blue-950 via-90% to-blue-950 p-4 inset-shadow-sm shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] shadow-gray-950 inset-shadow-sky-700"
                                                 >
                                                     <ClanInfo {clan} />
                                                 </div>
@@ -87,11 +91,11 @@
                                         <span>Open in Game</span>
                                     </InlineLink>
                                 </div>
-                            </CardItem>
-                            <CardItem isMouseEntered={mouseEvents[idx]} translateZ="100" class="flex w-full flex-col">
+                            </div>
+                            <div class="mx-2 mb-2 flex flex-col">
                                 <p class="p-4 text-center">Minimum Requirements</p>
                                 <div
-                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-t border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
+                                    class="flex w-full flex-col items-start space-y-2 rounded-xl border-1 border-gray-950 bg-gray-100/10 p-4 inset-shadow-sm inset-shadow-gray-200"
                                 >
                                     <div class="flex items-center">
                                         <img class="size-11" src={`/labels/attacks.webp`} alt="attacks" />
@@ -112,9 +116,9 @@
                                         </p>
                                     </div>
                                 </div>
-                            </CardItem>
-                        </CardBody>
-                    </CardContainer>
+                            </div>
+                        </div>
+                    </Card>
                 {/each}
             </div>
         </div>
