@@ -33,8 +33,8 @@ export async function getClanApplicationFromDiscordId(db: DB, discordId: schema.
 
 export async function acceptApplication(db: DB, tag: schema.SelectClanApplication["tag"], discordId: schema.SelectUser["discordId"]) {
     await db.update(schema.clanApplicationTable).set({ status: "accepted" }).where(eq(schema.clanApplicationTable.tag, tag));
-    await db.insert(schema.userTable).values({ discordId: discordId }).onConflictDoNothing();
-    await db.insert(schema.cocTable).values({ userId: discordId, tag: tag }).onConflictDoNothing();
+    await db.insert(schema.userTable).values({ discordId: discordId });
+    await db.insert(schema.cocTable).values({ userId: discordId, tag: tag });
 }
 
 export async function rejectApplication(db: DB, tag: schema.SelectClanApplication["tag"]) {
