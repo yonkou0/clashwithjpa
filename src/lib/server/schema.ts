@@ -13,6 +13,18 @@ export const cocTable = pgTable("coc_table", {
     tag: text("tag").notNull().unique()
 });
 
+export const cwlTable = pgTable("cwl_table", {
+    id: serial("id").primaryKey(),
+    userId: text("user_id").references(() => userTable.discordId, { onDelete: "cascade" }),
+    userName: text("user_name").notNull(),
+    accountName: text("account_name").notNull(),
+    accountTag: text("account_tag").references(() => cocTable.tag, { onDelete: "cascade" }),
+    accountClan: text("account_clan").notNull(),
+    accountWeight: integer("account_weight").notNull(),
+    monthNum: integer("month_num").notNull(),
+    preferenceNum: integer("preference_num").notNull()
+});
+
 export const clanTable = pgTable("clan_table", {
     id: serial("id").primaryKey(),
     clanCode: text("clan_code").notNull(),
