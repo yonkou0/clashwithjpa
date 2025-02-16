@@ -1,9 +1,9 @@
 import type { NeonQueryFunction } from "@neondatabase/serverless";
 import { desc, eq } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
-import * as schema from "./schema";
+import * as schema from "$lib/server/schema";
 
-type DB = NeonHttpDatabase<Record<string, never>> & {
+type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
 };
 
@@ -78,4 +78,13 @@ export async function getAdminConfig(db: DB) {
         adminMembersId: JSON.parse(JSON.stringify(adminMembersId)).value,
         guildId: JSON.parse(JSON.stringify(guildId)).value.id
     };
+}
+
+export async function getUserAccounts(db: DB, discordId: schema.SelectUser["discordId"]) {
+    return db.query.userTable.findFirst({
+        where: eq(schema.userTable.discordId, discordId),
+        with: {
+            cocAccounts: true
+        }
+    });
 }

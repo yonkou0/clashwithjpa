@@ -12,15 +12,16 @@ import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
-    const applicationEnabled = await isApplicationEnabled(locals.db);
-    if (!applicationEnabled) return redirect(302, "/");
-
     const user = locals.user;
-    const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
     if (!user) {
         return redirect(302, "/");
     }
 
+    const applicationEnabled = await isApplicationEnabled(locals.db);
+    if (!applicationEnabled) return redirect(302, "/");
+
+    const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
+    
     return {
         form: await superValidate(zod(clanApplicationSchema)),
         user: user,

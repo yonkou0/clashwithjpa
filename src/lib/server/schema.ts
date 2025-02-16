@@ -1,4 +1,5 @@
 import type { APIClan, APIClanWar, APIPlayer } from "$lib/coc/types";
+import { relations } from "drizzle-orm";
 import { boolean, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user_table", {
@@ -64,6 +65,30 @@ export const clanApplicationTable = pgTable("clan_application_table", {
     createdAt: timestamp("created_at").notNull().defaultNow()
 });
 
+export const userRelations = relations(userTable, ({ many }) => ({
+    cocAccounts: many(cocTable),
+    cwlRegistrations: many(cwlTable)
+}));
+
+export const cocRelations = relations(cocTable, ({ one, many }) => ({
+    user: one(userTable, {
+        fields: [cocTable.userId],
+        references: [userTable.discordId]
+    }),
+    cwlRegistrations: many(cwlTable)
+}));
+
+export const cwlRelations = relations(cwlTable, ({ one }) => ({
+    user: one(userTable, {
+        fields: [cwlTable.userId],
+        references: [userTable.discordId]
+    }),
+    cocAccount: one(cocTable, {
+        fields: [cwlTable.accountTag],
+        references: [cocTable.tag]
+    })
+}));
+
 interface SettingsMap {
     applications_enabled: boolean;
     admin_roles_id: string[];
@@ -103,3 +128,6 @@ export type SelectClanApplication = typeof clanApplicationTable.$inferSelect;
 
 export type InsertSettings = typeof settingsTable.$inferInsert;
 export type SelectSettings = typeof settingsTable.$inferSelect;
+
+export type InsertCWL = typeof cwlTable.$inferInsert;
+export type SelectCWL = typeof cwlTable.$inferSelect;
