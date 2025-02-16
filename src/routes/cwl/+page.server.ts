@@ -9,7 +9,6 @@ export const load = (async ({ locals }) => {
     }
 
     const userAccounts = await getUserAccounts(locals.db, user.id);
-    
 
     return {
         user: user,

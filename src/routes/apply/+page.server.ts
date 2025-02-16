@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ locals }) => {
     if (!applicationEnabled) return redirect(302, "/");
 
     const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
-    
+
     return {
         form: await superValidate(zod(clanApplicationSchema)),
         user: user,
@@ -61,7 +61,7 @@ export const actions: Actions = {
 
         const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, playerTag);
 
-        const [alreadyApplied] = await getClanApplicationFromTag(event.locals.db, playerData.tag);
+        const alreadyApplied = await getClanApplicationFromTag(event.locals.db, playerData.tag);
         if (alreadyApplied) {
             return message(form, "You have already applied to the clan", {
                 status: 400

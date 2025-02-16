@@ -8,7 +8,7 @@ import * as schema from "$lib/server/schema";
 
 type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
-}
+};
 
 export type UserData = APIUser & { inGuild: boolean; isAdmin: boolean };
 

@@ -2,8 +2,9 @@ import { getAdminConfig } from "$lib/server/functions";
 import type { NeonQueryFunction } from "@neondatabase/serverless";
 import type { APIChannel, APIGuild, APIRole, APIUser } from "discord-api-types/v10";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
+import * as schema from "$lib/server/schema";
 
-type DB = NeonHttpDatabase<Record<string, never>> & {
+type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
 };
 

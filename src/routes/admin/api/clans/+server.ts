@@ -10,6 +10,7 @@ import type { RequestHandler } from "./$types";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleAddClan = async (locals: App.Locals, value: any) => {
     const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
     if ("error" in clanData) {
@@ -70,6 +71,7 @@ const handleAddClan = async (locals: App.Locals, value: any) => {
     return clanData;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleClanEdit = async (locals: App.Locals, value: any) => {
     const clanData = await locals.db.select().from(clanTable).where(eq(clanTable.clanTag, value.tag));
     if ("error" in clanData) {

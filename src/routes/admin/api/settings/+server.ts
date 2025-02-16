@@ -10,6 +10,7 @@ import type { RequestHandler } from "./$types";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleAddAdminRole = async (locals: App.Locals, value: any, adminConfig: any) => {
     const roleData = await checkRole(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, locals.db, value);
     if ("error" in roleData) {
@@ -20,6 +21,7 @@ const handleAddAdminRole = async (locals: App.Locals, value: any, adminConfig: a
     return roleData;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleAddAdminMember = async (locals: App.Locals, value: any, adminConfig: any) => {
     const userData = await checkUser(PUBLIC_DISCORD_URL, DISCORD_BOT_TOKEN, value);
     if ("error" in userData) {

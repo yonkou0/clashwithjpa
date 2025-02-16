@@ -46,6 +46,6 @@ export async function getPlayerInfo(baseURI: string, apiToken: string, tag: stri
             "Content-Type": "application/json"
         }
     });
-    
+
     return (await response.json()) as APIPlayer;
 }

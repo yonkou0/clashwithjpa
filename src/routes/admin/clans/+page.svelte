@@ -58,6 +58,7 @@
             !Object.values(formData).every((v) => v !== undefined && v !== null) || data.clans.some((clan) => clan.clanTag == $formData.tag);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function getInputLen(data: any) {
         const len = (data ?? "").toString().length;
         return `${Math.min(len, 8) + 2}ch`;
