@@ -21,8 +21,10 @@ export const cwlTable = pgTable("cwl_table", {
     accountTag: text("account_tag").references(() => cocTable.tag, { onDelete: "cascade" }),
     accountClan: text("account_clan").notNull(),
     accountWeight: integer("account_weight").notNull(),
-    monthNum: integer("month_num").notNull(),
-    preferenceNum: integer("preference_num").notNull()
+    month: text("month").notNull(),
+    year: integer("year").notNull(),
+    preferenceNum: integer("preference_num").notNull(),
+    appliedAt: timestamp("applied_at").notNull().defaultNow()
 });
 
 export const clanTable = pgTable("clan_table", {
