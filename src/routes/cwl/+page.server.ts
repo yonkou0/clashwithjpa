@@ -8,10 +8,11 @@ export const load = (async ({ locals }) => {
         return redirect(302, "/");
     }
 
-    const userAccounts = await getUserAccounts(locals.db, user.id);
+    const userAccount = await getUserAccounts(locals.db, user.id);
+
 
     return {
         user: user,
-        userAccounts: userAccounts
+        userAccount: userAccount,
     };
 }) satisfies PageServerLoad;
