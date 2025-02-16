@@ -288,8 +288,8 @@
                                             {/await}
                                         {/if}
                                     </div>
-                                    <div class="flex w-full items-center justify-evenly gap-5">
-                                        {#if type !== "accepted"}
+                                    {#if type == "pending"}
+                                        <div class="flex w-full items-center justify-evenly gap-5">
                                             <CocButton
                                                 type="success"
                                                 size="sm"
@@ -307,8 +307,6 @@
                                                 <MaterialSymbolsCheckRounded class="size-6" />
                                                 Accept
                                             </CocButton>
-                                        {/if}
-                                        {#if type !== "rejected"}
                                             <CocButton
                                                 type="danger"
                                                 size="sm"
@@ -321,8 +319,8 @@
                                                 <MaterialSymbolsCloseRounded class="size-6" />
                                                 Reject
                                             </CocButton>
-                                        {/if}
-                                    </div>
+                                        </div>
+                                    {/if}
                                 </div>
                             {/each}
                         </ul>
