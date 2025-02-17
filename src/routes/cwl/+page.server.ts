@@ -103,7 +103,7 @@ export const actions: Actions = {
         const playerClanTag = playerData.clan?.tag;
         const playerClanName = playerData.clan?.name;
         const fwaStats = await getFWAStats(playerClanTag as string);
-        const fwaStatsMember = "error" in fwaStats ? undefined : fwaStats[playerTag.replace("#", "")];
+        const fwaStatsMember = "error" in fwaStats ? undefined : fwaStats[playerTag];
 
         if (!fwaStatsMember) {
             return message(form, "You are not in the FWA clan", {
