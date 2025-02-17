@@ -9,7 +9,8 @@ import { getPlayerInfo } from "$lib/coc/player";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-import { type InsertCWL, type SelectCWL } from "$lib/server/schema";
+import { type InsertCWL } from "$lib/server/schema";
+import { getCWLApplications, getCWLApplicationByTag, insertCWLApplication } from "$lib/server/functions";
 
 export const load = (async ({ locals }) => {
     const user = locals.user;
@@ -27,10 +28,13 @@ export const load = (async ({ locals }) => {
         return redirect(302, "/");
     }
 
+    const applications = await getCWLApplications(locals.db, user.id);
+
     return {
         form: await superValidate(zod(cwlApplicationSchema)),
         user: user,
-        userAccount: userAccount
+        userAccount: userAccount,
+        applications: applications
     };
 }) satisfies PageServerLoad;
 
@@ -98,7 +102,16 @@ export const actions: Actions = {
             }
         }
 
+        const [month, year] = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }).split(" ");
         const playerTag = form.data.tag;
+
+        const existingApplication = await getCWLApplicationByTag(event.locals.db, playerTag, month, parseInt(year));
+        if (existingApplication) {
+            return message(form, "You have already applied for this month", {
+                status: 400
+            });
+        }
+
         const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, playerTag);
         const playerClanTag = playerData.clan?.tag;
         const playerClanName = playerData.clan?.name;
@@ -113,8 +126,6 @@ export const actions: Actions = {
 
         const playerAccountWeight = fwaStatsMember.weight;
 
-        const [month, year] = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }).split(" ");
-
         const cwlApplication: InsertCWL = {
             userId: event.locals.user?.id as string,
             userName: event.locals.user?.username as string,
@@ -127,7 +138,7 @@ export const actions: Actions = {
             preferenceNum: form.data.preferenceNum
         };
 
-        console.log(cwlApplication);
+        await insertCWLApplication(event.locals.db, cwlApplication);
 
         return message(form, "Application submitted successfully!");
     }

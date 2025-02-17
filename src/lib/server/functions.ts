@@ -1,5 +1,5 @@
 import type { NeonQueryFunction } from "@neondatabase/serverless";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, and } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 import * as schema from "$lib/server/schema";
 
@@ -91,4 +91,20 @@ export async function getUserAccounts(db: DB, discordId: schema.SelectUser["disc
             cocAccounts: true
         }
     });
+}
+
+export async function getCWLApplications(db: DB, discordId: schema.SelectCWL["userId"]) {
+    return db.query.cwlTable.findMany({
+        where: eq(schema.cwlTable.userId, discordId)
+    });
+}
+
+export async function getCWLApplicationByTag(db: DB, tag: schema.SelectCWL["accountTag"], month: string, year: number) {
+    return db.query.cwlTable.findFirst({
+        where: and(eq(schema.cwlTable.accountTag, tag), eq(schema.cwlTable.month, month), eq(schema.cwlTable.year, year))
+    });
+}
+
+export async function insertCWLApplication(db: DB, data: schema.InsertCWL) {
+    await db.insert(schema.cwlTable).values(data);
 }
