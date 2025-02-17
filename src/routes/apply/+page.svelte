@@ -2,8 +2,9 @@
     import { dev } from "$app/environment";
     import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
+    import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
-    import { clanApplicationSchema } from "$lib/cf/schema";
+    import { clanApplicationSchema } from "$lib/schema";
     import { Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
@@ -16,9 +17,8 @@
     import MaterialSymbolsChevronLeftRounded from "~icons/material-symbols/chevron-left-rounded";
     import MaterialSymbolsChevronRightRounded from "~icons/material-symbols/chevron-right-rounded";
     import MaterialSymbolsWarningRounded from "~icons/material-symbols/warning-rounded";
-    import type { PageData } from "./$types";
     import TablerLoader2 from "~icons/tabler/loader-2";
-    import Button from "$lib/components/Button.svelte";
+    import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
 
@@ -28,6 +28,7 @@
             reset?.();
         }
     });
+
     const { form: formData, enhance, message, delayed } = form;
     $effect(() => {
         if ($message && (page.status === 200 || page.status == 400)) {

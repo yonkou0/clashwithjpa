@@ -2,7 +2,7 @@ import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { validateCFToken } from "$lib/cf/helpers";
-import { clanApplicationSchema } from "$lib/cf/schema";
+import { clanApplicationSchema } from "$lib/schema";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
 import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
@@ -16,9 +16,6 @@ export const load: PageServerLoad = async ({ locals }) => {
     if (!user) {
         return redirect(302, "/");
     }
-
-    const applicationEnabled = await isApplicationEnabled(locals.db);
-    if (!applicationEnabled) return redirect(302, "/");
 
     const applications = await getClanApplicationFromDiscordId(locals.db, user?.id as string);
 
@@ -39,6 +36,13 @@ export const actions: Actions = {
         }
 
         if (!dev) {
+            const applicationEnabled = await isApplicationEnabled(event.locals.db);
+            if (!applicationEnabled) {
+                return message(form, "Applications are disabled", {
+                    status: 400
+                });
+            }
+
             const cfToken = form.data["cf-turnstile-response"];
             const cfData = await validateCFToken(cfToken, TURNSTILE_SECRET_KEY);
 

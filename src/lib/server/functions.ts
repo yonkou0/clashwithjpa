@@ -66,24 +66,6 @@ export async function getRules(db: DB) {
 }
 
 export async function getAdminConfig(db: DB) {
-    // const [adminRolesId] = await db
-    //     .select({ value: schema.settingsTable.value })
-    //     .from(schema.settingsTable)
-    //     .where(eq(schema.settingsTable.key, "admin_roles_id"));
-    // const [adminMembersId] = await db
-    //     .select({ value: schema.settingsTable.value })
-    //     .from(schema.settingsTable)
-    //     .where(eq(schema.settingsTable.key, "admin_members_id"));
-    // const [guildId] = await db
-    //     .select({ value: schema.settingsTable.value })
-    //     .from(schema.settingsTable)
-    //     .where(eq(schema.settingsTable.key, "guild_id"));
-    // return {
-    //     adminRolesId: JSON.parse(JSON.stringify(adminRolesId)).value,
-    //     adminMembersId: JSON.parse(JSON.stringify(adminMembersId)).value,
-    //     guildId: JSON.parse(JSON.stringify(guildId)).value.id
-    // };
-
     const adminRolesId = await db.query.settingsTable.findFirst({
         where: eq(schema.settingsTable.key, "admin_roles_id")
     });
