@@ -77,8 +77,8 @@ export async function getAdminConfig(db: DB) {
     });
 
     return {
-        adminRolesId: adminMembersId?.value as string[],
-        adminMembersId: adminRolesId?.value as string[],
+        adminRolesId: adminRolesId?.value as string[],
+        adminMembersId: adminMembersId?.value as string[],
         // @ts-expect-error annoying
         guildId: guildId?.value.id as string
     };
