@@ -14,6 +14,13 @@ export async function isApplicationEnabled(db: DB) {
     return status?.value as boolean;
 }
 
+export async function isCWLEnabled(db: DB) {
+    const status = await db.query.settingsTable.findFirst({
+        where: eq(schema.settingsTable.key, "cwl_enabled")
+    });
+    return status?.value as boolean;
+}
+
 export async function createClanApplication(db: DB, data: schema.InsertClanApplication) {
     await db.insert(schema.clanApplicationTable).values(data);
 }

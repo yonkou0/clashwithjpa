@@ -101,6 +101,7 @@ export const cwlRelations = relations(cwlTable, ({ one }) => ({
 
 interface SettingsMap {
     applications_enabled: boolean;
+    cwl_enabled: boolean;
     admin_roles_id: string[];
     admin_members_id: string[];
     rules: {

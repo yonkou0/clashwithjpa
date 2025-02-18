@@ -10,6 +10,7 @@
 
     let { data }: { data: PageData } = $props();
     let applicationEnabled: boolean = $state(data.applicationEnabled);
+    let cwlEnabled: boolean = $state(data.cwlEnabled);
     let guildID: string = $state(data.adminConfig.guildId);
     let adminRoleID: string = $state("");
     let adminRoles: APIRole[] = $state(data.adminRoles);
@@ -18,6 +19,7 @@
 
     $effect(() => {
         applicationEnabled = data.applicationEnabled;
+        cwlEnabled = data.cwlEnabled;
         guildID = data.adminConfig.guildId;
         adminRoles = data.adminRoles;
         admins = data.admins;
@@ -25,12 +27,14 @@
 
     let disabled: {
         applicationStatus: boolean;
+        cwlStatus: boolean;
         guildID: {
             input: boolean;
             button: boolean;
         };
     } = $state({
         applicationStatus: false,
+        cwlStatus: false,
         guildID: {
             input: false,
             button: true
@@ -65,6 +69,29 @@
         }
         setTimeout(() => {
             disabled.applicationStatus = false;
+        }, 2000);
+    }
+
+    async function changeCWLStatus() {
+        disabled.cwlStatus = true;
+        const body = {
+            key: "cwl_enabled",
+            value: cwlEnabled
+        };
+        let response = await fetch("/admin/api/settings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        if (response.ok) {
+            toast.success(`CWL is now ${cwlEnabled ? "enabled" : "disabled"}`);
+            invalidateAll();
+        } else {
+            toast.error("Failed to set CWL status");
+        }
+        setTimeout(() => {
+            disabled.cwlStatus = false;
         }, 2000);
     }
 
@@ -187,7 +214,22 @@
                     class="inline-flex h-8 w-[60px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-600"
                 >
                     <Switch.Thumb
-                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-50 transition-all data-[state=checked]:translate-x-[100%] data-[state=unchecked]:translate-x-0"
+                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-50 transition-all data-[state=checked]:translate-x-[90%] data-[state=unchecked]:translate-x-0"
+                    />
+                </Switch.Root>
+            </div>
+            <!-- CWL Status -->
+            <div class="flex items-center gap-2">
+                <span>CWL Status</span>
+                <Switch.Root
+                    name="CWLStatus"
+                    bind:checked={cwlEnabled}
+                    disabled={disabled.cwlStatus}
+                    onCheckedChange={changeCWLStatus}
+                    class="inline-flex h-8 w-[60px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-600"
+                >
+                    <Switch.Thumb
+                        class="pointer-events-none block size-7 shrink-0 rounded-full bg-gray-50 transition-all data-[state=checked]:translate-x-[90%] data-[state=unchecked]:translate-x-0"
                     />
                 </Switch.Root>
             </div>

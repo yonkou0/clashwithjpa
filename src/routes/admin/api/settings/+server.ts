@@ -32,6 +32,16 @@ const handleAddAdminMember = async (locals: App.Locals, value: any, adminConfig:
     return userData;
 };
 
+const handleApplication = async (locals: App.Locals, value: boolean) => {
+    await locals.db.update(settingsTable).set({ value: value }).where(eq(settingsTable.key, "applications_enabled"));
+    return { success: true };
+}
+
+const handleCWL = async (locals: App.Locals, value: boolean) => {
+    await locals.db.update(settingsTable).set({ value: value }).where(eq(settingsTable.key, "cwl_enabled"));
+    return { success: true };
+}
+
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;
     const body = await request.json();
@@ -66,6 +76,16 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             return json({ error: result.error }, { status: result.status });
         }
         return json(result);
+    }
+
+    if (key === "applications_enabled") {
+        const enabled: boolean = value;
+        return json(await handleApplication(locals, enabled));
+    }
+
+    if (key === "cwl_enabled") {
+        const enabled: boolean = value;
+        return json(await handleCWL(locals, enabled));
     }
 
     await locals.db.update(settingsTable).set({ value: value }).where(eq(settingsTable.key, key));
