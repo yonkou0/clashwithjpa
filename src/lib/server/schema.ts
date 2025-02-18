@@ -35,7 +35,7 @@ export const cwlTable = pgTable(
         preferenceNum: integer("preference_num").notNull(),
         appliedAt: timestamp("applied_at").notNull().defaultNow()
     },
-    (t) => [unique("cwl_table_accountTag_month_year_unique").on(t.accountTag, t.month, t.year)]
+    (t) => [unique("cwl_table_accountTag_preferenceNum_month_year_unique").on(t.accountTag, t.preferenceNum, t.month, t.year)]
 );
 
 export const clanTable = pgTable("clan_table", {
