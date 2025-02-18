@@ -4,7 +4,7 @@ import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { validateCFToken } from "$lib/cf/helpers";
 import { getPlayerInfo } from "$lib/coc/player";
 import { cwlApplicationSchema } from "$lib/schema";
-import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication } from "$lib/server/functions";
+import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled } from "$lib/server/functions";
 import { type InsertCWL } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
@@ -86,12 +86,12 @@ export const actions: Actions = {
         }
 
         if (!dev) {
-            // const applicationEnabled = await isApplicationEnabled(event.locals.db);      // add for cwlApplications too
-            // if (!applicationEnabled) {
-            //     return message(form, "Applications are disabled", {
-            //         status: 400
-            //     });
-            // }
+            const cwlEnabled = await isCWLEnabled(event.locals.db);
+            if (!cwlEnabled) {
+                return message(form, "Applications are disabled", {
+                    status: 400
+                });
+            }
 
             const cfToken = form.data["cf-turnstile-response"];
             const cfData = await validateCFToken(cfToken, TURNSTILE_SECRET_KEY);
