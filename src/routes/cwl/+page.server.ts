@@ -1,30 +1,31 @@
-import { redirect } from "@sveltejs/kit";
-import { getUserAccounts } from "$lib/server/functions";
+import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
-import { dev } from "$app/environment";
 import { validateCFToken } from "$lib/cf/helpers";
-import { cwlApplicationSchema } from "$lib/schema";
 import { getPlayerInfo } from "$lib/coc/player";
+import { cwlApplicationSchema } from "$lib/schema";
+import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication } from "$lib/server/functions";
+import { type InsertCWL } from "$lib/server/schema";
+import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-import { type InsertCWL } from "$lib/server/schema";
-import { getCWLApplications, getCWLApplicationByTag, insertCWLApplication } from "$lib/server/functions";
 
 export const load = (async ({ locals }) => {
     const user = locals.user;
     if (!user) {
+        console.error("Login to fillout the CWL Form");
         return redirect(302, "/");
     }
 
     const userAccount = await getUserAccounts(locals.db, user.id);
     if (!userAccount) {
-        return redirect(302, "/");
+        console.error("Apply to join a clan first");
+        return redirect(302, "/apply");
     }
 
     if (!userAccount.isActive) {
-        console.log("User account not found");
+        console.error("Your account not found")
         return redirect(302, "/");
     }
 
