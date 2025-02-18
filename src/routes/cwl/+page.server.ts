@@ -25,7 +25,7 @@ export const load = (async ({ locals }) => {
     }
 
     if (!userAccount.isActive) {
-        console.error("Your account not found")
+        console.error("Your account not found");
         return redirect(302, "/");
     }
 

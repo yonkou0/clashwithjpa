@@ -35,12 +35,12 @@ const handleAddAdminMember = async (locals: App.Locals, value: any, adminConfig:
 const handleApplication = async (locals: App.Locals, value: boolean) => {
     await locals.db.update(settingsTable).set({ value: value }).where(eq(settingsTable.key, "applications_enabled"));
     return { success: true };
-}
+};
 
 const handleCWL = async (locals: App.Locals, value: boolean) => {
     await locals.db.update(settingsTable).set({ value: value }).where(eq(settingsTable.key, "cwl_enabled"));
     return { success: true };
-}
+};
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;

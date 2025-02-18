@@ -14,7 +14,6 @@
     import TablerLoader2 from "~icons/tabler/loader-2";
     import { fade, fly } from "svelte/transition";
 
-
     let { data }: { data: PageData } = $props();
 
     const form = superForm(data.form, {
