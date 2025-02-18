@@ -51,21 +51,26 @@ body {
     background: transparent;
 }
 
-input {
+input,
+select {
     border: 1px solid var(--color-gray-700);
     border-radius: var(--radius-lg);
     background: linear-gradient(to right, var(--color-gray-900), var(--color-gray-800), var(--color-gray-900));
 }
-input:focus {
+input:focus,
+select:focus {
     border-color: var(--color-blue-700);
     @apply ring-0! outline-hidden! transition-colors!;
 }
-input:disabled {
+input:disabled,
+select:disabled {
     cursor: not-allowed;
     opacity: 50%;
 }
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-inner-spin-button,
+select::-webkit-outer-spin-button,
+select::-webkit-inner-spin-button {
     display: none;
     margin: 0;
 }

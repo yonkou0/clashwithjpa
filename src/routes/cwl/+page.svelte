@@ -1,18 +1,17 @@
 <script lang="ts">
-    import type { PageData } from "./$types";
-    import { page } from "$app/state";
     import { dev } from "$app/environment";
+    import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
-    import { toast } from "$lib/components/toast";
     import Button from "$lib/components/Button.svelte";
+    import { toast } from "$lib/components/toast";
     import { cwlApplicationSchema } from "$lib/schema";
-    import { Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
+    import { fly } from "svelte/transition";
     import SuperDebug, { superForm } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import TablerLoader2 from "~icons/tabler/loader-2";
-    import { fade, fly } from "svelte/transition";
+    import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
 
@@ -45,73 +44,83 @@
 </script>
 
 <svelte:head>
-    <title>CWL Applications | JPA</title>
+    <title>JPA | CWL Application</title>
 </svelte:head>
 
-<div class="mt-32 flex flex-col gap-4 p-8">
-    {#if dev}
-        <div class="w-full">
-            <SuperDebug data={$formData} />
-        </div>
-    {/if}
-
-    <form method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
-        <Field {form} name="tag">
-            <Description>Select one of your accounts</Description>
-            <Control>
-                {#snippet children({ props })}
-                    <select class="rounded-lg border border-gray-700 text-black" {...props} bind:value={$formData.tag}>
-                        <option value="" disabled selected hidden>Select an account</option>
-                        {#each data.userAccount.cocAccounts as account}
-                            <option value={account.tag}>{account.tag}</option>
-                        {/each}
-                    </select>
-                {/snippet}
-            </Control>
-            <FieldErrors class="text-red-400" />
-        </Field>
-
-        <Field {form} name="preferenceNum">
-            {@const accounts = data.userAccount.cocAccounts.length}
-            <Description>Preference number ( 1 - {accounts} )</Description>
-            <Control>
-                {#snippet children({ props })}
-                    <input
-                        {...props}
-                        class="rounded-lg border border-gray-700 p-2"
-                        type="number"
-                        placeholder="1"
-                        min="1"
-                        max={accounts}
-                        bind:value={$formData.preferenceNum}
-                    />
-                {/snippet}
-            </Control>
-            <FieldErrors class="text-red-400" />
-        </Field>
-
-        {#if !dev}
-            <Field {form} name="cf-turnstile-response">
-                <Turnstile
-                    class="text-center"
-                    on:callback={(event) => {
-                        $formData["cf-turnstile-response"] = event.detail.token;
-                    }}
-                    siteKey={PUBLIC_TURNSTILE_SITE_KEY}
-                    bind:reset
-                />
-            </Field>
-        {/if}
-
-        <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
-            {#if $delayed}
-                <span in:fly class="flex size-full items-center justify-center gap-2">
-                    <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
-                    Submitting...
-                </span>
-            {:else}
-                <span in:fly class="flex size-full items-center justify-center">Submit</span>
+<main class="flex size-full flex-col items-center justify-center">
+    <div class="flex h-screen w-screen items-center justify-center lg:justify-start">
+        <div
+            class="fixed -z-10 h-full w-full items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:relative lg:z-10 lg:flex lg:w-1/2"
+            style="background-image: url('/cwl.webp');"
+        >
+            {#if dev}
+                <div class="w-full p-5">
+                    <SuperDebug data={$formData} />
+                </div>
             {/if}
-        </Button>
-    </form>
-</div>
+        </div>
+        <div
+            class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
+        >
+            <form method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
+                <Field {form} name="tag">
+                    <Description>Select one of your accounts</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <select class="rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
+                                <option value="" disabled selected hidden>Select an account</option>
+                                {#each data.userAccount.cocAccounts as account}
+                                    <option class="bg-gray-900" value={account.tag}>{account.tag}</option>
+                                {/each}
+                            </select>
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+
+                <Field {form} name="preferenceNum">
+                    {@const accounts = data.userAccount.cocAccounts.length}
+                    <Description>Preference number ( 1 - {accounts} )</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input
+                                {...props}
+                                class="rounded-lg border border-gray-700 p-2"
+                                type="number"
+                                placeholder="1"
+                                min="1"
+                                max={accounts}
+                                bind:value={$formData.preferenceNum}
+                            />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+
+                {#if !dev}
+                    <Field {form} name="cf-turnstile-response">
+                        <Turnstile
+                            class="text-center"
+                            on:callback={(event) => {
+                                $formData["cf-turnstile-response"] = event.detail.token;
+                            }}
+                            siteKey={PUBLIC_TURNSTILE_SITE_KEY}
+                            bind:reset
+                        />
+                    </Field>
+                {/if}
+
+                <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
+                    {#if $delayed}
+                        <span in:fly class="flex size-full items-center justify-center gap-2">
+                            <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                            Submitting...
+                        </span>
+                    {:else}
+                        <span in:fly class="flex size-full items-center justify-center">Submit</span>
+                    {/if}
+                </Button>
+            </form>
+        </div>
+    </div>
+</main>

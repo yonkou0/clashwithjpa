@@ -63,16 +63,18 @@
 <main class="flex size-full flex-col items-center justify-center">
     <div class="flex h-screen w-screen items-center justify-center lg:justify-start">
         <div
-            class="z-10 hidden h-full w-1/2 items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:flex"
-            style="background-image: url('/forms.webp');"
+            class="fixed -z-10 h-full w-full items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:relative lg:z-10 lg:flex lg:w-1/2"
+            style="background-image: url('/apply.webp');"
         >
-            {#if dev}
+            {#if !dev}
                 <div class="w-full p-5">
                     <SuperDebug data={$formData} />
                 </div>
             {/if}
         </div>
-        <div class="flex size-full flex-col items-center justify-center lg:w-1/2">
+        <div
+            class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
+        >
             {#if data.applications.length && showPrevApps}
                 <div in:fade class="flex size-full flex-col justify-center">
                     <h3 class="text-center">Previous Application{data.applications.length > 1 ? "s" : ""}</h3>

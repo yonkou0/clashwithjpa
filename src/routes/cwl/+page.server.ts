@@ -2,10 +2,11 @@ import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { validateCFToken } from "$lib/cf/helpers";
+import { getFWAStats } from "$lib/coc/fwa";
 import { getPlayerInfo } from "$lib/coc/player";
 import { cwlApplicationSchema } from "$lib/schema";
 import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled } from "$lib/server/functions";
-import { type InsertCWL } from "$lib/server/schema";
+import type { InsertCWL } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -13,6 +14,9 @@ import type { Actions, PageServerLoad } from "./$types";
 
 export const load = (async ({ locals }) => {
     const user = locals.user;
+    if (user) {
+        user.id = "526371981327859724"
+    }
     if (!user) {
         console.error("Login to fillout the CWL Form");
         return redirect(302, "/");
@@ -38,43 +42,6 @@ export const load = (async ({ locals }) => {
         applications: applications
     };
 }) satisfies PageServerLoad;
-
-interface FWAStatsMember {
-    tag: string;
-    name: string;
-    role: string;
-    level: number;
-    donated: number;
-    received: number;
-    rank: number;
-    trophies: number;
-    league: string;
-    townHall: number;
-    weight: number;
-    inWar: boolean;
-}
-
-interface FWAStats {
-    [key: string]: FWAStatsMember;
-}
-
-async function getFWAStats(clanTag: string) {
-    console.log(clanTag);
-    clanTag = clanTag.replace("#", "");
-    const resp = await fetch(`https://fwastats.com/Clan/${clanTag}/Members.json`);
-
-    if (!resp.ok) {
-        return { error: true };
-    }
-
-    const data = await resp.json();
-    const members: { [key: string]: FWAStatsMember } = {};
-    data.forEach((member: FWAStatsMember) => {
-        members[member.tag] = member;
-    });
-
-    return members as FWAStats;
-}
 
 export const actions: Actions = {
     default: async (event) => {
