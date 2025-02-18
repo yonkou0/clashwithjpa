@@ -66,7 +66,7 @@
             class="fixed -z-10 h-full w-full items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat lg:relative lg:z-10 lg:flex lg:w-1/2"
             style="background-image: url('/apply.webp');"
         >
-            {#if !dev}
+            {#if dev}
                 <div class="w-full p-5">
                     <SuperDebug data={$formData} />
                 </div>
