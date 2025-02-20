@@ -14,8 +14,8 @@ import type { Actions, PageServerLoad } from "./$types";
 
 export const load = (async ({ locals }) => {
     const user = locals.user;
-    if (user) {
-        user.id = "526371981327859724"
+    if (user && dev) {
+        user.id = "526371981327859724" // immi's id for testing
     }
     if (!user) {
         console.error("Login to fillout the CWL Form");
