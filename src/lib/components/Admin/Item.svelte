@@ -53,7 +53,7 @@
     <span>{title}</span>
     <div class="flex items-center gap-2">
         <input {placeholder} maxlength="19" bind:value={inputValue} disabled={disabledInput} />
-        <Button class="h-full p-2" onclick={handleSubmit} disabled={disabledButton}>
+        <Button class="p-2" onclick={handleSubmit} disabled={disabledButton}>
             <MaterialSymbolsSendRounded class="size-6" />
         </Button>
     </div>

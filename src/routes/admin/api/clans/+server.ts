@@ -7,6 +7,7 @@ import { clanTable, type EditClan, type InsertClan } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
 import { eq } from "drizzle-orm";
 import type { RequestHandler } from "./$types";
+import { getClansPublicData } from "$lib/server/functions";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
 
@@ -87,6 +88,22 @@ const handleClanEdit = async (locals: App.Locals, value: any) => {
     return clanData;
 };
 
+const syncClanData = async (locals: App.Locals) => {
+    const clans = await getClansPublicData(locals.db);
+    for (let i = 0; i < clans.length; i++) {
+        const clan = clans[i];
+        const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, clan.clanTag);
+        const currentWar = await getClanWarData(PUBLIC_API_BASE_URI, API_TOKEN, clan.clanTag);
+        if ("error" in clanData) {
+            return { error: clanData.error, status: 400 };
+        } else if ("error" in currentWar) {
+            return { error: currentWar, status: 400 };
+        }
+        await locals.db.update(clanTable).set({ clanData: clanData, clanCurrentWar: currentWar }).where(eq(clanTable.clanTag, clan.clanTag));
+    }
+    return { success: true };
+};
+
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;
     const body = await request.json();
@@ -109,6 +126,12 @@ export const POST: RequestHandler = async ({ locals, request }) => {
             return json({ error: result.error }, { status: result.status });
         }
         return json(result);
+    } else if (key === "sync_clans") {
+        const res = await syncClanData(locals);
+        if ("error" in res) {
+            return json({ error: res.error }, { status: 400 });
+        }
+        return json(res);
     }
 
     return json({ error: "Invalid key" }, { status: 400 });

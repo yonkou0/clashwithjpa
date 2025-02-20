@@ -5,6 +5,7 @@
     import { toast } from "$lib/components/toast";
     import { Switch } from "bits-ui";
     import type { APIGuild, APIRole, APIUser } from "discord-api-types/v10";
+    import MaterialSymbolsRefreshRounded from "~icons/material-symbols/refresh-rounded";
     import MaterialSymbolsSendRounded from "~icons/material-symbols/send-rounded";
     import type { PageData } from "./$types";
 
@@ -28,6 +29,7 @@
     let disabled: {
         applicationStatus: boolean;
         cwlStatus: boolean;
+        syncClan: boolean;
         guildID: {
             input: boolean;
             button: boolean;
@@ -35,11 +37,13 @@
     } = $state({
         applicationStatus: false,
         cwlStatus: false,
+        syncClan: false,
         guildID: {
             input: false,
             button: true
         }
     });
+    let syncSpin: boolean = $state(false);
 
     $effect(() => {
         if (guildID == data.adminConfig.guildId) {
@@ -93,6 +97,26 @@
         setTimeout(() => {
             disabled.cwlStatus = false;
         }, 2000);
+    }
+
+    async function syncClans() {
+        disabled.syncClan = true;
+        syncSpin = true;
+        let resp = await fetch("/admin/api/clans", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key: "sync_clans" })
+        });
+        if (resp.ok) {
+            toast.success("Clans have been synced");
+        } else {
+            const data = await resp.json();
+            toast.error(data.error);
+        }
+        syncSpin = false;
+        setTimeout(() => {
+            disabled.syncClan = false;
+        }, 5000);
     }
 
     async function setGuildID() {
@@ -233,12 +257,19 @@
                     />
                 </Switch.Root>
             </div>
+            <!-- Sync Clan Data -->
+            <div class="flex items-center gap-2">
+                <span>Sync Clan Data</span>
+                <Button class="p-1" onclick={syncClans} disabled={disabled.syncClan}>
+                    <MaterialSymbolsRefreshRounded class="size-6 {syncSpin ? 'animate-spin' : ''}" />
+                </Button>
+            </div>
             <!-- Guild ID -->
             <div class="flex flex-col items-start gap-2">
                 <span>Guild ID</span>
                 <div class="flex items-center gap-2">
                     <input placeholder="Enter Guild ID" maxlength="19" bind:value={guildID} disabled={disabled.guildID.input} />
-                    <Button class="h-full p-2" onclick={setGuildID} disabled={disabled.guildID.button}>
+                    <Button class="p-2" onclick={setGuildID} disabled={disabled.guildID.button}>
                         <MaterialSymbolsSendRounded class="size-6" />
                     </Button>
                 </div>
