@@ -103,7 +103,7 @@
                         {apps.length > 1 ? "Applications" : "Application"}
                     </button>
                     {#if !hidden[idx]}
-                        <ul transition:slide class="mt-2 flex w-full flex-wrap items-start justify-center md:justify-start gap-2">
+                        <ul transition:slide class="mt-2 flex w-full flex-wrap items-start justify-center gap-2 md:justify-start">
                             {#each apps as application, appIdx}
                                 <div
                                     in:fly={{ duration: 500, easing: expoIn, x: -100, y: 0 }}
