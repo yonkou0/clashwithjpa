@@ -7,6 +7,9 @@
     --breakpoint-3xl: 2560px;
 
     --font-coc: COC;
+
+    --color-blurple: #5764f2;
+    --color-blurple-light: #c7d2fe;
 }
 
 @font-face {

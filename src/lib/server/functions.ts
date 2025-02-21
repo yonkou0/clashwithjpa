@@ -1,7 +1,7 @@
-import type { NeonQueryFunction } from "@neondatabase/serverless";
-import { desc, eq, and } from "drizzle-orm";
-import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 import * as schema from "$lib/server/schema";
+import type { NeonQueryFunction } from "@neondatabase/serverless";
+import { and, desc, eq } from "drizzle-orm";
+import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 
 type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
@@ -98,6 +98,10 @@ export async function getUserAccounts(db: DB, discordId: schema.SelectUser["disc
             cocAccounts: true
         }
     });
+}
+
+export async function getAllCWLApplications(db: DB) {
+    return db.query.cwlTable.findMany();
 }
 
 export async function getCWLApplications(db: DB, discordId: schema.SelectCWL["userId"]) {
