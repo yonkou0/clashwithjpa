@@ -2,7 +2,7 @@
     import { invalidateAll } from "$app/navigation";
     import type { APIPlayer } from "$lib/coc/types";
     import type { SelectCWL } from "$lib/server/schema";
-    import { Tooltip } from "bits-ui";
+    import { Popover, Tooltip } from "bits-ui";
     import { expoIn, expoOut } from "svelte/easing";
     import { fade, fly, slide } from "svelte/transition";
     import HugeiconsMoneyReceiveCircle from "~icons/hugeicons/money-receive-circle";
@@ -13,6 +13,7 @@
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
     import CocButton from "../CocButton.svelte";
     import { toast } from "../toast";
+    import UserInfo from "../UserInfo.svelte";
 
     interface Props {
         applications: SelectCWL[];
@@ -143,19 +144,21 @@
                                             </span>
                                             <span class="flex w-full items-center justify-start gap-1 text-sm">
                                                 <LogosDiscordIcon class="size-6" />
-                                                <span>
-                                                    Discord:
-                                                    <a
-                                                        href="https://discord.com/users/{application.userId}"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        class="bg-blurple/50 text-blurple-light hover:bg-blurple rounded-md p-0.5 font-sans transition-colors hover:text-gray-50"
-                                                    >
-                                                        @{application.userName.length >= 10
-                                                            ? `${application.userName.slice(0, 10).trim()}...`
-                                                            : application.userName}
-                                                    </a>
-                                                </span>
+                                                <Popover.Root>
+                                                    <Popover.Trigger>
+                                                        Discord:
+                                                        <span
+                                                            class="bg-blurple/50 text-blurple-light hover:bg-blurple rounded-md p-0.5 font-sans transition-colors hover:text-gray-50"
+                                                        >
+                                                            @{application.userName.length >= 10
+                                                                ? `${application.userName.slice(0, 10).trim()}...`
+                                                                : application.userName}
+                                                        </span>
+                                                    </Popover.Trigger>
+                                                    <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
+                                                        <UserInfo userID={application.userId} />
+                                                    </Popover.Content>
+                                                </Popover.Root>
                                             </span>
                                         </div>
                                     </div>
