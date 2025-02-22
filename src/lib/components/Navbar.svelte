@@ -32,7 +32,7 @@
     class="fixed top-0 z-100 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-xs transition-all md:px-12 lg:px-28"
     class:rounded-b-2xl={!isOpen}
     class:md:rounded-bl-none={page.url.href.includes("/admin")}
-    class:bg-gray-900={page.url.href.includes("/admin")}
+    class:bg-gray-900={page.url.href.includes("/admin") && page.error?.message !== "Not Found"}
     class:!backdrop-blur-md={isOpen}
 >
     <div class="flex w-full items-center justify-between">
