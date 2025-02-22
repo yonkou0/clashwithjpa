@@ -6,6 +6,7 @@
     import { slide } from "svelte/transition";
     import AkarIconsCross from "~icons/akar-icons/cross";
     import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
+    import SpecialButton from "./SpecialButton.svelte";
 
     interface Item {
         name: string;
@@ -51,9 +52,10 @@
         </div>
         <div class="hidden items-center justify-center gap-4 md:flex">
             {#each items as item}
-                <InlineLink href={item.href} newTab={item.newTab}>
+                {@const Component = item.name === "Discord" ? SpecialButton : InlineLink}
+                <Component href={item.href} newTab={item.newTab}>
                     {item.name}
-                </InlineLink>
+                </Component>
             {/each}
             <UserButton {user} {applicationEnabled} />
         </div>
@@ -62,16 +64,17 @@
         <div transition:slide class="flex size-full h-screen items-center justify-center md:hidden">
             <div class="flex flex-col items-center justify-center gap-4 p-4">
                 {#each items as item}
-                    <InlineLink
+                    {@const Component = item.name === "Discord" ? SpecialButton : InlineLink}
+                    <Component
                         href={item.href}
                         newTab={item.newTab}
-                        class="text-xl md:text-sm"
+                        class="text-xl"
                         onclick={() => {
                             toggleMenu();
                         }}
                     >
                         {item.name}
-                    </InlineLink>
+                    </Component>
                 {/each}
             </div>
         </div>

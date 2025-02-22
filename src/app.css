@@ -77,3 +77,32 @@ select::-webkit-inner-spin-button {
     display: none;
     margin: 0;
 }
+
+@layer base {
+    .animate-bg {
+        background: radial-gradient(
+            circle at 100%,
+            var(--color-orange-600),
+            var(--color-yellow-400) 15%,
+            var(--color-yellow-400) 30%,
+            var(--color-orange-600) 45%,
+            var(--color-orange-600) 60%,
+            var(--color-yellow-400) 75%,
+            var(--color-orange-600) 90%
+        );
+        color: transparent;
+        background-size: 200% auto;
+        animation: gradient 5s linear infinite;
+    }
+}
+@keyframes gradient {
+    0% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
