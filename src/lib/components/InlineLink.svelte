@@ -29,7 +29,7 @@
     tabindex={0}
     {href}
     target={newTab ? "_blank" : ""}
-    class={cn(getClass(page.url.pathname, href), className, "group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out")}
+    class={cn(getClass(page.url.pathname, href), "group flex items-center space-x-1 text-sm transition-all duration-300 ease-in-out", className)}
     {onclick}
     data-sveltekit-preload-data="hover"
 >

@@ -31,7 +31,7 @@
                         </span>
                         Each having their own rules and requirements. Find the right clan for you today!
                     </p>
-                    <InlineLink href="https://discord.clashwithjpa.com/" class="mt-4" arrow={true} newTab={true}>
+                    <InlineLink href="https://discord.clashwithjpa.com/" class="text-xl mt-4" arrow={true} newTab={true}>
                         <span>Join our Discord</span>
                     </InlineLink>
                 </div>

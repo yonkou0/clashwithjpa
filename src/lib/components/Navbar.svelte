@@ -14,9 +14,9 @@
     }
     const items: Item[] = [
         { name: "Home", href: "/" },
-        { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true },
         { name: "Clans", href: "/clans" },
-        { name: "Rules", href: "/clans/rules" }
+        { name: "Rules", href: "/clans/rules" },
+        { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true }
     ];
 
     let { user, applicationEnabled }: { user: UserData | null; applicationEnabled: boolean } = $props();
@@ -59,12 +59,13 @@
         </div>
     </div>
     {#if isOpen}
-        <div transition:slide class="size-full h-screen md:hidden">
+        <div transition:slide class="flex size-full h-screen items-center justify-center md:hidden">
             <div class="flex flex-col items-center justify-center gap-4 p-4">
                 {#each items as item}
                     <InlineLink
                         href={item.href}
                         newTab={item.newTab}
+                        class="text-xl md:text-sm"
                         onclick={() => {
                             toggleMenu();
                         }}
