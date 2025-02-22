@@ -1,12 +1,9 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
-    import type { APIPlayer } from "$lib/coc/types";
     import type { SelectCWL } from "$lib/server/schema";
     import { Popover, Tooltip } from "bits-ui";
     import { expoIn, expoOut } from "svelte/easing";
-    import { fade, fly, slide } from "svelte/transition";
-    import HugeiconsMoneyReceiveCircle from "~icons/hugeicons/money-receive-circle";
-    import HugeiconsMoneySendCircle from "~icons/hugeicons/money-send-circle";
+    import { fly, slide } from "svelte/transition";
     import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import LogosDiscordIcon from "~icons/logos/discord-icon";
@@ -43,18 +40,7 @@
             .fill(false)
             .map((_, i) => (i === 0 ? false : true))
     );
-    let hiddenInfo: boolean[] = $state(Array(applications.length).fill(true));
     let disabled: boolean = $state(false);
-
-    async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
-        const resp = await fetch(`/admin/api/player?tag=${encodeURIComponent(tag)}`);
-        if (resp.ok) {
-            const plInfo: APIPlayer = await resp.json();
-            return plInfo;
-        } else {
-            throw new Error("Failed to fetch player info");
-        }
-    }
 
     async function removeApp(tag: string, name: string) {
         disabled = true;
@@ -161,139 +147,6 @@
                                                 </Popover.Root>
                                             </span>
                                         </div>
-                                    </div>
-                                    <div class="flex w-full flex-col items-center justify-center text-sm text-gray-400">
-                                        <button
-                                            onclick={() => (hiddenInfo[appIdx + idx] = !hiddenInfo[appIdx + idx])}
-                                            class="flex w-full items-center justify-center gap-1"
-                                        >
-                                            <span class="grow rounded-xl border-t border-gray-400"></span>
-                                            {#if hiddenInfo[appIdx + idx]}
-                                                <span>
-                                                    <LineMdChevronSmallRight class="size-fit" />
-                                                </span>
-                                            {:else}
-                                                <span>
-                                                    <LineMdChevronSmallDown class="size-fit" />
-                                                </span>
-                                            {/if}
-                                            Player Data
-                                            <span class="grow rounded-xl border-t border-gray-400"></span>
-                                        </button>
-                                        {#if !hiddenInfo[appIdx + idx]}
-                                            {#await fetchPlayerInfo(application.accountTag)}
-                                                <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
-                                                    {#each new Array(3) as _}
-                                                        <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                            <div class="size-6 shrink-0 rounded-lg bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
-                                                        </div>
-                                                    {/each}
-                                                    <div class="flex w-full items-center justify-center gap-1">
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                        Donations
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                    </div>
-                                                    {#each new Array(3) as _}
-                                                        <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                            <div class="size-6 shrink-0 rounded-lg bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
-                                                        </div>
-                                                    {/each}
-                                                    <div class="flex w-full items-center justify-center gap-1">
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                        Achievements
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                    </div>
-                                                    {#each new Array(5) as _}
-                                                        <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                            <div class="size-6 shrink-0 rounded-lg bg-gray-500"></div>
-                                                            <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
-                                                        </div>
-                                                    {/each}
-                                                </div>
-                                            {:then playerInfo}
-                                                <div transition:fade class="flex w-full flex-col items-start justify-center gap-1">
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/trophy.webp" alt="Donations" class="w-5.5" />
-                                                        <p class="text-gray-300">
-                                                            Trophies: {playerInfo?.trophies}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/attack.webp" alt="Donations" class="w-5.5" />
-                                                        <p class="text-gray-300">
-                                                            Attack Wins: {playerInfo?.attackWins}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/defence.webp" alt="Donations" class="w-5.5" />
-                                                        <p class="text-gray-300">
-                                                            Defence Wins: {playerInfo?.defenseWins}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-center gap-1">
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                        Donations
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <HugeiconsMoneySendCircle class="size-6 text-yellow-400" />
-                                                        <p class="text-gray-300">
-                                                            Donated: {playerInfo?.donations}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <HugeiconsMoneyReceiveCircle class="size-6 text-yellow-400" />
-                                                        <p class="text-gray-300">
-                                                            Received: {playerInfo?.donationsReceived}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-center gap-1">
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                        Achievements
-                                                        <span class="grow rounded-xl border-t border-gray-400"></span>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/donations.webp" alt="Total Donations" class="w-6" />
-                                                        <p class="text-gray-300">
-                                                            Total Donations: {playerInfo?.achievements.find((ach) => ach.name === "Friend in Need")
-                                                                ?.value}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/trophy2.webp" alt="Donations" class="w-5.5" />
-                                                        <p class="text-gray-300">
-                                                            Best Trophies: {playerInfo?.bestTrophies}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/clangames.webp" alt="CG" class="w-6" />
-                                                        <p class="text-gray-300">
-                                                            Clan Games: {playerInfo?.achievements.find((ach) => ach.name === "Games Champion")?.value}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/cg_raid.webp" alt="CG Raided" class="w-6" />
-                                                        <p class="text-gray-300">
-                                                            CG Raided: {playerInfo?.achievements.find((ach) => ach.name === "Aggressive Capitalism")
-                                                                ?.value}
-                                                        </p>
-                                                    </div>
-                                                    <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/cg_donated.webp" alt="CG Donated" class="w-6" />
-                                                        <p class="text-gray-300">
-                                                            CG Donated: {playerInfo?.achievements.find((ach) => ach.name === "Most Valuable Clanmate")
-                                                                ?.value}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            {:catch error}
-                                                <div transition:slide class="flex w-full items-center justify-center gap-1">
-                                                    <p class="text-red-400">{error.message}</p>
-                                                </div>
-                                            {/await}
-                                        {/if}
                                     </div>
                                     <CocButton
                                         type="danger"
