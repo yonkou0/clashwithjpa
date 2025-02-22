@@ -73,7 +73,7 @@
                         class:size-6={!isRole(item)}
                         style={isRole(item)
                             ? `background-color: #${item.color}`
-                            : `background-image: url(https://media.discordapp.net/avatars/${item.id}/${item.avatar}.webp);`}
+                            : `background-image: url(https://media.discordapp.net/avatars/${item.id}/${item.avatar});`}
                     >
                         <div
                             class="flex size-full items-center justify-center rounded-full p-0.5 opacity-0 backdrop-blur-md transition-opacity duration-200 group-hover:opacity-100 group-disabled:opacity-0!"

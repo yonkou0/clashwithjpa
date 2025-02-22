@@ -11,7 +11,6 @@
         const resp = await fetch(`/admin/api/user?id=${id}`);
         if (resp.ok) {
             const userInfo = await resp.json();
-            console.log(userInfo);
             return userInfo;
         } else {
             throw new Error("Failed to fetch user info");

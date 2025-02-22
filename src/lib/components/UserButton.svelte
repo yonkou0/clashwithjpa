@@ -29,7 +29,7 @@
             {#if user.isAdmin}
                 <MaterialSymbolsCrownRounded class="-mb-2 size-6 -rotate-[15deg] text-yellow-400" />
             {/if}
-            <img src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}.webp" alt="Avatar" class="size-8 rounded-full lg:size-11" />
+            <img src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}" alt="Avatar" class="size-8 rounded-full lg:size-11" />
         </Popover.Trigger>
         <Popover.Portal>
             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
