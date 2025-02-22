@@ -21,7 +21,23 @@
 
 <div class="flex rounded-xl border border-gray-700 bg-gray-950">
     {#await fetchUserInfo(userID)}
-        <div>Loading...</div>
+        <div class="flex w-96 flex-col items-center justify-center">
+            <div class="flex w-full flex-col items-center justify-center">
+                <div class="w-full">
+                    <div class="h-28 w-full animate-pulse rounded-t-xl bg-gray-800"></div>
+                </div>
+                <div class="flex size-full flex-col items-start justify-center gap-2 p-4">
+                    <div class="-mt-15 -ml-2 z-10 flex w-full items-end justify-start">
+                        <div class="size-28 rounded-full border-8 border-gray-950 bg-gray-950"></div>
+                    </div>
+                    <div class="flex flex-col items-start justify-center gap-0.5">
+                        <div class="h-6 w-30 animate-pulse rounded-md bg-gray-800"></div>
+                        <div class="h-4 w-40 animate-pulse rounded-md bg-gray-800"></div>
+                    </div>
+                    <div class="h-6 w-40 animate-pulse rounded-md bg-gray-800"></div>
+                </div>
+            </div>
+        </div>
     {:then userInfo}
         <div class="flex w-96 flex-col items-center justify-center">
             <div class="w-full">
@@ -32,7 +48,10 @@
                         class="h-28 w-full rounded-t-xl object-cover"
                     />
                 {:else}
-                    <div class="h-28 w-full rounded-t-xl" style="background-color: #{userInfo.accent_color || '1F2937'};"></div>
+                    <div
+                        class="h-28 w-full rounded-t-xl"
+                        style="background-color: {userInfo.accent_color ? `#${userInfo.accent_color.toString(16).padStart(6, '0')}` : '#1F2937'};"
+                    ></div>
                 {/if}
             </div>
             <div class="flex size-full flex-col items-start justify-center gap-2 p-4">
@@ -40,7 +59,7 @@
                     <img
                         src={`https://cdn.discordapp.com/avatars/${userID}/${userInfo.avatar}?size=4096`}
                         alt="User Avatar"
-                        class="size-28 rounded-full border-8 border-gray-950"
+                        class="size-28 rounded-full border-8 border-gray-950 bg-gray-950"
                     />
                     {#if userInfo.avatar_decoration_data?.asset}
                         <img
