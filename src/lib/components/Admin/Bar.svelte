@@ -1,16 +1,20 @@
 <script lang="ts">
     import { page } from "$app/state";
+    import { Popover } from "bits-ui";
     import type { Component } from "svelte";
     import MaterialSymbolsAdminPanelSettingsRounded from "~icons/material-symbols/admin-panel-settings-rounded";
-    import MaterialSymbolsBookRibbonOutlineRounded from "~icons/material-symbols/book-ribbon-outline-rounded";
-    import MaterialSymbolsGroup from "~icons/material-symbols/group";
-    import MaterialSymbolsLabProfileRounded from "~icons/material-symbols/lab-profile-rounded";
+    import MaterialSymbolsBook4SparkRounded from "~icons/material-symbols/book-4-spark-rounded";
+    import MaterialSymbolsGroupsRounded from "~icons/material-symbols/groups-rounded";
+    import MaterialSymbolsMoreVert from "~icons/material-symbols/more-vert";
     import MaterialSymbolsSettingsRounded from "~icons/material-symbols/settings-rounded";
+    import MaterialSymbolsSheets from "~icons/material-symbols/sheets";
+    import MaterialSymbolsSwordsOutlineRounded from "~icons/material-symbols/swords-outline-rounded";
 
     interface Item {
         name: string;
         icon: Component;
         href: string;
+        hidden?: boolean;
         newTab?: boolean;
     }
     const items: Item[] = [
@@ -21,17 +25,24 @@
         },
         {
             name: "Clans",
-            icon: MaterialSymbolsGroup,
+            icon: MaterialSymbolsGroupsRounded,
             href: "/admin/clans"
         },
         {
             name: "Applications",
-            icon: MaterialSymbolsLabProfileRounded,
-            href: "/admin/applications"
+            icon: MaterialSymbolsSheets,
+            href: "/admin/applications",
+            hidden: true
+        },
+        {
+            name: "CWL",
+            icon: MaterialSymbolsSwordsOutlineRounded,
+            href: "/admin/cwl",
+            hidden: true
         },
         {
             name: "Rules",
-            icon: MaterialSymbolsBookRibbonOutlineRounded,
+            icon: MaterialSymbolsBook4SparkRounded,
             href: "/admin/rules"
         },
         {
@@ -48,14 +59,41 @@
     class:md:rounded-br-2xl={page.route.id !== "/admin/rules"}
 >
     {#each items as item}
-        <a
-            href={item.href}
-            class="{page.route.id === item.href
-                ? 'bg-gray-950/50'
-                : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
-        >
-            <item.icon class="size-6 md:size-8" />
-            <span class="text-[8px] md:text-base">{item.name}</span>
-        </a>
+        {#if !item.hidden}
+            <a
+                href={item.href}
+                class="{page.route.id === item.href
+                    ? 'bg-gray-950/50'
+                    : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
+            >
+                <item.icon class="size-6 md:size-8" />
+                <span class="text-[8px] md:text-base">{item.name}</span>
+            </a>
+        {/if}
     {/each}
+    <Popover.Root>
+        <Popover.Trigger class="w-full md:hidden">
+            <button
+                class="flex w-full cursor-pointer flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
+            >
+                <MaterialSymbolsMoreVert class="size-6 md:size-8" />
+                <span class="text-[8px] md:text-base">More</span>
+            </button>
+        </Popover.Trigger>
+        <Popover.Content class="z-20 flex w-40 mx-1 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
+            {#each items as item}
+                {#if item.hidden}
+                    <a
+                        href={item.href}
+                        class="{page.route.id === item.href
+                            ? 'bg-gray-950/50'
+                            : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
+                    >
+                        <item.icon class="size-6 md:size-8" />
+                        <span class="text-[8px] md:text-base">{item.name}</span>
+                    </a>
+                {/if}
+            {/each}
+        </Popover.Content>
+    </Popover.Root>
 </nav>
