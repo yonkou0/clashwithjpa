@@ -17,7 +17,6 @@ export const GET: RequestHandler = async ({ cookies, locals }) => {
     const newToken = await getNewAccessToken(PUBLIC_DISCORD_URL, refreshToken, DISCORD_ID, DISCORD_SECRET);
 
     if (newToken) {
-        cookies.delete("access_token", { path: "/" });
         cookies.set("access_token", newToken.access_token, {
             path: "/",
             maxAge: newToken.expires_in,
