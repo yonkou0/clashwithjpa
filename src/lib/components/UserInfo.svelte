@@ -26,7 +26,7 @@
                     <div class="h-28 w-full animate-pulse rounded-t-xl bg-gray-800"></div>
                 </div>
                 <div class="flex size-full flex-col items-start justify-center gap-2 p-4">
-                    <div class="-mt-15 -ml-2 z-10 flex w-full items-end justify-start">
+                    <div class="z-10 -mt-15 -ml-2 flex w-full items-end justify-start">
                         <div class="size-28 rounded-full border-8 border-gray-950 bg-gray-950"></div>
                     </div>
                     <div class="flex flex-col items-start justify-center gap-0.5">
