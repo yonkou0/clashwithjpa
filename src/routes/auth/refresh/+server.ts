@@ -12,6 +12,8 @@ export const GET: RequestHandler = async ({ cookies, locals }) => {
     if (!refreshToken) {
         return redirect(302, "/");
     }
+
+    console.log("No access token found, refreshing token...");
     const newToken = await getNewAccessToken(PUBLIC_DISCORD_URL, refreshToken, DISCORD_ID, DISCORD_SECRET);
 
     if (newToken) {
