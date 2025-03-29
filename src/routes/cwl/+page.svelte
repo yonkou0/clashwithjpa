@@ -16,9 +16,14 @@
     let { data }: { data: PageData } = $props();
 
     const form = superForm(data.form, {
-        validators: zodClient(cwlApplicationSchema),
+        validators: zodClient(cwlApplicationSchema(data.userAccount.cocAccounts.length)),
         onUpdated() {
             reset?.();
+        }
+    });
+    $effect(() => {
+        if (data.userAccount.cocAccounts.length <= 1) {
+            $formData.preferenceNum = 1;
         }
     });
 
@@ -80,7 +85,7 @@
 
                 <Field {form} name="preferenceNum">
                     {@const accounts = data.userAccount.cocAccounts.length}
-                    <Description>Preference number ( 1 - {accounts} )</Description>
+                    <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
                     <Control>
                         {#snippet children({ props })}
                             <input
@@ -90,6 +95,7 @@
                                 placeholder="1"
                                 min="1"
                                 max={accounts}
+                                disabled={accounts <= 1}
                                 bind:value={$formData.preferenceNum}
                             />
                         {/snippet}

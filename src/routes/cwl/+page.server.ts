@@ -12,6 +12,8 @@ import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
 
+let cocAccountsLen: number;
+
 export const load = (async ({ locals }) => {
     const user = locals.user;
     if (!user) {
@@ -31,9 +33,10 @@ export const load = (async ({ locals }) => {
     }
 
     const applications = await getCWLApplications(locals.db, user.id);
+    cocAccountsLen = userAccount.cocAccounts.length;
 
     return {
-        form: await superValidate(zod(cwlApplicationSchema)),
+        form: await superValidate(zod(cwlApplicationSchema(userAccount.cocAccounts.length))),
         user: user,
         userAccount: userAccount,
         applications: applications
@@ -42,7 +45,7 @@ export const load = (async ({ locals }) => {
 
 export const actions: Actions = {
     default: async (event) => {
-        const form = await superValidate(event, zod(cwlApplicationSchema));
+        const form = await superValidate(event, zod(cwlApplicationSchema(cocAccountsLen)));
         if (!form.valid) {
             return fail(400, {
                 form

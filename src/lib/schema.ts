@@ -1,5 +1,5 @@
-import { z } from "zod";
 import { dev } from "$app/environment";
+import { z } from "zod";
 
 export const clanApplicationSchema = z.object({
     tag: z.string().min(5).max(10).startsWith("#"),
@@ -7,8 +7,10 @@ export const clanApplicationSchema = z.object({
     "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
 });
 
-export const cwlApplicationSchema = z.object({
-    tag: z.string().min(5).max(10).startsWith("#"),
-    preferenceNum: z.number().int().min(1).max(20),
-    "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
-});
+export function cwlApplicationSchema(max: number) {
+    return z.object({
+        tag: z.string().min(5).max(10).startsWith("#"),
+        preferenceNum: z.number().int().min(1).max(max),
+        "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
+    });
+}
