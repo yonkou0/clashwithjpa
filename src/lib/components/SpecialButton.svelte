@@ -39,6 +39,6 @@
 >
     {@render children?.()}
     {#if arrow}
-        <PhArrowUpRightBold class="size-fit text-orange-600 transition-transform group-hover:-translate-y-1 group-hover:translate-x-2" />
+        <PhArrowUpRightBold class="size-fit text-orange-600 transition-transform group-hover:translate-x-2 group-hover:-translate-y-1" />
     {/if}
 </svelte:element>

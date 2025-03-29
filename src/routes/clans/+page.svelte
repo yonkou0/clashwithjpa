@@ -44,7 +44,7 @@
             <div class="flex w-full flex-wrap items-stretch justify-center gap-5 lg:gap-11">
                 {#each data.clans as clan, idx}
                     <Card
-                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b {cardGradient} inset-shadow-sm shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950"
+                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b {cardGradient} shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] inset-shadow-sm shadow-gray-950"
                         bind:isMouseEntered={mouseEvents[idx]}
                     >
                         <div class="flex flex-col justify-between">
@@ -78,7 +78,7 @@
                                         <Popover.Portal>
                                             <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
                                                 <div
-                                                    class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b {cardGradient} p-4 inset-shadow-sm shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] shadow-gray-950"
+                                                    class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b {cardGradient} p-4 shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] inset-shadow-sm shadow-gray-950"
                                                 >
                                                     <ClanInfo {clan} />
                                                 </div>
