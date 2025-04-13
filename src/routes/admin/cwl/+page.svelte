@@ -2,6 +2,7 @@
     import CWLApplications from "$lib/components/Admin/CWLApplications.svelte";
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
+    import { Grid } from "@mediakular/gridcraft";
 
     interface CWLApplicationsType {
         id: number;
@@ -18,8 +19,6 @@
     }
 
     let { data }: { data: PageData } = $props();
-
-    const applications = data.cwlApplications as CWLApplicationsType[];
 
     const columns = [
         {
@@ -62,4 +61,6 @@
 
 <div class="p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
+
+    <Grid bind:data={data.cwlApplications} />
 </div>
