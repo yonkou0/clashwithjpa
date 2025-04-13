@@ -20,7 +20,7 @@
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true }
     ];
 
-    let { user, applicationEnabled }: { user: UserData | null; applicationEnabled: boolean } = $props();
+    let { user, applicationEnabled, cwlEnabled }: { user: UserData | null; applicationEnabled: boolean; cwlEnabled: boolean } = $props();
 
     let isOpen = $state(false);
     function toggleMenu() {
@@ -32,7 +32,7 @@
     class="fixed top-0 z-100 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-xs transition-all md:px-12 lg:px-28"
     class:rounded-b-2xl={!isOpen}
     class:md:rounded-bl-none={page.url.href.includes("/admin")}
-    class:bg-gray-900={page.url.href.includes("/admin") && page.error?.message !== "Not Found"}
+    class:bg-gray-900={page.url.href.includes("/admin") && (page.status === 200 || page.status === 400) && page.error?.message !== "Not Found"}
     class:!backdrop-blur-md={isOpen}
 >
     <div class="flex w-full items-center justify-between">
@@ -41,7 +41,7 @@
             <p class="text-2xl">JPA</p>
         </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
-            <UserButton {user} {applicationEnabled} />
+            <UserButton {user} {applicationEnabled} {cwlEnabled} />
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
                 {#if isOpen}
                     <AkarIconsCross class="size-6" />
@@ -57,7 +57,7 @@
                     {item.name}
                 </Component>
             {/each}
-            <UserButton {user} {applicationEnabled} />
+            <UserButton {user} {applicationEnabled} {cwlEnabled} />
         </div>
     </div>
     {#if isOpen}

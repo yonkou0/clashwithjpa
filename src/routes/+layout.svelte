@@ -6,11 +6,11 @@
     import NProgress from "nprogress";
     import type { Snippet } from "svelte";
     import { Toaster } from "svelte-sonner";
+    import { expoOut } from "svelte/easing";
     import { fly } from "svelte/transition";
     import "../app.css";
     import "../nprogress.css";
     import type { PageData } from "./$types";
-    import { expoOut } from "svelte/easing";
 
     interface Props {
         data: PageData;
@@ -66,6 +66,6 @@
 {/if}
 
 <main class="h-screen w-screen">
-    <Navbar user={data.user as UserData} applicationEnabled={data.applicationEnabled} />
+    <Navbar user={data.user as UserData} applicationEnabled={data.applicationEnabled} cwlEnabled={data.cwlEnabled} />
     {@render children?.()}
 </main>

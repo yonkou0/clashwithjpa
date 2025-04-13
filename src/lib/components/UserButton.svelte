@@ -10,7 +10,7 @@
     import MaterialSymbolsLogoutRounded from "~icons/material-symbols/logout-rounded";
     import MdiSwordCross from "~icons/mdi/sword-cross";
 
-    let { user, applicationEnabled }: { user: UserData | null; applicationEnabled: boolean } = $props();
+    let { user, applicationEnabled, cwlEnabled }: { user: UserData | null; applicationEnabled: boolean; cwlEnabled: boolean } = $props();
 
     async function logout() {
         try {
@@ -44,7 +44,9 @@
                         <CocButton
                             href="/apply"
                             onclick={() => {
-                                if (!applicationEnabled) toast.error("Applications are closed");
+                                if (!applicationEnabled) {
+                                    toast.error("Applications are currently closed");
+                                }
                             }}
                             class="p-2"
                         >
@@ -52,7 +54,15 @@
                             <span class="text-sm">Apply</span>
                         </CocButton>
                     </div>
-                    <CocButton href="/cwl" class="p-2">
+                    <CocButton
+                        href="/cwl"
+                        onclick={() => {
+                            if (!cwlEnabled) {
+                                toast.error("Clan War League is currently disabled");
+                            }
+                        }}
+                        class="p-2"
+                    >
                         <MdiSwordCross class="size-5 transition-transform" />
                         <span class="text-sm">Clan War League</span>
                     </CocButton>

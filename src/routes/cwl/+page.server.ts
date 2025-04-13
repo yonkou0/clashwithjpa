@@ -21,6 +21,11 @@ export const load = (async ({ locals }) => {
         return redirect(302, "/");
     }
 
+    const enabled = await isCWLEnabled(locals.db);
+    if (!enabled) {
+        return redirect(302, "/");
+    }
+
     const userAccount = await getUserAccounts(locals.db, user.id);
     if (!userAccount) {
         console.error("Apply to join a clan first");

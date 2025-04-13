@@ -2,18 +2,23 @@ import { dev } from "$app/environment";
 import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { validateCFToken } from "$lib/cf/helpers";
-import { clanApplicationSchema } from "$lib/schema";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
+import { toast } from "$lib/components/toast";
+import { clanApplicationSchema } from "$lib/schema";
 import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-
 export const load: PageServerLoad = async ({ locals }) => {
     const user = locals.user;
     if (!user) {
+        return redirect(302, "/");
+    }
+
+    const enabled = await isApplicationEnabled(locals.db);
+    if (!enabled) {
         return redirect(302, "/");
     }
 

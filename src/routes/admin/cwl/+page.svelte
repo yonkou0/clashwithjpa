@@ -27,36 +27,36 @@
             header: "User Name",
             flexgrow: 1,
             sort: true,
-            editor: "text",
+            editor: "text"
         },
         {
             id: "accountName",
             header: "Account Name",
             flexgrow: 1,
             sort: true,
-            editor: "text",
+            editor: "text"
         },
         {
             id: "accountTag",
             header: "Account Tag",
             flexgrow: 1,
             sort: true,
-            editor: "text",
+            editor: "text"
         },
         {
             id: "accountClan",
             header: "Account Clan",
             flexgrow: 1,
             sort: true,
-            editor: "text",
+            editor: "text"
         },
         {
             id: "accountWeight",
             header: "Account Weight",
             width: 100,
             sort: true,
-            editor: "text",
-        },
+            editor: "text"
+        }
     ];
 </script>
 

@@ -71,28 +71,27 @@
             <span class="text-[8px] md:text-base">{item.name}</span>
         </a>
     {/each}
+
     <Popover.Root>
         <Popover.Trigger class="w-full md:hidden">
-            <button
+            <div
                 class="flex w-full cursor-pointer flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
             >
                 <MaterialSymbolsMoreVert class="size-6 md:size-8" />
                 <span class="text-[8px] md:text-base">More</span>
-            </button>
+            </div>
         </Popover.Trigger>
         <Popover.Content class="z-20 mx-1 flex w-40 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
             {#each items as item}
-                {#if item.hidden}
-                    <a
-                        href={item.href}
-                        class="{page.route.id === item.href
-                            ? 'bg-gray-950/50'
-                            : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
-                    >
-                        <item.icon class="size-6 md:size-8" />
-                        <span class="text-[8px] md:text-base">{item.name}</span>
-                    </a>
-                {/if}
+                <a
+                    href={item.href}
+                    class="{page.route.id === item.href
+                        ? 'bg-gray-950/50'
+                        : ''} flex w-full flex-col items-center justify-start rounded-xl p-2 transition-all duration-200 hover:bg-gray-950/50 md:flex-row md:gap-2 md:px-5"
+                >
+                    <item.icon class="size-6 md:size-8" />
+                    <span class="text-[8px] md:text-base">{item.name}</span>
+                </a>
             {/each}
         </Popover.Content>
     </Popover.Root>
