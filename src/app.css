@@ -12,6 +12,8 @@
     --color-blurple-light: #c7d2fe;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
     font-family: "COC";
     font-style: normal;

@@ -58,10 +58,11 @@
             sortable: true
         }
     ]);
+
+    let selectedRows = $state([]);
 </script>
 
-<div class="p-5 md:p-11" in:fade>
+<div class="p-5 md:p-11 dark flex flex-col gap-4" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
-
-    <Grid bind:data={applications} bind:columns />
+    <Grid bind:data={applications} bind:columns bind:selectedRows showCheckboxes={true} />
 </div>
