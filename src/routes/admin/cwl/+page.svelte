@@ -2,7 +2,7 @@
     import CWLApplications from "$lib/components/Admin/CWLApplications.svelte";
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
-    import { Grid } from "@mediakular/gridcraft";
+    import { Grid, type GridColumn } from "@mediakular/gridcraft";
 
     interface CWLApplicationsType {
         id: number;
@@ -19,48 +19,49 @@
     }
 
     let { data }: { data: PageData } = $props();
-
-    const columns = [
+    let applications = $derived.by(() => data.cwlApplications);
+    let columns: GridColumn<CWLApplicationsType>[] = $state([
         {
-            id: "userName",
-            header: "User Name",
-            flexgrow: 1,
-            sort: true,
-            editor: "text"
+            key: "userName",
+            title: "User Name",
+            visible: true,
+            sortable: true
         },
         {
-            id: "accountName",
-            header: "Account Name",
-            flexgrow: 1,
-            sort: true,
-            editor: "text"
+            key: "accountName",
+            title: "Account Name",
+            visible: true,
+            sortable: true
         },
         {
-            id: "accountTag",
-            header: "Account Tag",
-            flexgrow: 1,
-            sort: true,
-            editor: "text"
+            key: "accountTag",
+            title: "Account Tag",
+            visible: true,
+            sortable: true
         },
         {
-            id: "accountClan",
-            header: "Account Clan",
-            flexgrow: 1,
-            sort: true,
-            editor: "text"
+            key: "accountClan",
+            title: "Account Clan",
+            visible: true,
+            sortable: true
         },
         {
-            id: "accountWeight",
-            header: "Account Weight",
-            width: 100,
-            sort: true,
-            editor: "text"
+            key: "accountWeight",
+            title: "Account Weight",
+            visible: true,
+            sortable: true
+        },
+        {
+            key: "appliedAt",
+            title: "Applied At",
+            visible: true,
+            sortable: true
         }
-    ];
+    ]);
 </script>
 
 <div class="p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
 
-    <Grid bind:data={data.cwlApplications} />
+    <Grid bind:data={applications} bind:columns />
 </div>
