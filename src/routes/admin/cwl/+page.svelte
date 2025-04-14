@@ -1,8 +1,7 @@
 <script lang="ts">
-    import CWLApplications from "$lib/components/Admin/CWLApplications.svelte";
+    import { Grid, GridFooter, type GridColumn, type PagingData } from "@mediakular/gridcraft";
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
-    import { Grid, type GridColumn } from "@mediakular/gridcraft";
 
     interface CWLApplicationsType {
         id: number;
@@ -19,7 +18,7 @@
     }
 
     let { data }: { data: PageData } = $props();
-    let applications = $derived.by(() => data.cwlApplications);
+    let applications = $derived(data.cwlApplications);
     let columns: GridColumn<CWLApplicationsType>[] = $state([
         {
             key: "userName",
@@ -59,10 +58,17 @@
         }
     ]);
 
-    let selectedRows = $state([]);
+    let selectedRows: CWLApplicationsType[] = $state.raw([]);
+
+    let paging = $state({
+        itemsPerPage: 10,
+        currentPage: 1,
+        itemsPerPageOptions: [5, 10, 20, 50]
+    }) as PagingData;
 </script>
 
-<div class="p-5 md:p-11 dark flex flex-col gap-4" in:fade>
+<div class="flex flex-col gap-4 p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
-    <Grid bind:data={applications} bind:columns bind:selectedRows showCheckboxes={true} />
+    <Grid bind:data={applications} bind:columns bind:selectedRows showCheckboxes={true} {paging} />
+    <GridFooter bind:paging />
 </div>
