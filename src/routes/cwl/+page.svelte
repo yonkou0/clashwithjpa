@@ -72,7 +72,7 @@
                     <Description>Select one of your accounts</Description>
                     <Control>
                         {#snippet children({ props })}
-                            <select class="rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
+                            <select class="input/select rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
                                 <option value="" disabled selected hidden>Select an account</option>
                                 {#each data.userAccount.cocAccounts as account}
                                     <option class="bg-gray-900" value={account.tag}>{account.tag}</option>
@@ -90,7 +90,7 @@
                         {#snippet children({ props })}
                             <input
                                 {...props}
-                                class="rounded-lg border border-gray-700 p-2"
+                                class="input/select rounded-lg border border-gray-700 p-2"
                                 type="number"
                                 placeholder="1"
                                 min="1"

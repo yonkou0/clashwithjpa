@@ -12,8 +12,6 @@
     --color-blurple-light: #c7d2fe;
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @font-face {
     font-family: "COC";
     font-style: normal;
@@ -56,30 +54,6 @@ body {
     background: transparent;
 }
 
-input,
-select {
-    border: 1px solid var(--color-gray-700);
-    border-radius: var(--radius-lg);
-    background: linear-gradient(to right, var(--color-gray-900), var(--color-gray-800), var(--color-gray-900));
-}
-input:focus,
-select:focus {
-    border-color: var(--color-blue-700);
-    @apply ring-0! outline-hidden! transition-colors!;
-}
-input:disabled,
-select:disabled {
-    cursor: not-allowed;
-    opacity: 50%;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button,
-select::-webkit-outer-spin-button,
-select::-webkit-inner-spin-button {
-    display: none;
-    margin: 0;
-}
-
 @layer base {
     .animate-bg {
         background: radial-gradient(
@@ -106,5 +80,26 @@ select::-webkit-inner-spin-button {
     }
     100% {
         background-position: 200% center;
+    }
+}
+
+@layer components {
+    .input\/select {
+        border: 1px solid var(--color-gray-700);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(to right, var(--color-gray-900), var(--color-gray-800), var(--color-gray-900));
+    }
+    .input\/select:focus {
+        border-color: var(--color-blue-700);
+        @apply ring-0! outline-hidden! transition-colors!;
+    }
+    .input\/select:disabled {
+        cursor: not-allowed;
+        opacity: 50%;
+    }
+    .input\/select::-webkit-outer-spin-button,
+    .input\/select::-webkit-inner-spin-button {
+        display: none;
+        margin: 0;
     }
 }

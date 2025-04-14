@@ -157,7 +157,7 @@
                             {#snippet children({ props })}
                                 <input
                                     {...props}
-                                    class="rounded-lg border border-gray-700"
+                                    class="input/select rounded-lg border border-gray-700"
                                     type="text"
                                     placeholder="#ABCDEFGHI"
                                     bind:value={$formData.tag}
@@ -172,7 +172,7 @@
                             {#snippet children({ props })}
                                 <input
                                     {...props}
-                                    class="rounded-lg border border-gray-700"
+                                    class="input/select rounded-lg border border-gray-700"
                                     type="text"
                                     placeholder="API Token"
                                     bind:value={$formData.apiToken}
