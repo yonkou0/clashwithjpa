@@ -1,25 +1,26 @@
 <script lang="ts">
-    import { Grid, GridFooter, type GridColumn, type PagingData } from "@mediakular/gridcraft";
+    import type { InsertCWL } from "$lib/server/schema";
+    import { Grid, GridFooter, PlainTableCssTheme, type GridColumn, type PagingData } from "@mediakular/gridcraft";
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
 
-    interface CWLApplicationsType {
-        id: number;
-        userId: string;
-        userName: string;
-        accountName: string;
-        accountTag: string;
-        accountClan: string;
-        accountWeight: number;
-        month: string;
-        year: number;
-        preferenceNum: number;
-        appliedAt: Date;
-    }
-
     let { data }: { data: PageData } = $props();
     let applications = $derived(data.cwlApplications);
-    let columns: GridColumn<CWLApplicationsType>[] = $state([
+    let formattedApplications: (InsertCWL & { formattedDate: string })[] = $derived.by(() => {
+        return applications.map((application) => {
+            return {
+                ...application,
+                formattedDate: new Date(application.appliedAt).toLocaleString("en-IN", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                })
+            };
+        });
+    });
+    let columns: GridColumn<InsertCWL & { formattedDate: string }>[] = $state([
         {
             key: "userName",
             title: "User Name",
@@ -51,14 +52,14 @@
             sortable: true
         },
         {
-            key: "appliedAt",
+            key: "formattedDate",
             title: "Applied At",
             visible: true,
             sortable: true
         }
     ]);
 
-    let selectedRows: CWLApplicationsType[] = $state.raw([]);
+    let selectedRows: (InsertCWL & { formattedDate: string })[] = $state.raw([]);
 
     let paging = $state({
         itemsPerPage: 10,
@@ -69,6 +70,16 @@
 
 <div class="flex flex-col gap-4 p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
-    <Grid bind:data={applications} bind:columns bind:selectedRows showCheckboxes={true} {paging} />
-    <GridFooter bind:paging />
+    <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes={true} {paging} theme={PlainTableCssTheme} />
+    <GridFooter bind:paging theme={PlainTableCssTheme} />
 </div>
+
+<style>
+    :global(:root) {
+        --gc-main-color: var(--color-slate-900);
+        --gc-secondary-color: var(--color-slate-900);
+        --gc-tertiary-color: var(--color-slate-800);
+        --gc-text-color: var(--color-slate-50);
+        --gc-color-selected: var(--color-slate-800);
+    }
+</style>
