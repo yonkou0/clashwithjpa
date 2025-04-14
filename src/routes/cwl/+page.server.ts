@@ -44,6 +44,7 @@ export const load = (async ({ locals }) => {
         form: await superValidate(zod(cwlApplicationSchema(userAccount.cocAccounts.length))),
         user: user,
         userAccount: userAccount,
+        cocData: Promise.all(userAccount.cocAccounts.map((account) => getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, account.tag))),
         applications: applications
     };
 }) satisfies PageServerLoad;

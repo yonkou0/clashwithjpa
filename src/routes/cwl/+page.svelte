@@ -7,7 +7,7 @@
     import { cwlApplicationSchema } from "$lib/schema";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
-    import { fly } from "svelte/transition";
+    import { fade, fly } from "svelte/transition";
     import SuperDebug, { superForm } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import TablerLoader2 from "~icons/tabler/loader-2";
@@ -67,66 +67,76 @@
         <div
             class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
         >
-            <form method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
-                <Field {form} name="tag">
-                    <Description>Select one of your accounts</Description>
-                    <Control>
-                        {#snippet children({ props })}
-                            <select class="input/select rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
-                                <option value="" disabled selected hidden>Select an account</option>
-                                {#each data.userAccount.cocAccounts as account}
-                                    <option class="bg-gray-900" value={account.tag}>{account.tag}</option>
-                                {/each}
-                            </select>
-                        {/snippet}
-                    </Control>
-                    <FieldErrors class="text-red-400" />
-                </Field>
-
-                <Field {form} name="preferenceNum">
-                    {@const accounts = data.userAccount.cocAccounts.length}
-                    <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
-                    <Control>
-                        {#snippet children({ props })}
-                            <input
-                                {...props}
-                                class="input/select rounded-lg border border-gray-700 p-2"
-                                type="number"
-                                placeholder="1"
-                                min="1"
-                                max={accounts}
-                                disabled={accounts <= 1}
-                                bind:value={$formData.preferenceNum}
-                            />
-                        {/snippet}
-                    </Control>
-                    <FieldErrors class="text-red-400" />
-                </Field>
-
-                {#if !dev}
-                    <Field {form} name="cf-turnstile-response">
-                        <Turnstile
-                            class="text-center"
-                            on:callback={(event) => {
-                                $formData["cf-turnstile-response"] = event.detail.token;
-                            }}
-                            siteKey={PUBLIC_TURNSTILE_SITE_KEY}
-                            bind:reset
-                        />
+            {#await data.cocData}
+                <div class="flex w-full max-w-lg flex-col gap-3 px-5">
+                    <p>Select one of your accounts</p>
+                    <div class="input/select flex h-[41.33px] w-full animate-pulse items-center justify-start p-2">Select an account</div>
+                    <p>Preference number ( 1 - {data.userAccount.cocAccounts.length} )</p>
+                    <div class="input/select flex h-[41.33px] w-full animate-pulse items-center justify-start p-2">0</div>
+                    <Button class="!cursor-wait px-4 py-3 text-sm" disabled={true}>Submit</Button>
+                </div>
+            {:then coc}
+                <form in:fade method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
+                    <Field {form} name="tag">
+                        <Description>Select one of your accounts</Description>
+                        <Control>
+                            {#snippet children({ props })}
+                                <select class="input/select rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
+                                    <option value="" disabled selected hidden>Select an account</option>
+                                    {#each coc as account}
+                                        <option class="bg-gray-900" value={account.tag}>{account.tag} - {account.name}</option>
+                                    {/each}
+                                </select>
+                            {/snippet}
+                        </Control>
+                        <FieldErrors class="text-red-400" />
                     </Field>
-                {/if}
 
-                <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
-                    {#if $delayed}
-                        <span in:fly class="flex size-full items-center justify-center gap-2">
-                            <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
-                            Submitting...
-                        </span>
-                    {:else}
-                        <span in:fly class="flex size-full items-center justify-center">Submit</span>
+                    <Field {form} name="preferenceNum">
+                        {@const accounts = data.userAccount.cocAccounts.length}
+                        <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
+                        <Control>
+                            {#snippet children({ props })}
+                                <input
+                                    {...props}
+                                    class="input/select rounded-lg border border-gray-700 p-2"
+                                    type="number"
+                                    placeholder="1"
+                                    min="1"
+                                    max={accounts}
+                                    disabled={accounts <= 1}
+                                    bind:value={$formData.preferenceNum}
+                                />
+                            {/snippet}
+                        </Control>
+                        <FieldErrors class="text-red-400" />
+                    </Field>
+
+                    {#if !dev}
+                        <Field {form} name="cf-turnstile-response">
+                            <Turnstile
+                                class="text-center"
+                                on:callback={(event) => {
+                                    $formData["cf-turnstile-response"] = event.detail.token;
+                                }}
+                                siteKey={PUBLIC_TURNSTILE_SITE_KEY}
+                                bind:reset
+                            />
+                        </Field>
                     {/if}
-                </Button>
-            </form>
+
+                    <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={buttonDisabled || $delayed} type="submit">
+                        {#if $delayed}
+                            <span in:fly class="flex size-full items-center justify-center gap-2">
+                                <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                                Submitting...
+                            </span>
+                        {:else}
+                            <span in:fly class="flex size-full items-center justify-center">Submit</span>
+                        {/if}
+                    </Button>
+                </form>
+            {/await}
         </div>
     </div>
 </main>
