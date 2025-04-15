@@ -31,7 +31,7 @@
 
 <button
     class={cn(
-        `z-10 rounded-lg bg-slate-800 transition-all hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-slate-800`,
+        `z-10 rounded-lg bg-gray-800 transition-all hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-gray-800`,
         sizeClass,
         className
     )}

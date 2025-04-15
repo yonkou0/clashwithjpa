@@ -174,7 +174,7 @@
                                         {$errors[key as keyof typeof $formData] ? '' : 'hidden'}"
                                     >
                                         <FieldErrors class="text-xs text-red-400" />
-                                        <Tooltip.Arrow class="text-slate-700" />
+                                        <Tooltip.Arrow class="text-gray-700" />
                                     </Tooltip.Content>
                                 </Tooltip.Portal>
                             </Tooltip.Root>
