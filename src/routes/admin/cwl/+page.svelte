@@ -93,10 +93,10 @@
     }
 </script>
 
-<div class="flex flex-col p-5 md:p-11" in:fade>
+<div class="flex flex-col gap-5 p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
     <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes={true} {paging} theme={PlainTableCssTheme} />
-    <div class="flex w-full flex-col items-center justify-between gap-2 rounded-b-lg bg-gray-900 p-2 md:flex-row md:p-5">
+    <div class="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-gray-900 p-2 md:flex-row md:p-5">
         <div class="flex items-center justify-center gap-2">
             <select class="cursor-pointer" bind:value={paging.itemsPerPage} onchange={handleItemsPerPageChange}>
                 {#each paging.itemsPerPageOptions as option (option)}
@@ -107,13 +107,13 @@
         </div>
 
         <div class="flex items-center justify-between gap-2 *:cursor-pointer">
-            <Button class="flex items-center justify-center gap-2" size="md" onclick={prevPage} disabled={paging.currentPage == 1 ? true : false}>
+            <Button class="flex items-center justify-center gap-2" size="sm" onclick={prevPage} disabled={paging.currentPage == 1 ? true : false}>
                 <MaterialSymbolsArrowBackIosRounded class="size-5" />
                 <span>Previous</span>
             </Button>
             <Button
                 class="flex items-center justify-center gap-2"
-                size="md"
+                size="sm"
                 onclick={nextPage}
                 disabled={paging.currentPage < paging.totalPages ? false : true}
             >
