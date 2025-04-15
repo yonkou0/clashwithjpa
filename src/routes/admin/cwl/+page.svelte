@@ -5,9 +5,10 @@
 // Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
     import Button from "$lib/components/Button.svelte";
     import type { ComponentType } from "svelte";
-    import { fade } from "svelte/transition";
     import MaterialSymbolsArrowBackIosRounded from "~icons/material-symbols/arrow-back-ios-rounded";
     import MaterialSymbolsArrowForwardIosRounded from "~icons/material-symbols/arrow-forward-ios-rounded";
+    import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
+    import MaterialSymbolsDocumentScannerRounded from "~icons/material-symbols/document-scanner-rounded";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
@@ -31,7 +32,7 @@
     });
     let columns: GridColumn<CWLApplication>[] = $state([
         {
-            key: "userName",
+            key: "userId",
             title: "User Name",
             visible: true,
             sortable: true,
@@ -93,10 +94,10 @@
     }
 </script>
 
-<div class="flex flex-col gap-5 p-5 md:p-11" in:fade>
+<div class="flex flex-col gap-5 p-5 md:p-11">
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
-    <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes={true} {paging} theme={PlainTableCssTheme} />
-    <div class="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-gray-900 p-2 md:flex-row md:p-5">
+    <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes {paging} theme={PlainTableCssTheme} />
+    <div class="flex w-full flex-col items-center justify-between gap-4 rounded-lg bg-gray-900 p-4 md:flex-row md:p-5">
         <div class="flex items-center justify-center gap-2">
             <select class="cursor-pointer" bind:value={paging.itemsPerPage} onchange={handleItemsPerPageChange}>
                 {#each paging.itemsPerPageOptions as option (option)}
@@ -106,7 +107,22 @@
             <p>Page <span>{paging.currentPage}</span> of <span>{paging.totalPages}</span></p>
         </div>
 
-        <div class="flex items-center justify-between gap-2 *:cursor-pointer">
+        <div class="flex flex-col items-center justify-between gap-2 *:cursor-pointer lg:flex-row">
+            <Button class="flex items-center justify-center gap-2" size="sm">
+                <MaterialSymbolsDocumentScannerRounded class="size-6" />
+                Download CSV
+            </Button>
+            <Button
+                class="flex items-center justify-center gap-2 hover:not-disabled:bg-red-500/10! hover:not-disabled:text-red-500!"
+                disabled={selectedRows.length <= 0}
+                size="sm"
+            >
+                <MaterialSymbolsDeleteRounded class="size-6" />
+                Delete
+            </Button>
+        </div>
+
+        <div class="flex flex-col items-center justify-between gap-2 *:cursor-pointer lg:flex-row">
             <Button class="flex items-center justify-center gap-2" size="sm" onclick={prevPage} disabled={paging.currentPage == 1 ? true : false}>
                 <MaterialSymbolsArrowBackIosRounded class="size-5" />
                 <span>Previous</span>
