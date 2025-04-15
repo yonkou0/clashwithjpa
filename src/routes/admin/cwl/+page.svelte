@@ -2,7 +2,7 @@
     import UserName from "$lib/components/Admin/UserName.svelte";
     import type { InsertCWL } from "$lib/server/schema";
     import { Grid, PlainTableCssTheme, type GridColumn, type PagingData } from "@mediakular/gridcraft";
-    // Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
+// Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
     import Button from "$lib/components/Button.svelte";
     import type { ComponentType } from "svelte";
     import { fade } from "svelte/transition";
@@ -93,7 +93,7 @@
     }
 </script>
 
-<div class="cwl-grid flex flex-col p-5 md:p-11" in:fade>
+<div class="flex flex-col p-5 md:p-11" in:fade>
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
     <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes={true} {paging} theme={PlainTableCssTheme} />
     <div class="flex w-full flex-col items-center justify-between gap-2 rounded-b-lg bg-gray-900 p-2 md:flex-row md:p-5">
@@ -103,7 +103,6 @@
                     <option class="bg-gray-900" value={option} selected={option == paging.itemsPerPage}>{option}</option>
                 {/each}
             </select>
-
             <p>Page <span>{paging.currentPage}</span> of <span>{paging.totalPages}</span></p>
         </div>
 
