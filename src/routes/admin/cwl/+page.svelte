@@ -1,12 +1,17 @@
 <script lang="ts">
+    import UserName from "$lib/components/Admin/UserName.svelte";
     import type { InsertCWL } from "$lib/server/schema";
     import { Grid, GridFooter, PlainTableCssTheme, type GridColumn, type PagingData } from "@mediakular/gridcraft";
+    import type { ComponentType } from "svelte"; // Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
     let applications = $derived(data.cwlApplications);
-    let formattedApplications: (InsertCWL & { formattedDate: string })[] = $derived.by(() => {
+
+    type CWLApplication = InsertCWL & { formattedDate: string };
+
+    let formattedApplications: CWLApplication[] = $derived.by(() => {
         return applications.map((application) => {
             return {
                 ...application,
@@ -20,12 +25,19 @@
             };
         });
     });
-    let columns: GridColumn<InsertCWL & { formattedDate: string }>[] = $state([
+    let columns: GridColumn<CWLApplication>[] = $state([
         {
             key: "userName",
             title: "User Name",
             visible: true,
-            sortable: true
+            sortable: true,
+            accessor: (row: CWLApplication) => {
+                return {
+                    userName: row.userName,
+                    userID: row.userId
+                };
+            },
+            renderComponent: UserName as unknown as ComponentType
         },
         {
             key: "accountName",
@@ -59,7 +71,7 @@
         }
     ]);
 
-    let selectedRows: (InsertCWL & { formattedDate: string })[] = $state.raw([]);
+    let selectedRows: CWLApplication[] = $state.raw([]);
 
     let paging = $state({
         itemsPerPage: 10,
