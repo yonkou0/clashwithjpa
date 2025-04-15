@@ -52,7 +52,7 @@
 <div class="flex flex-col items-start justify-center gap-2">
     <span>{title}</span>
     <div class="flex items-center gap-2">
-        <input class="input/select" {placeholder} maxlength="19" bind:value={inputValue} disabled={disabledInput} />
+        <input {placeholder} maxlength="19" bind:value={inputValue} disabled={disabledInput} />
         <Button class="p-2" onclick={handleSubmit} disabled={disabledButton}>
             <MaterialSymbolsSendRounded class="size-6" />
         </Button>

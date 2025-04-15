@@ -268,7 +268,7 @@
             <div class="flex flex-col items-start gap-2">
                 <span>Guild ID</span>
                 <div class="flex items-center gap-2">
-                    <input class="input/select" placeholder="Enter Guild ID" maxlength="19" bind:value={guildID} disabled={disabled.guildID.input} />
+                    <input placeholder="Enter Guild ID" maxlength="19" bind:value={guildID} disabled={disabled.guildID.input} />
                     <Button class="p-2" onclick={setGuildID} disabled={disabled.guildID.button}>
                         <MaterialSymbolsSendRounded class="size-6" />
                     </Button>

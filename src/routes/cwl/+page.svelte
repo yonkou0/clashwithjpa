@@ -70,9 +70,9 @@
             {#await data.cocData}
                 <div class="flex w-full max-w-lg flex-col gap-3 px-5">
                     <p>Select one of your accounts</p>
-                    <div class="input/select flex h-[41.33px] w-full animate-pulse items-center justify-start p-2">Select an account</div>
+                    <div class="input animate-pulse">Select an account</div>
                     <p>Preference number ( 1 - {data.userAccount.cocAccounts.length} )</p>
-                    <div class="input/select flex h-[41.33px] w-full animate-pulse items-center justify-start p-2">0</div>
+                    <div class="input animate-pulse">0</div>
                     <Button class="!cursor-wait px-4 py-3 text-sm" disabled={true}>Submit</Button>
                 </div>
             {:then coc}
@@ -81,7 +81,7 @@
                         <Description>Select one of your accounts</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <select class="input/select rounded-lg border border-gray-700 p-2" {...props} bind:value={$formData.tag}>
+                                <select {...props} bind:value={$formData.tag}>
                                     <option value="" disabled selected hidden>Select an account</option>
                                     {#each coc as account}
                                         <option class="bg-gray-900" value={account.tag}>{account.tag} - {account.name}</option>
@@ -99,7 +99,6 @@
                             {#snippet children({ props })}
                                 <input
                                     {...props}
-                                    class="input/select rounded-lg border border-gray-700 p-2"
                                     type="number"
                                     placeholder="1"
                                     min="1"

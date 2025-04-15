@@ -2,7 +2,7 @@
     import UserName from "$lib/components/Admin/UserName.svelte";
     import type { InsertCWL } from "$lib/server/schema";
     import { Grid, PlainTableCssTheme, type GridColumn, type PagingData } from "@mediakular/gridcraft";
-// Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
+    // Deprecated, but still used in some places because of svelte 4 in @mediakular/gridcraft
     import Button from "$lib/components/Button.svelte";
     import type { ComponentType } from "svelte";
     import { fade } from "svelte/transition";
@@ -98,7 +98,7 @@
     <Grid bind:data={formattedApplications} bind:columns bind:selectedRows showCheckboxes={true} {paging} theme={PlainTableCssTheme} />
     <div class="flex w-full flex-col items-center justify-between gap-2 rounded-b-lg bg-gray-900 p-2 md:flex-row md:p-5">
         <div class="flex items-center justify-center gap-2">
-            <select class="input/select cursor-pointer" bind:value={paging.itemsPerPage} onchange={handleItemsPerPageChange}>
+            <select class="cursor-pointer" bind:value={paging.itemsPerPage} onchange={handleItemsPerPageChange}>
                 {#each paging.itemsPerPageOptions as option (option)}
                     <option class="bg-gray-900" value={option} selected={option == paging.itemsPerPage}>{option}</option>
                 {/each}

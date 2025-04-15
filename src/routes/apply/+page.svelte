@@ -155,13 +155,7 @@
                         <Description>Your account tag (include #)</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input
-                                    {...props}
-                                    class="input/select rounded-lg border border-gray-700"
-                                    type="text"
-                                    placeholder="#ABCDEFGHI"
-                                    bind:value={$formData.tag}
-                                />
+                                <input {...props} type="text" placeholder="#ABCDEFGHI" bind:value={$formData.tag} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
@@ -170,13 +164,7 @@
                         <Description>Your API token</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input
-                                    {...props}
-                                    class="input/select rounded-lg border border-gray-700"
-                                    type="text"
-                                    placeholder="API Token"
-                                    bind:value={$formData.apiToken}
-                                />
+                                <input {...props} type="text" placeholder="API Token" bind:value={$formData.apiToken} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />

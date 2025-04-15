@@ -84,21 +84,28 @@ body {
 }
 
 @layer components {
-    .input\/select {
+    .input,
+    input,
+    select {
         border: 1px solid var(--color-gray-700);
         border-radius: var(--radius-lg);
+        padding: 8px;
         background: linear-gradient(to right, var(--color-gray-900), var(--color-gray-800), var(--color-gray-900));
     }
-    .input\/select:focus {
-        border-color: var(--color-blue-700);
+    input:focus,
+    select:focus {
+        border-color: var(--color-blue-700) !important;
         @apply ring-0! outline-hidden! transition-colors!;
     }
-    .input\/select:disabled {
+    input:disabled,
+    select:disabled {
         cursor: not-allowed;
         opacity: 50%;
     }
-    .input\/select::-webkit-outer-spin-button,
-    .input\/select::-webkit-inner-spin-button {
+    input::-webkit-outer-spin-button,
+    select::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button,
+    select::-webkit-inner-spin-button {
         display: none;
         margin: 0;
     }
