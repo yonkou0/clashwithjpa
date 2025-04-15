@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { APIUser } from "discord-api-types/v10";
+    import { fade } from "svelte/transition";
 
     interface Props {
         userName: string;
@@ -23,17 +24,16 @@
         href="https://discord.com/users/{userID}"
         target="_blank"
         rel="noopener noreferrer"
-        class="bg-blurple/50 text-blurple-light shrink-0 hover:bg-blurple flex cursor-pointer items-center justify-start gap-1 rounded-md p-0.5 font-sans transition-colors hover:text-gray-50"
+        class="bg-blurple/50 text-blurple-light hover:bg-blurple flex shrink-0 cursor-pointer items-center justify-start gap-1 rounded-md p-0.5 font-sans transition-colors hover:text-gray-50"
     >
         {#await fetchUserInfo(userID)}
             <div class="bg-blurple size-6 animate-pulse rounded-full"></div>
         {:then userInfo}
-            <div class="relative flex size-6 w-full items-center justify-center">
-                <img
-                    src={`https://cdn.discordapp.com/avatars/${userID}/${userInfo.avatar}?size=4096`}
-                    alt="User Avatar"
-                    class="size-full rounded-full bg-gray-950"
-                />
+            <div in:fade class="relative flex size-6 w-full items-center justify-center">
+                <div
+                    class="bg-blurple size-6 rounded-full bg-cover bg-center"
+                    style="background-image: url('https://cdn.discordapp.com/avatars/{userID}/{userInfo.avatar}?size=4096');"
+                ></div>
                 {#if userInfo.avatar_decoration_data?.asset}
                     <img
                         src={`https://cdn.discordapp.com/avatar-decoration-presets/${userInfo.avatar_decoration_data?.asset}`}
