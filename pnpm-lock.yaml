@@ -8,12 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@ag-grid-community/client-side-row-model':
+        specifier: ^32.3.5
+        version: 32.3.5
+      '@ag-grid-community/core':
+        specifier: ^32.3.5
+        version: 32.3.5
+      '@ag-grid-community/theming':
+        specifier: ^32.3.5
+        version: 32.3.5
       '@friendofsvelte/tipex':
         specifier: 0.0.7-fix-0
         version: 0.0.7-fix-0(highlight.js@11.8.0)(svelte@5.26.2)
-      '@mediakular/gridcraft':
-        specifier: ^0.2.9
-        version: 0.2.9(svelte@5.26.2)
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
@@ -87,6 +93,9 @@ importers:
       '@types/nprogress':
         specifier: ^0.2.3
         version: 0.2.3
+      ag-grid-svelte5-extended:
+        specifier: ^0.0.13
+        version: 0.0.13(svelte@5.26.2)
       drizzle-kit:
         specifier: ^0.30.6
         version: 0.30.6
@@ -146,6 +155,15 @@ importers:
         version: 3.114.5(@cloudflare/workers-types@4.20250413.0)
 
 packages:
+
+  '@ag-grid-community/client-side-row-model@32.3.5':
+    resolution: {integrity: sha512-dTAko9W0E914BMVfDBcresQfDZZPiVVmkbS2iRwDPX0erqYT2/nkuXXVh5If1LFnAqM1q5EQTZDZaLXDv2GO7Q==}
+
+  '@ag-grid-community/core@32.3.5':
+    resolution: {integrity: sha512-RGL3RyPCKC4R2fcG1gXdk7rs+CXig23wufTFJfbE46aQDxg941ww07G0cDS5Z5u/6btM9GJkxlwcR0JVEI003A==}
+
+  '@ag-grid-community/theming@32.3.5':
+    resolution: {integrity: sha512-SCToi2P2MMJ7Ce3x2/97oEN81Y6ffytvp1ngipZHvy15Jzlyzg8UHpQG/n5s7tbA71+EgaB88fHVLdM8ayf0hg==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1193,11 +1211,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@mediakular/gridcraft@0.2.9':
-    resolution: {integrity: sha512-vJH9saa2s3NBbyIxY+T+rutkedCh4XkTNl4Ha47KthEV489V0KHn5wkrgcxAm1YdILhGOv0pxK1CoVmGWp/CtQ==}
-    peerDependencies:
-      svelte: ^4.0.0
-
   '@neondatabase/serverless@0.10.4':
     resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
 
@@ -1747,6 +1760,15 @@ packages:
     resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  ag-charts-types@10.3.5:
+    resolution: {integrity: sha512-DtvV+IS4RlocGV2IcaQOe/eM6eBGGCvkLnwxGkDxKa8ddxivv90fwlfPxK0O5XnVectiKtWFfOw35Cm0k+4vMw==}
+
+  ag-grid-svelte5-extended@0.0.13:
+    resolution: {integrity: sha512-koSuyeIJ06wF1Oz8hOBmRt3sOhNweUPKAjyMhjaYXyXI1rugSNNurEzIiVI+8GltBDf/gsRw41JHbOt6LQueXQ==}
+    engines: {node: '>=22.0.0'}
+    peerDependencies:
+      svelte: ^5.0.0
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -3313,6 +3335,21 @@ packages:
 
 snapshots:
 
+  '@ag-grid-community/client-side-row-model@32.3.5':
+    dependencies:
+      '@ag-grid-community/core': 32.3.5
+      tslib: 2.8.1
+
+  '@ag-grid-community/core@32.3.5':
+    dependencies:
+      ag-charts-types: 10.3.5
+      tslib: 2.8.1
+
+  '@ag-grid-community/theming@32.3.5':
+    dependencies:
+      '@ag-grid-community/core': 32.3.5
+      tslib: 2.8.1
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@ampproject/remapping@2.3.0':
@@ -3992,10 +4029,6 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@mediakular/gridcraft@0.2.9(svelte@5.26.2)':
-    dependencies:
-      svelte: 5.26.2
-
   '@neondatabase/serverless@0.10.4':
     dependencies:
       '@types/pg': 8.11.6
@@ -4554,6 +4587,15 @@ snapshots:
   acorn@8.14.0: {}
 
   acorn@8.14.1: {}
+
+  ag-charts-types@10.3.5: {}
+
+  ag-grid-svelte5-extended@0.0.13(svelte@5.26.2):
+    dependencies:
+      '@ag-grid-community/client-side-row-model': 32.3.5
+      '@ag-grid-community/core': 32.3.5
+      '@ag-grid-community/theming': 32.3.5
+      svelte: 5.26.2
 
   ajv@6.12.6:
     dependencies:
