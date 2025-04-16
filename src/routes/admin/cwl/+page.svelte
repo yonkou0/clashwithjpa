@@ -34,7 +34,9 @@
             onto: "backgroundColor"
         },
         foregroundColor: "#F9FAFB", // slate-50
-        headerFontSize: 14
+        headerFontSize: 14,
+        borderRadius: 8, // rounded-lg
+        checkboxBorderRadius: 6 // rounded-md
     });
 
     const gridOptions: GridOptions<CWLApplication> = {
@@ -66,7 +68,7 @@
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
     <div class="size-full">
-        <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} gridClass="rounded-lg" />
+        <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} />
     </div>
 </div>
 
