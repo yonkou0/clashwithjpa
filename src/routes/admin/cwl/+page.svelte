@@ -9,29 +9,17 @@
     import { themeQuartz } from "@ag-grid-community/theming";
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { fade } from "svelte/transition";
+    import MaterialSymbolsCloudDoneRounded from "~icons/material-symbols/cloud-done-rounded";
+    import MaterialSymbolsCloudSyncRounded from "~icons/material-symbols/cloud-sync-rounded";
     import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
     import TablerLoader2 from "~icons/tabler/loader-2";
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
-    let applications = $derived(data.cwlApplications);
+    let rowData = $derived<InsertCWL[]>(data.cwlApplications);
     let disabled: boolean = $state(false);
     let loading: boolean = $state(false);
-
-    type CWLApplication = InsertCWL & { formattedDate: string };
-
-    let rowData = $derived<CWLApplication[]>(
-        applications.map((application) => {
-            return {
-                ...application,
-                formattedDate: new Date(application.appliedAt).toLocaleString("en-IN", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit"
-                })
-            };
-        })
-    );
+    let syncing: boolean = $state(false);
 
     const theme = themeQuartz.withParams({
         backgroundColor: "#030712", // slate-900
@@ -64,7 +52,7 @@
         }
     };
 
-    const gridOptions: GridOptions<CWLApplication> = {
+    const gridOptions: GridOptions<InsertCWL> = {
         columnDefs: [
             {
                 field: "userName",
@@ -75,16 +63,21 @@
                 field: "preferenceNum",
                 headerName: "P.N",
                 headerTooltip: "Preference Number",
-                filter: "agNumberColumnFilter"
+                filter: "agNumberColumnFilter",
+                editable: true
             },
             { field: "accountName", filter: true },
             { field: "accountTag", filter: true },
-            { field: "accountClan", filter: true },
-            { field: "accountWeight", filter: "agNumberColumnFilter" },
+            { field: "accountClan", filter: true, editable: true },
+            { field: "accountWeight", filter: "agNumberColumnFilter", editable: true },
             {
                 field: "appliedAt",
                 valueFormatter: (params) => {
-                    return params.data?.formattedDate || "";
+                    return new Date(params.data?.appliedAt || "").toLocaleString("en-IN", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit"
+                    });
                 },
                 headerName: "Applied At",
                 filter: "agDateColumnFilter",
@@ -101,26 +94,44 @@
             mode: "multiRow"
         },
         onRowSelected(event) {
-            const rows = event.api.getSelectedRows();
-            const count = rows.length;
-            const totalCount = event.api.getDisplayedRowCount();
-            selectedRows = rows;
+            selectedRows = event.api.getSelectedRows();
         },
         onRowDataUpdated() {
             selectedRows = [];
         },
+        async onCellValueChanged(event) {
+            const updatedRow = event.data;
+            syncing = true;
+            let response = await fetch(`/admin/api/cwl`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    key: "update_application",
+                    value: updatedRow
+                })
+            });
+            if (response.ok) {
+                invalidateAll();
+            } else {
+                toast.error("Failed to update application");
+            }
+            syncing = false;
+        },
         theme
     };
 
-    let selectedRows: CWLApplication[] = $state([]);
+    let selectedRows: InsertCWL[] = $state([]);
 
     async function removeApp(tags: string[]) {
         disabled = true;
         loading = true;
-        let response = await fetch(`/admin/api/cwl/${encodeURIComponent(tags.toString())}`, {
+        let response = await fetch(`/admin/api/cwl`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({})
+            body: JSON.stringify({
+                key: "delete_application",
+                value: tags
+            })
         });
         if (response.ok) {
             invalidateAll();
@@ -136,7 +147,20 @@
 
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">
     <div class="flex w-full items-center justify-between">
-        <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
+        <div class="flex items-center justify-center gap-2">
+            <h1 class="text-3xl font-bold md:text-4xl">CWL</h1>
+            <div class="size-8">
+                {#if syncing}
+                    <span in:fade class="size-full">
+                        <MaterialSymbolsCloudSyncRounded class="size-full text-yellow-500" />
+                    </span>
+                {:else}
+                    <span in:fade class="size-full">
+                        <MaterialSymbolsCloudDoneRounded class="size-full text-green-500" />
+                    </span>
+                {/if}
+            </div>
+        </div>
         <div class="flex items-center justify-center gap-2">
             <Button
                 size="sm"
@@ -146,15 +170,17 @@
                     await removeApp(selectedRows.map((row) => row.accountTag));
                 }}
             >
-                {#if loading}
-                    <div in:fade class="size-6 animate-spin">
-                        <TablerLoader2 class="size-full" />
-                    </div>
-                {:else}
-                    <div in:fade class="size-6">
-                        <MaterialSymbolsDeleteRounded class="size-full" />
-                    </div>
-                {/if}
+                <div in:fade class="size-6">
+                    {#if loading}
+                        <span class="size-full">
+                            <TablerLoader2 class="size-full animate-spin" />
+                        </span>
+                    {:else}
+                        <span class="size-full">
+                            <MaterialSymbolsDeleteRounded class="size-full" />
+                        </span>
+                    {/if}
+                </div>
                 <span>Delete</span>
             </Button>
         </div>

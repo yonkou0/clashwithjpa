@@ -33,7 +33,7 @@ export const cwlTable = pgTable(
         month: text("month").notNull(),
         year: integer("year").notNull(),
         preferenceNum: integer("preference_num").notNull(),
-        appliedAt: timestamp("applied_at").notNull().defaultNow()
+        appliedAt: timestamp("applied_at", { mode: "string" }).notNull().defaultNow()
     },
     (t) => [unique("cwl_table_accountTag_preferenceNum_month_year_unique").on(t.accountTag, t.preferenceNum, t.month, t.year)]
 );

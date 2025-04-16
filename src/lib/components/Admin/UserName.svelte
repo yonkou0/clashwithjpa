@@ -43,4 +43,3 @@
         @{params.data.userName}
     </a>
 </span>
-
