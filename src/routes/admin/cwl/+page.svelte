@@ -99,9 +99,6 @@
         onRowSelected(event) {
             selectedRows = event.api.getSelectedRows();
         },
-        onRowDataUpdated() {
-            selectedRows = [];
-        },
         async onCellValueChanged(event) {
             const updatedRow = event.data;
             syncing = "loading";
@@ -142,6 +139,7 @@
         } else {
             toast.error("Failed to remove application");
         }
+        selectedRows = [];
         loading = false;
         setTimeout(() => {
             disabled = false;
