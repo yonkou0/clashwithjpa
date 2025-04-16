@@ -72,7 +72,7 @@
                     <p>Select one of your accounts</p>
                     <div class="input animate-pulse">Select an account</div>
                     <p>Preference number ( 1 - {data.userAccount.cocAccounts.length} )</p>
-                    <div class="input animate-pulse">0</div>
+                    <div class="input animate-pulse">1</div>
                     <Button class="!cursor-wait px-4 py-3 text-sm" disabled={true}>Submit</Button>
                 </div>
             {:then coc}
@@ -101,7 +101,7 @@
                                     {...props}
                                     type="number"
                                     placeholder="1"
-                                    min="1"
+                                    min={1}
                                     max={accounts}
                                     disabled={accounts <= 1}
                                     bind:value={$formData.preferenceNum}

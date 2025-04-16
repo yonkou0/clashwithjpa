@@ -10,7 +10,7 @@ export const clanApplicationSchema = z.object({
 export function cwlApplicationSchema(max: number) {
     return z.object({
         tag: z.string().min(5).max(10).startsWith("#"),
-        preferenceNum: z.number().int().min(1).max(max),
+        preferenceNum: z.number().int().min(1).max(max).default(1),
         "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
     });
 }
