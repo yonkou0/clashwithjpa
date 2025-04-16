@@ -8,10 +8,13 @@
     import type { GridOptions, IDateFilterParams } from "@ag-grid-community/core";
     import { themeQuartz } from "@ag-grid-community/theming";
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
+    import { json2csv } from "json-2-csv";
     import { fade } from "svelte/transition";
+    import MaterialSymbolsCloudAlertRounded from "~icons/material-symbols/cloud-alert-rounded";
     import MaterialSymbolsCloudDoneRounded from "~icons/material-symbols/cloud-done-rounded";
     import MaterialSymbolsCloudSyncRounded from "~icons/material-symbols/cloud-sync-rounded";
     import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
+    import MaterialSymbolsDocumentScanner from "~icons/material-symbols/document-scanner";
     import TablerLoader2 from "~icons/tabler/loader-2";
     import type { PageData } from "./$types";
 
@@ -19,7 +22,7 @@
     let rowData = $derived<InsertCWL[]>(data.cwlApplications);
     let disabled: boolean = $state(false);
     let loading: boolean = $state(false);
-    let syncing: boolean = $state(false);
+    let syncing: "success" | "loading" | "error" = $state("success");
 
     const theme = themeQuartz.withParams({
         backgroundColor: "#030712", // slate-900
@@ -101,7 +104,7 @@
         },
         async onCellValueChanged(event) {
             const updatedRow = event.data;
-            syncing = true;
+            syncing = "loading";
             let response = await fetch(`/admin/api/cwl`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -111,11 +114,12 @@
                 })
             });
             if (response.ok) {
+                syncing = "success";
                 invalidateAll();
             } else {
+                syncing = "error";
                 toast.error("Failed to update application");
             }
-            syncing = false;
         },
         theme
     };
@@ -150,18 +154,42 @@
         <div class="flex items-center justify-center gap-2">
             <h1 class="text-3xl font-bold md:text-4xl">CWL</h1>
             <div class="size-8">
-                {#if syncing}
+                {#if syncing === "success"}
+                    <span in:fade class="size-full">
+                        <MaterialSymbolsCloudDoneRounded class="size-full text-green-500" />
+                    </span>
+                {:else if syncing === "loading"}
                     <span in:fade class="size-full">
                         <MaterialSymbolsCloudSyncRounded class="size-full text-yellow-500" />
                     </span>
-                {:else}
+                {:else if syncing === "error"}
                     <span in:fade class="size-full">
-                        <MaterialSymbolsCloudDoneRounded class="size-full text-green-500" />
+                        <MaterialSymbolsCloudAlertRounded class="size-full text-red-500" />
                     </span>
                 {/if}
             </div>
         </div>
         <div class="flex items-center justify-center gap-2">
+            <Button
+                size="sm"
+                class="flex items-center justify-center gap-2"
+                {disabled}
+                onclick={() => {
+                    const csv = json2csv(rowData);
+                    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "cwl.csv";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }}
+            >
+                <div in:fade class="size-6">
+                    <MaterialSymbolsDocumentScanner class="size-full" />
+                </div>
+                <span>CSV</span>
+            </Button>
             <Button
                 size="sm"
                 class="flex items-center justify-center gap-2 hover:not-disabled:!bg-red-500/10 hover:not-disabled:!text-red-500"

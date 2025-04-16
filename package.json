@@ -61,6 +61,7 @@
         "drizzle-orm": "^0.38.4",
         "formsnap": "^2.0.1",
         "jose": "^5.10.0",
+        "json-2-csv": "^5.5.9",
         "nprogress": "^0.2.0",
         "svelte-motion": "^0.12.2",
         "svelte-sonner": "^0.3.28",
