@@ -19,9 +19,7 @@
                 formattedDate: new Date(application.appliedAt).toLocaleString("en-IN", {
                     year: "numeric",
                     month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit"
+                    day: "2-digit"
                 })
             };
         })
@@ -42,18 +40,24 @@
     const gridOptions: GridOptions<CWLApplication> = {
         columnDefs: [
             {
-                field: "userId",
-                cellRenderer: makeSvelteCellRenderer(UserName)
+                field: "userName",
+                cellRenderer: makeSvelteCellRenderer(UserName),
+                filter: true
             },
-            { field: "accountName" },
-            { field: "accountTag" },
-            { field: "accountClan" },
-            { field: "accountWeight" },
+            { field: "accountName", filter: true },
+            { field: "accountTag", filter: true },
+            { field: "accountClan", filter: true },
+            { field: "accountWeight", filter: "agNumberColumnFilter" },
             { field: "formattedDate", headerName: "Applied At" }
         ],
         autoSizeStrategy: {
             type: "fitCellContents",
             skipHeader: false
+        },
+        pagination: true,
+        paginationAutoPageSize: true,
+        rowSelection: {
+            mode: "multiRow"
         },
         theme
     };
