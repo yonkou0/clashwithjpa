@@ -74,7 +74,15 @@
             },
             { field: "accountName", filter: true },
             { field: "accountTag", filter: true },
-            { field: "accountClan", filter: true, editable: true },
+            {
+                field: "accountClan",
+                filter: true,
+                editable: true,
+                cellEditor: "agSelectCellEditor",
+                cellEditorParams: {
+                    values: data.clans.map((clan) => clan.clanData?.name)
+                }
+            },
             { field: "accountWeight", filter: "agNumberColumnFilter", editable: true },
             {
                 field: "appliedAt",
