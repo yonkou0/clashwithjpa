@@ -36,7 +36,12 @@
         foregroundColor: "#F9FAFB", // slate-50
         headerFontSize: 14,
         borderRadius: 8, // rounded-lg
-        checkboxBorderRadius: 6 // rounded-md
+        checkboxBorderRadius: 6, // rounded-md
+        focusShadow: "",
+        dropdownShadow: {
+            radius: 8,
+            color: "#1F2937" // slate-800
+        }
     });
 
     const gridOptions: GridOptions<CWLApplication> = {
