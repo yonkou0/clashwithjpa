@@ -1,5 +1,6 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
+    import NewCwlPopup from "$lib/components/Admin/NewCWLPopup.svelte";
     import UserName from "$lib/components/Admin/UserName.svelte";
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
@@ -24,23 +25,24 @@
     let disabled: boolean = $state(false);
     let loading: boolean = $state(false);
     let syncing: "success" | "loading" | "error" = $state("success");
+    let openPopup: boolean = $state(false);
 
     const theme = themeQuartz.withParams({
-        backgroundColor: "#030712", // slate-900
+        backgroundColor: "#030712", // gray-900
         browserColorScheme: "dark",
         chromeBackgroundColor: {
             ref: "foregroundColor",
             mix: 0.07,
             onto: "backgroundColor"
         },
-        foregroundColor: "#F9FAFB", // slate-50
+        foregroundColor: "#F9FAFB", // gray-50
         headerFontSize: 14,
         borderRadius: 8, // rounded-lg
         checkboxBorderRadius: 6, // rounded-md
         focusShadow: "",
         dropdownShadow: {
             radius: 8,
-            color: "#1F2937" // slate-800
+            color: "#1F2937" // gray-800
         }
     });
 
@@ -146,7 +148,13 @@
             disabled = false;
         }, 500);
     }
+
+    // TODO: New CWL Form
 </script>
+
+<NewCwlPopup bind:open={openPopup}>
+    <form></form>
+</NewCwlPopup>
 
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">
     <div class="flex w-full items-center justify-between">
@@ -203,7 +211,7 @@
                     <MaterialSymbolsDocumentScanner class="size-full" />
                 </div>
             </Button>
-            <Button size="sm" class="flex items-center justify-center gap-2" disabled={rowData.length <= 0 || disabled}>
+            <Button size="sm" class="flex items-center justify-center gap-2" {disabled} onclick={() => (openPopup = true)}>
                 <div class="size-6">
                     <MaterialSymbolsAdd2Rounded class="size-full" />
                 </div>
