@@ -2,7 +2,7 @@
     import UserName from "$lib/components/Admin/UserName.svelte";
     import type { InsertCWL } from "$lib/server/schema";
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-    import type { GridOptions } from "@ag-grid-community/core";
+    import type { GridOptions, IDateFilterParams } from "@ag-grid-community/core";
     import { themeQuartz } from "@ag-grid-community/theming";
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import type { PageData } from "./$types";
@@ -44,6 +44,18 @@
         }
     });
 
+    const filterParams: IDateFilterParams = {
+        comparator: (filterDate: Date, cellValue: string) => {
+            const cellDate = new Date(cellValue).getDate();
+            if (cellDate < filterDate.getDate()) {
+                return -1;
+            } else if (cellDate > filterDate.getDate()) {
+                return 1;
+            }
+            return 0;
+        }
+    };
+
     const gridOptions: GridOptions<CWLApplication> = {
         columnDefs: [
             {
@@ -55,7 +67,15 @@
             { field: "accountTag", filter: true },
             { field: "accountClan", filter: true },
             { field: "accountWeight", filter: "agNumberColumnFilter" },
-            { field: "formattedDate", headerName: "Applied At" }
+            {
+                field: "appliedAt",
+                valueFormatter: (params) => {
+                    return params.data?.formattedDate || "";
+                },
+                headerName: "Applied At",
+                filter: "agDateColumnFilter",
+                filterParams
+            }
         ],
         autoSizeStrategy: {
             type: "fitCellContents",
