@@ -71,6 +71,12 @@
                 cellRenderer: makeSvelteCellRenderer(UserName),
                 filter: true
             },
+            {
+                field: "preferenceNum",
+                headerName: "P.N",
+                headerTooltip: "Preference Number",
+                filter: "agNumberColumnFilter"
+            },
             { field: "accountName", filter: true },
             { field: "accountTag", filter: true },
             { field: "accountClan", filter: true },
