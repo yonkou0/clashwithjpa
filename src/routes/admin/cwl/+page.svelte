@@ -62,6 +62,6 @@
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">
     <h1 class="text-3xl font-bold md:text-4xl">Clan War League</h1>
     <div class="size-full">
-        <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} />
+        <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} gridClass="rounded-lg" />
     </div>
 </div>
