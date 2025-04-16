@@ -173,7 +173,7 @@
             <Button
                 size="sm"
                 class="flex items-center justify-center gap-2"
-                {disabled}
+                disabled={rowData.length <= 0 || disabled}
                 onclick={() => {
                     const csv = json2csv(rowData);
                     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
