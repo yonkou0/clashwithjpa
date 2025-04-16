@@ -10,6 +10,7 @@
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { json2csv } from "json-2-csv";
     import { fade } from "svelte/transition";
+    import MaterialSymbolsAdd2Rounded from "~icons/material-symbols/add-2-rounded";
     import MaterialSymbolsCloudAlertRounded from "~icons/material-symbols/cloud-alert-rounded";
     import MaterialSymbolsCloudDoneRounded from "~icons/material-symbols/cloud-done-rounded";
     import MaterialSymbolsCloudSyncRounded from "~icons/material-symbols/cloud-sync-rounded";
@@ -198,10 +199,14 @@
                     URL.revokeObjectURL(url);
                 }}
             >
-                <div in:fade class="size-6">
+                <div class="size-6">
                     <MaterialSymbolsDocumentScanner class="size-full" />
                 </div>
-                <span>CSV</span>
+            </Button>
+            <Button size="sm" class="flex items-center justify-center gap-2" disabled={rowData.length <= 0 || disabled}>
+                <div class="size-6">
+                    <MaterialSymbolsAdd2Rounded class="size-full" />
+                </div>
             </Button>
             <Button
                 size="sm"
@@ -222,7 +227,6 @@
                         </span>
                     {/if}
                 </div>
-                <span>Delete</span>
             </Button>
         </div>
     </div>
