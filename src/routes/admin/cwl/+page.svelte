@@ -65,3 +65,10 @@
         <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} gridClass="rounded-lg" />
     </div>
 </div>
+
+<style>
+    :global(.ag-cell) {
+        display: flex;
+        align-items: center;
+    }
+</style>

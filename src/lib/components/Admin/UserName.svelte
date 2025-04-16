@@ -44,8 +44,3 @@
     </a>
 </span>
 
-<style lang="postcss">
-    :global(.ag-cell-value) {
-        @apply flex items-center justify-start;
-    }
-</style>
