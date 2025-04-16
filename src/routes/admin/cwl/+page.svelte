@@ -6,7 +6,7 @@
     import { toast } from "$lib/components/toast";
     import type { InsertCWL } from "$lib/server/schema";
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-    import type { GridOptions, IDateFilterParams } from "@ag-grid-community/core";
+    import type { GridOptions, IDateFilterParams, ValueFormatterParams } from "@ag-grid-community/core";
     import { themeQuartz } from "@ag-grid-community/theming";
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { json2csv } from "json-2-csv";
@@ -86,7 +86,7 @@
             { field: "accountWeight", filter: "agNumberColumnFilter", editable: true },
             {
                 field: "appliedAt",
-                valueFormatter: (params) => {
+                valueFormatter: (params: ValueFormatterParams<any, Date>) => {
                     return new Date(params.data?.appliedAt || "").toLocaleString("en-IN", {
                         year: "numeric",
                         month: "2-digit",
@@ -95,7 +95,10 @@
                 },
                 headerName: "Applied At",
                 filter: "agDateColumnFilter",
-                filterParams
+                filterParams,
+                editable: true,
+                cellEditor: "agDateCellEditor",
+                cellDataType: "date"
             }
         ],
         autoSizeStrategy: {

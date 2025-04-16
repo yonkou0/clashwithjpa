@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         await locals.db.delete(cwlTable).where(inArray(cwlTable.accountTag, playerTags));
     } else if (key === "update_application") {
         const cwlData: InsertCWL = value;
-        console.log(cwlData);
+        cwlData.appliedAt = new Date(cwlData.appliedAt ?? "");
         await locals.db.update(cwlTable).set(cwlData).where(eq(cwlTable.accountTag, cwlData.accountTag));
     }
     return json({ success: true });
