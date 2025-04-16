@@ -175,7 +175,22 @@
                 class="flex items-center justify-center gap-2"
                 disabled={rowData.length <= 0 || disabled}
                 onclick={() => {
-                    const csv = json2csv(rowData);
+                    const csvRow = rowData.map((row) => ({
+                        "User Name": row.userName,
+                        "Preference Number": row.preferenceNum,
+                        "Account Name": row.accountName,
+                        "Account Tag": row.accountTag,
+                        "Account Clan": row.accountClan,
+                        "Account Weight": row.accountWeight,
+                        "Applied At": new Date(row.appliedAt || "").toLocaleString("en-IN", {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        })
+                    }));
+                    const csv = json2csv(csvRow);
                     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
