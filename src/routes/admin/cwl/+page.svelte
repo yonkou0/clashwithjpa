@@ -181,6 +181,7 @@
         if ($message && (page.status === 200 || page.status == 400)) {
             switch (page.status) {
                 case 200:
+                    openPopup = false;
                     toast.success($message);
                     break;
                 case 400:

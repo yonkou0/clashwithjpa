@@ -60,6 +60,6 @@ export const actions: Actions = {
 
         await insertCWLApplication(event.locals.db, cwlApplication);
 
-        return message(form, "Application submitted successfully!");
+        return message(form, "Added CWL Application");
     }
 };
