@@ -47,5 +47,9 @@ export async function getPlayerInfo(baseURI: string, apiToken: string, tag: stri
         }
     });
 
-    return (await response.json()) as APIPlayer;
+    if (response.ok) {
+        return (await response.json()) as APIPlayer;
+    } else {
+        return null;
+    }
 }
