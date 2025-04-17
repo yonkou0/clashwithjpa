@@ -119,7 +119,10 @@
             selectedRows = event.api.getSelectedRows();
         },
         async onCellValueChanged(event) {
-            const updatedRow = event.data;
+            let updatedRow = event.data;
+            const [month, year] = new Date(updatedRow.appliedAt ?? "").toLocaleDateString("en-US", { month: "long", year: "numeric" }).split(" ");
+            updatedRow.month = month;
+            updatedRow.year = year as unknown as number;
             syncing = "loading";
             let response = await fetch(`/admin/api/cwl`, {
                 method: "POST",
