@@ -1,6 +1,6 @@
 import type { APIClan, APIClanWar, APIPlayer } from "$lib/coc/types";
 import { relations } from "drizzle-orm";
-import { boolean, integer, jsonb, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, jsonb, pgEnum, pgTable, serial, text, timestamp, unique } from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("user_table", {
     id: serial("id").primaryKey(),
@@ -16,19 +16,23 @@ export const cocTable = pgTable("coc_table", {
     tag: text("tag").notNull().unique()
 });
 
-export const cwlTable = pgTable("cwl_table", {
-    id: serial("id").primaryKey(),
-    userId: text("user_id").notNull(),
-    userName: text("user_name").notNull(),
-    accountName: text("account_name").notNull(),
-    accountTag: text("account_tag").notNull(),
-    accountClan: text("account_clan").notNull(),
-    accountWeight: integer("account_weight").notNull(),
-    month: text("month").notNull(),
-    year: integer("year").notNull(),
-    preferenceNum: integer("preference_num").notNull(),
-    appliedAt: timestamp("applied_at").notNull().defaultNow()
-});
+export const cwlTable = pgTable(
+    "cwl_table",
+    {
+        id: serial("id").primaryKey(),
+        userId: text("user_id").notNull(),
+        userName: text("user_name").notNull(),
+        accountName: text("account_name").notNull(),
+        accountTag: text("account_tag").notNull(),
+        accountClan: text("account_clan").notNull(),
+        accountWeight: integer("account_weight").notNull(),
+        month: text("month").notNull(),
+        year: integer("year").notNull(),
+        preferenceNum: integer("preference_num").notNull(),
+        appliedAt: timestamp("applied_at").notNull().defaultNow()
+    },
+    (t) => [unique("cwl_table_accountTag_preferenceNum_month_year_unique").on(t.accountTag, t.preferenceNum, t.month, t.year)]
+);
 
 export const clanTable = pgTable("clan_table", {
     id: serial("id").primaryKey(),
