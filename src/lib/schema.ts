@@ -14,3 +14,11 @@ export function cwlApplicationSchema(max: number) {
         "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
     });
 }
+
+export const customCWLEntrySchema = z.object({
+    userId: z.string().nonempty(),
+    tag: z.string().min(5).max(10).startsWith("#"),
+    accountClan: z.string().nonempty(),
+    accountWeight: z.number().int().min(1).default(1),
+    preferenceNum: z.number().int().min(1).default(1)
+});

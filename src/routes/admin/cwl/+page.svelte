@@ -1,16 +1,21 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
+    import { page } from "$app/state";
     import NewCwlPopup from "$lib/components/Admin/NewCWLPopup.svelte";
     import UserName from "$lib/components/Admin/UserName.svelte";
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
+    import { customCWLEntrySchema } from "$lib/schema";
     import type { InsertCWL } from "$lib/server/schema";
     import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
     import type { GridOptions, IDateFilterParams, ValueFormatterParams } from "@ag-grid-community/core";
     import { themeQuartz } from "@ag-grid-community/theming";
     import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
+    import { Control, Description, Field, FieldErrors } from "formsnap";
     import { json2csv } from "json-2-csv";
-    import { fade } from "svelte/transition";
+    import { fade, fly } from "svelte/transition";
+    import { superForm } from "sveltekit-superforms";
+    import { zodClient } from "sveltekit-superforms/adapters";
     import MaterialSymbolsAdd2Rounded from "~icons/material-symbols/add-2-rounded";
     import MaterialSymbolsCloudAlertRounded from "~icons/material-symbols/cloud-alert-rounded";
     import MaterialSymbolsCloudDoneRounded from "~icons/material-symbols/cloud-done-rounded";
@@ -160,11 +165,106 @@
         }, 500);
     }
 
-    // TODO: New CWL Form
+    // New CWL Form
+    const form = superForm(data.form, {
+        validators: zodClient(customCWLEntrySchema),
+        onUpdated() {
+            reset?.();
+        }
+    });
+
+    const { form: formData, enhance, message, delayed } = form;
+    $effect(() => {
+        if ($message && (page.status === 200 || page.status == 400)) {
+            switch (page.status) {
+                case 200:
+                    toast.success($message);
+                    break;
+                case 400:
+                    toast.error($message);
+                    break;
+            }
+        }
+    });
+
+    let reset = $state<() => void>();
 </script>
 
 <NewCwlPopup bind:open={openPopup}>
-    <form></form>
+    <form in:fade method="POST" action="/admin/cwl" use:enhance class="flex flex-col items-stretch justify-center gap-2">
+        <div class="flex w-full flex-wrap items-start justify-center gap-2">
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="tag">
+                    <Description>Account Tag</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} placeholder="Account Tag" bind:value={$formData.tag} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="userId">
+                    <Description>User ID</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} placeholder="Discord User ID" bind:value={$formData.userId} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="accountClan">
+                    <Description>Account Clan</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <select {...props} bind:value={$formData.accountClan}>
+                                <option value="" disabled selected hidden>Select a clan</option>
+                                {#each data.clans as clan}
+                                    <option class="bg-gray-900" value={clan.clanData?.name}>{clan.clanData?.name}</option>
+                                {/each}
+                            </select>
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="accountWeight">
+                    <Description>Account Weight</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.accountWeight} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="preferenceNum">
+                    <Description>Preference Number</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.preferenceNum} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+        </div>
+        <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={$delayed} type="submit">
+            {#if $delayed}
+                <span in:fly class="flex size-full items-center justify-center gap-2">
+                    <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                    Submitting...
+                </span>
+            {:else}
+                <span in:fly class="flex size-full items-center justify-center">Submit</span>
+            {/if}
+        </Button>
+    </form>
 </NewCwlPopup>
 
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">
