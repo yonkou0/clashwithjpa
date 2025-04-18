@@ -3,7 +3,6 @@ import { API_TOKEN, TURNSTILE_SECRET_KEY } from "$env/static/private";
 import { PUBLIC_API_BASE_URI } from "$env/static/public";
 import { validateCFToken } from "$lib/cf/helpers";
 import { getPlayerInfo, postVerifyToken } from "$lib/coc/player";
-import { toast } from "$lib/components/toast";
 import { clanApplicationSchema } from "$lib/schema";
 import { createClanApplication, getClanApplicationFromDiscordId, getClanApplicationFromTag, isApplicationEnabled } from "$lib/server/functions";
 import { type InsertClanApplication } from "$lib/server/schema";
@@ -69,6 +68,12 @@ export const actions: Actions = {
         }
 
         const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, playerTag);
+
+        if (!playerData) {
+            return message(form, "Player not found", {
+                status: 400
+            });
+        }
 
         const alreadyApplied = await getClanApplicationFromTag(event.locals.db, playerData.tag);
         if (alreadyApplied) {
