@@ -84,7 +84,7 @@
                                 <select {...props} bind:value={$formData.tag}>
                                     <option value="" disabled selected hidden>Select an account</option>
                                     {#each coc as account}
-                                        <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
+                                        <option class="bg-gray-900" value={account.tag}>{account.tag} - {account.name}</option>
                                     {/each}
                                 </select>
                             {/snippet}

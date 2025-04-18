@@ -68,6 +68,7 @@ export const actions: Actions = {
         }
 
         const playerData = await getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, playerTag);
+
         if (!playerData) {
             return message(form, "Player not found", {
                 status: 400
