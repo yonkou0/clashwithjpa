@@ -9,10 +9,12 @@
     import HugeiconsMoneySendCircle from "~icons/hugeicons/money-send-circle";
     import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
     import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
+    import LogosDiscordIcon from "~icons/logos/discord-icon";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
     import CocButton from "../CocButton.svelte";
     import { toast } from "../toast";
+    import UserName from "./UserName.svelte";
 
     interface Props {
         applications: SelectClanApplication[];
@@ -176,7 +178,7 @@
                                         {#if !hiddenInfo[appIdx + idx]}
                                             {#await fetchPlayerInfo(application.tag)}
                                                 <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
-                                                    {#each new Array(3) as _}
+                                                    {#each new Array(4) as _}
                                                         <div class="flex w-full animate-pulse items-center justify-start gap-1">
                                                             <div class="size-6 shrink-0 rounded-lg bg-gray-500"></div>
                                                             <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
@@ -208,22 +210,27 @@
                                             {:then playerInfo}
                                                 <div transition:fade class="flex w-full flex-col items-start justify-center gap-1">
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/trophy.webp" alt="Donations" class="w-5.5" />
+                                                        <img src="/emoji/trophy.webp" alt="Donations" class="w-5.5 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Trophies: {playerInfo?.trophies}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/attack.webp" alt="Donations" class="w-5.5" />
+                                                        <img src="/emoji/attack.webp" alt="Donations" class="w-5.5 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Attack Wins: {playerInfo?.attackWins}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/defence.webp" alt="Donations" class="w-5.5" />
+                                                        <img src="/emoji/defence.webp" alt="Donations" class="w-5.5 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Defence Wins: {playerInfo?.defenseWins}
                                                         </p>
+                                                    </div>
+                                                    <div class="flex w-full items-center justify-start gap-1">
+                                                        <LogosDiscordIcon class="text-blurple size-6 shrink-0" />
+                                                        <p class="text-gray-300">Discord:</p>
+                                                        <UserName userID={application.discordId} />
                                                     </div>
                                                     <div class="flex w-full items-center justify-center gap-1">
                                                         <span class="grow rounded-xl border-t border-gray-400"></span>
@@ -231,13 +238,13 @@
                                                         <span class="grow rounded-xl border-t border-gray-400"></span>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <HugeiconsMoneySendCircle class="size-6 text-yellow-400" />
+                                                        <HugeiconsMoneySendCircle class="size-6 shrink-0 text-yellow-400" />
                                                         <p class="text-gray-300">
                                                             Donated: {playerInfo?.donations}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <HugeiconsMoneyReceiveCircle class="size-6 text-yellow-400" />
+                                                        <HugeiconsMoneyReceiveCircle class="size-6 shrink-0 text-yellow-400" />
                                                         <p class="text-gray-300">
                                                             Received: {playerInfo?.donationsReceived}
                                                         </p>
@@ -248,33 +255,33 @@
                                                         <span class="grow rounded-xl border-t border-gray-400"></span>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/donations.webp" alt="Total Donations" class="w-6" />
+                                                        <img src="/emoji/donations.webp" alt="Total Donations" class="w-6 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Total Donations: {playerInfo?.achievements.find((ach) => ach.name === "Friend in Need")
                                                                 ?.value}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/trophy2.webp" alt="Donations" class="w-5.5" />
+                                                        <img src="/emoji/trophy2.webp" alt="Donations" class="w-5.5 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Best Trophies: {playerInfo?.bestTrophies}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/clangames.webp" alt="CG" class="w-6" />
+                                                        <img src="/emoji/clangames.webp" alt="CG" class="w-6 shrink-0" />
                                                         <p class="text-gray-300">
                                                             Clan Games: {playerInfo?.achievements.find((ach) => ach.name === "Games Champion")?.value}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/cg_raid.webp" alt="CG Raided" class="w-6" />
+                                                        <img src="/emoji/cg_raid.webp" alt="CG Raided" class="w-6 shrink-0" />
                                                         <p class="text-gray-300">
                                                             CG Raided: {playerInfo?.achievements.find((ach) => ach.name === "Aggressive Capitalism")
                                                                 ?.value}
                                                         </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-start gap-1">
-                                                        <img src="/emoji/cg_donated.webp" alt="CG Donated" class="w-6" />
+                                                        <img src="/emoji/cg_donated.webp" alt="CG Donated" class="w-6 shrink-0" />
                                                         <p class="text-gray-300">
                                                             CG Donated: {playerInfo?.achievements.find((ach) => ach.name === "Most Valuable Clanmate")
                                                                 ?.value}

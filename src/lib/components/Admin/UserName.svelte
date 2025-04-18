@@ -1,9 +1,13 @@
 <script lang="ts">
-    import type { ICellRendererParams } from "@ag-grid-community/core";
     import type { APIUser } from "discord-api-types/v10";
     import { fade } from "svelte/transition";
 
-    let params: ICellRendererParams = $props();
+    interface Props {
+        userName?: string;
+        userID: string;
+    }
+
+    let { userName, userID }: Props = $props();
 
     async function fetchUserInfo(id: string): Promise<APIUser> {
         const resp = await fetch(`/admin/api/user?id=${id}`);
@@ -16,20 +20,23 @@
     }
 </script>
 
-<span class="flex w-full items-center justify-start gap-1 text-sm">
+<span class="flex w-full shrink-0 items-center justify-start gap-1 text-sm">
     <a
-        href="https://discord.com/users/{params.data.userId}"
+        href="https://discord.com/users/{userID}"
         target="_blank"
         rel="noopener noreferrer"
         class="bg-blurple/50 text-blurple-light hover:bg-blurple flex shrink-0 cursor-pointer items-center justify-start gap-1 rounded-md p-0.5 font-sans transition-colors hover:text-gray-50"
     >
-        {#await fetchUserInfo(params.data.userId)}
-            <div class="bg-blurple size-6 animate-pulse rounded-full"></div>
+        {#await fetchUserInfo(userID)}
+            <div class="bg-blurple size-6 shrink-0 animate-pulse rounded-full"></div>
+            {#if !userName}
+                <div class="bg-blurple h-5 w-20 shrink-0 animate-pulse rounded-md"></div>
+            {/if}
         {:then userInfo}
             <div in:fade class="relative flex size-6 w-full items-center justify-center">
                 <div
                     class="bg-blurple size-6 rounded-full bg-cover bg-center"
-                    style="background-image: url('https://cdn.discordapp.com/avatars/{params.data.userId}/{userInfo.avatar}?size=4096');"
+                    style="background-image: url('https://cdn.discordapp.com/avatars/{userID}/{userInfo.avatar}?size=4096');"
                 ></div>
                 {#if userInfo.avatar_decoration_data?.asset}
                     <img
@@ -39,7 +46,12 @@
                     />
                 {/if}
             </div>
+            {#if !userName}
+                @{userInfo.username}
+            {/if}
         {/await}
-        @{params.data.userName}
+        {#if userName}
+            @{userName}
+        {/if}
     </a>
 </span>

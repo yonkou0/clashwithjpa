@@ -2,7 +2,7 @@
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
     import NewCwlPopup from "$lib/components/Admin/NewCWLPopup.svelte";
-    import UserName from "$lib/components/Admin/UserName.svelte";
+    import UserNameFormsWrapper from "$lib/components/Admin/UserNameFormsWrapper.svelte";
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { customCWLEntrySchema } from "$lib/schema";
@@ -67,7 +67,7 @@
         columnDefs: [
             {
                 field: "userName",
-                cellRenderer: makeSvelteCellRenderer(UserName),
+                cellRenderer: makeSvelteCellRenderer(UserNameFormsWrapper),
                 filter: true
             },
             {
