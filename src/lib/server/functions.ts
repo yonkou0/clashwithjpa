@@ -3,7 +3,7 @@ import type { NeonQueryFunction } from "@neondatabase/serverless";
 import { and, desc, eq } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 
-export type DB = NeonHttpDatabase<typeof schema> & {
+type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
 };
 
