@@ -179,7 +179,7 @@
                                         {#if !hiddenInfo[appIdx + idx]}
                                             {#await fetchPlayerInfo(application.tag)}
                                                 <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
-                                                    {#each new Array(4) as _}
+                                                    {#each new Array(5) as _}
                                                         <div class="flex w-full animate-pulse items-center justify-start gap-1">
                                                             <div class="size-6 shrink-0 rounded-lg bg-gray-500"></div>
                                                             <div class="h-4 w-2/3 rounded-md bg-gray-500"></div>
@@ -232,6 +232,19 @@
                                                         <LogosDiscordIcon class="text-blurple size-6 shrink-0" />
                                                         <p class="text-gray-300">Discord:</p>
                                                         <UserName userID={application.discordId} />
+                                                    </div>
+                                                    <div class="flex w-full items-center justify-start gap-1">
+                                                        <img src="/emoji/info.webp" alt="CG Donated" class="w-6 shrink-0" />
+                                                        <p class="text-gray-300">
+                                                            More Info: <a
+                                                                href="https://cc.fwafarm.com/cc_n/member.php?tag={encodeURIComponent(
+                                                                    application.tag
+                                                                )}"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                class="text-blue-400 hover:underline">Click here</a
+                                                            >
+                                                        </p>
                                                     </div>
                                                     <div class="flex w-full items-center justify-center gap-1">
                                                         <span class="grow rounded-xl border-t border-gray-400"></span>
