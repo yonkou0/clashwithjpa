@@ -76,7 +76,7 @@
                 <form in:fade method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
                     <Field {form} name="isAlt">
                         <div class="flex items-center justify-start gap-2">
-                            <Description>Are you applying from an alt?</Description>
+                            <Description>Non FWA Account?</Description>
                             <Control>
                                 {#snippet children({ props })}
                                     <Switch.Root
