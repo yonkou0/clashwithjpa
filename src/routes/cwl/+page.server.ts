@@ -41,7 +41,7 @@ export const load = (async ({ locals }) => {
     cocAccountsLen = userAccount.cocAccounts.length;
 
     return {
-        form: await superValidate(zod(cwlApplicationSchema(userAccount.cocAccounts.length))),
+        form: await superValidate(zod(cwlApplicationSchema())),
         user: user,
         userAccount: userAccount,
         cocData: Promise.all(userAccount.cocAccounts.map((account) => getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, account.tag))),
@@ -51,7 +51,7 @@ export const load = (async ({ locals }) => {
 
 export const actions: Actions = {
     default: async (event) => {
-        const form = await superValidate(event, zod(cwlApplicationSchema(cocAccountsLen)));
+        const form = await superValidate(event, zod(cwlApplicationSchema()));
         if (!form.valid) {
             return fail(400, {
                 form
@@ -76,6 +76,8 @@ export const actions: Actions = {
             }
         }
 
+        const isAlt = form.data.isAlt;
+
         const [month, year] = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }).split(" ");
         const playerTag = form.data.tag;
 
@@ -93,18 +95,26 @@ export const actions: Actions = {
             });
         }
 
-        const playerClanTag = playerData.clan?.tag;
-        const playerClanName = playerData.clan?.name;
-        const fwaStats = await getFWAStats(playerClanTag as string);
-        const fwaStatsMember = "error" in fwaStats ? undefined : fwaStats[playerTag];
+        let playerAccountWeight: number | undefined = 1;
+        let playerClanName: string | undefined = "";
 
-        if (!fwaStatsMember) {
-            return message(form, "You are not in the FWA clan", {
-                status: 400
-            });
+        if (isAlt) {
+            playerAccountWeight = form.data.accountWeight;
+            playerClanName = form.data.accountClan;
+        } else {
+            const playerClanTag = playerData.clan!.tag;
+            playerClanName = playerData.clan!.name;
+            const fwaStats = await getFWAStats(playerClanTag as string);
+            const fwaStatsMember = "error" in fwaStats ? undefined : fwaStats[playerTag];
+
+            if (!fwaStatsMember) {
+                return message(form, "You are not in the FWA clan", {
+                    status: 400
+                });
+            }
+
+            playerAccountWeight = fwaStatsMember.weight;
         }
-
-        const playerAccountWeight = fwaStatsMember.weight;
 
         const cwlApplication: InsertCWL = {
             userId: event.locals.user?.id as string,
@@ -112,7 +122,7 @@ export const actions: Actions = {
             accountName: playerData.name,
             accountTag: playerData.tag,
             accountClan: playerClanName as string,
-            accountWeight: playerAccountWeight,
+            accountWeight: playerAccountWeight !== undefined ? playerAccountWeight : 1,
             month: month,
             year: year as unknown as number,
             preferenceNum: form.data.preferenceNum

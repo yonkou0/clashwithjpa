@@ -7,10 +7,13 @@ export const clanApplicationSchema = z.object({
     "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
 });
 
-export function cwlApplicationSchema(max: number) {
+export function cwlApplicationSchema() {
     return z.object({
+        isAlt: z.boolean().default(false),
         tag: z.string().min(5).max(10).startsWith("#"),
-        preferenceNum: z.number().int().min(1).max(max).default(1),
+        accountClan: z.optional(z.string().nonempty()),
+        accountWeight: z.optional(z.number().int().min(1).default(1)),
+        preferenceNum: z.number().int().min(1).max(99).default(1),
         "cf-turnstile-response": dev ? z.string() : z.string().nonempty()
     });
 }

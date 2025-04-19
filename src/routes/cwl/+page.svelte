@@ -16,7 +16,7 @@
     let { data }: { data: PageData } = $props();
 
     const form = superForm(data.form, {
-        validators: zodClient(cwlApplicationSchema(data.userAccount.cocAccounts.length)),
+        validators: zodClient(cwlApplicationSchema()),
         onUpdated() {
             reset?.();
         }
@@ -68,48 +68,104 @@
             class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
         >
             {#await data.cocData}
-                <div class="flex w-full max-w-lg flex-col gap-3 px-5">
-                    <p>Select one of your accounts</p>
-                    <div class="input animate-pulse">Select an account</div>
-                    <p>Preference number ( 1 - {data.userAccount.cocAccounts.length} )</p>
-                    <div class="input animate-pulse">1</div>
-                    <Button class="!cursor-wait px-4 py-3 text-sm" disabled={true}>Submit</Button>
+                <div class="flex w-full max-w-lg items-center justify-center px-5">
+                    <TablerLoader2 class="size-10 animate-spin" />
                 </div>
             {:then coc}
                 <form in:fade method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
-                    <Field {form} name="tag">
-                        <Description>Select one of your accounts</Description>
+                    <Field {form} name="isAlt">
+                        <Description>Are you applying from an alt?</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <select {...props} bind:value={$formData.tag}>
-                                    <option value="" disabled selected hidden>Select an account</option>
-                                    {#each coc as account}
-                                        <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
-                                    {/each}
-                                </select>
+                                <input {...props} type="checkbox" bind:checked={$formData.isAlt} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
                     </Field>
 
-                    <Field {form} name="preferenceNum">
-                        {@const accounts = data.userAccount.cocAccounts.length}
-                        <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <input
-                                    {...props}
-                                    type="number"
-                                    placeholder="1"
-                                    min={1}
-                                    max={accounts}
-                                    disabled={accounts <= 1}
-                                    bind:value={$formData.preferenceNum}
-                                />
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
+                    {#if !$formData.isAlt}
+                        <Field {form} name="tag">
+                            <Description>Select one of your accounts</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <select {...props} bind:value={$formData.tag}>
+                                        <option value="" disabled selected hidden>Select an account</option>
+                                        {#each coc as account}
+                                            <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
+                                        {/each}
+                                    </select>
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+
+                        <Field {form} name="preferenceNum">
+                            {@const accounts = data.userAccount.cocAccounts.length}
+                            <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <input
+                                        {...props}
+                                        type="number"
+                                        placeholder="1"
+                                        min="1"
+                                        max={accounts}
+                                        disabled={accounts <= 1}
+                                        bind:value={$formData.preferenceNum}
+                                    />
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+                    {/if}
+
+                    {#if $formData.isAlt}
+                        <Field {form} name="tag">
+                            <Description>Select one of your accounts</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <select {...props} bind:value={$formData.tag}>
+                                        <option value="" disabled selected hidden>Select an account</option>
+                                        {#each coc as account}
+                                            <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
+                                        {/each}
+                                    </select>
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+
+                        <Field {form} name="preferenceNum">
+                            {@const accounts = data.userAccount.cocAccounts.length}
+                            <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <input {...props} type="number" placeholder="1" min="1" max="99" bind:value={$formData.preferenceNum} />
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+
+                        <Field {form} name="accountClan">
+                            <Description>Clan Name</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <input {...props} type="text" placeholder="Clan Name" bind:value={$formData.accountClan} />
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+
+                        <Field {form} name="accountWeight">
+                            <Description>Account Weight</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <input {...props} type="number" placeholder="0" min={0} bind:value={$formData.accountWeight} />
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </Field>
+                    {/if}
 
                     {#if !dev}
                         <Field {form} name="cf-turnstile-response">
