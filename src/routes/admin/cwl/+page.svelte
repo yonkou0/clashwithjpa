@@ -4,13 +4,12 @@
     import NewCwlPopup from "$lib/components/Admin/NewCWLPopup.svelte";
     import UserNameFormsWrapper from "$lib/components/Admin/UserNameFormsWrapper.svelte";
     import Button from "$lib/components/Button.svelte";
+    import Grid from "$lib/components/Grid.svelte";
     import { toast } from "$lib/components/toast";
     import { customCWLEntrySchema } from "$lib/schema";
     import type { InsertCWL } from "$lib/server/schema";
-    import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
     import type { GridOptions, IDateFilterParams, ValueFormatterParams } from "@ag-grid-community/core";
-    import { themeQuartz } from "@ag-grid-community/theming";
-    import { AgGrid, makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
+    import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { json2csv } from "json-2-csv";
     import { fade, fly } from "svelte/transition";
@@ -31,25 +30,6 @@
     let loading: boolean = $state(false);
     let syncing: "success" | "loading" | "error" = $state("success");
     let openPopup: boolean = $state(false);
-
-    const theme = themeQuartz.withParams({
-        backgroundColor: "#030712", // gray-900
-        browserColorScheme: "dark",
-        chromeBackgroundColor: {
-            ref: "foregroundColor",
-            mix: 0.07,
-            onto: "backgroundColor"
-        },
-        foregroundColor: "#F9FAFB", // gray-50
-        headerFontSize: 14,
-        borderRadius: 8, // rounded-lg
-        checkboxBorderRadius: 6, // rounded-md
-        focusShadow: "",
-        dropdownShadow: {
-            radius: 8,
-            color: "#1F2937" // gray-800
-        }
-    });
 
     const filterParams: IDateFilterParams = {
         comparator: (filterDate: Date, cellValue: string) => {
@@ -139,8 +119,7 @@
                 syncing = "error";
                 toast.error("Failed to update application");
             }
-        },
-        theme
+        }
     };
 
     let selectedRows: InsertCWL[] = $state([]);
@@ -354,7 +333,7 @@
         </div>
     </div>
     <div class="size-full">
-        <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} />
+        <Grid {gridOptions} bind:rowData />
     </div>
 </div>
 
