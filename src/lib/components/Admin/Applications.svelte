@@ -75,7 +75,7 @@
             toast.success(`${status.charAt(0).toUpperCase() + status.slice(1)} application of ${name}`);
             invalidateAll();
         } else {
-            toast.error(`Failed to ${type} application`);
+            toast.error(`Failed change application status of ${name}`);
         }
         setTimeout(() => {
             disabled = false;
