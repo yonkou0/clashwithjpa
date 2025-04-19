@@ -12,6 +12,7 @@
     import LogosDiscordIcon from "~icons/logos/discord-icon";
     import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
     import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
+    import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
     import CocButton from "../CocButton.svelte";
     import { toast } from "../toast";
     import UserName from "./UserName.svelte";
@@ -60,10 +61,10 @@
         }
     }
 
-    async function handleApplication(tag: string, name: string, status: "accepted" | "rejected", discordId: string = "") {
+    async function handleApplication(tag: string, name: string, status: "accepted" | "rejected" | "deleted", discordId: string = "") {
         disabled = true;
-        const body: { status: "accepted" | "rejected"; discordId?: string } = { status: status };
-        if (status === "accepted") body["discordId"] = discordId;
+        const body: { status: typeof status; discordId?: string } = { status: status };
+        if (status === "accepted" || status === "deleted") body["discordId"] = discordId;
         let response = await fetch(`/admin/api/applications/${encodeURIComponent(tag)}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -295,8 +296,8 @@
                                             {/await}
                                         {/if}
                                     </div>
-                                    {#if type == "pending"}
-                                        <div class="flex w-full items-center justify-evenly gap-5">
+                                    <div class="flex w-full items-center justify-evenly gap-5">
+                                        {#if type === "pending"}
                                             <CocButton
                                                 type="success"
                                                 size="sm"
@@ -326,8 +327,40 @@
                                                 <MaterialSymbolsCloseRounded class="size-6" />
                                                 Reject
                                             </CocButton>
-                                        </div>
-                                    {/if}
+                                        {:else if type === "accepted" || type === "rejected"}
+                                            {#if type === "rejected"}
+                                                <CocButton
+                                                    type="success"
+                                                    size="sm"
+                                                    class="w-full"
+                                                    {disabled}
+                                                    onclick={async () => {
+                                                        await handleApplication(
+                                                            application.tag,
+                                                            application.playerData.name,
+                                                            "accepted",
+                                                            application.discordId
+                                                        );
+                                                    }}
+                                                >
+                                                    <MaterialSymbolsCheckRounded class="size-6" />
+                                                    Accept
+                                                </CocButton>
+                                            {/if}
+                                            <CocButton
+                                                type="danger"
+                                                size="sm"
+                                                class="w-full"
+                                                {disabled}
+                                                onclick={async () => {
+                                                    await handleApplication(application.tag, application.playerData.name, "deleted");
+                                                }}
+                                            >
+                                                <MaterialSymbolsDeleteRounded class="size-6" />
+                                                Delete
+                                            </CocButton>
+                                        {/if}
+                                    </div>
                                 </div>
                             {/each}
                         </ul>

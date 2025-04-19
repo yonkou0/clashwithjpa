@@ -5,7 +5,7 @@
 
     let { data }: { data: PageData } = $props();
 
-    const types: ("pending" | "rejected")[] = ["pending", "rejected"];
+    const types: ("pending" | "rejected" | "accepted")[] = ["pending", "rejected", "accepted"];
 </script>
 
 <div class="p-5 *:not-first:mt-11 md:p-11" in:fade>

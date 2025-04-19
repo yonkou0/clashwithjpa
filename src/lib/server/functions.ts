@@ -51,6 +51,12 @@ export async function rejectApplication(db: DB, tag: schema.SelectClanApplicatio
     await db.update(schema.clanApplicationTable).set({ status: "rejected" }).where(eq(schema.clanApplicationTable.tag, tag));
 }
 
+export async function deleteApplication(db: DB, tag: schema.SelectClanApplication["tag"], discordId: schema.SelectUser["discordId"]) {
+    await db
+        .delete(schema.clanApplicationTable)
+        .where(and(eq(schema.clanApplicationTable.tag, tag), eq(schema.clanApplicationTable.discordId, discordId)));
+}
+
 export async function getClansPublicData(db: DB) {
     return db.query.clanTable.findMany({
         orderBy: desc(schema.clanTable.clanLevel),
