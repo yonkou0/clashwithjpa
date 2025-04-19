@@ -5,7 +5,7 @@ import { validateCFToken } from "$lib/cf/helpers";
 import { getFWAStats } from "$lib/coc/fwa";
 import { getPlayerInfo } from "$lib/coc/player";
 import { cwlApplicationSchema } from "$lib/schema";
-import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled } from "$lib/server/functions";
+import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled, getClanNames } from "$lib/server/functions";
 import type { InsertCWL } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
@@ -45,7 +45,8 @@ export const load = (async ({ locals }) => {
         user: user,
         userAccount: userAccount,
         cocData: Promise.all(userAccount.cocAccounts.map((account) => getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, account.tag))),
-        applications: applications
+        applications: applications,
+        clanNames: await getClanNames(locals.db)
     };
 }) satisfies PageServerLoad;
 

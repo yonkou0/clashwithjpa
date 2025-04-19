@@ -65,6 +65,15 @@ export async function getClansPublicData(db: DB) {
     });
 }
 
+export async function getClanNames(db: DB) {
+    return db.query.clanTable.findMany({
+        orderBy: desc(schema.clanTable.clanLevel),
+        columns: {
+            clanName: true
+        }
+    });
+}
+
 export async function getRules(db: DB) {
     const rules = await db.query.settingsTable.findFirst({
         where: eq(schema.settingsTable.key, "rules")

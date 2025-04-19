@@ -150,7 +150,12 @@
                             <Description>Clan Name</Description>
                             <Control>
                                 {#snippet children({ props })}
-                                    <input {...props} type="text" placeholder="Clan Name" bind:value={$formData.accountClan} />
+                                    <select {...props} bind:value={$formData.accountClan}>
+                                        <option value="" disabled selected hidden>Select a clan</option>
+                                        {#each data.clanNames as clanName}
+                                            <option class="bg-gray-900" value={clanName.clanName}>{clanName.clanName}</option>
+                                        {/each}
+                                    </select>
                                 {/snippet}
                             </Control>
                             <FieldErrors class="text-red-400" />
