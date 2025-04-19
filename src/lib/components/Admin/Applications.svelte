@@ -353,7 +353,12 @@
                                                 class="w-full"
                                                 {disabled}
                                                 onclick={async () => {
-                                                    await handleApplication(application.tag, application.playerData.name, "deleted");
+                                                    await handleApplication(
+                                                        application.tag,
+                                                        application.playerData.name,
+                                                        "deleted",
+                                                        application.discordId
+                                                    );
                                                 }}
                                             >
                                                 <MaterialSymbolsDeleteRounded class="size-6" />
