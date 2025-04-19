@@ -28,7 +28,7 @@
         "@types/nprogress": "^0.2.3",
         "ag-grid-svelte5-extended": "^0.0.13",
         "drizzle-kit": "^0.30.6",
-        "esbuild": "^0.24.2",
+        "esbuild": "^0.25.0",
         "eslint": "^9.25.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-svelte": "^2.46.1",
