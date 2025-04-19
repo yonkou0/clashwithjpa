@@ -5,14 +5,12 @@ import { validateCFToken } from "$lib/cf/helpers";
 import { getFWAStats } from "$lib/coc/fwa";
 import { getPlayerInfo } from "$lib/coc/player";
 import { cwlApplicationSchema } from "$lib/schema";
-import { getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled, getClanNames } from "$lib/server/functions";
+import { getClanNames, getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled } from "$lib/server/functions";
 import type { InsertCWL } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { Actions, PageServerLoad } from "./$types";
-
-let cocAccountsLen: number;
 
 export const load = (async ({ locals }) => {
     const user = locals.user;
@@ -38,10 +36,9 @@ export const load = (async ({ locals }) => {
     }
 
     const applications = await getCWLApplications(locals.db, user.id);
-    cocAccountsLen = userAccount.cocAccounts.length;
 
     return {
-        form: await superValidate(zod(cwlApplicationSchema())),
+        form: await superValidate(zod(cwlApplicationSchema)),
         user: user,
         userAccount: userAccount,
         cocData: Promise.all(userAccount.cocAccounts.map((account) => getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, account.tag))),
@@ -52,7 +49,7 @@ export const load = (async ({ locals }) => {
 
 export const actions: Actions = {
     default: async (event) => {
-        const form = await superValidate(event, zod(cwlApplicationSchema()));
+        const form = await superValidate(event, zod(cwlApplicationSchema));
         if (!form.valid) {
             return fail(400, {
                 form

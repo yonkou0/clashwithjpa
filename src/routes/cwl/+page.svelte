@@ -5,6 +5,7 @@
     import Button from "$lib/components/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { cwlApplicationSchema } from "$lib/schema";
+    import { Switch } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
     import { fade, fly } from "svelte/transition";
@@ -16,7 +17,7 @@
     let { data }: { data: PageData } = $props();
 
     const form = superForm(data.form, {
-        validators: zodClient(cwlApplicationSchema()),
+        validators: zodClient(cwlApplicationSchema),
         onUpdated() {
             reset?.();
         }
@@ -74,84 +75,67 @@
             {:then coc}
                 <form in:fade method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
                     <Field {form} name="isAlt">
-                        <Description>Are you applying from an alt?</Description>
+                        <div class="flex items-center justify-start gap-2">
+                            <Description>Are you applying from an alt?</Description>
+                            <Control>
+                                {#snippet children({ props })}
+                                    <Switch.Root
+                                        {...props}
+                                        name="CWLStatus"
+                                        bind:checked={$formData.isAlt}
+                                        class="inline-flex h-7 w-[50px] cursor-pointer items-center gap-11 rounded-full bg-gray-800 p-1 transition-all disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-green-600"
+                                    >
+                                        <Switch.Thumb
+                                            class="data-[state=unchecked]:-translate-x-0.3 pointer-events-none block size-6 shrink-0 rounded-full bg-gray-50 transition-all data-[state=checked]:translate-x-[80%]"
+                                        />
+                                    </Switch.Root>
+                                {/snippet}
+                            </Control>
+                            <FieldErrors class="text-red-400" />
+                        </div>
+                    </Field>
+
+                    <Field {form} name="tag">
+                        <Description>Select one of your accounts</Description>
                         <Control>
                             {#snippet children({ props })}
-                                <input {...props} type="checkbox" bind:checked={$formData.isAlt} />
+                                <select {...props} bind:value={$formData.tag}>
+                                    <option value="" disabled selected hidden>Select an account</option>
+                                    {#each coc as account}
+                                        <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
+                                    {/each}
+                                </select>
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-red-400" />
                     </Field>
 
-                    {#if !$formData.isAlt}
-                        <Field {form} name="tag">
-                            <Description>Select one of your accounts</Description>
-                            <Control>
-                                {#snippet children({ props })}
-                                    <select {...props} bind:value={$formData.tag}>
-                                        <option value="" disabled selected hidden>Select an account</option>
-                                        {#each coc as account}
-                                            <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
-                                        {/each}
-                                    </select>
-                                {/snippet}
-                            </Control>
-                            <FieldErrors class="text-red-400" />
-                        </Field>
-
-                        <Field {form} name="preferenceNum">
-                            {@const accounts = data.userAccount.cocAccounts.length}
-                            <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
-                            <Control>
-                                {#snippet children({ props })}
-                                    <input
-                                        {...props}
-                                        type="number"
-                                        placeholder="1"
-                                        min="1"
-                                        max={accounts}
-                                        disabled={accounts <= 1}
-                                        bind:value={$formData.preferenceNum}
-                                    />
-                                {/snippet}
-                            </Control>
-                            <FieldErrors class="text-red-400" />
-                        </Field>
-                    {/if}
+                    <Field {form} name="preferenceNum">
+                        {@const accounts = data.userAccount.cocAccounts.length}
+                        <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
+                        <Control>
+                            {#snippet children({ props })}
+                                <input
+                                    {...props}
+                                    type="number"
+                                    placeholder="1"
+                                    min="1"
+                                    max={accounts}
+                                    disabled={accounts <= 1}
+                                    bind:value={$formData.preferenceNum}
+                                />
+                            {/snippet}
+                        </Control>
+                        <FieldErrors class="text-red-400" />
+                    </Field>
 
                     {#if $formData.isAlt}
-                        <Field {form} name="tag">
-                            <Description>Select one of your accounts</Description>
-                            <Control>
-                                {#snippet children({ props })}
-                                    <select {...props} bind:value={$formData.tag}>
-                                        <option value="" disabled selected hidden>Select an account</option>
-                                        {#each coc as account}
-                                            <option class="bg-gray-900" value={account?.tag}>{account?.tag} - {account?.name}</option>
-                                        {/each}
-                                    </select>
-                                {/snippet}
-                            </Control>
-                            <FieldErrors class="text-red-400" />
-                        </Field>
-
-                        <Field {form} name="preferenceNum">
-                            {@const accounts = data.userAccount.cocAccounts.length}
-                            <Description>Preference number {accounts > 1 ? `( 1 - ${accounts} )` : ``}</Description>
-                            <Control>
-                                {#snippet children({ props })}
-                                    <input {...props} type="number" placeholder="1" min="1" max="99" bind:value={$formData.preferenceNum} />
-                                {/snippet}
-                            </Control>
-                            <FieldErrors class="text-red-400" />
-                        </Field>
-
                         <Field {form} name="accountClan">
                             <Description>Clan Name</Description>
                             <Control>
                                 {#snippet children({ props })}
                                     <select {...props} bind:value={$formData.accountClan}>
-                                        <option value="" disabled selected hidden>Select a clan</option>
+                                        <option value={undefined} disabled selected hidden>Select a clan</option>
                                         {#each data.clanNames as clanName}
                                             <option class="bg-gray-900" value={clanName.clanName}>{clanName.clanName}</option>
                                         {/each}
