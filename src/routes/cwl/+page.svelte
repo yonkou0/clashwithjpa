@@ -79,6 +79,7 @@
                             <Description>Non FWA Account?</Description>
                             <Control>
                                 {#snippet children({ props })}
+                                    <input type="hidden" name="isAlt" bind:value={$formData.isAlt} />
                                     <Switch.Root
                                         {...props}
                                         name="CWLStatus"
