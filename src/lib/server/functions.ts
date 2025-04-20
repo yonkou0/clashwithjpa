@@ -1,9 +1,9 @@
+import { DISCORD_BOT_TOKEN } from "$env/static/private";
+import { PUBLIC_DISCORD_URL } from "$env/static/public";
 import * as schema from "$lib/server/schema";
 import type { NeonQueryFunction } from "@neondatabase/serverless";
 import { and, desc, eq } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
-import { PUBLIC_DISCORD_URL } from "$env/static/public";
-import { DISCORD_BOT_TOKEN, DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
 
 const HEADERS = {
     "Content-Type": "application/json",
@@ -13,7 +13,7 @@ const HEADERS = {
 const GUILD_ID = "1029993902503108678";
 const VERIFIED_MEMBER_ROLE_ID = "1252896435913883760";
 
-type DB = NeonHttpDatabase<typeof schema> & {
+export type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
 };
 
