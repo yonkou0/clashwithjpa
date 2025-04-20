@@ -38,44 +38,12 @@ Clash With JPA
     pnpm preview
     ```
 
-## ✏️ Editing Data
-
-Now that you have the app running, you can edit the data in the [`data`](./data/) directory. You can add, edit, or delete any file in the [`data`](./data/) directory. The app will automatically update the data.
-- [`info.json`](./data/info.json): Contains authorizations informations.
-    <details>
-
-    <summary>Info keys</summary>
-
-    - `guildID` (`integer`): The Guild ID of the Discord server where the user must be present.
-        - This is used to verify the user's presence in the Discord server.
-        - If the user is not present in the server, the user doesn't get access to the panel.
-    - `adminRoleID` (`list of integers`): The Role ID of the Admin role in the Discord server.
-        - This role will have access to the admin panel.
-
-    </details>
-- [`clans/<clan-tag>.md`](./data/clans/): Contains the requirements for the clan with the specified tag.
-- [`clans/components`](./data/clans/components/): Contains information which are common for all clans.
-- [`clans/components/order.json`](./data/clans/components/order.json): Contains the order of common components to be displayed in the clan page.
-
-- How to add a new clan?
-    - Add the clan tag in the [`clans.json`](./data/clans.json) file.
-    - Create a new file in the [`clans`](./data/clans/) directory with the name `<clan-tag>.md`.
-    - Add the requirements in the newly created file.
-
-- How to edit clan requirements?
-    - Open the [`clans.json`](./data/clans.json) file and find the clan tag.
-    - Add/Remove requirements in the respective of label names in [`static/labels`](./static/labels/) directory.
-    - Do the necessary changes in `<clan-tag>.md` file.
-> [!IMPORTANT]
-> The label name declared in the [`clans.json`](./data/clans.json) file should match the file name in the [`static/labels`](./static/labels/) directory.
-
 ## 📂 Working with database and drizzle
 
 To make any changes to the database, you have to follow certain steps to avoid issues
 
 - Edit the database schema file with required changes
-- Run `pnpm run db:generate` to generate the migrations file
-- Run `pnpm run db:migrate` to apply the changes to the database
+- Run `pnpm run db:push` to apply the changes to the database
 
 This will ensure that the changes are applied to the database without any issues.
 
