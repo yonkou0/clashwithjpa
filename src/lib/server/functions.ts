@@ -65,7 +65,7 @@ export async function acceptApplication(db: DB, tag: schema.SelectClanApplicatio
     await db.update(schema.clanApplicationTable).set({ status: "accepted" }).where(eq(schema.clanApplicationTable.tag, tag));
     await db.insert(schema.userTable).values({ discordId: discordId }).onConflictDoNothing({ target: schema.userTable.discordId });
     await db.insert(schema.cocTable).values({ userId: discordId, tag: tag });
-    // await addRole(GUILD_ID, VERIFIED_MEMBER_ROLE_ID, discordId);
+    await addRole(GUILD_ID, VERIFIED_MEMBER_ROLE_ID, discordId);
 }
 
 export async function rejectApplication(db: DB, tag: schema.SelectClanApplication["tag"]) {
