@@ -2,6 +2,16 @@ import * as schema from "$lib/server/schema";
 import type { NeonQueryFunction } from "@neondatabase/serverless";
 import { and, desc, eq } from "drizzle-orm";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
+import { PUBLIC_DISCORD_URL } from "$env/static/public";
+import { DISCORD_BOT_TOKEN, DISCORD_ID, DISCORD_SECRET } from "$env/static/private";
+
+const HEADERS = {
+    "Content-Type": "application/json",
+    Authorization: `Bot ${DISCORD_BOT_TOKEN}`
+};
+
+const GUILD_ID = "1029993902503108678";
+const VERIFIED_MEMBER_ROLE_ID = "1252896435913883760";
 
 type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
@@ -41,10 +51,21 @@ export async function getClanApplicationFromDiscordId(db: DB, discordId: schema.
     });
 }
 
+async function addRole(guildId: string, roleId: string, userId: string) {
+    const response = await fetch(`${PUBLIC_DISCORD_URL}/guilds/${guildId}/members/${userId}/roles/${roleId}`, {
+        method: "PUT",
+        headers: HEADERS
+    });
+    if (!response.ok) {
+        throw new Error(`Failed to add role: ${response.statusText}`);
+    }
+}
+
 export async function acceptApplication(db: DB, tag: schema.SelectClanApplication["tag"], discordId: schema.SelectUser["discordId"]) {
     await db.update(schema.clanApplicationTable).set({ status: "accepted" }).where(eq(schema.clanApplicationTable.tag, tag));
-    await db.insert(schema.userTable).values({ discordId: discordId });
+    await db.insert(schema.userTable).values({ discordId: discordId }).onConflictDoNothing({ target: schema.userTable.discordId });
     await db.insert(schema.cocTable).values({ userId: discordId, tag: tag });
+    // await addRole(GUILD_ID, VERIFIED_MEMBER_ROLE_ID, discordId);
 }
 
 export async function rejectApplication(db: DB, tag: schema.SelectClanApplication["tag"]) {
