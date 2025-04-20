@@ -16,7 +16,8 @@ clan_names = {
     "eg": "ELITE GAMERZ",
     "uc": "űśă ćőļmbîă",
     "sg": "sports game",
-    "ph": "POWER HIGH"
+    "ph": "POWER HIGH",
+    "bz": "BItukOnZ",
 }
 
 clan_requirements = {
@@ -28,6 +29,7 @@ clan_requirements = {
     "#P9RLJR2J": {"attacks": 50, "donations": 3500, "clangames": 1000},
     "#29VJYRLY8": {"attacks": 20, "donations": 1000, "clangames": 1000},
     "#GL0RRUC0": {"attacks": 50, "donations": 3500, "clangames": 1000},
+    "#9209QYGG": {"attacks": 20, "donations": 1000, "clangames": 1000},
     "#JGUPR28R": {"attacks": 0, "donations": 0, "clangames": 0},
 }
 

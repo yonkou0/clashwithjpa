@@ -4,32 +4,19 @@ import asyncpg
 from dotenv import load_dotenv
 from typing import List
 import json
-from typing import TypedDict
 
 tables: List[str] = [
     "base_table",
     "clan_table",
     "coc_table",
     "user_table",
+    "cwl_table",
 ]
 
 other_tables: List[str] = [
     "clan_application_table",
     "settings_table",
 ]
-
-class Rules(TypedDict):
-    content: str
-
-class GuildId(TypedDict):
-    value: str
-
-class SettingsValue(TypedDict):
-    applications_enabled: bool
-    admin_roles_id: List[str]
-    admin_members_id: List[str]
-    rules: Rules
-    guild_id: GuildId
 
 async def backup_settings(pool: asyncpg.Pool, output_file: str = "settings_backup.json"):
     async with pool.acquire() as conn:

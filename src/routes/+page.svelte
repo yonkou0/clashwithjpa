@@ -6,6 +6,7 @@
     import MaterialSymbolsPlayCircleRounded from "~icons/material-symbols/play-circle-rounded";
     import MaterialSymbolsVolumeOffRounded from "~icons/material-symbols/volume-off-rounded";
     import MaterialSymbolsVolumeUpRounded from "~icons/material-symbols/volume-up-rounded";
+    import type { PageData } from "./$types";
 
     let isPaused: boolean = $state(false);
     let isMuted: boolean = $state(true);
@@ -34,6 +35,12 @@
             }
         });
     });
+
+    interface Props {
+        data?: PageData;
+    }
+
+    let { data }: Props = $props();
 </script>
 
 <svelte:head>
@@ -54,6 +61,15 @@
                 today!
             </p>
             <CocButton href="/clans" size="md" class="mt-10">See our clans</CocButton>
+            {#if data?.user}
+                {#if data?.applicationEnabled}
+                    <CocButton href="/apply" size="md" class="mt-4">Clan Application Open!</CocButton>
+                {/if}
+
+                {#if data?.cwlEnabled}
+                    <CocButton href="/cwl" size="md" class="mt-4">CWL Open!</CocButton>
+                {/if}
+            {/if}
         </div>
     </div>
 
