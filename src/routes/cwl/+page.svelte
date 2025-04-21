@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { PageData } from "./$types";
     import { dev } from "$app/environment";
     import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
@@ -12,7 +13,8 @@
     import SuperDebug, { superForm } from "sveltekit-superforms";
     import { zodClient } from "sveltekit-superforms/adapters";
     import TablerLoader2 from "~icons/tabler/loader-2";
-    import type { PageData } from "./$types";
+    import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
+    import { Dialog, Label, Separator } from "bits-ui";
 
     let { data }: { data: PageData } = $props();
 
@@ -68,6 +70,57 @@
         <div
             class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
         >
+            <div class="mb-4 flex w-full max-w-lg flex-col gap-2 px-5">
+                <Dialog.Root>
+                    <Dialog.Trigger>
+                        <Button class="w-full px-4 py-3 text-sm" type="button">Past Applications</Button>
+                    </Dialog.Trigger>
+                    <Dialog.Portal>
+                        <Dialog.Overlay class="fixed inset-0 z-100 flex size-full items-center justify-center backdrop-blur-xs" forceMount>
+                            {#snippet child({ props, open })}
+                                {#if open}
+                                    <div {...props} transition:fade={{ duration: 100 }}>
+                                        <Dialog.Content
+                                            class="flex max-h-[80vh] max-w-full flex-col gap-5 rounded-lg border border-gray-700 bg-gray-900 p-5 text-sm"
+                                        >
+                                            <div class="flex flex-col gap-2 text-left">
+                                                <div class="flex items-center justify-between gap-2">
+                                                    <Dialog.Title class="text-xl font-extrabold">Past CWL Applications</Dialog.Title>
+                                                    <Dialog.Close class="cursor-pointer transition-all duration-200 hover:brightness-80">
+                                                        <MaterialSymbolsCloseRounded class="size-6" />
+                                                    </Dialog.Close>
+                                                </div>
+                                                <div class="flex max-h-[60vh] flex-col gap-2 overflow-y-auto pr-1">
+                                                    {#each data.applications as pastApplication}
+                                                        <div
+                                                            class="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-700 bg-gray-800 p-2"
+                                                        >
+                                                            <div class="flex flex-col gap-1">
+                                                                <p class="text-sm font-bold">
+                                                                    {pastApplication.accountName} - {pastApplication.accountTag}
+                                                                </p>
+                                                                <p class="text-xs text-gray-400">
+                                                                    {pastApplication.appliedAt.toLocaleDateString("en-US", {
+                                                                        year: "numeric",
+                                                                        month: "2-digit",
+                                                                        day: "2-digit"
+                                                                    })}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    {/each}
+                                                </div>
+                                            </div>
+                                        </Dialog.Content>
+                                    </div>
+                                {/if}
+                            {/snippet}
+                        </Dialog.Overlay>
+                    </Dialog.Portal>
+                </Dialog.Root>
+                <Separator.Root class="my-2 w-full border text-gray-800" />
+            </div>
+
             {#await data.cocData}
                 <div class="flex w-full max-w-lg items-center justify-center px-5">
                     <TablerLoader2 class="size-10 animate-spin" />
@@ -76,7 +129,7 @@
                 <form in:fade method="POST" action="/cwl" use:enhance class="flex w-full max-w-lg flex-col gap-2 px-5">
                     <Field {form} name="isAlt">
                         <div class="flex items-center justify-start gap-2">
-                            <Description>Non FWA Account?</Description>
+                            <Description>Account not in JPA Clans (Alt)?</Description>
                             <Control>
                                 {#snippet children({ props })}
                                     <input type="hidden" name="isAlt" bind:value={$formData.isAlt} />
