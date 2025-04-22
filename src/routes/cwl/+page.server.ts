@@ -97,6 +97,11 @@ export const actions: Actions = {
         let playerClanName: string | undefined = "";
 
         if (isAlt) {
+            if (!form.data.accountClan) {
+                return message(form, "Please select a clan", {
+                    status: 400
+                });
+            }
             playerAccountWeight = form.data.accountWeight;
             playerClanName = form.data.accountClan;
         } else {

@@ -211,7 +211,7 @@
                                 <Control>
                                     {#snippet children({ props })}
                                         <select {...props} bind:value={$formData.accountClan}>
-                                            <option value={undefined} disabled selected hidden>Select a clan</option>
+                                            <option value="" disabled selected hidden>Select a clan</option>
                                             {#each data.clanNames as clanName}
                                                 <option class="bg-gray-900" value={clanName.clanName}>{clanName.clanName}</option>
                                             {/each}
