@@ -60,16 +60,18 @@
                 FWA experts in War-Farming, offering diverse clans and simultaneous 50v50 FWA wars and CWL action. Join one of the clans in our family
                 today!
             </p>
-            <CocButton href="/clans" size="md" class="mt-10">See our clans</CocButton>
-            {#if data?.user}
-                {#if data?.applicationEnabled}
-                    <CocButton href="/apply" size="md" class="mt-4">Clan Application Open!</CocButton>
-                {/if}
+            <div class="flex flex-col items-center justify-center gap-1">
+                <CocButton href="/clans" size="md" class="mt-10">See our clans</CocButton>
+                {#if data?.user}
+                    {#if data?.applicationEnabled}
+                        <CocButton href="/apply" size="md" class="mt-4">Clan Application Open!</CocButton>
+                    {/if}
 
-                {#if data?.cwlEnabled}
-                    <CocButton href="/cwl" size="md" class="mt-4">CWL Open!</CocButton>
+                    {#if data?.cwlEnabled}
+                        <CocButton href="/cwl" size="md" class="mt-4">CWL Open!</CocButton>
+                    {/if}
                 {/if}
-            {/if}
+            </div>
         </div>
     </div>
 
