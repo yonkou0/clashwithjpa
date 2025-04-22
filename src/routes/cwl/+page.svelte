@@ -215,7 +215,7 @@
                                             {#each data.clanNames as clanName}
                                                 <option class="bg-gray-900" value={clanName.clanName}>{clanName.clanName}</option>
                                             {/each}
-                                            <option class="bg-gray-900" value="other">Other</option>
+                                            <option class="bg-gray-900" value="Other">Other</option>
                                         </select>
                                     {/snippet}
                                 </Control>
