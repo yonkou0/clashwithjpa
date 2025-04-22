@@ -73,7 +73,7 @@
             {/if}
         </div>
         <div
-            class="flex size-full flex-col items-center justify-center bg-gray-950/50 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
+            class="flex size-full flex-col items-center justify-center bg-gray-950/80 backdrop-blur-xs lg:w-1/2 lg:bg-transparent lg:backdrop-blur-none"
         >
             {#if data.applications.length && showPrevApps}
                 <div in:fade class="flex size-full flex-col justify-center">
@@ -124,7 +124,11 @@
                                                     <Tooltip.Provider>
                                                         <Tooltip.Root delayDuration={200}>
                                                             <Tooltip.Trigger class="cursor-default">
-                                                                <p class="w-24 truncate text-ellipsis">{application.playerData.name}</p>
+                                                                <p>
+                                                                    {application.playerData.name.length >= 6
+                                                                        ? `${application.playerData.name.slice(0, 6).trim()}...`
+                                                                        : application.playerData.name}
+                                                                </p>
                                                             </Tooltip.Trigger>
                                                             <Tooltip.Content
                                                                 class="rounded-lg border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-2 text-sm"
@@ -196,7 +200,7 @@
             {#if data.applications.length}
                 <div class="fixed bottom-0 w-full max-w-lg p-5 lg:w-1/2">
                     <button
-                        class="group w-full rounded-lg border border-gray-700 px-4 py-3 text-sm text-gray-500"
+                        class="group w-full cursor-pointer rounded-lg border border-gray-700 px-4 py-3 text-sm text-gray-500"
                         onclick={() => (showPrevApps = !showPrevApps)}
                     >
                         {#if showPrevApps}
