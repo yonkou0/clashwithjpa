@@ -48,7 +48,10 @@
             {
                 field: "userName",
                 cellRenderer: makeSvelteCellRenderer(UserNameFormsWrapper),
-                filter: true
+                filter: true,
+                filterParams: {
+                    filterPlaceholder: "Search by Discord Username"
+                }
             },
             {
                 field: "preferenceNum",

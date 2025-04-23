@@ -31,7 +31,8 @@
                 filter: true,
                 filterParams: {
                     filterOptions: ["equals"],
-                    maxNumConditions: 1
+                    maxNumConditions: 1,
+                    filterPlaceholder: "Search by Discord ID"
                 }
             },
             {
