@@ -127,6 +127,15 @@ export async function getAdminConfig(db: DB) {
     };
 }
 
+export async function getUsers(db: DB) {
+    return db.query.userTable.findMany({
+        orderBy: desc(schema.userTable.discordId),
+        with: {
+            cocAccounts: true
+        }
+    });
+}
+
 export async function getUserAccounts(db: DB, discordId: schema.SelectUser["discordId"]) {
     return db.query.userTable.findFirst({
         where: eq(schema.userTable.discordId, discordId),

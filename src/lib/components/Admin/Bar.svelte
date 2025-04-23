@@ -9,6 +9,7 @@
     import MaterialSymbolsSettingsRounded from "~icons/material-symbols/settings-rounded";
     import MaterialSymbolsSheets from "~icons/material-symbols/sheets";
     import MaterialSymbolsSwordsOutlineRounded from "~icons/material-symbols/swords-outline-rounded";
+    import MaterialSymbolsUserAttributesRounded from "~icons/material-symbols/user-attributes-rounded";
 
     interface Item {
         name: string;
@@ -27,6 +28,12 @@
             name: "Clans",
             icon: MaterialSymbolsGroupsRounded,
             href: "/admin/clans"
+        },
+        {
+            name: "Users",
+            icon: MaterialSymbolsUserAttributesRounded,
+            href: "/admin/users",
+            hidden: true
         },
         {
             name: "Applications",
@@ -81,7 +88,7 @@
                 <span class="text-[8px] md:text-base">More</span>
             </div>
         </Popover.Trigger>
-        <Popover.Content class="z-20 mx-1 flex w-40 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
+        <Popover.Content class="z-20 mx-1 flex w-60 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
             {#each items as item}
                 {#if item.hidden}
                     <a

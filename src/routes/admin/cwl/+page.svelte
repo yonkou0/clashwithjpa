@@ -336,10 +336,3 @@
         <Grid {gridOptions} bind:rowData />
     </div>
 </div>
-
-<style>
-    :global(.ag-cell) {
-        display: flex;
-        align-items: center;
-    }
-</style>
