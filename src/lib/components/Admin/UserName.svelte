@@ -47,11 +47,16 @@
                 {/if}
             </div>
             {#if !userName}
-                @{userInfo.username}
+                <p>@{userInfo.username}</p>
+            {/if}
+        {:catch}
+            <div class="bg-blurple size-6 shrink-0 rounded-full"></div>
+            {#if !userName}
+                <p>@{userID}</p>
             {/if}
         {/await}
         {#if userName}
-            @{userName}
+            <p>@{userName}</p>
         {/if}
     </a>
 </span>
