@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/state";
-    import { cn } from "$lib/components/utils/cn";
+    import { cn } from "$lib/utils/cn";
     import type { Snippet } from "svelte";
     import PhArrowUpRightBold from "~icons/ph/arrow-up-right-bold";
 

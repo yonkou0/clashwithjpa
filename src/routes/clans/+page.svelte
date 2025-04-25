@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Card from "$lib/components/Card.svelte";
+    import Card from "$lib/components/ui/Card.svelte";
     import ClanInfo from "$lib/components/ClanInfo.svelte";
-    import H1 from "$lib/components/H1.svelte";
-    import InlineLink from "$lib/components/InlineLink.svelte";
+    import H1 from "$lib/components/ui/H1.svelte";
+    import InlineLink from "$lib/components/ui/InlineLink.svelte";
     import { Popover } from "bits-ui";
     import type { PageData } from "./$types";
 

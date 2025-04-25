@@ -1,9 +1,9 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
-    import UserNameUsersWrapper from "$lib/components/Admin/UserNameUsersWrapper.svelte";
-    import Button from "$lib/components/Button.svelte";
-    import Grid from "$lib/components/Grid.svelte";
+    import UserNameUsersWrapper from "$lib/components/admin/wrappers/UserNameUsersWrapper.svelte";
     import { toast } from "$lib/components/toast";
+    import Button from "$lib/components/ui/Button.svelte";
+    import Grid from "$lib/components/ui/Grid.svelte";
     import type { InsertCoc, InsertUser } from "$lib/server/schema";
     import type { GridOptions } from "@ag-grid-community/core";
     import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
@@ -17,7 +17,6 @@
 
     let { data }: { data: PageData } = $props();
     let rowData = $derived<InsertUser[]>(data.users);
-    $inspect(rowData);
     let disabled: boolean = $state(false);
     let loading: boolean = $state(false);
     let syncing: "success" | "loading" | "error" = $state("success");

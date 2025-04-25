@@ -11,7 +11,7 @@
     import { toast } from "$lib/components/toast";
     import { invalidateAll } from "$app/navigation";
     import { onMount } from "svelte";
-    import Button from "$lib/components/Button.svelte";
+    import Button from "$lib/components/ui/Button.svelte";
 
     let { data }: { data: PageData } = $props();
     let rules = $state(data.rules.content);

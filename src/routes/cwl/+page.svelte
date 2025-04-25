@@ -2,7 +2,7 @@
     import { dev } from "$app/environment";
     import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
-    import Button from "$lib/components/Button.svelte";
+    import Button from "$lib/components/ui/Button.svelte";
     import { toast } from "$lib/components/toast";
     import { cwlApplicationSchema } from "$lib/schema";
     import { Switch, Tooltip } from "bits-ui";

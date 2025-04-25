@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AdminApplications from "$lib/components/Admin/Applications.svelte";
+    import AdminApplications from "$lib/components/admin/Applications.svelte";
     import { fade } from "svelte/transition";
     import type { PageData } from "./$types";
 
