@@ -1,7 +1,7 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
-    import UserNameFormsWrapper from "$lib/components/admin/wrappers/UserNameFormsWrapper.svelte";
+    import UserNameCWLFormsWrapper from "$lib/components/admin/wrappers/UserNameCWLFormsWrapper.svelte";
     import { toast } from "$lib/components/toast";
     import Button from "$lib/components/ui/Button.svelte";
     import Grid from "$lib/components/ui/Grid.svelte";
@@ -47,7 +47,7 @@
         columnDefs: [
             {
                 field: "userName",
-                cellRenderer: makeSvelteCellRenderer(UserNameFormsWrapper),
+                cellRenderer: makeSvelteCellRenderer(UserNameCWLFormsWrapper),
                 filter: true,
                 filterParams: {
                     filterPlaceholder: "Search by Discord Username"

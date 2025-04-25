@@ -1,6 +1,7 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
-    import UserNameUsersWrapper from "$lib/components/admin/wrappers/UserNameUsersWrapper.svelte";
+    import CocAccountsUsersFormsWrapper from "$lib/components/admin/wrappers/CocAccountsUsersFormsWrapper.svelte";
+    import UserNameUsersFormsWrapper from "$lib/components/admin/wrappers/UserNameUsersFormsWrapper.svelte";
     import { toast } from "$lib/components/toast";
     import Button from "$lib/components/ui/Button.svelte";
     import Grid from "$lib/components/ui/Grid.svelte";
@@ -26,7 +27,7 @@
             {
                 field: "discordId",
                 headerName: "Discord ID",
-                cellRenderer: makeSvelteCellRenderer(UserNameUsersWrapper),
+                cellRenderer: makeSvelteCellRenderer(UserNameUsersFormsWrapper),
                 filter: true,
                 filterParams: {
                     filterOptions: ["equals"],
@@ -42,9 +43,7 @@
             {
                 field: "cocAccounts",
                 headerName: "COC Accounts",
-                valueFormatter: (params) => {
-                    return params.value.map((coc: InsertCoc) => coc.tag).join(" | ");
-                },
+                cellRenderer: makeSvelteCellRenderer(CocAccountsUsersFormsWrapper),
                 filter: true
             }
         ],
