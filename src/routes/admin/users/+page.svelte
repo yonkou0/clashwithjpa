@@ -48,8 +48,7 @@
             }
         ],
         autoSizeStrategy: {
-            type: "fitCellContents",
-            skipHeader: false
+            type: "fitGridWidth"
         },
         pagination: true,
         paginationAutoPageSize: true,

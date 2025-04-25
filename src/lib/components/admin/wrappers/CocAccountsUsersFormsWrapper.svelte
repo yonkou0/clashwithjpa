@@ -6,4 +6,4 @@
     let params: ICellRendererParams = $props();
 </script>
 
-<CocAccounts tags={params.value.map((coc: InsertCoc) => coc.tag)} />
+<CocAccounts tags={params.data.cocAccounts.map((coc: InsertCoc) => coc.tag)} />

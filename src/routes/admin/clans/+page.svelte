@@ -250,7 +250,7 @@
                                                     <InlineLink class="text-sm">Clan Info</InlineLink>
                                                 </Popover.Trigger>
                                                 <Popover.Portal>
-                                                    <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
+                                                    <Popover.Content class="max-w-80 rounded-xl p-2">
                                                         <div
                                                             class="flex flex-col rounded-xl border border-gray-700 bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-4"
                                                         >

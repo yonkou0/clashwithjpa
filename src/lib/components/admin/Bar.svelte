@@ -88,7 +88,7 @@
                 <span class="text-[8px] md:text-base">More</span>
             </div>
         </Popover.Trigger>
-        <Popover.Content class="z-20 mx-1 flex w-60 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
+        <Popover.Content class="mx-1 flex w-60 items-center justify-evenly gap-2 rounded-xl border border-gray-700 bg-gray-900 p-2 shadow-lg">
             {#each items as item}
                 {#if item.hidden}
                     <a

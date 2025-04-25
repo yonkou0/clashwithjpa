@@ -76,7 +76,7 @@
                                             <InlineLink class="text-sm">Clan Info</InlineLink>
                                         </Popover.Trigger>
                                         <Popover.Portal>
-                                            <Popover.Content class="z-20 max-w-80 rounded-xl p-2">
+                                            <Popover.Content class="max-w-80 rounded-xl p-2">
                                                 <div
                                                     class="flex flex-col rounded-xl border-1 border-gray-950 bg-linear-to-b {cardGradient} p-4 shadow-[0_0_5px_0.1px_var(--tw-shadow-color)] inset-shadow-sm shadow-gray-950"
                                                 >
