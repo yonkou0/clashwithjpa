@@ -119,3 +119,8 @@ input[type="checkbox"]:checked {
     color: var(--color-gray-50);
     border-color: var(--color-blue-700);
 }
+
+.ag-cell {
+    display: flex;
+    align-items: center;
+}

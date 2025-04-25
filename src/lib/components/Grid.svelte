@@ -34,10 +34,3 @@
 </script>
 
 <AgGrid {gridOptions} {rowData} modules={[ClientSideRowModelModule]} />
-
-<style>
-    :global(.ag-cell) {
-        display: flex;
-        align-items: center;
-    }
-</style>
