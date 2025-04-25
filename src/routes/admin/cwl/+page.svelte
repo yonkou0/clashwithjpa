@@ -68,7 +68,7 @@
                 editable: true,
                 cellEditor: "agSelectCellEditor",
                 cellEditorParams: {
-                    values: data.clans.map((clan) => clan.clanData?.name)
+                    values: data.clanNames
                 }
             },
             { field: "accountWeight", filter: "agNumberColumnFilter", editable: true },
@@ -177,9 +177,6 @@
 </script>
 
 <PopupDialog title="New CWL Application" bind:open={openPopup}>
-    {#snippet description()}
-        Enter details for new CWL application
-    {/snippet}
     {#snippet fields()}
         <form in:fade method="POST" action="/admin/cwl" use:enhance class="flex flex-col items-stretch justify-center gap-2">
             <div class="flex w-full flex-wrap items-start justify-center gap-2">
@@ -212,8 +209,8 @@
                             {#snippet children({ props })}
                                 <select {...props} bind:value={$formData.accountClan}>
                                     <option value="" disabled selected hidden>Select a clan</option>
-                                    {#each data.clans as clan}
-                                        <option class="bg-gray-900" value={clan.clanData?.name}>{clan.clanData?.name}</option>
+                                    {#each data.clanNames as clanName}
+                                        <option class="bg-gray-900" value={clanName}>{clanName}</option>
                                     {/each}
                                 </select>
                             {/snippet}

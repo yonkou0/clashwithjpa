@@ -92,13 +92,20 @@ export async function getClansPublicData(db: DB) {
     });
 }
 
+/**
+ * Use this function only for saving clan names where the clan names are not checked against the database because the "Other" entry is not in the database.
+ */
 export async function getClanNames(db: DB) {
-    return db.query.clanTable.findMany({
+    let dbClanNames = await db.query.clanTable.findMany({
         orderBy: desc(schema.clanTable.clanLevel),
         columns: {
             clanName: true
         }
     });
+    dbClanNames.push({
+        clanName: "Other"
+    });
+    return dbClanNames.map((clan) => clan.clanName);
 }
 
 export async function getRules(db: DB) {

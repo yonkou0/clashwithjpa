@@ -2,8 +2,8 @@
     import { dev } from "$app/environment";
     import { page } from "$app/state";
     import { PUBLIC_TURNSTILE_SITE_KEY } from "$env/static/public";
-    import Button from "$lib/components/ui/Button.svelte";
     import { toast } from "$lib/components/toast";
+    import Button from "$lib/components/ui/Button.svelte";
     import { cwlApplicationSchema } from "$lib/schema";
     import { Switch, Tooltip } from "bits-ui";
     import { Control, Description, Field, FieldErrors } from "formsnap";
@@ -213,9 +213,8 @@
                                         <select {...props} bind:value={$formData.accountClan}>
                                             <option value="" disabled selected hidden>Select a clan</option>
                                             {#each data.clanNames as clanName}
-                                                <option class="bg-gray-900" value={clanName.clanName}>{clanName.clanName}</option>
+                                                <option class="bg-gray-900" value={clanName}>{clanName}</option>
                                             {/each}
-                                            <option class="bg-gray-900" value="Other">Other</option>
                                         </select>
                                     {/snippet}
                                 </Control>
