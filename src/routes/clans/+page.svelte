@@ -9,7 +9,7 @@
     let { data }: { data: PageData } = $props();
     let mouseEvents: boolean[] = $state(Array(data.clans.length).fill(false));
 
-    const cardGradient: string = "from-gray-900 from-10% via-red-950 via-60% to-slate-950 inset-shadow-red-800";
+    const cardGradient: string = "from-red-900 via-red-900 via-10% to-red-950 inset-shadow-rose-800";
 </script>
 
 <svelte:head>
