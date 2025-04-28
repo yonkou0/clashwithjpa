@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from "$lib/utils/cn";
     import type { Snippet } from "svelte";
+    import P from "./ui/P.svelte";
 
     interface Props {
         class?: string;
@@ -58,10 +59,7 @@
     {disabled}
     data-sveltekit-preload-data="hover"
 >
-    <div
-        class="flex items-center justify-center space-x-1 stroke-gray-950 stroke-[0.5px] shadow-gray-950 drop-shadow-[0_2px_0_var(--tw-shadow-color)]"
-        style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
-    >
+    <P>
         {@render children?.()}
-    </div>
+    </P>
 </svelte:element>

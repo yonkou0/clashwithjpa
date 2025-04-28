@@ -126,5 +126,5 @@ input[type="checkbox"]:checked {
 }
 
 div[data-bits-floating-content-wrapper] {
-    z-index: 1000 !important;
+    z-index: 100 !important;
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { cn } from "$lib/utils/cn";
     import { Dialog } from "bits-ui";
     import type { Snippet } from "svelte";
     import { fade } from "svelte/transition";
@@ -7,12 +8,22 @@
     interface Props {
         title: string;
         open?: boolean;
+        style?: "coc";
         trigger?: Snippet;
-        description?: Snippet;
-        fields: Snippet;
-        actions?: Snippet;
+        children: Snippet;
+        class?: string;
     }
-    let { title, open = $bindable(false), trigger, description, fields, actions }: Props = $props();
+    let { title, open = $bindable(false), style, trigger, children, class: className }: Props = $props();
+
+    let popupStyle: string = $state("");
+    switch (style) {
+        case "coc":
+            popupStyle =
+                "border border-gray-950 bg-linear-to-b from-gray-800 via-gray-900 to-gray-900 shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] shadow-gray-950";
+            break;
+        default:
+            popupStyle = "border border-gray-700 bg-gray-900";
+    }
 </script>
 
 <Dialog.Root bind:open>
@@ -22,13 +33,11 @@
         </Dialog.Trigger>
     {/if}
     <Dialog.Portal>
-        <Dialog.Overlay class="fixed inset-0 z-100 flex size-full items-center justify-center backdrop-blur-xs" forceMount>
+        <Dialog.Overlay class="fixed inset-0 z-200 flex size-full items-center justify-center backdrop-blur-xs" forceMount>
             {#snippet child({ props, open })}
                 {#if open}
                     <div {...props} transition:fade={{ duration: 100 }}>
-                        <Dialog.Content
-                            class="flex max-w-[90%] flex-col gap-5 rounded-lg border border-gray-700 bg-gray-900 p-5 text-sm md:max-w-[50%]"
-                        >
+                        <Dialog.Content class={cn("flex max-w-[90%] flex-col gap-5 rounded-lg p-5 text-sm md:max-w-[50%]", popupStyle, className)}>
                             <div class="flex flex-col gap-2 text-left">
                                 <div class="flex items-center justify-between gap-2">
                                     <Dialog.Title class="text-xl font-extrabold">{title}</Dialog.Title>
@@ -36,21 +45,9 @@
                                         <MaterialSymbolsCloseRounded class="size-6" />
                                     </Dialog.Close>
                                 </div>
-                                {#if description}
-                                    <Dialog.Description class="text-gray-200">
-                                        {@render description()}
-                                    </Dialog.Description>
-                                {/if}
                                 <div class="flex items-center justify-center gap-2">
-                                    {@render fields()}
+                                    {@render children()}
                                 </div>
-                                {#if actions}
-                                    <div
-                                        class="flex flex-col items-center justify-between gap-2 *:flex *:w-full *:cursor-pointer *:items-center *:justify-center *:gap-2 *:rounded-lg *:bg-gray-800 *:px-3 *:py-2 *:transition-all *:duration-200 *:not-disabled:hover:bg-gray-800/50 *:disabled:brightness-80 md:flex-row md:gap-5"
-                                    >
-                                        {@render actions()}
-                                    </div>
-                                {/if}
                             </div>
                         </Dialog.Content>
                     </div>

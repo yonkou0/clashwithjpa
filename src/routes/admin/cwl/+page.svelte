@@ -177,82 +177,80 @@
 </script>
 
 <PopupDialog title="New CWL Application" bind:open={openPopup}>
-    {#snippet fields()}
-        <form in:fade method="POST" action="/admin/cwl" use:enhance class="flex flex-col items-stretch justify-center gap-2">
-            <div class="flex w-full flex-wrap items-start justify-center gap-2">
-                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
-                    <Field {form} name="tag">
-                        <Description>Account Tag</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <input {...props} placeholder="Account Tag" bind:value={$formData.tag} />
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
-                </div>
-                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
-                    <Field {form} name="userId">
-                        <Description>User ID</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <input {...props} placeholder="Discord User ID" bind:value={$formData.userId} />
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
-                </div>
-                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
-                    <Field {form} name="accountClan">
-                        <Description>Account Clan</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <select {...props} bind:value={$formData.accountClan}>
-                                    <option value="" disabled selected hidden>Select a clan</option>
-                                    {#each data.clanNames as clanName}
-                                        <option class="bg-gray-900" value={clanName}>{clanName}</option>
-                                    {/each}
-                                </select>
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
-                </div>
-                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
-                    <Field {form} name="accountWeight">
-                        <Description>Account Weight</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.accountWeight} />
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
-                </div>
-                <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
-                    <Field {form} name="preferenceNum">
-                        <Description>Preference Number</Description>
-                        <Control>
-                            {#snippet children({ props })}
-                                <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.preferenceNum} />
-                            {/snippet}
-                        </Control>
-                        <FieldErrors class="text-red-400" />
-                    </Field>
-                </div>
+    <form in:fade method="POST" action="/admin/cwl" use:enhance class="flex flex-col items-stretch justify-center gap-2">
+        <div class="flex w-full flex-wrap items-start justify-center gap-2">
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="tag">
+                    <Description>Account Tag</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} placeholder="Account Tag" bind:value={$formData.tag} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
             </div>
-            <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={$delayed} type="submit">
-                {#if $delayed}
-                    <span in:fly class="flex size-full items-center justify-center gap-2">
-                        <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
-                        Submitting...
-                    </span>
-                {:else}
-                    <span in:fly class="flex size-full items-center justify-center">Submit</span>
-                {/if}
-            </Button>
-        </form>
-    {/snippet}
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="userId">
+                    <Description>User ID</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} placeholder="Discord User ID" bind:value={$formData.userId} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="accountClan">
+                    <Description>Account Clan</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <select {...props} bind:value={$formData.accountClan}>
+                                <option value="" disabled selected hidden>Select a clan</option>
+                                {#each data.clanNames as clanName}
+                                    <option class="bg-gray-900" value={clanName}>{clanName}</option>
+                                {/each}
+                            </select>
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="accountWeight">
+                    <Description>Account Weight</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.accountWeight} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+            <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
+                <Field {form} name="preferenceNum">
+                    <Description>Preference Number</Description>
+                    <Control>
+                        {#snippet children({ props })}
+                            <input {...props} type="number" placeholder="1" min={1} bind:value={$formData.preferenceNum} />
+                        {/snippet}
+                    </Control>
+                    <FieldErrors class="text-red-400" />
+                </Field>
+            </div>
+        </div>
+        <Button class="px-4 py-3 text-sm {$delayed ? 'cursor-wait' : ''}" disabled={$delayed} type="submit">
+            {#if $delayed}
+                <span in:fly class="flex size-full items-center justify-center gap-2">
+                    <TablerLoader2 class="size-5 animate-spin"></TablerLoader2>
+                    Submitting...
+                </span>
+            {:else}
+                <span in:fly class="flex size-full items-center justify-center">Submit</span>
+            {/if}
+        </Button>
+    </form>
 </PopupDialog>
 
 <div class="flex size-full flex-col gap-5 p-5 md:p-11">

@@ -3,6 +3,7 @@
     import type { UserData } from "$lib/auth/user";
     import InlineLink from "$lib/components/ui/InlineLink.svelte";
     import UserButton from "$lib/components/UserButton.svelte";
+    import type { InsertCoc, InsertUser } from "$lib/server/schema";
     import { slide } from "svelte/transition";
     import AkarIconsCross from "~icons/akar-icons/cross";
     import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
@@ -20,7 +21,13 @@
         { name: "Discord", href: "https://discord.clashwithjpa.com", newTab: true }
     ];
 
-    let { user, applicationEnabled, cwlEnabled }: { user: UserData | null; applicationEnabled: boolean; cwlEnabled: boolean } = $props();
+    let {
+        user,
+        applicationEnabled,
+        cwlEnabled,
+        cocAccs
+    }: { user: UserData | null; applicationEnabled: boolean; cwlEnabled: boolean; cocAccs: (InsertUser & { cocAccounts: InsertCoc[] }) | undefined } =
+        $props();
 
     let isOpen = $state(false);
     function toggleMenu() {
@@ -41,7 +48,7 @@
             <p class="text-2xl">JPA</p>
         </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
-            <UserButton {user} {applicationEnabled} {cwlEnabled} />
+            <UserButton {user} {applicationEnabled} {cwlEnabled} {cocAccs} />
             <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
                 {#if isOpen}
                     <AkarIconsCross class="size-6" />
@@ -57,7 +64,7 @@
                     {item.name}
                 </Component>
             {/each}
-            <UserButton {user} {applicationEnabled} {cwlEnabled} />
+            <UserButton {user} {applicationEnabled} {cwlEnabled} {cocAccs} />
         </div>
     </div>
     {#if isOpen}
