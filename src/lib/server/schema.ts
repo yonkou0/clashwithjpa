@@ -29,7 +29,8 @@ export const cwlTable = pgTable(
         month: text("month").notNull(),
         year: integer("year").notNull(),
         preferenceNum: integer("preference_num").notNull(),
-        appliedAt: timestamp("applied_at").notNull().defaultNow()
+        appliedAt: timestamp("applied_at").notNull().defaultNow(),
+        assignedTo: text("assigned_to").references(() => cwlClanTable.tag)
     },
     (t) => [unique("cwl_table_accountTag_preferenceNum_month_year_unique").on(t.accountTag, t.preferenceNum, t.month, t.year)]
 );
@@ -70,6 +71,18 @@ export const clanApplicationTable = pgTable("clan_application_table", {
     status: applicationStatusEnum("status").notNull().default("pending"),
     createdAt: timestamp("created_at").notNull().defaultNow()
 });
+
+export const cwlClanTable = pgTable("cwl_clan_table", {
+    tag: text("tag").notNull().primaryKey(),
+    clanName: text("clan_name").notNull()
+});
+
+export const cwlRelations = relations(cwlTable, ({ one }) => ({
+    assignedClan: one(cwlClanTable, {
+        fields: [cwlTable.assignedTo],
+        references: [cwlClanTable.tag]
+    })
+}));
 
 export const userRelations = relations(userTable, ({ many }) => ({
     cocAccounts: many(cocTable)
