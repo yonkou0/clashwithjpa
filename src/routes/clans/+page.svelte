@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Card from "$lib/components/ui/Card.svelte";
     import ClanInfo from "$lib/components/ClanInfo.svelte";
+    import Card from "$lib/components/ui/Card.svelte";
     import H1 from "$lib/components/ui/H1.svelte";
     import InlineLink from "$lib/components/ui/InlineLink.svelte";
+    import P from "$lib/components/ui/P.svelte";
     import { Popover } from "bits-ui";
     import type { PageData } from "./$types";
 
@@ -44,19 +45,17 @@
             <div class="flex w-full flex-wrap items-stretch justify-center gap-5 lg:gap-11">
                 {#each data.clans as clan, idx}
                     <Card
-                        class="size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b {cardGradient} shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] inset-shadow-sm shadow-gray-950"
+                        class="relative size-full items-stretch rounded-xl border-2 border-gray-950 bg-linear-to-b {cardGradient} shadow-[0_0_5px_0.5px_var(--tw-shadow-color)] inset-shadow-sm shadow-gray-950"
                         bind:isMouseEntered={mouseEvents[idx]}
                     >
+                        <img src="/cards_bg.webp" alt="Card Background" class="absolute inset-0 -z-10 size-full rounded-xl object-cover opacity-10" />
                         <div class="flex flex-col justify-between">
                             <div class="flex w-80 items-center space-x-4 p-4">
                                 <img class="size-20" src={clan.clanData?.badgeUrls.medium} alt={clan.clanData?.name} />
                                 <div class="flex size-full flex-col items-start">
-                                    <h2
-                                        class="text-2xl shadow-gray-950 drop-shadow-[0_2px_0_var(--tw-shadow-color)]"
-                                        style="-webkit-text-stroke: 1px var(--tw-shadow-color);"
-                                    >
+                                    <P class="text-2xl">
                                         {clan.clanData?.name}
-                                    </h2>
+                                    </P>
                                     <p class="text-sm">{clan.clanData?.tag}</p>
                                     <p class="text-sm">LVL. {clan.clanData?.clanLevel}</p>
                                 </div>
