@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="size-full bg-cover">
-    <img src="/bg_error.webp" alt="Error" class="fixed inset-0 -z-10 size-full object-cover" />
+    <img src="/error.webp" alt="Error" class="fixed inset-0 -z-10 size-full object-cover" />
 
     <div class="flex size-full items-center justify-center overflow-hidden bg-gray-950/50">
         <div class="flex size-full flex-col items-center justify-center space-y-1 p-5">

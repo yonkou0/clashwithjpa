@@ -4,9 +4,12 @@ import type { LayoutServerLoad } from "./$types";
 
 export const load = (async ({ locals }) => {
     const user = locals.user as UserData;
-    const cocAccs = await getUserAccounts(locals.db, user.id);
     const applicationEnabled = await isApplicationEnabled(locals.db);
     const cwlEnabled = await isCWLEnabled(locals.db);
+    let cocAccs;
+    if (user) {
+        cocAccs = await getUserAccounts(locals.db, user.id);
+    }
 
     return {
         user,
