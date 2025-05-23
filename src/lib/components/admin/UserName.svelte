@@ -10,7 +10,7 @@
     let { userName, userID }: Props = $props();
 
     async function fetchUserInfo(id: string): Promise<APIUser> {
-        const resp = await fetch(`/admin/api/user?id=${id}`);
+        const resp = await fetch(`/api/user?id=${id}`);
         if (resp.ok) {
             const userInfo = await resp.json();
             return userInfo;

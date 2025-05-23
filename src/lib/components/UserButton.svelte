@@ -37,7 +37,7 @@
     const cardGradient: string = "from-sky-500 via-sky-600 to-sky-900";
 
     async function fetchCocAccounts(tag: string): Promise<APIPlayer> {
-        return fetch(`/admin/api/player?tag=${encodeURIComponent(tag)}`)
+        return fetch(`/api/player?tag=${encodeURIComponent(tag)}`)
             .then((res) => res.json())
             .then((data) => data as APIPlayer);
     }

@@ -107,7 +107,7 @@
             updatedRow.month = month;
             updatedRow.year = year as unknown as number;
             syncing = "loading";
-            let response = await fetch(`/admin/api/cwl`, {
+            let response = await fetch(`/api/cwl`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -130,7 +130,7 @@
     async function removeApp(tags: string[]) {
         disabled = true;
         loading = true;
-        let response = await fetch(`/admin/api/cwl`, {
+        let response = await fetch(`/api/cwl`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

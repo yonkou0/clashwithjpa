@@ -19,7 +19,7 @@ export const actions: Actions = {
             return fail(400, { form });
         }
 
-        const resp = await event.fetch("/admin/api/clans", {
+        const resp = await event.fetch("/api/clans", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

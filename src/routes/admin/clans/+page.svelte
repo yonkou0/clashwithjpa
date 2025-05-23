@@ -71,7 +71,7 @@
             key: "remove_clan",
             value: tag
         };
-        let response = await fetch("/admin/api/clans", {
+        let response = await fetch("/api/clans", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -122,7 +122,7 @@
                 clangamesRequirement: clanData[tag].clangamesRequirement
             }
         };
-        let response = await fetch("/admin/api/clans", {
+        let response = await fetch("/api/clans", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)

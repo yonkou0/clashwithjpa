@@ -59,7 +59,7 @@
             key: "applications_enabled",
             value: applicationEnabled
         };
-        let response = await fetch("/admin/api/settings", {
+        let response = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -82,7 +82,7 @@
             key: "cwl_enabled",
             value: cwlEnabled
         };
-        let response = await fetch("/admin/api/settings", {
+        let response = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -102,7 +102,7 @@
     async function syncClans() {
         disabled.syncClan = true;
         syncSpin = true;
-        let resp = await fetch("/admin/api/clans", {
+        let resp = await fetch("/api/clans", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ key: "sync_clans" })
@@ -126,7 +126,7 @@
             key: "guild_id",
             value: { id: guildID.toString() }
         };
-        let resp = await fetch("/admin/api/settings", {
+        let resp = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -150,7 +150,7 @@
             key: "add_admin_role_id",
             value: adminRoleID.toString()
         };
-        let resp = await fetch("/admin/api/settings", {
+        let resp = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -170,7 +170,7 @@
             key: "remove_admin_role_id",
             value: roleID
         };
-        let resp = await fetch("/admin/api/settings", {
+        let resp = await fetch("/api/settings", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -189,7 +189,7 @@
             key: "add_admin_id",
             value: adminID.toString()
         };
-        let resp = await fetch("/admin/api/settings", {
+        let resp = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -209,7 +209,7 @@
             key: "remove_admin_id",
             value: adminID
         };
-        let resp = await fetch("/admin/api/settings", {
+        let resp = await fetch("/api/settings", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)

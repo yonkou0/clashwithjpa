@@ -20,7 +20,7 @@
     async function fetchCocAccounts(): Promise<APIPlayer[]> {
         return Promise.all(
             tags.map((tag) =>
-                fetch(`/admin/api/player?tag=${encodeURIComponent(tag)}`)
+                fetch(`/api/player?tag=${encodeURIComponent(tag)}`)
                     .then((res) => res.json())
                     .then((data) => data as APIPlayer)
             )
@@ -63,7 +63,7 @@
     async function removeAcc(tags: string[]) {
         disabled = true;
         loading = true;
-        let response = await fetch(`/admin/api/coc`, {
+        let response = await fetch(`/api/coc`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

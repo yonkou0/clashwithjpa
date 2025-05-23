@@ -61,7 +61,7 @@
         async onCellValueChanged(event) {
             let updatedRow = event.data;
             syncing = "loading";
-            let response = await fetch(`/admin/api/user`, {
+            let response = await fetch(`/api/user`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -84,7 +84,7 @@
     async function removeUser(discordIDs: string[]) {
         disabled = true;
         loading = true;
-        let response = await fetch(`/admin/api/user`, {
+        let response = await fetch(`/api/user`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

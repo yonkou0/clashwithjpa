@@ -32,7 +32,7 @@
                 content: htmlContent
             }
         };
-        let response = await fetch("/admin/api/settings", {
+        let response = await fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)

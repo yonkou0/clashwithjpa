@@ -52,7 +52,7 @@
     let disabled: boolean = $state(false);
 
     async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
-        const resp = await fetch(`/admin/api/player?tag=${encodeURIComponent(tag)}`);
+        const resp = await fetch(`/api/player?tag=${encodeURIComponent(tag)}`);
         if (resp.ok) {
             const plInfo: APIPlayer = await resp.json();
             return plInfo;
@@ -65,7 +65,7 @@
         disabled = true;
         const body: { status: typeof status; discordId?: string } = { status: status };
         if (status === "accepted" || status === "deleted") body["discordId"] = discordId;
-        let response = await fetch(`/admin/api/applications/${encodeURIComponent(tag)}`, {
+        let response = await fetch(`/api/applications/${encodeURIComponent(tag)}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
