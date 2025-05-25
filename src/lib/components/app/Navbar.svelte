@@ -35,7 +35,7 @@
 </script>
 
 <nav
-    class="font-coc fixed top-0 z-100 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-xs transition-all md:px-12 lg:px-28"
+    class="font-coc fixed top-0 z-40 flex max-h-screen w-full flex-col items-center p-4 px-6 backdrop-blur-xs transition-all md:px-12 lg:px-28"
     class:rounded-b-2xl={!isOpen}
     class:!backdrop-blur-md={isOpen}
 >
