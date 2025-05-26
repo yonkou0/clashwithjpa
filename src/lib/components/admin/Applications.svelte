@@ -1,9 +1,9 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import type { APIPlayer } from "$lib/coc/types";
+    import UserName from "$lib/components/admin/UserName.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Card from "$lib/components/ui/card";
-    import UserName from "$lib/components/admin/UserName.svelte";
     import type { SelectClanApplication } from "$lib/server/schema";
     import { textOverflow } from "$lib/utils";
     import { toast } from "svelte-sonner";
@@ -52,6 +52,7 @@
     let disabled: boolean = $state(false);
 
     async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate loading delay
         const resp = await fetch(`/api/player?tag=${encodeURIComponent(tag)}`);
         if (resp.ok) {
             const plInfo: APIPlayer = await resp.json();
@@ -156,8 +157,8 @@
                                                     <div in:slide class="flex w-full flex-col items-start justify-center gap-1">
                                                         {#each new Array(5) as _}
                                                             <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                                <div class="bg-muted-foreground size-6 shrink-0 rounded-lg"></div>
-                                                                <div class="bg-muted-foreground h-4 w-2/3 rounded-md"></div>
+                                                                <div class="bg-muted size-6 shrink-0 rounded-md"></div>
+                                                                <div class="bg-muted h-4 w-full rounded-sm"></div>
                                                             </div>
                                                         {/each}
                                                         <div class="flex w-full items-center justify-center gap-1">
@@ -167,8 +168,8 @@
                                                         </div>
                                                         {#each new Array(3) as _}
                                                             <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                                <div class="bg-muted-foreground size-6 shrink-0 rounded-lg"></div>
-                                                                <div class="bg-muted-foreground h-4 w-2/3 rounded-md"></div>
+                                                                <div class="bg-muted size-6 shrink-0 rounded-md"></div>
+                                                                <div class="bg-muted h-4 w-full rounded-sm"></div>
                                                             </div>
                                                         {/each}
                                                         <div class="flex w-full items-center justify-center gap-1">
@@ -178,8 +179,8 @@
                                                         </div>
                                                         {#each new Array(5) as _}
                                                             <div class="flex w-full animate-pulse items-center justify-start gap-1">
-                                                                <div class="bg-muted-foreground size-6 shrink-0 rounded-lg"></div>
-                                                                <div class="bg-muted-foreground h-4 w-2/3 rounded-md"></div>
+                                                                <div class="bg-muted size-6 shrink-0 rounded-md"></div>
+                                                                <div class="bg-muted h-4 w-full rounded-sm"></div>
                                                             </div>
                                                         {/each}
                                                     </div>
@@ -282,6 +283,7 @@
                                             {#if type === "pending"}
                                                 <Button
                                                     {disabled}
+                                                    class="flex-1"
                                                     onclick={async () => {
                                                         await handleApplication(
                                                             application.tag,
@@ -296,6 +298,7 @@
                                                 </Button>
                                                 <Button
                                                     variant="destructive"
+                                                    class="flex-1"
                                                     {disabled}
                                                     onclick={async () => {
                                                         await handleApplication(application.tag, application.playerData.name, "rejected");
@@ -308,6 +311,7 @@
                                                 {#if type === "rejected"}
                                                     <Button
                                                         {disabled}
+                                                        class="flex-1"
                                                         onclick={async () => {
                                                             await handleApplication(
                                                                 application.tag,
@@ -323,6 +327,7 @@
                                                 {/if}
                                                 <Button
                                                     variant="destructive"
+                                                    class="flex-1"
                                                     {disabled}
                                                     onclick={async () => {
                                                         await handleApplication(
