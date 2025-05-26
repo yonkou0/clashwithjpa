@@ -52,7 +52,6 @@
     let disabled: boolean = $state(false);
 
     async function fetchPlayerInfo(tag: string): Promise<APIPlayer | null> {
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate loading delay
         const resp = await fetch(`/api/player?tag=${encodeURIComponent(tag)}`);
         if (resp.ok) {
             const plInfo: APIPlayer = await resp.json();
