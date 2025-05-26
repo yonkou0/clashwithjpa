@@ -2,8 +2,9 @@
     import type { UserData } from "$lib/auth/user";
     import InlineLink from "$lib/components/app/InlineLink.svelte";
     import UserButton from "$lib/components/app/UserButton.svelte";
+    import { Button } from "$lib/components/ui/button";
     import type { InsertCoc, InsertUser } from "$lib/server/schema";
-    import { slide } from "svelte/transition";
+    import { fade, slide } from "svelte/transition";
     import AkarIconsCross from "~icons/akar-icons/cross";
     import AkarIconsThreeLineHorizontal from "~icons/akar-icons/three-line-horizontal";
     import SpecialButton from "./SpecialButton.svelte";
@@ -46,13 +47,17 @@
         </a>
         <div class="flex items-center justify-center space-x-4 md:hidden">
             <UserButton {user} {applicationEnabled} {cwlEnabled} {cocAccs} />
-            <button onclick={toggleMenu} aria-label="Toggle menu" class="transition-all">
+            <Button variant="ghost" size="icon" class="![&_svg]:size-10" onclick={toggleMenu}>
                 {#if isOpen}
-                    <AkarIconsCross class="size-6" />
+                    <span in:fade={{ duration: 100 }} class="size-6">
+                        <AkarIconsCross class="size-full" />
+                    </span>
                 {:else}
-                    <AkarIconsThreeLineHorizontal class="size-6" />
+                    <span in:fade={{ duration: 100 }} class="size-6">
+                        <AkarIconsThreeLineHorizontal class="size-full" />
+                    </span>
                 {/if}
-            </button>
+            </Button>
         </div>
         <div class="hidden items-center justify-center gap-4 md:flex">
             {#each items as item}

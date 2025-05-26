@@ -160,7 +160,7 @@
                                 <Input {...props} type="text" placeholder="#ABCDEFGHI" bind:value={$formData.tag} />
                             {/snippet}
                         </Control>
-                        <FieldErrors class="text-red-400 text-sm" />
+                        <FieldErrors class="text-sm text-red-400" />
                     </Field>
                     <Field {form} name="apiToken">
                         <Description>Your API token</Description>
@@ -170,7 +170,7 @@
                                 <Input {...props} type="text" placeholder="API Token" bind:value={$formData.apiToken} />
                             {/snippet}
                         </Control>
-                        <FieldErrors class="text-red-400 text-sm" />
+                        <FieldErrors class="text-sm text-red-400" />
                     </Field>
                     {#if !dev}
                         <Field {form} name="cf-turnstile-response">

@@ -6,7 +6,7 @@
     interface Props {
         class?: string;
         type?: "success" | "danger" | "normal";
-        size?: "sm" | "md" | "lg" | "xl" | "";
+        size?: "sm" | "md" | "lg" | "xl" | "icon" | "";
         href?: string;
         disabled?: boolean;
         onclick?: () => void;
@@ -25,6 +25,8 @@
                 return "text-xl px-4 py-3 lg:px-6 lg:py-4 rounded-2xl";
             case "xl":
                 return "text-2xl px-6 py-4 lg:px-8 lg:py-5 rounded-3xl";
+            case "icon":
+                return "size-10 p-4 rounded-lg";
             default:
                 return "";
         }

@@ -51,13 +51,13 @@
             <p>Co-Leaders</p>
             <div class="rounded-lg p-1 transition-all">
                 {#if showCoLeaders}
-                    <div in:fade>
-                        <MaterialSymbolsArrowUpwardRounded class="size-4" />
-                    </div>
+                    <span in:fade class="size-4">
+                        <MaterialSymbolsArrowUpwardRounded class="size-full" />
+                    </span>
                 {:else}
-                    <div in:fade>
-                        <MaterialSymbolsArrowDownwardRounded class="size-4" />
-                    </div>
+                    <span in:fade class="size-4">
+                        <MaterialSymbolsArrowDownwardRounded class="size-full" />
+                    </span>
                 {/if}
             </div>
         </button>

@@ -161,7 +161,7 @@
                                         <Switch {...props} name="CWLStatus" bind:checked={$formData.isAlt} />
                                     {/snippet}
                                 </Control>
-                                <FieldErrors class="text-red-400 text-sm" />
+                                <FieldErrors class="text-sm text-red-400" />
                             </div>
                         </Field>
 
@@ -182,7 +182,7 @@
                                     </Select.Root>
                                 {/snippet}
                             </Control>
-                            <FieldErrors class="text-red-400 text-sm" />
+                            <FieldErrors class="text-sm text-red-400" />
                         </Field>
 
                         <Field {form} name="preferenceNum">
@@ -202,7 +202,7 @@
                                     />
                                 {/snippet}
                             </Control>
-                            <FieldErrors class="text-red-400 text-sm" />
+                            <FieldErrors class="text-sm text-red-400" />
                         </Field>
 
                         {#if $formData.isAlt}
@@ -223,7 +223,7 @@
                                         </Select.Root>
                                     {/snippet}
                                 </Control>
-                                <FieldErrors class="text-red-400 text-sm" />
+                                <FieldErrors class="text-sm text-red-400" />
                             </Field>
 
                             <Field {form} name="accountWeight">
@@ -234,7 +234,7 @@
                                         <Input {...props} type="number" placeholder="0" min={0} bind:value={$formData.accountWeight} />
                                     {/snippet}
                                 </Control>
-                                <FieldErrors class="text-red-400 text-sm" />
+                                <FieldErrors class="text-sm text-red-400" />
                             </Field>
                         {/if}
 

@@ -66,8 +66,8 @@
 <div class="dark prose-a:text-indigo-400 prose-blockquote:not-italic prose-blockquote:text-green-400 marker:text-orange-400">
     <Tipex bind:tipex={editor} body={rules} controls floating focal={false}>
         {#snippet utilities()}
-            <Button class="tipex-edit-button disabled:cursor-wait" onclick={save} {disabled}>
-                <LucideSendHorizontal class="size-6" />
+            <Button class="tipex-edit-button disabled:cursor-wait" size="icon" onclick={save} {disabled}>
+                <LucideSendHorizontal />
             </Button>
         {/snippet}
     </Tipex>

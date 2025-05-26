@@ -10,12 +10,12 @@
     import { fade, slide } from "svelte/transition";
     import HugeiconsMoneyReceiveCircle from "~icons/hugeicons/money-receive-circle";
     import HugeiconsMoneySendCircle from "~icons/hugeicons/money-send-circle";
-    import LineMdChevronSmallDown from "~icons/line-md/chevron-small-down";
-    import LineMdChevronSmallRight from "~icons/line-md/chevron-small-right";
     import LogosDiscordIcon from "~icons/logos/discord-icon";
-    import MaterialSymbolsCheckRounded from "~icons/material-symbols/check-rounded";
-    import MaterialSymbolsCloseRounded from "~icons/material-symbols/close-rounded";
-    import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
+    import LucideCheck from "~icons/lucide/check";
+    import LucideChevronDown from "~icons/lucide/chevron-down";
+    import LucideChevronRight from "~icons/lucide/chevron-right";
+    import LucideTrash from "~icons/lucide/trash";
+    import LucideX from "~icons/lucide/x";
 
     interface Props {
         applications: SelectClanApplication[];
@@ -92,12 +92,12 @@
                 <li class="flex w-full flex-col items-start justify-center">
                     <button class="text-muted-foreground flex w-full items-center" onclick={() => (hidden[idx] = !hidden[idx])}>
                         {#if hidden[idx]}
-                            <span>
-                                <LineMdChevronSmallRight class="size-fit" />
+                            <span in:fade={{ duration: 100 }}>
+                                <LucideChevronRight />
                             </span>
                         {:else}
-                            <span>
-                                <LineMdChevronSmallDown class="size-fit" />
+                            <span in:fade={{ duration: 100 }}>
+                                <LucideChevronDown />
                             </span>
                         {/if}
                         {date}
@@ -140,12 +140,12 @@
                                             >
                                                 <span class="border-muted-foreground grow rounded-xl border-t"></span>
                                                 {#if hiddenInfo[appIdx + idx]}
-                                                    <span>
-                                                        <LineMdChevronSmallRight class="size-fit" />
+                                                    <span in:fade={{ duration: 100 }}>
+                                                        <LucideChevronRight />
                                                     </span>
                                                 {:else}
-                                                    <span>
-                                                        <LineMdChevronSmallDown class="size-fit" />
+                                                    <span in:fade={{ duration: 100 }}>
+                                                        <LucideChevronDown />
                                                     </span>
                                                 {/if}
                                                 Player Data
@@ -292,7 +292,7 @@
                                                         );
                                                     }}
                                                 >
-                                                    <MaterialSymbolsCheckRounded />
+                                                    <LucideCheck />
                                                     Accept
                                                 </Button>
                                                 <Button
@@ -303,7 +303,7 @@
                                                         await handleApplication(application.tag, application.playerData.name, "rejected");
                                                     }}
                                                 >
-                                                    <MaterialSymbolsCloseRounded />
+                                                    <LucideX />
                                                     Reject
                                                 </Button>
                                             {:else if type === "accepted" || type === "rejected"}
@@ -320,7 +320,7 @@
                                                             );
                                                         }}
                                                     >
-                                                        <MaterialSymbolsCheckRounded />
+                                                        <LucideCheck />
                                                         Accept
                                                     </Button>
                                                 {/if}
@@ -337,7 +337,7 @@
                                                         );
                                                     }}
                                                 >
-                                                    <MaterialSymbolsDeleteRounded />
+                                                    <LucideTrash />
                                                     Delete
                                                 </Button>
                                             {/if}

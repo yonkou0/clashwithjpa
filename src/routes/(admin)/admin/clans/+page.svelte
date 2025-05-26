@@ -275,17 +275,15 @@
                     await removeClan(selectedRows.map((row) => row.clanTag));
                 }}
             >
-                <div in:fade class="size-6">
-                    {#if loading}
-                        <span class="size-full">
-                            <LucideLoaderCircle class="size-full animate-spin" />
-                        </span>
-                    {:else}
-                        <span class="size-full">
-                            <LucideTrash class="size-full" />
-                        </span>
-                    {/if}
-                </div>
+                {#if loading}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideLoaderCircle class="animate-spin" />
+                    </span>
+                {:else}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideTrash />
+                    </span>
+                {/if}
             </Button>
         </div>
     </div>

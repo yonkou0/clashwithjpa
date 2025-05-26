@@ -1,9 +1,9 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import Grid from "$lib/components/admin/Grid.svelte";
-    import { Button } from "$lib/components/ui/button";
     import CocAccountsUsersFormsWrapper from "$lib/components/admin/wrappers/CocAccountsUsersFormsWrapper.svelte";
     import UserNameUsersFormsWrapper from "$lib/components/admin/wrappers/UserNameUsersFormsWrapper.svelte";
+    import { Button } from "$lib/components/ui/button";
     import type { InsertCoc, InsertUser } from "$lib/server/schema";
     import type { GridOptions } from "@ag-grid-community/core";
     import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
@@ -134,13 +134,15 @@
                     await removeUser(selectedRows.map((row) => row.discordId));
                 }}
             >
-                <div in:fade class="size-6">
-                    {#if loading}
-                        <LucideLoaderCircle class="size-full animate-spin" />
-                    {:else}
-                        <LucideTrash class="size-full" />
-                    {/if}
-                </div>
+                {#if loading}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideLoaderCircle class="animate-spin" />
+                    </span>
+                {:else}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideTrash />
+                    </span>
+                {/if}
             </Button>
         </div>
     </div>

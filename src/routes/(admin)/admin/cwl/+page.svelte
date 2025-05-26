@@ -2,11 +2,11 @@
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
     import Grid from "$lib/components/admin/Grid.svelte";
+    import UserNameCWLFormsWrapper from "$lib/components/admin/wrappers/UserNameCWLFormsWrapper.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Input } from "$lib/components/ui/input";
     import * as Select from "$lib/components/ui/select";
-    import UserNameCWLFormsWrapper from "$lib/components/admin/wrappers/UserNameCWLFormsWrapper.svelte";
     import { customCWLEntrySchema } from "$lib/schema";
     import type { InsertCWL } from "$lib/server/schema";
     import type { GridOptions, IDateFilterParams, ValueFormatterParams } from "@ag-grid-community/core";
@@ -319,14 +319,10 @@
                     URL.revokeObjectURL(url);
                 }}
             >
-                <div class="size-6">
-                    <LucideFileText class="size-full" />
-                </div>
+                <LucideFileText />
             </Button>
             <Button size="icon" {disabled} onclick={() => (openPopup = true)}>
-                <div class="size-6">
-                    <LucidePlus class="size-full" />
-                </div>
+                <LucidePlus />
             </Button>
             <Button
                 size="icon"
@@ -336,17 +332,15 @@
                     await removeApp(selectedRows.map((row) => row.accountTag));
                 }}
             >
-                <div in:fade class="size-6">
-                    {#if loading}
-                        <span class="size-full">
-                            <LucideLoaderCircle class="size-full animate-spin" />
-                        </span>
-                    {:else}
-                        <span class="size-full">
-                            <LucideTrash class="size-full" />
-                        </span>
-                    {/if}
-                </div>
+                {#if loading}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideLoaderCircle class="animate-spin" />
+                    </span>
+                {:else}
+                    <span in:fade={{ duration: 100 }}>
+                        <LucideTrash />
+                    </span>
+                {/if}
             </Button>
         </div>
     </div>

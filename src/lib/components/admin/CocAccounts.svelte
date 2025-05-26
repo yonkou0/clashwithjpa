@@ -7,8 +7,8 @@
     import type { GridOptions } from "@ag-grid-community/core";
     import { toast } from "svelte-sonner";
     import { fade, fly } from "svelte/transition";
-    import MaterialSymbolsDeleteRounded from "~icons/material-symbols/delete-rounded";
-    import TablerLoader2 from "~icons/tabler/loader-2";
+    import LucideLoaderCircle from "~icons/lucide/loader-circle";
+    import LucideTrash from "~icons/lucide/trash";
 
     interface Props {
         tags: string[];
@@ -93,7 +93,7 @@
     <Popover.Content class="p-0">
         {#await fetchCocAccounts()}
             <div class="flex size-full items-center justify-center py-1">
-                <TablerLoader2 class="size-10 animate-spin"></TablerLoader2>
+                <LucideLoaderCircle class="size-10 animate-spin"></LucideLoaderCircle>
             </div>
         {:then accs}
             <div in:fly class="flex size-full flex-col">
@@ -105,13 +105,15 @@
                             await removeAcc(selectedRows.map((row) => row.tag));
                         }}
                     >
-                        <div in:fade class="size-full">
-                            {#if loading}
-                                <TablerLoader2 class="size-full animate-spin" />
-                            {:else}
-                                <MaterialSymbolsDeleteRounded class="size-full" />
-                            {/if}
-                        </div>
+                        {#if loading}
+                            <span in:fade={{ duration: 100 }}>
+                                <LucideLoaderCircle class="size-full animate-spin" />
+                            </span>
+                        {:else}
+                            <span in:fade={{ duration: 100 }}>
+                                <LucideTrash class="size-full" />
+                            </span>
+                        {/if}
                         Delete
                     </Button>
                 </div>
