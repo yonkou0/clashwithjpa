@@ -292,7 +292,7 @@
                                                         );
                                                     }}
                                                 >
-                                                    <MaterialSymbolsCheckRounded class="size-6" />
+                                                    <MaterialSymbolsCheckRounded />
                                                     Accept
                                                 </Button>
                                                 <Button
@@ -303,7 +303,7 @@
                                                         await handleApplication(application.tag, application.playerData.name, "rejected");
                                                     }}
                                                 >
-                                                    <MaterialSymbolsCloseRounded class="size-6" />
+                                                    <MaterialSymbolsCloseRounded />
                                                     Reject
                                                 </Button>
                                             {:else if type === "accepted" || type === "rejected"}
@@ -320,7 +320,7 @@
                                                             );
                                                         }}
                                                     >
-                                                        <MaterialSymbolsCheckRounded class="size-6" />
+                                                        <MaterialSymbolsCheckRounded />
                                                         Accept
                                                     </Button>
                                                 {/if}
@@ -337,7 +337,7 @@
                                                         );
                                                     }}
                                                 >
-                                                    <MaterialSymbolsDeleteRounded class="size-6" />
+                                                    <MaterialSymbolsDeleteRounded />
                                                     Delete
                                                 </Button>
                                             {/if}
