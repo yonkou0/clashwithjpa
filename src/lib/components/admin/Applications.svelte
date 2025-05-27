@@ -1,7 +1,7 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import type { APIPlayer } from "$lib/coc/types";
-    import UserName from "$lib/components/admin/UserName.svelte";
+    import User from "$lib/components/admin/User.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Card from "$lib/components/ui/card";
     import type { SelectClanApplication } from "$lib/server/schema";
@@ -203,7 +203,7 @@
                                                         <div class="flex w-full items-center justify-start gap-1">
                                                             <LogosDiscordIcon class="text-blurple size-6 shrink-0" />
                                                             <p class="text-secondary-foreground font-bold">Discord:</p>
-                                                            <UserName userID={application.discordId} />
+                                                            <User userID={application.discordId} />
                                                         </div>
                                                         <div class="flex w-full items-center justify-start gap-1">
                                                             <img src="/emoji/info.webp" alt="More Info" class="w-6 shrink-0" />

@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { ICellRendererParams } from "@ag-grid-community/core";
-    import UserName from "../UserName.svelte";
+    import Channel from "../Channel.svelte";
 
     let params: ICellRendererParams = $props();
 </script>
 
-<UserName userName={params.data.userName} userID={params.data.userId} />
+<Channel channelID={params.value} />

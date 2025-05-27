@@ -85,7 +85,7 @@
 </script>
 
 <Popover.Root>
-    <Popover.Trigger class="cursor-pointer">
+    <Popover.Trigger class="">
         <div class="bg-background rounded-md p-1 font-mono">
             <p class="text-sm">{tags.length} Account{tags.length > 1 ? "s" : ""}</p>
         </div>

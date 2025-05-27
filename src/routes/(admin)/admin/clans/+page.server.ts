@@ -1,15 +1,16 @@
 import { clanFormSchema } from "$lib/coc/schema";
-import { getClansPublicData } from "$lib/server/functions";
+import type { APIClan } from "$lib/coc/types";
+import { getAdminConfig, getClansPublicData } from "$lib/server/functions";
 import type { Actions } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import type { PageServerLoad } from "./$types";
-import type { APIClan } from "$lib/coc/types";
 
 export const load = (async ({ locals }) => {
     const clans = await getClansPublicData(locals.db);
+    const adminConfig = await getAdminConfig(locals.db);
 
-    return { form: await superValidate(zod(clanFormSchema)), clans };
+    return { form: await superValidate(zod(clanFormSchema)), clans, guildID: adminConfig.guildId };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {

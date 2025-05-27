@@ -47,7 +47,7 @@
                 {members.leader[0].name}
             </span>
         </p>
-        <button class="flex cursor-pointer items-center justify-between space-x-1" onclick={() => (showCoLeaders = !showCoLeaders)}>
+        <button class="flex items-center justify-between space-x-1" onclick={() => (showCoLeaders = !showCoLeaders)}>
             <p>Co-Leaders</p>
             <div class="rounded-lg p-1 transition-all">
                 {#if showCoLeaders}

@@ -2,7 +2,7 @@
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
     import Grid from "$lib/components/admin/Grid.svelte";
-    import UserNameCWLFormsWrapper from "$lib/components/admin/wrappers/UserNameCWLFormsWrapper.svelte";
+    import UserCWLTableWrapper from "$lib/components/admin/wrappers/UserCWLTableWrapper.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Dialog from "$lib/components/ui/dialog";
     import { Input } from "$lib/components/ui/input";
@@ -49,7 +49,7 @@
         columnDefs: [
             {
                 field: "userName",
-                cellRenderer: makeSvelteCellRenderer(UserNameCWLFormsWrapper),
+                cellRenderer: makeSvelteCellRenderer(UserCWLTableWrapper),
                 filter: true,
                 filterParams: {
                     filterPlaceholder: "Search by Discord Username"

@@ -3,6 +3,9 @@
     import { page } from "$app/state";
     import { clanForm, clanFormSchema } from "$lib/coc/schema";
     import Grid from "$lib/components/admin/Grid.svelte";
+    import ChannelClanTableWrapper from "$lib/components/admin/wrappers/ChannelClanTableWrapper.svelte";
+    import RoleClanTableWrapper from "$lib/components/admin/wrappers/RoleClanTableWrapper.svelte";
+    import UserClanTableWrapper from "$lib/components/admin/wrappers/UserClanTableWrapper.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Card from "$lib/components/ui/card";
     import { Input } from "$lib/components/ui/input";
@@ -10,6 +13,7 @@
     import * as Tooltip from "$lib/components/ui/tooltip";
     import type { InsertClan } from "$lib/server/schema";
     import type { GridOptions } from "@ag-grid-community/core";
+    import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { toast } from "svelte-sonner";
     import { fade, fly } from "svelte/transition";
@@ -72,36 +76,50 @@
             },
             {
                 field: "clanRoleID",
+                headerName: "Clan Role",
+                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "memberRoleID",
+                headerName: "Member Role",
+                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "elderRoleID",
+                headerName: "Elder Role",
+                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "coleaderRoleID",
+                headerName: "Co-Leader Role",
+                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "leaderRoleID",
+                headerName: "Leader Role",
+                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "leaderID",
+                headerName: "Clan Leader",
+                cellRenderer: makeSvelteCellRenderer(UserClanTableWrapper),
                 filter: true,
                 editable: true
             },
             {
                 field: "channelID",
+                headerName: "Clan Channel",
+                cellRenderer: makeSvelteCellRenderer(ChannelClanTableWrapper),
                 filter: true,
                 editable: true
             },

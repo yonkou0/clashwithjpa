@@ -1,8 +1,8 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import Grid from "$lib/components/admin/Grid.svelte";
-    import CocAccountsUsersFormsWrapper from "$lib/components/admin/wrappers/CocAccountsUsersFormsWrapper.svelte";
-    import UserNameUsersFormsWrapper from "$lib/components/admin/wrappers/UserNameUsersFormsWrapper.svelte";
+    import CocAccountsUsersTableWrapper from "$lib/components/admin/wrappers/CocAccountsUsersTableWrapper.svelte";
+    import UserUsersTableWrapper from "$lib/components/admin/wrappers/UserUsersTableWrapper.svelte";
     import { Button } from "$lib/components/ui/button";
     import type { InsertCoc, InsertUser } from "$lib/server/schema";
     import type { GridOptions } from "@ag-grid-community/core";
@@ -27,7 +27,7 @@
             {
                 field: "discordId",
                 headerName: "Discord ID",
-                cellRenderer: makeSvelteCellRenderer(UserNameUsersFormsWrapper),
+                cellRenderer: makeSvelteCellRenderer(UserUsersTableWrapper),
                 filter: true,
                 filterParams: {
                     filterOptions: ["equals"],
@@ -43,7 +43,7 @@
             {
                 field: "cocAccounts",
                 headerName: "COC Accounts",
-                cellRenderer: makeSvelteCellRenderer(CocAccountsUsersFormsWrapper),
+                cellRenderer: makeSvelteCellRenderer(CocAccountsUsersTableWrapper),
                 filter: true
             }
         ],

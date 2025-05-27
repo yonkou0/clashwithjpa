@@ -89,7 +89,7 @@
 
 {#if user}
     <Popover.Root>
-        <Popover.Trigger class="cursor-pointer">
+        <Popover.Trigger class="">
             {#if user.isAdmin}
                 <MaterialSymbolsCrownRounded class="-mb-2 size-6 -rotate-[15deg] text-yellow-400" />
             {/if}
