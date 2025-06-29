@@ -215,7 +215,7 @@
                         <Control>
                             {#snippet children({ props })}
                                 <input type="hidden" name="accountWeight" bind:value={$formData.accountWeight} />
-                                <Input {...props} placeholder="1" min={1} bind:value={$formData.accountWeight} />
+                                <Input {...props} placeholder="1" min={1} type="number" bind:value={$formData.accountWeight} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-destructive text-sm" />
@@ -227,7 +227,7 @@
                         <Control>
                             {#snippet children({ props })}
                                 <input type="hidden" name="preferenceNum" bind:value={$formData.preferenceNum} />
-                                <Input {...props} placeholder="1" min={1} bind:value={$formData.preferenceNum} />
+                                <Input {...props} placeholder="1" min={1} type="number" bind:value={$formData.preferenceNum} />
                             {/snippet}
                         </Control>
                         <FieldErrors class="text-destructive text-sm" />
