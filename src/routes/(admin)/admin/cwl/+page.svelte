@@ -145,6 +145,15 @@
                 syncing = "error";
                 toast.error("Failed to update application");
             }
+        },
+        onSortChanged(event) {
+            const sortedData: InsertCWL[] = [];
+            event.api.forEachNodeAfterFilterAndSort((node) => {
+                if (node.data) {
+                    sortedData.push(node.data);
+                }
+            });
+            rowData = sortedData;
         }
     };
 
@@ -321,6 +330,7 @@
                         "Account Name": row.accountName,
                         "Account Tag": row.accountTag,
                         "Account Clan": row.accountClan,
+                        "Assigned To": data.cwlClans.find((clan) => clan.tag === row.assignedTo)?.clanName || "",
                         "Account Weight": row.accountWeight,
                         "Applied At": new Date(row.appliedAt || "").toLocaleString("en-IN", {
                             year: "numeric",
