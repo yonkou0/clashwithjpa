@@ -149,6 +149,7 @@
                                                             ? data.cwlClans.find((clan) => clan.tag === application.assignedTo)?.joinLink
                                                             : undefined}
                                                         target={application.assignedTo ? "_blank" : undefined}
+                                                        class="text-sky-500 hover:underline"
                                                     >
                                                         {application.assignedTo
                                                             ? data.cwlClans.find((clan) => clan.tag === application.assignedTo)?.clanName

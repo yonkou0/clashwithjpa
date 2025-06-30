@@ -213,7 +213,7 @@
                                                                 )}"
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
-                                                                class="text-blue-400 hover:underline">Click here</a
+                                                                class="text-sky-500 hover:underline">Click here</a
                                                             >
                                                         </div>
                                                         <div class="flex w-full items-center justify-center gap-1">
