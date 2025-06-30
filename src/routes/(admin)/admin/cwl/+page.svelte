@@ -73,10 +73,31 @@
                     values: data.clanNames
                 }
             },
+            {
+                field: "assignedTo",
+                headerName: "Assigned To",
+                filter: true,
+                editable: true,
+                cellEditor: "agSelectCellEditor",
+                cellEditorParams: {
+                    values: data.cwlClans.map((clan) => clan.name)
+                },
+                valueFormatter: (params: ValueFormatterParams<InsertCWL, string>) => {
+                    return data.cwlClans.find((clan) => clan.tag === params.data?.assignedTo)?.name || "";
+                },
+                valueSetter: (params) => {
+                    const foundClan = data.cwlClans.find((clan) => clan.name === params.newValue);
+                    if (foundClan) {
+                        params.data.assignedTo = foundClan.tag;
+                        return true;
+                    }
+                    return false;
+                }
+            },
             { field: "accountWeight", filter: "agNumberColumnFilter", editable: true },
             {
                 field: "appliedAt",
-                valueFormatter: (params: ValueFormatterParams<any, Date>) => {
+                valueFormatter: (params: ValueFormatterParams<InsertCWL, Date>) => {
                     return new Date(params.data?.appliedAt || "").toLocaleString("en-IN", {
                         year: "numeric",
                         month: "2-digit",

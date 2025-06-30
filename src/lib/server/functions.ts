@@ -163,3 +163,13 @@ export async function getCWLApplicationByTag(db: DB, tag: schema.SelectCWL["acco
 export async function insertCWLApplication(db: DB, data: schema.InsertCWL) {
     await db.insert(schema.cwlTable).values(data);
 }
+
+export async function getCWLClans(db: DB) {
+    const clanTags = await db.query.cwlClanTable.findMany({
+        orderBy: desc(schema.cwlClanTable.tag)
+    });
+    return clanTags.map((clan) => ({
+        tag: clan.tag,
+        name: clan.clanName
+    }));
+}

@@ -3,7 +3,7 @@ import { PUBLIC_API_BASE_URI, PUBLIC_DISCORD_URL } from "$env/static/public";
 import { getPlayerInfo } from "$lib/coc/player";
 import { checkUser } from "$lib/discord/check";
 import { customCWLEntrySchema } from "$lib/schema";
-import { getAllCWLApplications, getClanNames, getCWLApplicationByTag, insertCWLApplication } from "$lib/server/functions";
+import { getAllCWLApplications, getClanNames, getCWLApplicationByTag, getCWLClans, insertCWLApplication } from "$lib/server/functions";
 import type { InsertCWL } from "$lib/server/schema";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
@@ -12,8 +12,9 @@ import type { Actions, PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals }) => {
     const cwlApplications = await getAllCWLApplications(locals.db);
     const clanNames = await getClanNames(locals.db);
+    const cwlClans = await getCWLClans(locals.db);
 
-    return { cwlApplications, clanNames, form: await superValidate(zod(customCWLEntrySchema)) };
+    return { cwlApplications, clanNames, cwlClans, form: await superValidate(zod(customCWLEntrySchema)) };
 };
 
 export const actions: Actions = {
