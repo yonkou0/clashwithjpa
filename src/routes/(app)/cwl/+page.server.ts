@@ -5,7 +5,15 @@ import { validateCFToken } from "$lib/cf/helpers";
 import { getFWAStats } from "$lib/coc/fwa";
 import { getPlayerInfo } from "$lib/coc/player";
 import { cwlApplicationSchema } from "$lib/schema";
-import { getClanNames, getCWLApplicationByTag, getCWLApplications, getUserAccounts, insertCWLApplication, isCWLEnabled } from "$lib/server/functions";
+import {
+    getClanNames,
+    getCWLApplicationByTag,
+    getCWLApplications,
+    getCWLClans,
+    getUserAccounts,
+    insertCWLApplication,
+    isCWLEnabled
+} from "$lib/server/functions";
 import type { InsertCWL } from "$lib/server/schema";
 import { redirect } from "@sveltejs/kit";
 import { fail, message, superValidate } from "sveltekit-superforms";
@@ -20,7 +28,8 @@ export const load = (async ({ locals }) => {
     }
 
     const enabled = await isCWLEnabled(locals.db);
-    if (!enabled) {
+    const applications = await getCWLApplications(locals.db, user.id);
+    if (!enabled && applications.length <= 0) {
         return redirect(302, "/");
     }
 
@@ -35,12 +44,12 @@ export const load = (async ({ locals }) => {
         return redirect(302, "/");
     }
 
-    const applications = await getCWLApplications(locals.db, user.id);
-
     return {
         form: await superValidate(zod(cwlApplicationSchema)),
         user: user,
+        cwlEnabled: enabled,
         userAccount: userAccount,
+        cwlClans: await getCWLClans(locals.db),
         cocData: Promise.all(userAccount.cocAccounts.map((account) => getPlayerInfo(PUBLIC_API_BASE_URI, API_TOKEN, account.tag))),
         applications: applications,
         clanNames: await getClanNames(locals.db)

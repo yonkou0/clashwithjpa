@@ -24,6 +24,11 @@
 
     let { data }: { data: PageData } = $props();
     let showPrevApps: boolean = $state(false);
+    $effect(() => {
+        if (!data.cwlEnabled) {
+            showPrevApps = true;
+        }
+    });
 
     const form = superForm(data.form, {
         validators: zodClient(cwlApplicationSchema),
@@ -92,9 +97,9 @@
                                     {date}
                                     <span class="border-muted-foreground mx-2 grow rounded-xl border-t"></span>
                                 </p>
-                                <ul class="mt-2 flex w-full flex-wrap items-center justify-center gap-2">
+                                <ul class="mt-2 flex w-full flex-wrap gap-2">
                                     {#each applications as application}
-                                        <Card.Root>
+                                        <Card.Root class="min-w-0 flex-1 basis-50">
                                             <Card.Header style="container-type: inherit;">
                                                 <Card.Title class="flex items-center justify-center gap-4">
                                                     <div class="flex w-full items-center justify-between gap-5">
@@ -136,6 +141,20 @@
                                                 <p>
                                                     <span class="text-muted-foreground font-bold">Account Weight:</span>
                                                     {application.accountWeight}
+                                                </p>
+                                                <p>
+                                                    <span class="text-muted-foreground font-bold">Assigned To:</span>
+                                                    <svelte:element
+                                                        this={application.assignedTo ? "a" : "p"}
+                                                        href={application.assignedTo
+                                                            ? data.cwlClans.find((clan) => clan.tag === application.assignedTo)?.joinLink
+                                                            : undefined}
+                                                        target={application.assignedTo ? "_blank" : undefined}
+                                                    >
+                                                        {application.assignedTo
+                                                            ? data.cwlClans.find((clan) => clan.tag === application.assignedTo)?.clanName
+                                                            : "Not Assigned"}
+                                                    </svelte:element>
                                                 </p>
                                             </Card.Content>
                                         </Card.Root>
@@ -264,7 +283,7 @@
                     </form>
                 {/await}
             {/if}
-            {#if data.applications.length}
+            {#if data.applications.length && data.cwlEnabled}
                 <div class="fixed bottom-0 w-full max-w-lg p-5 lg:w-1/2">
                     <Button size="lg" class="w-full" variant="outline" onclick={() => (showPrevApps = !showPrevApps)}>
                         {#if showPrevApps}

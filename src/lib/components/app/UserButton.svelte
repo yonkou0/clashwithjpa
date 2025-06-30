@@ -20,9 +20,15 @@
         user,
         applicationEnabled,
         cwlEnabled,
+        hasCWLApplications,
         cocAccs
-    }: { user: UserData | null; applicationEnabled: boolean; cwlEnabled: boolean; cocAccs: (InsertUser & { cocAccounts: InsertCoc[] }) | undefined } =
-        $props();
+    }: {
+        user: UserData | null;
+        applicationEnabled: boolean;
+        cwlEnabled: boolean;
+        hasCWLApplications: boolean;
+        cocAccs: (InsertUser & { cocAccounts: InsertCoc[] }) | undefined;
+    } = $props();
 
     async function logout() {
         try {
@@ -122,7 +128,7 @@
                 href="/cwl"
                 size="sm"
                 onclick={() => {
-                    if (!cwlEnabled) {
+                    if (!cwlEnabled && !hasCWLApplications) {
                         toast.error("Clan War League is currently disabled");
                     }
                 }}

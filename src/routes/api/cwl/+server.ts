@@ -1,30 +1,10 @@
 import type { UserData } from "$lib/auth/user";
-import { cwlClanTable, cwlTable, type InsertCWL } from "$lib/server/schema";
+import { cwlTable, type InsertCWL } from "$lib/server/schema";
 import { json } from "@sveltejs/kit";
 import { eq, inArray } from "drizzle-orm";
 import type { RequestHandler } from "./$types";
 
 const isAdmin = (user: UserData | null) => user && user.isAdmin;
-
-export const GET: RequestHandler = async ({ locals, url }) => {
-    const user = locals.user;
-    if (!isAdmin(user)) {
-        return json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // Get CWL Clan Name from tag
-    const cwlClanTag = url.searchParams.get("tag");
-    if (!cwlClanTag) {
-        return json({ error: "Clan tag is required" }, { status: 400 });
-    }
-    const cwlClanName = locals.db.query.cwlClanTable.findFirst({
-        where: eq(cwlClanTable.tag, cwlClanTag)
-    });
-    return json({
-        tag: cwlClanTag,
-        name: cwlClanName !== undefined ? cwlClanName : null
-    });
-};
 
 export const POST: RequestHandler = async ({ locals, request }) => {
     const user = locals.user;

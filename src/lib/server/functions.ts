@@ -168,8 +168,5 @@ export async function getCWLClans(db: DB) {
     const clanTags = await db.query.cwlClanTable.findMany({
         orderBy: desc(schema.cwlClanTable.tag)
     });
-    return clanTags.map((clan) => ({
-        tag: clan.tag,
-        name: clan.clanName
-    }));
+    return clanTags;
 }

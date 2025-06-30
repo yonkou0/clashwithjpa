@@ -80,13 +80,13 @@
                 editable: true,
                 cellEditor: "agSelectCellEditor",
                 cellEditorParams: {
-                    values: data.cwlClans.map((clan) => clan.name)
+                    values: data.cwlClans.map((clan) => clan.clanName)
                 },
                 valueFormatter: (params: ValueFormatterParams<InsertCWL, string>) => {
-                    return data.cwlClans.find((clan) => clan.tag === params.data?.assignedTo)?.name || "";
+                    return data.cwlClans.find((clan) => clan.tag === params.data?.assignedTo)?.clanName || "";
                 },
                 valueSetter: (params) => {
-                    const foundClan = data.cwlClans.find((clan) => clan.name === params.newValue);
+                    const foundClan = data.cwlClans.find((clan) => clan.clanName === params.newValue);
                     if (foundClan) {
                         params.data.assignedTo = foundClan.tag;
                         return true;

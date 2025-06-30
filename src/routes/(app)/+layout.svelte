@@ -44,6 +44,12 @@
 {/if}
 
 <main class="font-coc h-screen w-screen">
-    <Navbar user={data.user as UserData} applicationEnabled={data.applicationEnabled} cwlEnabled={data.cwlEnabled} cocAccs={data.cocAccs} />
+    <Navbar
+        user={data.user as UserData}
+        applicationEnabled={data.applicationEnabled}
+        cwlEnabled={data.cwlEnabled}
+        hasCWLApplications={data.hasCWLApplications}
+        cocAccs={data.cocAccs}
+    />
     {@render children?.()}
 </main>
