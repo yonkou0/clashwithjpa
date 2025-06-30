@@ -19,7 +19,7 @@ export const cocTable = pgTable("coc_table", {
 export const cwlClanTable = pgTable("cwl_clan_table", {
     tag: text("tag").notNull().primaryKey(),
     clanName: text("clan_name").notNull(),
-    joinLink: text("join_link").notNull(),
+    joinLink: text("join_link").notNull()
 });
 
 export const cwlTable = pgTable(
@@ -36,7 +36,7 @@ export const cwlTable = pgTable(
         year: integer("year").notNull(),
         preferenceNum: integer("preference_num").notNull(),
         appliedAt: timestamp("applied_at").notNull().defaultNow(),
-        assignedTo: text("assigned_to").references(() => cwlClanTable.tag, { onDelete: "cascade" }),
+        assignedTo: text("assigned_to").references(() => cwlClanTable.tag, { onDelete: "cascade" })
     },
     (t) => [unique("cwl_table_accountTag_preferenceNum_month_year_unique").on(t.accountTag, t.preferenceNum, t.month, t.year)]
 );
