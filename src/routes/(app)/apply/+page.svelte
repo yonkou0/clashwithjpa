@@ -8,7 +8,6 @@
     import { Input } from "$lib/components/ui/input";
     import * as Tooltip from "$lib/components/ui/tooltip";
     import { clanApplicationSchema } from "$lib/schema";
-    import { textOverflow } from "$lib/utils";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
     import { expoOut } from "svelte/easing";
@@ -120,12 +119,12 @@
                                                             </Tooltip.Root>
                                                         </Tooltip.Provider>
                                                     </span>
-                                                    <span class="flex flex-col items-start justify-center">
+                                                    <span class="flex min-w-0 flex-col items-start justify-center">
                                                         <Tooltip.Provider>
                                                             <Tooltip.Root>
-                                                                <Tooltip.Trigger>
-                                                                    <p>
-                                                                        {textOverflow(application.playerData.name, 8)}
+                                                                <Tooltip.Trigger class="min-w-0">
+                                                                    <p class="max-w-[120px] truncate text-left">
+                                                                        {application.playerData.name}
                                                                     </p>
                                                                 </Tooltip.Trigger>
                                                                 <Tooltip.Content>
@@ -133,7 +132,7 @@
                                                                 </Tooltip.Content>
                                                             </Tooltip.Root>
                                                         </Tooltip.Provider>
-                                                        <p class="text-xs">{application.tag}</p>
+                                                        <p class="w-full truncate text-xs">{application.tag}</p>
                                                     </span>
                                                     <p class="text-muted-foreground text-xs">
                                                         {new Date(application.createdAt).toLocaleTimeString("en-IN", {

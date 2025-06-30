@@ -5,7 +5,6 @@
     import { Button } from "$lib/components/ui/button";
     import * as Card from "$lib/components/ui/card";
     import type { SelectClanApplication } from "$lib/server/schema";
-    import { textOverflow } from "$lib/utils";
     import { toast } from "svelte-sonner";
     import { fade, slide } from "svelte/transition";
     import HugeiconsMoneyReceiveCircle from "~icons/hugeicons/money-receive-circle";
@@ -116,15 +115,15 @@
                                                 alt="TH {application.playerData.townHallLevel}"
                                                 class="size-15 rounded-lg"
                                             />
-                                            <div class="flex w-full flex-col items-start justify-center">
-                                                <Card.Title class="overflow-hidden text-lg font-bold">
-                                                    {textOverflow(application.playerData.name, 8)}
+                                            <div class="flex min-w-0 flex-col items-start justify-center">
+                                                <Card.Title class="max-w-[120px] truncate text-lg font-bold">
+                                                    {application.playerData.name}
                                                 </Card.Title>
-                                                <Card.Description class="text-sm">
+                                                <Card.Description class="w-full truncate text-sm">
                                                     {application.tag}
                                                 </Card.Description>
                                             </div>
-                                            <p class="text-muted-foreground w-full text-sm">
+                                            <p class="text-muted-foreground shrink-0 text-sm">
                                                 {new Date(application.createdAt).toLocaleTimeString("en-IN", {
                                                     hour: "numeric",
                                                     minute: "numeric"

@@ -10,7 +10,6 @@
     import { Switch } from "$lib/components/ui/switch";
     import * as Tooltip from "$lib/components/ui/tooltip";
     import { cwlApplicationSchema } from "$lib/schema";
-    import { textOverflow } from "$lib/utils";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { Turnstile } from "svelte-turnstile";
     import { expoOut } from "svelte/easing";
@@ -104,12 +103,12 @@
                                                 <Card.Title class="flex items-center justify-center gap-4">
                                                     <div class="flex w-full items-center justify-between gap-5">
                                                         <div class="flex items-center justify-center gap-1">
-                                                            <span class="flex flex-col items-start justify-center">
+                                                            <span class="flex min-w-0 flex-col items-start justify-center">
                                                                 <Tooltip.Provider>
                                                                     <Tooltip.Root>
-                                                                        <Tooltip.Trigger>
-                                                                            <p>
-                                                                                {textOverflow(application.accountName, 8)}
+                                                                        <Tooltip.Trigger class="min-w-0">
+                                                                            <p class="max-w-[120px] truncate text-left">
+                                                                                {application.accountName}
                                                                             </p>
                                                                         </Tooltip.Trigger>
                                                                         <Tooltip.Content>
@@ -117,7 +116,7 @@
                                                                         </Tooltip.Content>
                                                                     </Tooltip.Root>
                                                                 </Tooltip.Provider>
-                                                                <p class="text-xs">{application.accountTag}</p>
+                                                                <p class="max-w-[120px] truncate text-xs">{application.accountTag}</p>
                                                             </span>
                                                         </div>
                                                         <p class="text-muted-foreground text-sm">
