@@ -41,6 +41,11 @@ export const GET: RequestHandler = async ({ cookies, locals }) => {
         });
 
         console.log("Refreshed token successfully");
+    } else {
+        console.log("Failed to refresh token");
+        cookies.delete("access_token", { path: "/" });
+        cookies.delete("refresh_token", { path: "/" });
+        cookies.delete("user", { path: "/" });
     }
 
     return redirect(302, "/");
