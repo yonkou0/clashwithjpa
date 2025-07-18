@@ -128,6 +128,12 @@ export const actions: Actions = {
             playerAccountWeight = fwaStatsMember.weight;
         }
 
+        if (!playerAccountWeight || playerAccountWeight < 10000) {
+            return message(form, "Low account weight :/. Apply again later", {
+                status: 400
+            });
+        }
+
         const cwlApplication: InsertCWL = {
             userId: event.locals.user?.id as string,
             userName: event.locals.user?.username as string,
