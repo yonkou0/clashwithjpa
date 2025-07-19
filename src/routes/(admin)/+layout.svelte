@@ -45,21 +45,21 @@
                     <Breadcrumb.Item class="hidden md:block">
                         <Breadcrumb.Link href="/admin">Admin Panel</Breadcrumb.Link>
                     </Breadcrumb.Item>
-                    <Breadcrumb.Separator class="hidden md:block" />
-                    <Breadcrumb.Item>
-                        <Breadcrumb.Page>
-                            {#if page.url.pathname === "/admin"}
-                                Overview
-                            {:else}
-                                {page.url.pathname
-                                    .replace("/admin/", "") // Remove "/admin/"
-                                    .replace(/^\//, "") // Remove leading slash if any
-                                    .split("/") // Split by "/"
-                                    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1)) // Title case each segment
-                                    .join(" / ")}
-                            {/if}
-                        </Breadcrumb.Page>
-                    </Breadcrumb.Item>
+                    {#if page.url.pathname === "/admin"}
+                        <Breadcrumb.Separator class="hidden md:block" />
+                        <Breadcrumb.Item>
+                            <Breadcrumb.Page>Overview</Breadcrumb.Page>
+                        </Breadcrumb.Item>
+                    {:else}
+                        {#each page.url.pathname.replace("/admin/", "").replace(/^\//, "").split("/") as segment, i (segment)}
+                            <Breadcrumb.Separator class="hidden md:block" />
+                            <Breadcrumb.Item>
+                                <Breadcrumb.Page>
+                                    {segment.charAt(0).toUpperCase() + segment.slice(1)}
+                                </Breadcrumb.Page>
+                            </Breadcrumb.Item>
+                        {/each}
+                    {/if}
                 </Breadcrumb.List>
             </Breadcrumb.Root>
         </header>

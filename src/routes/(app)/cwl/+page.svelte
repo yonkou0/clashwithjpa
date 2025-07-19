@@ -146,7 +146,7 @@
                                                     <svelte:element
                                                         this={application.assignedTo ? "a" : "p"}
                                                         href={application.assignedTo
-                                                            ? data.cwlClans.find((clan) => clan.tag === application.assignedTo)?.joinLink
+                                                            ? `https://link.clashofclans.com/en?action=OpenClanProfile&tag=${application.assignedTo}`
                                                             : undefined}
                                                         target={application.assignedTo ? "_blank" : undefined}
                                                         class="text-sky-500 hover:underline"

@@ -1,14 +1,24 @@
 <script lang="ts" module>
+    import type { Component } from "svelte";
     import LucideBook from "~icons/lucide/book";
+    import LucideChevronsUpDown from "~icons/lucide/chevrons-up-down";
     import LucideDrama from "~icons/lucide/drama";
     import LucideFileClock from "~icons/lucide/file-clock";
     import LucideHouse from "~icons/lucide/house";
+    import LucideLogOut from "~icons/lucide/log-out";
     import LucideSettings from "~icons/lucide/settings";
+    import LucideSword from "~icons/lucide/sword";
     import LucideSwords from "~icons/lucide/swords";
     import LucideUsers from "~icons/lucide/users";
     import LucideX from "~icons/lucide/x";
 
-    const data = [
+    interface Data {
+        title: string;
+        icon: Component;
+        url: string;
+    }
+
+    const data: Data[] = [
         {
             title: "Overview",
             icon: LucideHouse,
@@ -31,8 +41,13 @@
         },
         {
             title: "CWL",
-            icon: LucideSwords,
+            icon: LucideSword,
             url: "/admin/cwl"
+        },
+        {
+            title: "CWL Clans",
+            icon: LucideSwords,
+            url: "/admin/cwl/clans"
         },
         {
             title: "Rules",
@@ -57,10 +72,8 @@
     import { page } from "$app/state";
     import type { UserData } from "$lib/auth/user";
     import * as Avatar from "$lib/components/ui/avatar";
-    import { Button } from "$lib/components/ui/button";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
     import * as Sidebar from "$lib/components/ui/sidebar";
-    import * as Tooltip from "$lib/components/ui/tooltip";
-    import LucideLogOut from "~icons/lucide/log-out";
 
     let { user }: { user: UserData } = $props();
 
@@ -71,7 +84,7 @@
     }
 </script>
 
-<Sidebar.Root variant="floating">
+<Sidebar.Root collapsible="icon">
     <Sidebar.Content>
         <Sidebar.Group>
             <Sidebar.Menu>
@@ -93,32 +106,49 @@
     <Sidebar.Footer>
         <Sidebar.Menu>
             <Sidebar.MenuItem>
-                <div class="flex items-center justify-between gap-4 text-left text-sm">
-                    <div class="flex items-center gap-2">
-                        <Avatar.Root class="size-12 rounded-lg">
-                            <Avatar.Image src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}" alt={user.global_name} />
-                            <Avatar.Fallback class="rounded-lg">
-                                {user.global_name?.slice(0, 2).toUpperCase()}
-                            </Avatar.Fallback>
-                        </Avatar.Root>
-                        <div class="grid flex-1 text-left text-sm leading-tight">
-                            <span class="truncate font-medium">{user.global_name}</span>
-                            <span class="truncate text-xs opacity-50">{user.username}</span>
-                        </div>
-                    </div>
-                    <Tooltip.Provider>
-                        <Tooltip.Root>
-                            <Tooltip.Trigger>
-                                <Button onclick={logout} size="icon">
-                                    <LucideLogOut />
-                                </Button>
-                            </Tooltip.Trigger>
-                            <Tooltip.Content>
-                                <p>Logout</p>
-                            </Tooltip.Content>
-                        </Tooltip.Root>
-                    </Tooltip.Provider>
-                </div>
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger>
+                        {#snippet child({ props })}
+                            <Sidebar.MenuButton size="lg" {...props}>
+                                <Avatar.Root class="size-8 rounded-lg">
+                                    <Avatar.Image src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}" alt={user.global_name} />
+                                    <Avatar.Fallback class="rounded-lg">
+                                        {user.global_name?.slice(0, 2).toUpperCase()}
+                                    </Avatar.Fallback>
+                                </Avatar.Root>
+                                <div class="grid flex-1 text-left text-sm leading-tight">
+                                    <span class="truncate font-medium">{user.global_name}</span>
+                                    <span class="truncate text-xs opacity-50">{user.username}</span>
+                                </div>
+                                <LucideChevronsUpDown class="ml-auto size-4" />
+                            </Sidebar.MenuButton>
+                        {/snippet}
+                    </DropdownMenu.Trigger>
+
+                    <DropdownMenu.Content class="w-(--bits-dropdown-menu-anchor-width) min-w-56 rounded-lg" side="top" align="end" sideOffset={4}>
+                        <DropdownMenu.Label class="p-0 font-normal">
+                            <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                <Avatar.Root class="size-8 rounded-lg">
+                                    <Avatar.Image src="https://media.discordapp.net/avatars/{user.id}/{user.avatar}" alt={user.global_name} />
+                                    <Avatar.Fallback class="rounded-lg">
+                                        {user.global_name?.slice(0, 2).toUpperCase()}
+                                    </Avatar.Fallback>
+                                </Avatar.Root>
+                                <div class="grid flex-1 text-left text-sm leading-tight">
+                                    <span class="truncate font-medium">{user.global_name}</span>
+                                    <span class="truncate text-xs opacity-50">{user.username}</span>
+                                </div>
+                            </div>
+                        </DropdownMenu.Label>
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Group>
+                            <DropdownMenu.Item onclick={logout}>
+                                <LucideLogOut />
+                                Logout
+                            </DropdownMenu.Item>
+                        </DropdownMenu.Group>
+                    </DropdownMenu.Content>
+                </DropdownMenu.Root>
             </Sidebar.MenuItem>
         </Sidebar.Menu>
     </Sidebar.Footer>

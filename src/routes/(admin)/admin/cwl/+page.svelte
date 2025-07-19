@@ -188,7 +188,6 @@
     let reset = $state<() => void>();
 
     // Extra actions
-    let selectedAccountClan: string = $state("");
     let selectedAssignClan: string = $state("");
     let checkLoading: boolean = $state(false);
 
@@ -213,7 +212,6 @@
         }
         disabled = false;
         selectedRows = [];
-        selectedAccountClan = "";
         selectedAssignClan = "";
     };
 </script>
@@ -390,25 +388,6 @@
     </div>
     <div class="flex w-full items-center justify-between">
         <div class="flex items-center justify-start gap-2">
-            <Select.Root
-                type="single"
-                bind:value={selectedAccountClan}
-                disabled={selectedRows.length <= 0 || disabled}
-                onValueChange={(value) => {
-                    selectedRows.forEach((row) => {
-                        row.accountClan = value;
-                    });
-                }}
-            >
-                <Select.Trigger>
-                    {selectedAccountClan ? selectedAccountClan : "Select Account Clan"}
-                </Select.Trigger>
-                <Select.Content>
-                    {#each data.clanNames as clanName}
-                        <Select.Item value={clanName ?? ""} label={clanName ?? ""} />
-                    {/each}
-                </Select.Content>
-            </Select.Root>
             <Select.Root
                 type="single"
                 bind:value={selectedAssignClan}

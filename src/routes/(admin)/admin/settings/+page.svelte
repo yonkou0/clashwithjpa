@@ -7,7 +7,6 @@
     import { Switch } from "$lib/components/ui/switch";
     import type { APIGuild, APIRole, APIUser } from "discord-api-types/v10";
     import { toast } from "svelte-sonner";
-    import LucideRefreshCw from "~icons/lucide/refresh-cw";
     import LucideSend from "~icons/lucide/send";
     import type { PageData } from "./$types";
 
@@ -31,7 +30,6 @@
     let disabled: {
         applicationStatus: boolean;
         cwlStatus: boolean;
-        syncClan: boolean;
         guildID: {
             input: boolean;
             button: boolean;
@@ -39,13 +37,11 @@
     } = $state({
         applicationStatus: false,
         cwlStatus: false,
-        syncClan: false,
         guildID: {
             input: false,
             button: true
         }
     });
-    let syncSpin: boolean = $state(false);
 
     $effect(() => {
         if (guildID == data.adminConfig.guildId) {
@@ -99,26 +95,6 @@
         setTimeout(() => {
             disabled.cwlStatus = false;
         }, 2000);
-    }
-
-    async function syncClans() {
-        disabled.syncClan = true;
-        syncSpin = true;
-        let resp = await fetch("/api/clans", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ key: "sync_clans" })
-        });
-        if (resp.ok) {
-            toast.success("Clans have been synced");
-        } else {
-            const data = await resp.json();
-            toast.error(data.error);
-        }
-        syncSpin = false;
-        setTimeout(() => {
-            disabled.syncClan = false;
-        }, 5000);
     }
 
     async function setGuildID() {
@@ -242,18 +218,6 @@
         <p class="text-muted-foreground text-sm">Toggle the Clan War League status to enable or disable CWL features.</p>
     </div>
     <Switch name="cwlStatus" bind:checked={cwlEnabled} disabled={disabled.cwlStatus} onCheckedChange={changeCWLStatus} />
-</div>
-
-<Separator class="my-6" />
-
-<div class="flex w-full items-center justify-between gap-6">
-    <div>
-        <h2 class="text-2xl font-bold">Sync Clans</h2>
-        <p class="text-muted-foreground text-sm">Sync your clans with the latest data from the server.</p>
-    </div>
-    <Button size="icon" onclick={syncClans} disabled={disabled.syncClan}>
-        <LucideRefreshCw class={syncSpin ? "animate-spin" : ""} />
-    </Button>
 </div>
 
 <Separator class="my-6" />

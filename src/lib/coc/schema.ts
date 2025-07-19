@@ -83,3 +83,21 @@ export const clanFormSchema = z.object({
     donationsRequirement: z.number().int(),
     clangamesRequirement: z.number().int()
 });
+
+export const cwlClanForm: {
+    [key: string]: {
+        desc: string;
+        type: "text";
+        placeholder: string;
+    };
+} = {
+    tag: {
+        desc: "Clan Tag (include #)",
+        type: "text",
+        placeholder: "#ABCDEFGHI"
+    }
+};
+
+export const cwlClanFormSchema = z.object({
+    tag: z.string().min(5).startsWith("#")
+});

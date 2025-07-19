@@ -1,19 +1,15 @@
 <script lang="ts">
     import { invalidateAll } from "$app/navigation";
     import { page } from "$app/state";
-    import { clanForm, clanFormSchema } from "$lib/coc/schema";
+    import { cwlClanForm, cwlClanFormSchema } from "$lib/coc/schema";
     import Grid from "$lib/components/admin/Grid.svelte";
-    import ChannelClanTableWrapper from "$lib/components/admin/wrappers/ChannelClanTableWrapper.svelte";
-    import RoleClanTableWrapper from "$lib/components/admin/wrappers/RoleClanTableWrapper.svelte";
-    import UserClanTableWrapper from "$lib/components/admin/wrappers/UserClanTableWrapper.svelte";
     import { Button } from "$lib/components/ui/button";
     import * as Card from "$lib/components/ui/card";
     import { Input } from "$lib/components/ui/input";
     import { Separator } from "$lib/components/ui/separator";
     import * as Tooltip from "$lib/components/ui/tooltip";
-    import type { InsertClan } from "$lib/server/schema";
+    import type { InsertCWLClan } from "$lib/server/schema";
     import type { GridOptions } from "@ag-grid-community/core";
-    import { makeSvelteCellRenderer } from "ag-grid-svelte5-extended";
     import { Control, Description, Field, FieldErrors } from "formsnap";
     import { toast } from "svelte-sonner";
     import { fade, fly } from "svelte/transition";
@@ -28,7 +24,7 @@
     import type { PageData } from "./$types";
 
     let { data }: { data: PageData } = $props();
-    let rowData = $derived<InsertClan[]>(data.clans);
+    let rowData = $derived<InsertCWLClan[]>(data.clans);
     let disabled: boolean = $state(false);
     let loading: boolean = $state(false);
     let syncing: "success" | "loading" | "error" = $state("success");
@@ -37,13 +33,13 @@
 
     let reset = $state<() => void>();
     const form = superForm(data.form, {
-        validators: zodClient(clanFormSchema),
+        validators: zodClient(cwlClanFormSchema),
         onUpdated() {
             reset?.();
         }
     });
     const { form: formData, enhance, message, delayed, errors } = form;
-    let openTooltip: boolean[] = $state(Array(Object.keys(clanForm).length).fill(false));
+    let openTooltip: boolean[] = $state(Array(Object.keys(cwlClanForm).length).fill(false));
     $effect(() => {
         if ($message && (page.status === 200 || page.status == 400)) {
             switch (page.status) {
@@ -57,88 +53,24 @@
         }
     });
 
-    const gridOptions: GridOptions<InsertClan> = {
+    const gridOptions: GridOptions<InsertCWLClan> = {
         columnDefs: [
             {
-                field: "clanTag",
+                field: "tag",
                 filter: true
-            },
-            {
-                field: "clanCode",
-                filter: true,
-                editable: true
             },
             {
                 field: "clanName",
                 filter: true
             },
             {
-                field: "clanLevel",
+                field: "cwl",
+                headerName: "Clan War League",
                 filter: true
             },
             {
-                field: "clanRoleID",
-                headerName: "Clan Role",
-                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "memberRoleID",
-                headerName: "Member Role",
-                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "elderRoleID",
-                headerName: "Elder Role",
-                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "coleaderRoleID",
-                headerName: "Co-Leader Role",
-                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "leaderRoleID",
-                headerName: "Leader Role",
-                cellRenderer: makeSvelteCellRenderer(RoleClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "leaderID",
-                headerName: "Clan Leader",
-                cellRenderer: makeSvelteCellRenderer(UserClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "channelID",
-                headerName: "Clan Channel",
-                cellRenderer: makeSvelteCellRenderer(ChannelClanTableWrapper),
-                filter: true,
-                editable: true
-            },
-            {
-                field: "attacksRequirement",
-                filter: true,
-                editable: true
-            },
-            {
-                field: "donationsRequirement",
-                filter: true,
-                editable: true
-            },
-            {
-                field: "clangamesRequirement",
-                filter: true,
-                editable: true
+                field: "leader",
+                filter: true
             }
         ],
         autoSizeStrategy: {
@@ -169,7 +101,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    key: "update_clan",
+                    key: "update_cwl_clan",
                     value: updatedRow
                 })
             });
@@ -185,7 +117,7 @@
         }
     };
 
-    let selectedRows: InsertClan[] = $state([]);
+    let selectedRows: InsertCWLClan[] = $state([]);
 
     async function removeClan(tags: string[]) {
         disabled = true;
@@ -194,7 +126,7 @@
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                key: "remove_clan",
+                key: "remove_cwl_clan",
                 value: tags
             })
         });
@@ -216,7 +148,7 @@
         let resp = await fetch("/api/clans", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ key: "sync_clans" })
+            body: JSON.stringify({ key: "sync_cwl_clans" })
         });
         if (resp.ok) {
             toast.success("Clans have been synced");
@@ -233,16 +165,16 @@
 
 <Card.Root>
     <Card.Header>
-        <Card.Title class="text-2xl font-bold">Add Clan</Card.Title>
-        <Card.Description>Fill out the form below to add a new clan.</Card.Description>
+        <Card.Title class="text-2xl font-bold">Add CWL Clan</Card.Title>
+        <Card.Description>Fill out the form below to add a new cwl clan.</Card.Description>
     </Card.Header>
     <Card.Content>
-        <form method="POST" action="/admin/clans" use:enhance class="flex flex-col gap-4">
+        <form method="POST" action="/admin/cwl/clans" use:enhance class="flex flex-col gap-4">
             <div class="flex w-full flex-wrap items-start justify-center gap-2">
-                {#each Object.keys(clanForm) as key, idx}
+                {#each Object.keys(cwlClanForm) as key, idx}
                     <div class="flex w-full grow cursor-default flex-col gap-2 md:w-fit">
                         <Field {form} name={key as keyof typeof $formData}>
-                            <Description>{clanForm[key].desc}</Description>
+                            <Description>{cwlClanForm[key].desc}</Description>
                             <Tooltip.Provider>
                                 <Tooltip.Root delayDuration={0} bind:open={openTooltip[idx]} disableCloseOnTriggerClick>
                                     <Tooltip.Trigger class="flex w-full grow">
@@ -252,8 +184,8 @@
                                                 <Input
                                                     {...props}
                                                     onclick={() => (openTooltip[idx] = !openTooltip[idx])}
-                                                    type={clanForm[key].type}
-                                                    placeholder={clanForm[key].placeholder}
+                                                    type={cwlClanForm[key].type}
+                                                    placeholder={cwlClanForm[key].placeholder}
                                                     bind:value={$formData[key as keyof typeof $formData]}
                                                 />
                                             {/snippet}
@@ -289,7 +221,7 @@
 <div class="flex size-full flex-col gap-4">
     <div class="flex w-full items-center justify-between">
         <div class="flex items-center justify-center gap-2">
-            <h1 class="text-2xl font-bold">Clans</h1>
+            <h1 class="text-2xl font-bold">CWL Clans</h1>
             <div class="size-8">
                 {#if syncing === "success"}
                     <span in:fade class="size-full">
@@ -315,7 +247,7 @@
                 variant="destructive"
                 disabled={selectedRows.length <= 0 || disabled}
                 onclick={async () => {
-                    await removeClan(selectedRows.map((row) => row.clanTag));
+                    await removeClan(selectedRows.map((row) => row.tag));
                 }}
             >
                 {#if loading}

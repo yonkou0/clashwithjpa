@@ -19,7 +19,8 @@ export const cocTable = pgTable("coc_table", {
 export const cwlClanTable = pgTable("cwl_clan_table", {
     tag: text("tag").notNull().primaryKey(),
     clanName: text("clan_name").notNull(),
-    joinLink: text("join_link").notNull()
+    cwl: text("cwl").notNull(),
+    leader: text("leader").notNull()
 });
 
 export const cwlTable = pgTable(
@@ -122,6 +123,9 @@ export type SelectCoc = typeof cocTable.$inferSelect;
 
 export type InsertClan = typeof clanTable.$inferInsert;
 export type SelectClan = typeof clanTable.$inferSelect;
+
+export type InsertCWLClan = typeof cwlClanTable.$inferInsert;
+export type SelectCWLClan = typeof cwlClanTable.$inferSelect;
 
 export type InsertBase = typeof baseTable.$inferInsert;
 export type SelectBase = typeof baseTable.$inferSelect;
