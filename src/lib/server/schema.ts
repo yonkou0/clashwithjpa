@@ -19,8 +19,8 @@ export const cocTable = pgTable("coc_table", {
 export const cwlClanTable = pgTable("cwl_clan_table", {
     tag: text("tag").notNull().primaryKey(),
     clanName: text("clan_name").notNull(),
-    cwl: text("cwl").notNull(),
-    leader: text("leader").notNull()
+    cwl: text("cwl"),
+    leader: text("leader")
 });
 
 export const cwlTable = pgTable(
