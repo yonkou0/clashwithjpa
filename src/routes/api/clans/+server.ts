@@ -156,7 +156,7 @@ const handleAddCWLClan = async (locals: App.Locals, value: InsertCWLClan) => {
         tag: clanData.tag,
         clanName: clanData.name,
         cwl: clanData.warLeague?.name,
-        leader: clanData.memberList[0].name
+        leader: clanData.memberList.find((member) => member.role === "leader")?.name
     };
     await locals.db.insert(cwlClanTable).values(dbData);
     return clanData;
@@ -172,7 +172,7 @@ const syncCWLClanData = async (locals: App.Locals) => {
             tag: clanData.tag,
             clanName: clanData.name,
             cwl: clanData.warLeague?.name,
-            leader: clanData.memberList[0].name
+            leader: clanData.memberList.find((member) => member.role === "leader")?.name
         };
         await locals.db.update(cwlClanTable).set(dbData).where(eq(cwlClanTable.tag, cwlClan.tag));
     }
