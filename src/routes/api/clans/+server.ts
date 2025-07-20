@@ -164,6 +164,9 @@ const handleAddCWLClan = async (locals: App.Locals, value: InsertCWLClan) => {
 const syncCWLClanData = async (locals: App.Locals) => {
     const cwlClans = await locals.db.select().from(cwlClanTable);
     for (const cwlClan of cwlClans) {
+        await Promise.resolve(
+            new Promise((resolve) => setTimeout(resolve, 1000)) // Delay to avoid hitting API rate limits
+        );
         const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, cwlClan.tag);
         if ("error" in clanData) {
             return { error: clanData.error, status: 400 };
