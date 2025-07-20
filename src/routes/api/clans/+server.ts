@@ -134,6 +134,9 @@ const handleClanUpdate = async (locals: App.Locals, value: NewClanParams) => {
 const syncClanData = async (locals: App.Locals) => {
     const clans = await getClansPublicData(locals.db);
     for (let i = 0; i < clans.length; i++) {
+        await Promise.resolve(
+            new Promise((resolve) => setTimeout(resolve, 1000)) // Delay to avoid hitting API rate limits
+        );
         const clan = clans[i];
         const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, clan.clanTag);
         const currentWar = await getClanWarData(PUBLIC_API_BASE_URI, API_TOKEN, clan.clanTag);
