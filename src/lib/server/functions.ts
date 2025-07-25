@@ -11,7 +11,7 @@ const HEADERS = {
 };
 
 const GUILD_ID = "1029993902503108678";
-const VERIFIED_MEMBER_ROLE_ID = "1252896435913883760";
+const VERIFIED_MEMBER_ROLE_ID = "1367750139527168020";
 
 export type DB = NeonHttpDatabase<typeof schema> & {
     $client: NeonQueryFunction<false, false>;
