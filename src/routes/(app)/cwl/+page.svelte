@@ -146,7 +146,7 @@
                                                     <svelte:element
                                                         this={application.assignedTo ? "a" : "p"}
                                                         href={application.assignedTo
-                                                            ? `https://link.clashofclans.com/en?action=OpenClanProfile&tag=${application.assignedTo}`
+                                                            ? `https://link.clashofclans.com/en?action=OpenClanProfile&tag=${application.assignedTo.slice(1)}`
                                                             : undefined}
                                                         target={application.assignedTo ? "_blank" : undefined}
                                                         class="text-sky-500 hover:underline"
