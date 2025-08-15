@@ -22,7 +22,7 @@
         "@internationalized/date": "^3.8.2",
         "@lucide/svelte": "^0.515.0",
         "@sveltejs/adapter-cloudflare": "^4.9.0",
-        "@sveltejs/kit": "^2.30.1",
+        "@sveltejs/kit": "https://pkg.pr.new/sveltejs/kit/@sveltejs/kit@14223",
         "@sveltejs/vite-plugin-svelte": "^5.1.1",
         "@tailwindcss/postcss": "^4.1.12",
         "@tailwindcss/vite": "^4.1.12",
