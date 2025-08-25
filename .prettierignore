@@ -3,5 +3,7 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
-README.md
+*.md
 src/lib/server/migrations/*
+src/lib/components/ui/*
+components.json

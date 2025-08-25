@@ -20,7 +20,8 @@ export const cwlClanTable = pgTable("cwl_clan_table", {
     tag: text("tag").notNull().primaryKey(),
     clanName: text("clan_name").notNull(),
     cwl: text("cwl"),
-    leader: text("leader")
+    leader: text("leader"),
+    email: text("email")
 });
 
 export const cwlTable = pgTable(

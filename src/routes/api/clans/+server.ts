@@ -164,6 +164,23 @@ const handleAddCWLClan = async (locals: App.Locals, value: InsertCWLClan) => {
     await locals.db.insert(cwlClanTable).values(dbData);
     return clanData;
 };
+
+const handleCWLClanUpdate = async (locals: App.Locals, value: InsertCWLClan) => {
+    const clanData = await checkClan(PUBLIC_API_BASE_URI, API_TOKEN, value.tag);
+    if ("error" in clanData) {
+        return { error: "Invalid Clan Tag", status: 400 };
+    }
+    const dbData = {
+        tag: clanData.tag,
+        clanName: clanData.name,
+        cwl: clanData.warLeague?.name,
+        leader: clanData.memberList.find((member) => member.role === "leader")?.name,
+        email: value.email
+    };
+    await locals.db.update(cwlClanTable).set(dbData).where(eq(cwlClanTable.tag, value.tag));
+    return clanData;
+};
+
 const syncCWLClanData = async (locals: App.Locals) => {
     const cwlClans = await locals.db.select().from(cwlClanTable);
     for (const cwlClan of cwlClans) {
@@ -202,6 +219,12 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         return json(result);
     } else if (key === "update_clan") {
         const result = await handleClanUpdate(locals, value);
+        if ("error" in result) {
+            return json({ error: result.error }, { status: result.status });
+        }
+        return json(result);
+    } else if (key === "update_cwl_clan") {
+        const result = await handleCWLClanUpdate(locals, value);
         if ("error" in result) {
             return json({ error: result.error }, { status: result.status });
         }

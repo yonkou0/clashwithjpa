@@ -71,6 +71,11 @@
             {
                 field: "leader",
                 filter: true
+            },
+            {
+                field: "email",
+                filter: true,
+                editable: true
             }
         ],
         autoSizeStrategy: {
